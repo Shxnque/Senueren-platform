@@ -28,12 +28,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'yarn'
-          cache-dependency-path: frontend/yarn.lock
 
       - name: Install dependencies
         working-directory: frontend
-        run: yarn install --frozen-lockfile || yarn install
+        run: npm install --legacy-peer-deps
 
       - name: Build
         working-directory: frontend
@@ -41,7 +39,7 @@ jobs:
           REACT_APP_BACKEND_URL: https://discovertenders.preview.emergentagent.com
           GENERATE_SOURCEMAP: false
           CI: false
-        run: yarn build
+        run: npx craco build
 
       - name: Copy 404.html for SPA routing
         working-directory: frontend
