@@ -27,7 +27,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '18'
 
       - name: Install dependencies
         working-directory: frontend
@@ -39,6 +39,7 @@ jobs:
           REACT_APP_BACKEND_URL: https://discovertenders.preview.emergentagent.com
           GENERATE_SOURCEMAP: false
           CI: false
+          DISABLE_ESLINT_PLUGIN: true
         run: npx craco build
 
       - name: Copy 404.html for SPA routing
