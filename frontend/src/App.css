@@ -1,98 +1,32 @@
-/* Senueren - Clean System Interface */
+/* Senueren Platform — Full Dark Theme */
+/* Logo colors: Blue #0077CC, Cyan #00D0FF, Green #00FF99, Navy #0A1D30 */
 
-/* Logo text gradient - cyan to green */
-.logo-text {
-  background: linear-gradient(90deg, #00c6ff 0%, #00ffcc 100%);
+.logo-gradient {
+  background: linear-gradient(135deg, #0077CC 0%, #00D0FF 40%, #00FF99 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Flat button - primary */
-.flat-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 24px;
-  background: linear-gradient(90deg, #00c6ff, #00ffcc);
-  color: #0a0e17;
-  font-size: 14px;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  transition: opacity 0.2s;
-}
+.badge-urgent { background: rgba(239,68,68,0.15); color: #F87171; border: 1px solid rgba(239,68,68,0.3); }
+.badge-soon { background: rgba(245,158,11,0.15); color: #FBBF24; border: 1px solid rgba(245,158,11,0.3); }
+.badge-normal { background: rgba(0,208,255,0.1); color: #00D0FF; border: 1px solid rgba(0,208,255,0.2); }
 
-.flat-btn:hover {
-  opacity: 0.9;
-}
+.score-bar { height: 4px; border-radius: 2px; background: #1A3148; overflow: hidden; }
+.score-fill { height: 100%; border-radius: 2px; transition: width 0.6s ease; }
+.score-high { background: linear-gradient(90deg, #0077CC, #00D0FF, #00FF99); }
+.score-mid { background: linear-gradient(90deg, #F59E0B, #FBBF24); }
+.score-low { background: #6B7280; }
 
-.flat-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
+.glass-nav { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
 
-/* Flat button - outline */
-.flat-btn-outline {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 24px;
-  background: transparent;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 500;
-  border: 1px solid rgba(255,255,255,0.2);
-  cursor: pointer;
-  transition: border-color 0.2s;
-}
+.tender-row { transition: background-color 0.15s ease; }
+.tender-row:hover { background-color: rgba(0,208,255,0.04); }
 
-.flat-btn-outline:hover {
-  border-color: #00c6ff;
-}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+.fade-up { animation: fadeUp 0.5s ease forwards; }
+.d1 { animation-delay: 0.06s; } .d2 { animation-delay: 0.12s; } .d3 { animation-delay: 0.18s; } .d4 { animation-delay: 0.24s; }
 
-/* Flat input */
-.flat-input {
-  width: 100%;
-  padding: 12px 16px;
-  background: #080c14;
-  border: 1px solid rgba(255,255,255,0.1);
-  color: #fff;
-  font-size: 14px;
-  transition: border-color 0.2s;
-}
-
-.flat-input:focus {
-  outline: none;
-  border-color: #00c6ff;
-}
-
-.flat-input::placeholder {
-  color: #6b7280;
-}
-
-/* Flat card */
-.flat-card {
-  padding: 24px;
-  background: #0d1117;
-  border: 1px solid rgba(255,255,255,0.05);
-}
-
-/* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #0a0e17; }
-::-webkit-scrollbar-thumb { background: #1f2937; }
-
-/* Selection */
-::selection {
-  background: rgba(0, 198, 255, 0.2);
-}
-
-/* Smooth scroll */
-html { scroll-behavior: smooth; }
-
-/* Base */
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  -webkit-font-smoothing: antialiased;
-}
+.accent-bar { height: 3px; background: linear-gradient(90deg, #0077CC, #00D0FF, #00FF99); border-radius: 2px; }
+.card-dark { background: #0F2035; border: 1px solid #1A3148; border-radius: 16px; }
+.card-dark-sm { background: #0F2035; border: 1px solid #1A3148; border-radius: 12px; }
