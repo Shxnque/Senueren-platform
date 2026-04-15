@@ -15,7 +15,7 @@ const WHATSAPP_NUMBER = "27673267417";
 
 const Logo = () => (
   <Link to="/" className="flex items-center gap-2" data-testid="nav-logo">
-    <span className="text-xl font-semibold tracking-[0.14em] font-['Outfit'] logo-gradient">SENUEREN</span>
+    <span className="text-xl font-bold tracking-[0.16em] font-['Outfit'] logo-gradient">SENUEREN</span>
   </Link>
 );
 
@@ -45,7 +45,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-[#0A1D30]/95 backdrop-blur-lg border-b border-[#1A3148]" : "bg-transparent"}`} data-testid="navbar">
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-[#0A0E17]/95 backdrop-blur-lg border-b border-[#1A2332]" : "bg-transparent"}`} data-testid="navbar">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between h-20">
           <Logo />
@@ -55,7 +55,7 @@ const Navbar = () => {
                 className={`text-sm font-medium transition-colors ${location.pathname === l.to ? "text-white" : "text-gray-400 hover:text-white"}`}
                 data-testid={`nav-${l.label.toLowerCase()}-link`}>{l.label}</Link>
             ))}
-            <a href="#contact" className="text-sm font-semibold px-6 py-3 rounded-lg bg-gradient-to-r from-[#0077CC] to-[#00A3E0] text-white hover:shadow-lg hover:shadow-[#0077CC]/20 transition-all duration-300" data-testid="nav-cta-button">
+            <a href="#contact" className="text-sm font-semibold px-6 py-3 rounded-lg bg-gradient-to-r from-[#4A9FD8] to-[#00FFD4] text-[#0A0E17] hover:shadow-lg hover:shadow-[#00FFD4]/30 transition-all duration-300" data-testid="nav-cta-button">
               Work With Us
             </a>
           </div>
@@ -65,10 +65,10 @@ const Navbar = () => {
         </div>
       </div>
       {isOpen && (
-        <div className="md:hidden fixed inset-0 top-20 z-40 bg-[#0A1D30] backdrop-blur-lg">
+        <div className="md:hidden fixed inset-0 top-20 z-40 bg-[#0A0E17] backdrop-blur-lg">
           <div className="px-6 py-8 space-y-6">
             {links.map((l) => <Link key={l.to} to={l.to} className="block text-lg font-medium text-gray-300 hover:text-white" data-testid={`mobile-${l.label.toLowerCase()}-link`}>{l.label}</Link>)}
-            <a href="#contact" className="inline-block px-6 py-3 bg-gradient-to-r from-[#0077CC] to-[#00A3E0] text-white rounded-lg font-semibold" data-testid="mobile-cta-button">Work With Us</a>
+            <a href="#contact" className="inline-block px-6 py-3 bg-gradient-to-r from-[#4A9FD8] to-[#00FFD4] text-[#0A0E17] rounded-lg font-semibold" data-testid="mobile-cta-button">Work With Us</a>
           </div>
         </div>
       )}
@@ -77,7 +77,7 @@ const Navbar = () => {
 };
 
 const Footer = () => (
-  <footer className="bg-[#061222] py-16 border-t border-[#1A3148]" data-testid="footer">
+  <footer className="bg-[#060A10] py-16 border-t border-[#1A2332]" data-testid="footer">
     <div className="max-w-7xl mx-auto px-6">
       <div className="grid md:grid-cols-4 gap-10 mb-12">
         <div className="md:col-span-2">
@@ -93,21 +93,21 @@ const Footer = () => (
         <div>
           <h4 className="text-sm font-semibold mb-4 text-gray-300 tracking-wide uppercase font-['Outfit']">Company</h4>
           <ul className="space-y-3 text-sm">
-            <li><Link to="/" className="text-gray-400 hover:text-[#00D0FF] transition-colors" data-testid="footer-home-link">Home</Link></li>
-            <li><Link to="/systems" className="text-gray-400 hover:text-[#00D0FF] transition-colors" data-testid="footer-systems-link">Systems</Link></li>
-            <li><Link to="/about" className="text-gray-400 hover:text-[#00D0FF] transition-colors" data-testid="footer-about-link">About</Link></li>
-            <li><Link to="/contact" className="text-gray-400 hover:text-[#00D0FF] transition-colors" data-testid="footer-contact-link">Contact</Link></li>
+            <li><Link to="/" className="text-gray-400 hover:text-[#00FFD4] transition-colors" data-testid="footer-home-link">Home</Link></li>
+            <li><Link to="/systems" className="text-gray-400 hover:text-[#00FFD4] transition-colors" data-testid="footer-systems-link">Systems</Link></li>
+            <li><Link to="/about" className="text-gray-400 hover:text-[#00FFD4] transition-colors" data-testid="footer-about-link">About</Link></li>
+            <li><Link to="/contact" className="text-gray-400 hover:text-[#00FFD4] transition-colors" data-testid="footer-contact-link">Contact</Link></li>
           </ul>
         </div>
         <div>
           <h4 className="text-sm font-semibold mb-4 text-gray-300 tracking-wide uppercase font-['Outfit']">Contact</h4>
           <ul className="space-y-3 text-sm">
-            <li><a href={`mailto:${CONTACT_EMAIL}`} className="text-[#00D0FF] hover:underline" data-testid="footer-email">{CONTACT_EMAIL}</a></li>
+            <li><a href={`mailto:${CONTACT_EMAIL}`} className="text-[#00FFD4] hover:underline" data-testid="footer-email">{CONTACT_EMAIL}</a></li>
             <li><a href={`tel:${CONTACT_PHONE.replace(/\s/g, "")}`} className="text-gray-400 hover:text-white transition-colors" data-testid="footer-phone">{CONTACT_PHONE}</a></li>
           </ul>
         </div>
       </div>
-      <div className="pt-8 border-t border-[#1A3148] flex flex-col md:flex-row justify-between text-xs text-gray-600">
+      <div className="pt-8 border-t border-[#1A2332] flex flex-col md:flex-row justify-between text-xs text-gray-600">
         <span>&copy; {new Date().getFullYear()} Senueren. All rights reserved.</span>
         <span className="mt-2 md:mt-0">Systems · Automation · Intelligence</span>
       </div>
@@ -122,14 +122,14 @@ const HomePage = () => {
     <div className="min-h-screen bg-[#0A1D30]" data-testid="home-page">
       {/* Hero Section */}
       <section className="relative pt-32 pb-24 px-6 overflow-hidden" data-testid="hero-section">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0077CC]/5 to-transparent"></div>
-        <div className="absolute top-20 right-0 w-96 h-96 bg-[#0077CC]/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#00D0FF]/5 rounded-full blur-3xl"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#4A9FD8]/5 to-transparent"></div>
+        <div className="absolute top-20 right-0 w-96 h-96 bg-[#00FFD4]/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#00E5CC]/5 rounded-full blur-3xl"></div>
         
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-block px-4 py-2 bg-[#0077CC]/10 border border-[#0077CC]/30 rounded-full mb-6">
-              <span className="text-[#00D0FF] text-sm font-medium">Systems · Automation · Intelligence</span>
+            <div className="inline-block px-4 py-2 bg-[#4A9FD8]/10 border border-[#00FFD4]/30 rounded-full mb-6">
+              <span className="text-[#00FFD4] text-sm font-medium">Systems · Automation · Intelligence</span>
             </div>
             
             <h1 className="text-5xl md:text-7xl tracking-tight font-bold text-white mb-8 font-['Outfit'] leading-[1.1]">
@@ -143,10 +143,10 @@ const HomePage = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <a href="#contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-[#0077CC] to-[#00A3E0] text-white rounded-lg font-semibold text-base hover:shadow-xl hover:shadow-[#0077CC]/30 transition-all duration-300 group" data-testid="hero-cta-primary">
+              <a href="#contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-[#4A9FD8] to-[#00FFD4] text-[#0A0E17] rounded-lg font-semibold text-base hover:shadow-xl hover:shadow-[#00FFD4]/30 transition-all duration-300 group" data-testid="hero-cta-primary">
                 Work With Us <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
               </a>
-              <a href="#what-we-build" className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-[#1A3148] text-gray-300 rounded-lg font-semibold text-base hover:border-[#0077CC]/50 hover:bg-[#0077CC]/5 transition-all duration-300" data-testid="hero-cta-secondary">
+              <a href="#what-we-build" className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-[#1A2332] text-gray-300 rounded-lg font-semibold text-base hover:border-[#00FFD4]/50 hover:bg-[#00FFD4]/5 transition-all duration-300" data-testid="hero-cta-secondary">
                 View Systems
               </a>
             </div>
@@ -158,8 +158,8 @@ const HomePage = () => {
                 { icon: <Database size={24} />, label: "Data Intelligence" },
                 { icon: <Cpu size={24} />, label: "Custom Backend Systems" }
               ].map((item, i) => (
-                <div key={i} className="flex flex-col items-center gap-3 p-4 rounded-lg bg-[#0F2035]/50 border border-[#1A3148]/50">
-                  <div className="text-[#00D0FF]">{item.icon}</div>
+                <div key={i} className="flex flex-col items-center gap-3 p-4 rounded-lg bg-[#0F1419]/50 border border-[#1A2332]/50">
+                  <div className="text-[#00FFD4]">{item.icon}</div>
                   <span className="text-xs text-gray-400 text-center">{item.label}</span>
                 </div>
               ))}
@@ -169,7 +169,7 @@ const HomePage = () => {
       </section>
 
       {/* What We Build */}
-      <section id="what-we-build" className="py-24 px-6 bg-[#0F2035]" data-testid="what-we-build-section">
+      <section id="what-we-build" className="py-24 px-6 bg-[#0F1419]" data-testid="what-we-build-section">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <div className="accent-bar w-16 mx-auto mb-4"></div>
@@ -206,9 +206,9 @@ const HomePage = () => {
                 features: ["Scalable Architecture", "API Integration", "Security First", "Performance Optimized"]
               }
             ].map((item, i) => (
-              <div key={i} className="group p-8 bg-[#0A1D30] border border-[#1A3148] rounded-xl hover:border-[#0077CC]/50 hover:shadow-xl hover:shadow-[#0077CC]/10 transition-all duration-300" data-testid={`system-card-${i}`}>
+              <div key={i} className="group p-8 bg-[#0A0E17] border border-[#1A2332] rounded-xl hover:border-[#00FFD4]/50 hover:shadow-xl hover:shadow-[#00FFD4]/10 transition-all duration-300" data-testid={`system-card-${i}`}>
                 <div className="flex items-start gap-4 mb-6">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#0077CC]/20 to-[#00D0FF]/20 flex items-center justify-center text-[#00D0FF] flex-shrink-0 group-hover:scale-110 transition-transform">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#4A9FD8]/20 to-[#00FFD4]/20 flex items-center justify-center text-[#00FFD4] flex-shrink-0 group-hover:scale-110 transition-transform">
                     {item.icon}
                   </div>
                   <div>
@@ -231,13 +231,13 @@ const HomePage = () => {
       </section>
 
       {/* Flagship System - SENRA */}
-      <section className="py-24 px-6 bg-[#0A1D30] relative overflow-hidden" data-testid="flagship-section">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#0077CC]/5 rounded-full blur-3xl"></div>
+      <section className="py-24 px-6 bg-[#0A0E17] relative overflow-hidden" data-testid="flagship-section">
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#00FFD4]/5 rounded-full blur-3xl"></div>
         
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-12">
-            <div className="inline-block px-4 py-2 bg-[#00D0FF]/10 border border-[#00D0FF]/30 rounded-full mb-4">
-              <span className="text-[#00D0FF] text-sm font-semibold">Flagship System</span>
+            <div className="inline-block px-4 py-2 bg-[#00FFD4]/10 border border-[#00FFD4]/30 rounded-full mb-4">
+              <span className="text-[#00FFD4] text-sm font-semibold">Flagship System</span>
             </div>
             <h2 className="text-4xl md:text-5xl tracking-tight font-bold text-white mb-4 font-['Outfit']">SENRA</h2>
             <p className="text-xl text-gray-400">Procurement Intelligence Platform</p>
@@ -257,8 +257,8 @@ const HomePage = () => {
                   { label: "Validates", desc: "Removes low-quality signals" },
                   { label: "Delivers", desc: "Structured, actionable opportunities" }
                 ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-3 p-4 bg-[#0A1D30]/50 rounded-lg border border-[#1A3148]/50">
-                    <div className="w-2 h-2 rounded-full bg-[#00D0FF] mt-2 flex-shrink-0"></div>
+                  <div key={i} className="flex items-start gap-3 p-4 bg-[#0A0E17]/50 rounded-lg border border-[#1A2332]/50">
+                    <div className="w-2 h-2 rounded-full bg-[#00FFD4] mt-2 flex-shrink-0"></div>
                     <div>
                       <h4 className="text-white font-semibold mb-1">{item.label}</h4>
                       <p className="text-sm text-gray-400">{item.desc}</p>
@@ -267,7 +267,7 @@ const HomePage = () => {
                 ))}
               </div>
 
-              <div className="pt-6 border-t border-[#1A3148]">
+              <div className="pt-6 border-t border-[#1A2332]">
                 <p className="text-sm text-gray-500 italic">
                   SENRA demonstrates our capability in building production-grade intelligence systems. Integration available for business clients.
                 </p>
@@ -278,7 +278,7 @@ const HomePage = () => {
       </section>
 
       {/* Our Approach */}
-      <section className="py-24 px-6 bg-[#0F2035]" data-testid="approach-section">
+      <section className="py-24 px-6 bg-[#0F1419]" data-testid="approach-section">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <div className="accent-bar w-16 mx-auto mb-4"></div>
@@ -297,8 +297,8 @@ const HomePage = () => {
               { num: "05", title: "Optimization", desc: "Continuously improve performance and efficiency" }
             ].map((item, i) => (
               <div key={i} className="relative group">
-                <div className="p-6 bg-[#0A1D30] border border-[#1A3148] rounded-xl hover:border-[#0077CC]/50 transition-all duration-300 h-full">
-                  <div className="text-5xl font-bold text-[#0077CC]/20 mb-4 font-['Outfit']">{item.num}</div>
+                <div className="p-6 bg-[#0A0E17] border border-[#1A2332] rounded-xl hover:border-[#00FFD4]/50 transition-all duration-300 h-full">
+                  <div className="text-5xl font-bold text-[#4A9FD8]/20 mb-4 font-['Outfit']">{item.num}</div>
                   <h3 className="text-xl font-bold text-white mb-3 font-['Outfit']">{item.title}</h3>
                   <p className="text-sm text-gray-400 leading-relaxed">{item.desc}</p>
                 </div>
@@ -312,7 +312,7 @@ const HomePage = () => {
       </section>
 
       {/* Why Senueren */}
-      <section className="py-24 px-6 bg-[#0A1D30]" data-testid="why-section">
+      <section className="py-24 px-6 bg-[#0A0E17]" data-testid="why-section">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <div className="accent-bar w-16 mx-auto mb-4"></div>
@@ -327,8 +327,8 @@ const HomePage = () => {
               { icon: <Shield size={24} />, label: "Structured Engineering" },
               { icon: <BarChart3 size={24} />, label: "Long-Term Infrastructure" }
             ].map((item, i) => (
-              <div key={i} className="p-6 bg-[#0F2035] border border-[#1A3148] rounded-xl hover:border-[#0077CC]/50 hover:bg-[#0F2035]/80 transition-all duration-300 text-center group">
-                <div className="w-12 h-12 mx-auto mb-4 rounded-lg bg-gradient-to-br from-[#0077CC]/20 to-[#00D0FF]/20 flex items-center justify-center text-[#00D0FF] group-hover:scale-110 transition-transform">
+              <div key={i} className="p-6 bg-[#0F1419] border border-[#1A2332] rounded-xl hover:border-[#00FFD4]/50 hover:bg-[#0F1419]/80 transition-all duration-300 text-center group">
+                <div className="w-12 h-12 mx-auto mb-4 rounded-lg bg-gradient-to-br from-[#4A9FD8]/20 to-[#00FFD4]/20 flex items-center justify-center text-[#00FFD4] group-hover:scale-110 transition-transform">
                   {item.icon}
                 </div>
                 <h3 className="text-white font-semibold">{item.label}</h3>
@@ -345,7 +345,7 @@ const HomePage = () => {
       </section>
 
       {/* Work With Us */}
-      <section id="contact" className="py-24 px-6 bg-[#0F2035]" data-testid="work-with-us-section">
+      <section id="contact" className="py-24 px-6 bg-[#0F1419]" data-testid="work-with-us-section">
         <div className="max-w-4xl mx-auto text-center">
           <div className="accent-bar w-16 mx-auto mb-6"></div>
           <h2 className="text-4xl md:text-5xl tracking-tight font-bold text-white mb-6 font-['Outfit']">Work With Us</h2>
@@ -357,15 +357,15 @@ const HomePage = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href={`mailto:${CONTACT_EMAIL}`} className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-[#0077CC] to-[#00A3E0] text-white rounded-lg font-semibold text-base hover:shadow-xl hover:shadow-[#0077CC]/30 transition-all duration-300">
+            <a href={`mailto:${CONTACT_EMAIL}`} className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-[#4A9FD8] to-[#00FFD4] text-[#0A0E17] rounded-lg font-semibold text-base hover:shadow-xl hover:shadow-[#00FFD4]/30 transition-all duration-300">
               <Mail size={20} /> Email Us
             </a>
-            <a href={`tel:${CONTACT_PHONE.replace(/\s/g, "")}`} className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-[#1A3148] text-gray-300 rounded-lg font-semibold text-base hover:border-[#0077CC]/50 hover:bg-[#0077CC]/5 transition-all duration-300">
+            <a href={`tel:${CONTACT_PHONE.replace(/\s/g, "")}`} className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-[#1A2332] text-gray-300 rounded-lg font-semibold text-base hover:border-[#00FFD4]/50 hover:bg-[#00FFD4]/5 transition-all duration-300">
               <Phone size={20} /> {CONTACT_PHONE}
             </a>
           </div>
 
-          <div className="mt-12 p-8 bg-[#0A1D30]/50 border border-[#1A3148] rounded-xl">
+          <div className="mt-12 p-8 bg-[#0A0E17]/50 border border-[#1A2332] rounded-xl">
             <p className="text-gray-400 text-sm">
               <strong className="text-white">Senueren is not a service provider.</strong><br />
               It is a systems company building the infrastructure behind modern business operations.
@@ -420,9 +420,9 @@ const SystemsPage = () => {
               details: "Every business has unique needs. We design and build custom backend systems with scalable architecture, seamless API integration, security-first approach, and performance optimization tailored specifically for your operational requirements."
             }
           ].map((item, i) => (
-            <div key={i} className="p-8 md:p-10 bg-[#0F2035] border border-[#1A3148] rounded-2xl hover:border-[#0077CC]/50 hover:shadow-xl hover:shadow-[#0077CC]/10 transition-all duration-300">
+            <div key={i} className="p-8 md:p-10 bg-[#0F1419] border border-[#1A2332] rounded-2xl hover:border-[#00FFD4]/50 hover:shadow-xl hover:shadow-[#00FFD4]/10 transition-all duration-300">
               <div className="flex items-start gap-6 mb-6">
-                <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-[#0077CC]/20 to-[#00D0FF]/20 flex items-center justify-center text-[#00D0FF] flex-shrink-0">
+                <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-[#4A9FD8]/20 to-[#00FFD4]/20 flex items-center justify-center text-[#00FFD4] flex-shrink-0">
                   {item.icon}
                 </div>
                 <div>
@@ -436,7 +436,7 @@ const SystemsPage = () => {
         </div>
 
         <div className="mt-16 text-center">
-          <a href="#contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-[#0077CC] to-[#00A3E0] text-white rounded-lg font-semibold text-base hover:shadow-xl hover:shadow-[#0077CC]/30 transition-all duration-300">
+          <a href="#contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-[#4A9FD8] to-[#00FFD4] text-[#0A0E17] rounded-lg font-semibold text-base hover:shadow-xl hover:shadow-[#00FFD4]/30 transition-all duration-300">
             Discuss Your System Needs <ArrowRight size={20} />
           </a>
         </div>
@@ -506,7 +506,7 @@ const AboutPage = () => {
                 </p>
                 <div className="mt-6 flex flex-wrap gap-4 text-sm text-gray-400">
                   <span className="flex items-center gap-2">
-                    <MapPin size={16} className="text-[#00D0FF]" />
+                    <MapPin size={16} className="text-[#00FFD4]" />
                     Cape Town, South Africa
                   </span>
                   <span>•</span>
@@ -518,7 +518,7 @@ const AboutPage = () => {
             </div>
           </div>
 
-          <div className="text-center p-12 bg-[#0F2035] border border-[#1A3148] rounded-2xl">
+          <div className="text-center p-12 bg-[#0F1419] border border-[#1A2332] rounded-2xl">
             <p className="text-2xl text-gray-300 font-medium leading-relaxed">
               The vision is to build a company that South African businesses rely on for systems that <span className="text-white font-bold">actually work</span>.
             </p>
@@ -552,24 +552,24 @@ const ContactPage = () => {
               title: "Email",
               value: CONTACT_EMAIL,
               link: `mailto:${CONTACT_EMAIL}`,
-              color: "from-[#0077CC] to-[#00A3E0]"
+              color: "from-[#4A9FD8] to-[#00E5CC]"
             },
             {
               icon: <Phone size={28} />,
               title: "Phone",
               value: CONTACT_PHONE,
               link: `tel:${CONTACT_PHONE.replace(/\s/g, "")}`,
-              color: "from-[#00A3E0] to-[#00D0FF]"
+              color: "from-[#00E5CC] to-[#00FFD4]"
             },
             {
               icon: <MapPin size={28} />,
               title: "Location",
               value: "Cape Town, South Africa",
               link: null,
-              color: "from-[#00D0FF] to-[#0077CC]"
+              color: "from-[#00FFD4] to-[#4A9FD8]"
             }
           ].map((item, i) => (
-            <div key={i} className="p-6 bg-[#0F2035] border border-[#1A3148] rounded-xl hover:border-[#0077CC]/50 transition-all duration-300">
+            <div key={i} className="p-6 bg-[#0F1419] border border-[#1A2332] rounded-xl hover:border-[#00FFD4]/50 transition-all duration-300">
               <div className={`w-14 h-14 rounded-lg bg-gradient-to-br ${item.color} bg-opacity-20 flex items-center justify-center text-white mb-4`}>
                 {item.icon}
               </div>
@@ -583,7 +583,7 @@ const ContactPage = () => {
           ))}
         </div>
 
-        <div className="p-10 bg-gradient-to-br from-[#0F2035] to-[#0A1D30] border border-[#0077CC]/30 rounded-2xl">
+        <div className="p-10 bg-gradient-to-br from-[#0F1419] to-[#0A0E17] border border-[#00FFD4]/30 rounded-2xl">
           <h2 className="text-2xl font-bold text-white mb-4 font-['Outfit']">We typically respond within 24 to 48 hours</h2>
           <p className="text-gray-300 mb-6 leading-relaxed">
             For the fastest response, email us directly or reach out via WhatsApp. We are happy to discuss systems, custom development projects, or any other enquiries.
