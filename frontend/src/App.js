@@ -1,21 +1,17 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import "@/App.css";
 import { HashRouter, Routes, Route, Link, useLocation } from "react-router-dom";
-import axios from "axios";
 import {
-  Search, ArrowRight, ArrowUpRight, Clock, Shield, Zap,
-  Target, BarChart3, Menu, X, Phone, Mail, MapPin, ChevronDown,
-  ChevronLeft, ChevronRight, Layers, TrendingUp, Eye, Users,
-  Globe, Code, Database
+  ArrowRight, Menu, X, Phone, Mail, MapPin,
+  Layers, BarChart3, Target, Zap, Database, Workflow,
+  Shield, CheckCircle2, ArrowUpRight, Building2, Cpu, Network
 } from "lucide-react";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
 const CONTACT_EMAIL = "info@senueren.co.za";
 const CONTACT_PHONE = "067 326 7417";
 const WHATSAPP_NUMBER = "27673267417";
 
-/* ── Shared ── */
+/* ── Shared Components ── */
 
 const Logo = () => (
   <Link to="/" className="flex items-center gap-2" data-testid="nav-logo">
@@ -43,25 +39,25 @@ const Navbar = () => {
 
   const links = [
     { to: "/", label: "Home" },
-    { to: "/senra", label: "SENRA" },
+    { to: "/systems", label: "Systems" },
     { to: "/about", label: "About" },
     { to: "/contact", label: "Contact" },
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-[#0A1D30]/95 border-b border-[#1A3148] glass-nav" : "bg-transparent"}`} data-testid="navbar">
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-[#0A1D30]/95 backdrop-blur-lg border-b border-[#1A3148]" : "bg-transparent"}`} data-testid="navbar">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           <Logo />
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-10">
             {links.map((l) => (
               <Link key={l.to} to={l.to}
                 className={`text-sm font-medium transition-colors ${location.pathname === l.to ? "text-white" : "text-gray-400 hover:text-white"}`}
                 data-testid={`nav-${l.label.toLowerCase()}-link`}>{l.label}</Link>
             ))}
-            <Link to="/senra" className="text-sm font-semibold px-5 py-2.5 rounded-lg border border-[#0077CC]/50 text-[#00D0FF] hover:bg-[#0077CC]/10 transition-all duration-300" data-testid="nav-cta-button">
-              Open SENRA
-            </Link>
+            <a href="#contact" className="text-sm font-semibold px-6 py-3 rounded-lg bg-gradient-to-r from-[#0077CC] to-[#00A3E0] text-white hover:shadow-lg hover:shadow-[#0077CC]/20 transition-all duration-300" data-testid="nav-cta-button">
+              Work With Us
+            </a>
           </div>
           <button className="md:hidden" onClick={() => setIsOpen(!isOpen)} data-testid="mobile-menu-toggle">
             {isOpen ? <X size={24} className="text-white" /> : <Menu size={24} className="text-white" />}
@@ -69,10 +65,10 @@ const Navbar = () => {
         </div>
       </div>
       {isOpen && (
-        <div className="md:hidden fixed inset-0 top-16 z-40 bg-[#0A1D30]">
+        <div className="md:hidden fixed inset-0 top-20 z-40 bg-[#0A1D30] backdrop-blur-lg">
           <div className="px-6 py-8 space-y-6">
-            {links.map((l) => <Link key={l.to} to={l.to} className="block text-lg font-medium text-gray-300" data-testid={`mobile-${l.label.toLowerCase()}-link`}>{l.label}</Link>)}
-            <Link to="/senra" className="inline-block px-6 py-3 border border-[#0077CC]/50 text-[#00D0FF] rounded-lg font-semibold" data-testid="mobile-cta-button">Open SENRA</Link>
+            {links.map((l) => <Link key={l.to} to={l.to} className="block text-lg font-medium text-gray-300 hover:text-white" data-testid={`mobile-${l.label.toLowerCase()}-link`}>{l.label}</Link>)}
+            <a href="#contact" className="inline-block px-6 py-3 bg-gradient-to-r from-[#0077CC] to-[#00A3E0] text-white rounded-lg font-semibold" data-testid="mobile-cta-button">Work With Us</a>
           </div>
         </div>
       )}
@@ -87,16 +83,18 @@ const Footer = () => (
         <div className="md:col-span-2">
           <div className="flex items-center gap-3 mb-4">
             <img src="/logo-native.png" alt="Senueren" className="h-8 rounded" />
-    <span className="text-xl font-semibold tracking-[0.14em] font-['Outfit'] logo-gradient">SENUEREN</span>
+            <span className="text-xl font-semibold tracking-[0.14em] font-['Outfit'] logo-gradient">SENUEREN</span>
           </div>
-          <p className="text-gray-400 text-sm leading-relaxed max-w-md">Building intelligent systems designed to improve how businesses operate and access opportunities across South Africa.</p>
-          <p className="text-gray-600 text-xs mt-3">Cape Town, South Africa</p>
+          <p className="text-gray-400 text-sm leading-relaxed max-w-md mb-4">
+            Senueren is not a service provider. It is a systems company building the infrastructure behind modern business operations.
+          </p>
+          <p className="text-gray-600 text-xs">Cape Town, South Africa</p>
         </div>
         <div>
-          <h4 className="text-sm font-semibold mb-4 text-gray-300 tracking-wide uppercase font-['Outfit']">Platform</h4>
+          <h4 className="text-sm font-semibold mb-4 text-gray-300 tracking-wide uppercase font-['Outfit']">Company</h4>
           <ul className="space-y-3 text-sm">
             <li><Link to="/" className="text-gray-400 hover:text-[#00D0FF] transition-colors" data-testid="footer-home-link">Home</Link></li>
-            <li><Link to="/senra" className="text-gray-400 hover:text-[#00D0FF] transition-colors" data-testid="footer-senra-link">SENRA</Link></li>
+            <li><Link to="/systems" className="text-gray-400 hover:text-[#00D0FF] transition-colors" data-testid="footer-systems-link">Systems</Link></li>
             <li><Link to="/about" className="text-gray-400 hover:text-[#00D0FF] transition-colors" data-testid="footer-about-link">About</Link></li>
             <li><Link to="/contact" className="text-gray-400 hover:text-[#00D0FF] transition-colors" data-testid="footer-contact-link">Contact</Link></li>
           </ul>
@@ -111,469 +109,515 @@ const Footer = () => (
       </div>
       <div className="pt-8 border-t border-[#1A3148] flex flex-col md:flex-row justify-between text-xs text-gray-600">
         <span>&copy; {new Date().getFullYear()} Senueren. All rights reserved.</span>
-        <span className="mt-2 md:mt-0">South African tenders &middot; Procurement intelligence &middot; SME solutions</span>
+        <span className="mt-2 md:mt-0">Systems · Automation · Intelligence</span>
       </div>
     </div>
   </footer>
 );
 
+/* ── Home Page ── */
 
-/* ── Landing Page ── */
-
-const LandingPage = () => {
-  const [topTenders, setTopTenders] = useState([]);
-  useEffect(() => { axios.get(`${API}/tenders/top?limit=5`).then(r => setTopTenders(r.data)).catch(() => {}); }, []);
-
+const HomePage = () => {
   return (
-    <div className="min-h-screen bg-[#0A1D30]" data-testid="landing-page">
-      <section className="pt-28 pb-20 px-6" data-testid="hero-section">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-          <div className="opacity-0 fade-up">
-            <div className="accent-bar w-12 mb-6"></div>
-            <h1 className="text-5xl md:text-6xl tracking-tighter font-medium text-white mb-6 font-['Outfit'] leading-[1.08]">
-              Intelligent Systems for Business Growth
+    <div className="min-h-screen bg-[#0A1D30]" data-testid="home-page">
+      {/* Hero Section */}
+      <section className="relative pt-32 pb-24 px-6 overflow-hidden" data-testid="hero-section">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0077CC]/5 to-transparent"></div>
+        <div className="absolute top-20 right-0 w-96 h-96 bg-[#0077CC]/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#00D0FF]/5 rounded-full blur-3xl"></div>
+        
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="inline-block px-4 py-2 bg-[#0077CC]/10 border border-[#0077CC]/30 rounded-full mb-6">
+              <span className="text-[#00D0FF] text-sm font-medium">Systems · Automation · Intelligence</span>
+            </div>
+            
+            <h1 className="text-5xl md:text-7xl tracking-tight font-bold text-white mb-8 font-['Outfit'] leading-[1.1]">
+              We Build Systems That<br />
+              <span className="bg-gradient-to-r from-[#00D0FF] to-[#0077CC] bg-clip-text text-transparent">Businesses Run On</span>
             </h1>
-            <p className="text-lg text-gray-400 leading-relaxed mb-8 max-w-lg">
-              Senueren builds digital infrastructure and intelligent systems that help South African businesses discover stronger opportunities and operate more efficiently.
+            
+            <p className="text-xl text-gray-300 leading-relaxed mb-12 max-w-3xl mx-auto">
+              Senueren is a systems and automation company focused on designing and deploying operational infrastructure for modern businesses. 
+              We build the backend engines, automation pipelines, and intelligence platforms that power efficiency, scale, and growth.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link to="/senra" className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-[#0077CC]/50 text-[#00D0FF] rounded-lg font-semibold text-sm hover:bg-[#0077CC]/10 transition-all duration-300" data-testid="hero-cta-button">
-                Explore SENRA <ArrowRight size={16} />
-              </Link>
-              <Link to="/about" className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-[#1A3148] text-gray-300 rounded-lg font-medium text-sm hover:border-gray-500 transition-all duration-300" data-testid="hero-about-button">
-                Learn More
-              </Link>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <a href="#contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-[#0077CC] to-[#00A3E0] text-white rounded-lg font-semibold text-base hover:shadow-xl hover:shadow-[#0077CC]/30 transition-all duration-300 group" data-testid="hero-cta-primary">
+                Work With Us <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
+              </a>
+              <a href="#what-we-build" className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-[#1A3148] text-gray-300 rounded-lg font-semibold text-base hover:border-[#0077CC]/50 hover:bg-[#0077CC]/5 transition-all duration-300" data-testid="hero-cta-secondary">
+                View Systems
+              </a>
+            </div>
+
+            <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
+              {[
+                { icon: <Building2 size={24} />, label: "Business Operating Systems" },
+                { icon: <Workflow size={24} />, label: "Automation Infrastructure" },
+                { icon: <Database size={24} />, label: "Data Intelligence" },
+                { icon: <Cpu size={24} />, label: "Custom Backend Systems" }
+              ].map((item, i) => (
+                <div key={i} className="flex flex-col items-center gap-3 p-4 rounded-lg bg-[#0F2035]/50 border border-[#1A3148]/50">
+                  <div className="text-[#00D0FF]">{item.icon}</div>
+                  <span className="text-xs text-gray-400 text-center">{item.label}</span>
+                </div>
+              ))}
             </div>
           </div>
-          <div className="hidden lg:block opacity-0 fade-up d2">
-            <div className="card-dark overflow-hidden">
-              <div className="px-6 py-4 border-b border-[#1A3148] flex items-center justify-between">
-                <span className="text-xs tracking-[0.15em] uppercase text-gray-500 font-['Outfit'] font-medium">SENRA Intelligence</span>
-                <span className="flex items-center gap-2 text-xs text-[#00FF99]"><span className="w-1.5 h-1.5 bg-[#00FF99] rounded-full animate-pulse"></span>Live</span>
-              </div>
-              <div className="p-5 space-y-3">
-                {topTenders.slice(0, 4).map((t, i) => (
-                  <div key={i} className="flex items-center justify-between p-3.5 bg-[#0A1D30]/60 rounded-lg hover:bg-[#0A1D30] transition-colors">
-                    <div className="flex-1 min-w-0 mr-4">
-                      <p className="text-white text-sm font-medium truncate">{t.title}</p>
-                      <p className="text-gray-500 text-xs mt-0.5">{t.organisation}</p>
+        </div>
+      </section>
+
+      {/* What We Build */}
+      <section id="what-we-build" className="py-24 px-6 bg-[#0F2035]" data-testid="what-we-build-section">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <div className="accent-bar w-16 mx-auto mb-4"></div>
+            <h2 className="text-4xl md:text-5xl tracking-tight font-bold text-white mb-4 font-['Outfit']">What We Build</h2>
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              We design and implement internal systems that transform how companies manage operations, data, and workflows.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {[
+              {
+                icon: <Building2 size={28} />,
+                title: "Business Operating Systems",
+                desc: "Centralized systems that manage clients, projects, finances, and internal workflows. Built for efficiency and control.",
+                features: ["Client Management", "Project Tracking", "Financial Operations", "Workflow Automation"]
+              },
+              {
+                icon: <Workflow size={28} />,
+                title: "Automation Infrastructure",
+                desc: "We eliminate repetitive work by building workflow automation pipelines, notification systems, and data processing engines.",
+                features: ["Process Automation", "Workflow Orchestration", "Notification Systems", "Data Processing"]
+              },
+              {
+                icon: <Database size={28} />,
+                title: "Data Intelligence Platforms",
+                desc: "We turn raw data into actionable insight through opportunity detection systems, filtering engines, and decision-support tools.",
+                features: ["Opportunity Detection", "Intelligent Filtering", "Scoring Engines", "Decision Support"]
+              },
+              {
+                icon: <Cpu size={28} />,
+                title: "Custom Backend Systems",
+                desc: "Tailored system architecture designed for scalability, integration, and operational control specific to your business needs.",
+                features: ["Scalable Architecture", "API Integration", "Security First", "Performance Optimized"]
+              }
+            ].map((item, i) => (
+              <div key={i} className="group p-8 bg-[#0A1D30] border border-[#1A3148] rounded-xl hover:border-[#0077CC]/50 hover:shadow-xl hover:shadow-[#0077CC]/10 transition-all duration-300" data-testid={`system-card-${i}`}>
+                <div className="flex items-start gap-4 mb-6">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#0077CC]/20 to-[#00D0FF]/20 flex items-center justify-center text-[#00D0FF] flex-shrink-0 group-hover:scale-110 transition-transform">
+                    {item.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-white mb-2 font-['Outfit']">{item.title}</h3>
+                  </div>
+                </div>
+                <p className="text-gray-400 leading-relaxed mb-6">{item.desc}</p>
+                <div className="grid grid-cols-2 gap-3">
+                  {item.features.map((feature, j) => (
+                    <div key={j} className="flex items-center gap-2">
+                      <CheckCircle2 size={16} className="text-[#00D0FF] flex-shrink-0" />
+                      <span className="text-sm text-gray-300">{feature}</span>
                     </div>
-                    <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full flex-shrink-0 ${t.urgency === "URGENT" ? "badge-urgent" : t.urgency === "SOON" ? "badge-soon" : "badge-normal"}`}>{t.urgency}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Flagship System - SENRA */}
+      <section className="py-24 px-6 bg-[#0A1D30] relative overflow-hidden" data-testid="flagship-section">
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#0077CC]/5 rounded-full blur-3xl"></div>
+        
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-12">
+            <div className="inline-block px-4 py-2 bg-[#00D0FF]/10 border border-[#00D0FF]/30 rounded-full mb-4">
+              <span className="text-[#00D0FF] text-sm font-semibold">Flagship System</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl tracking-tight font-bold text-white mb-4 font-['Outfit']">SENRA</h2>
+            <p className="text-xl text-gray-400">Procurement Intelligence Platform</p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-gradient-to-br from-[#0F2035] to-[#0A1D30] border border-[#0077CC]/30 rounded-2xl p-10 shadow-2xl">
+              <p className="text-lg text-gray-300 leading-relaxed mb-8">
+                SENRA is a data intelligence system designed to help businesses identify and act on high-value government tender opportunities. 
+                It represents Senueren's approach to building real-world systems that solve economic problems at scale.
+              </p>
+
+              <div className="grid md:grid-cols-2 gap-6 mb-8">
+                {[
+                  { label: "Aggregates", desc: "Tender data from official sources" },
+                  { label: "Filters", desc: "Opportunities using intelligent categorization" },
+                  { label: "Validates", desc: "Removes low-quality signals" },
+                  { label: "Delivers", desc: "Structured, actionable opportunities" }
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-3 p-4 bg-[#0A1D30]/50 rounded-lg border border-[#1A3148]/50">
+                    <div className="w-2 h-2 rounded-full bg-[#00D0FF] mt-2 flex-shrink-0"></div>
+                    <div>
+                      <h4 className="text-white font-semibold mb-1">{item.label}</h4>
+                      <p className="text-sm text-gray-400">{item.desc}</p>
+                    </div>
                   </div>
                 ))}
-                {topTenders.length === 0 && <div className="text-center py-10 text-gray-500 text-sm">Loading intelligence...</div>}
               </div>
-              <div className="px-5 pb-5">
-                <Link to="/senra" className="flex items-center justify-center gap-2 w-full py-3 border border-[#0077CC]/30 rounded-lg text-[#00D0FF] text-sm font-medium hover:bg-[#0077CC]/10 transition-colors" data-testid="hero-preview-cta">
-                  View All Opportunities <ArrowUpRight size={14} />
-                </Link>
+
+              <div className="pt-6 border-t border-[#1A3148]">
+                <p className="text-sm text-gray-500 italic">
+                  SENRA demonstrates our capability in building production-grade intelligence systems. Integration available for business clients.
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-24 px-6 bg-[#0F2035]" data-testid="features-section">
+      {/* Our Approach */}
+      <section className="py-24 px-6 bg-[#0F2035]" data-testid="approach-section">
         <div className="max-w-7xl mx-auto">
-          <div className="accent-bar w-12 mb-4"></div>
-          <h2 className="text-3xl md:text-4xl tracking-tight font-medium text-white mb-4 font-['Outfit']">What SENRA does</h2>
-          <p className="text-gray-400 mb-16 max-w-xl">Manual tender searching is time consuming and fragmented. SENRA centralises opportunities and presents them in a structured, ranked, and actionable format.</p>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="text-center mb-16">
+            <div className="accent-bar w-16 mx-auto mb-4"></div>
+            <h2 className="text-4xl md:text-5xl tracking-tight font-bold text-white mb-4 font-['Outfit']">Our Approach</h2>
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              We follow a structured engineering process to deliver reliable, scalable systems.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-5 gap-6">
             {[
-              { icon: <Layers size={22} />, title: "Aggregate", desc: "Collects tender data from across South African government portals and procurement sources daily." },
-              { icon: <BarChart3 size={22} />, title: "Analyse", desc: "Each opportunity is scored and ranked based on value, relevance, sector alignment, and deadline urgency." },
-              { icon: <Target size={22} />, title: "Prioritise", desc: "Only high quality opportunities make the cut. Focus on what matters, skip the noise." },
-              { icon: <Zap size={22} />, title: "Deliver", desc: "Access curated results instantly through the SENRA interface. Updated and ranked continuously." },
+              { num: "01", title: "System Design", desc: "Define architecture aligned with business operations" },
+              { num: "02", title: "Infrastructure Build", desc: "Develop core backend systems and automation layers" },
+              { num: "03", title: "Integration", desc: "Connect data, workflows, and operational tools" },
+              { num: "04", title: "Deployment", desc: "Deliver a stable, scalable system" },
+              { num: "05", title: "Optimization", desc: "Continuously improve performance and efficiency" }
             ].map((item, i) => (
-              <div key={i} className={`p-7 card-dark hover:border-[#0077CC]/30 transition-all duration-300 opacity-0 fade-up d${i+1}`} data-testid={`feature-card-${i}`}>
-                <div className="w-10 h-10 rounded-lg bg-[#0077CC]/10 flex items-center justify-center text-[#00D0FF] mb-5">{item.icon}</div>
-                <h3 className="text-lg font-medium text-white mb-2 font-['Outfit']">{item.title}</h3>
-                <p className="text-sm text-gray-400 leading-relaxed">{item.desc}</p>
+              <div key={i} className="relative group">
+                <div className="p-6 bg-[#0A1D30] border border-[#1A3148] rounded-xl hover:border-[#0077CC]/50 transition-all duration-300 h-full">
+                  <div className="text-5xl font-bold text-[#0077CC]/20 mb-4 font-['Outfit']">{item.num}</div>
+                  <h3 className="text-xl font-bold text-white mb-3 font-['Outfit']">{item.title}</h3>
+                  <p className="text-sm text-gray-400 leading-relaxed">{item.desc}</p>
+                </div>
+                {i < 4 && (
+                  <div className="hidden md:block absolute top-1/2 -right-3 w-6 h-0.5 bg-gradient-to-r from-[#0077CC]/50 to-transparent"></div>
+                )}
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-24 px-6 bg-[#0A1D30]" data-testid="why-free-section">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-5 gap-16 items-center">
-          <div className="lg:col-span-3">
-            <div className="accent-bar w-12 mb-4"></div>
-            <h2 className="text-3xl md:text-4xl tracking-tight font-medium text-white mb-6 font-['Outfit']">Why SENRA is free</h2>
-            <p className="text-gray-400 leading-relaxed mb-4">SENRA is made freely accessible so more businesses can benefit from improved opportunity access. The immediate objective is impact, accessibility, and business enablement. Not short term monetisation.</p>
-            <p className="text-gray-400 leading-relaxed mb-8">We believe that access to structured intelligence should not be reserved for large corporations. Every business deserves the tools to compete and grow.</p>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {[{ l: "Tenders", v: "Updated Daily" }, { l: "Access", v: "Free" }, { l: "Market", v: "South Africa" }, { l: "Built For", v: "SMEs" }].map((s, i) => (
-                <div key={i} className="p-4 card-dark-sm"><p className="text-[10px] text-gray-500 uppercase tracking-wider font-bold">{s.l}</p><p className="text-sm font-semibold text-white mt-1 font-['Outfit']">{s.v}</p></div>
-              ))}
-            </div>
+      {/* Why Senueren */}
+      <section className="py-24 px-6 bg-[#0A1D30]" data-testid="why-section">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <div className="accent-bar w-16 mx-auto mb-4"></div>
+            <h2 className="text-4xl md:text-5xl tracking-tight font-bold text-white mb-4 font-['Outfit']">Why Senueren</h2>
           </div>
-          <div className="lg:col-span-2 flex justify-center">
-            <div className="card-dark p-12 flex items-center justify-center"><img src="/logo-native.png" alt="Senueren" className="w-40 h-40 object-contain rounded-lg" /></div>
-          </div>
-        </div>
-      </section>
 
-      <section className="py-24 px-6 bg-[#0F2035]" data-testid="who-section">
-        <div className="max-w-7xl mx-auto text-center">
-          <div className="accent-bar w-12 mx-auto mb-4"></div>
-          <h2 className="text-3xl md:text-4xl tracking-tight font-medium text-white mb-4 font-['Outfit']">Built for businesses that want to grow</h2>
-          <p className="text-gray-400 max-w-xl mx-auto mb-16">SENRA serves South African businesses, SMEs, contractors, suppliers, consultants, and growth focused organisations seeking procurement opportunities.</p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
             {[
-              { icon: <Users size={22} />, title: "SMEs and Startups", desc: "Small businesses looking to access government procurement for the first time." },
-              { icon: <Shield size={22} />, title: "Contractors and Suppliers", desc: "Established contractors seeking to expand their pipeline with new tender opportunities." },
-              { icon: <TrendingUp size={22} />, title: "Growth Focused Organisations", desc: "Companies ready to scale through strategic government and public sector contracts." },
+              { icon: <Network size={24} />, label: "Systems-First Thinking" },
+              { icon: <Target size={24} />, label: "Real Operational Problems" },
+              { icon: <Layers size={24} />, label: "Built for Scalability" },
+              { icon: <Shield size={24} />, label: "Structured Engineering" },
+              { icon: <BarChart3 size={24} />, label: "Long-Term Infrastructure" }
             ].map((item, i) => (
-              <div key={i} className="text-left p-8 card-dark hover:border-[#0077CC]/30 transition-all duration-300" data-testid={`audience-card-${i}`}>
-                <div className="w-10 h-10 rounded-lg bg-[#0077CC]/10 flex items-center justify-center text-[#00D0FF] mb-5">{item.icon}</div>
-                <h3 className="text-lg font-medium text-white mb-2 font-['Outfit']">{item.title}</h3>
-                <p className="text-sm text-gray-400 leading-relaxed">{item.desc}</p>
+              <div key={i} className="p-6 bg-[#0F2035] border border-[#1A3148] rounded-xl hover:border-[#0077CC]/50 hover:bg-[#0F2035]/80 transition-all duration-300 text-center group">
+                <div className="w-12 h-12 mx-auto mb-4 rounded-lg bg-gradient-to-br from-[#0077CC]/20 to-[#00D0FF]/20 flex items-center justify-center text-[#00D0FF] group-hover:scale-110 transition-transform">
+                  {item.icon}
+                </div>
+                <h3 className="text-white font-semibold">{item.label}</h3>
               </div>
             ))}
           </div>
+
+          <div className="mt-16 max-w-3xl mx-auto text-center">
+            <blockquote className="text-2xl text-gray-300 font-medium italic leading-relaxed">
+              "Businesses lack structured systems to operate efficiently at scale. We design and implement internal systems that transform how companies manage operations, data, and workflows."
+            </blockquote>
+          </div>
         </div>
       </section>
 
-      <section className="py-24 px-6 bg-[#061222]" data-testid="cta-section">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl tracking-tight font-medium text-white mb-4 font-['Outfit']">Discover opportunities that matter</h2>
-          <p className="text-gray-400 mb-8 leading-relaxed">SENRA is an intelligent opportunity platform built by Senueren to help South African businesses discover tenders faster, act smarter, and grow stronger.</p>
-          <Link to="/senra" className="inline-flex items-center gap-2 px-8 py-4 border border-[#0077CC]/50 text-[#00D0FF] rounded-lg font-semibold text-sm hover:bg-[#0077CC]/10 transition-all duration-300" data-testid="cta-explore-button">
-            Open SENRA Platform <ArrowRight size={16} />
-          </Link>
+      {/* Work With Us */}
+      <section id="contact" className="py-24 px-6 bg-[#0F2035]" data-testid="work-with-us-section">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="accent-bar w-16 mx-auto mb-6"></div>
+          <h2 className="text-4xl md:text-5xl tracking-tight font-bold text-white mb-6 font-['Outfit']">Work With Us</h2>
+          <p className="text-xl text-gray-300 leading-relaxed mb-8 max-w-2xl mx-auto">
+            We partner with businesses that require structured internal systems, automation at scale, and data-driven operations.
+          </p>
+          <p className="text-lg text-gray-400 mb-12">
+            If your business needs systems that improve efficiency and unlock growth, we can design and deploy the solution.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href={`mailto:${CONTACT_EMAIL}`} className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-[#0077CC] to-[#00A3E0] text-white rounded-lg font-semibold text-base hover:shadow-xl hover:shadow-[#0077CC]/30 transition-all duration-300">
+              <Mail size={20} /> Email Us
+            </a>
+            <a href={`tel:${CONTACT_PHONE.replace(/\s/g, "")}`} className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-[#1A3148] text-gray-300 rounded-lg font-semibold text-base hover:border-[#0077CC]/50 hover:bg-[#0077CC]/5 transition-all duration-300">
+              <Phone size={20} /> {CONTACT_PHONE}
+            </a>
+          </div>
+
+          <div className="mt-12 p-8 bg-[#0A1D30]/50 border border-[#1A3148] rounded-xl">
+            <p className="text-gray-400 text-sm">
+              <strong className="text-white">Senueren is not a service provider.</strong><br />
+              It is a systems company building the infrastructure behind modern business operations.
+            </p>
+          </div>
         </div>
       </section>
     </div>
   );
 };
 
+/* ── Systems Page ── */
 
-/* ── SENRA Intelligence Page ── */
-
-const SenraPage = () => {
-  const [tenders, setTenders] = useState([]);
-  const [sectors, setSectors] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedSector, setSelectedSector] = useState("");
-  const [selectedUrgency, setSelectedUrgency] = useState("");
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [totalCount, setTotalCount] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const [selectedTender, setSelectedTender] = useState(null);
-
-  const fetchTenders = useCallback(async () => {
-    setLoading(true);
-    try {
-      const p = new URLSearchParams();
-      if (searchQuery) p.append("q", searchQuery);
-      if (selectedSector) p.append("sector", selectedSector);
-      if (selectedUrgency) p.append("urgency", selectedUrgency);
-      p.append("page", page.toString());
-      p.append("limit", "20");
-      const res = await axios.get(`${API}/tenders/search?${p}`);
-      setTenders(res.data.results); setTotalPages(res.data.total_pages); setTotalCount(res.data.count);
-    } catch { setTenders([]); }
-    setLoading(false);
-  }, [searchQuery, selectedSector, selectedUrgency, page]);
-
-  useEffect(() => { axios.get(`${API}/tenders/sectors`).then(r => setSectors(r.data)).catch(() => {}); }, []);
-  useEffect(() => { fetchTenders(); }, [fetchTenders]);
-
-  const openDetail = async (id) => { try { const r = await axios.get(`${API}/tenders/${id}`); setSelectedTender(r.data); } catch {} };
-  const handleSearch = (e) => { e.preventDefault(); setPage(1); };
-  const resetFilters = () => { setSearchQuery(""); setSelectedSector(""); setSelectedUrgency(""); setPage(1); };
-
+const SystemsPage = () => {
   return (
-    <div className="min-h-screen bg-[#0A1D30] pt-16" data-testid="senra-page">
-      <div className="border-b border-[#1A3148] px-6 py-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="accent-bar w-8"></div>
-            <span className="text-xs tracking-[0.2em] uppercase font-bold text-[#0077CC] font-['Outfit']">SENRA Intelligence</span>
-            <span className="flex items-center gap-1.5 text-xs text-[#00FF99]"><span className="w-1.5 h-1.5 bg-[#00FF99] rounded-full animate-pulse"></span>Live</span>
-          </div>
-          <h1 className="text-3xl md:text-4xl tracking-tight font-medium text-white font-['Outfit']">Tender Opportunities</h1>
-          <p className="text-gray-400 mt-2 max-w-xl">Search, filter, and discover ranked procurement opportunities across South Africa.</p>
+    <div className="min-h-screen bg-[#0A1D30] pt-28 pb-16" data-testid="systems-page">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="text-center mb-16">
+          <div className="accent-bar w-16 mx-auto mb-6"></div>
+          <h1 className="text-5xl md:text-6xl tracking-tight font-bold text-white mb-6 font-['Outfit']">
+            Systems We Build
+          </h1>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            Our focus areas in building operational infrastructure for modern businesses.
+          </p>
+        </div>
+
+        <div className="space-y-8">
+          {[
+            {
+              icon: <Building2 size={32} />,
+              title: "Business Operating Systems",
+              desc: "Centralized systems that manage clients, projects, finances, and internal workflows.",
+              details: "We build comprehensive operating systems that serve as the central nervous system of your business. These systems integrate client management, project tracking, financial operations, and workflow automation into a single, cohesive platform."
+            },
+            {
+              icon: <Workflow size={32} />,
+              title: "Automation Infrastructure",
+              desc: "Workflow automation pipelines, notification systems, and data processing engines.",
+              details: "Our automation infrastructure eliminates repetitive manual work by building intelligent workflow orchestration, automated notification systems, and high-performance data processing engines that run reliably at scale."
+            },
+            {
+              icon: <Database size={32} />,
+              title: "Data Intelligence Platforms",
+              desc: "Opportunity detection systems, filtering engines, and decision-support tools.",
+              details: "We turn raw data into actionable intelligence through sophisticated opportunity detection algorithms, intelligent filtering and scoring engines, and decision-support tools that help you make informed business decisions."
+            },
+            {
+              icon: <Cpu size={32} />,
+              title: "Custom Backend Systems",
+              desc: "Tailored system architecture designed for scalability, integration, and operational control.",
+              details: "Every business has unique needs. We design and build custom backend systems with scalable architecture, seamless API integration, security-first approach, and performance optimization tailored specifically for your operational requirements."
+            }
+          ].map((item, i) => (
+            <div key={i} className="p-8 md:p-10 bg-[#0F2035] border border-[#1A3148] rounded-2xl hover:border-[#0077CC]/50 hover:shadow-xl hover:shadow-[#0077CC]/10 transition-all duration-300">
+              <div className="flex items-start gap-6 mb-6">
+                <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-[#0077CC]/20 to-[#00D0FF]/20 flex items-center justify-center text-[#00D0FF] flex-shrink-0">
+                  {item.icon}
+                </div>
+                <div>
+                  <h2 className="text-3xl font-bold text-white mb-2 font-['Outfit']">{item.title}</h2>
+                  <p className="text-lg text-gray-400">{item.desc}</p>
+                </div>
+              </div>
+              <p className="text-gray-300 leading-relaxed">{item.details}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-16 text-center">
+          <a href="#contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-[#0077CC] to-[#00A3E0] text-white rounded-lg font-semibold text-base hover:shadow-xl hover:shadow-[#0077CC]/30 transition-all duration-300">
+            Discuss Your System Needs <ArrowRight size={20} />
+          </a>
         </div>
       </div>
-
-      <div className="border-b border-[#1A3148] px-6 py-4">
-        <div className="max-w-7xl mx-auto">
-          <form onSubmit={handleSearch} className="flex flex-col md:flex-row gap-3" data-testid="senra-search-form">
-            <div className="flex-1 relative">
-              <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500" />
-              <input type="text" placeholder="Search tenders by title or organisation..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 bg-[#0F2035] border border-[#1A3148] rounded-lg text-white text-sm placeholder:text-gray-500 focus:outline-none focus:border-[#0077CC]/60 transition-colors" data-testid="senra-search-input" />
-            </div>
-            <div className="flex gap-3 flex-wrap">
-              <div className="relative">
-                <select value={selectedSector} onChange={(e) => { setSelectedSector(e.target.value); setPage(1); }}
-                  className="appearance-none px-4 py-2.5 pr-9 bg-[#0F2035] border border-[#1A3148] rounded-lg text-sm text-white focus:outline-none focus:border-[#0077CC]/60 cursor-pointer" data-testid="senra-sector-filter">
-                  <option value="" className="bg-[#0F2035]">All Sectors</option>
-                  {sectors.map((s) => <option key={s.sector} value={s.sector} className="bg-[#0F2035]">{s.sector} ({s.count})</option>)}
-                </select>
-                <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
-              </div>
-              <div className="relative">
-                <select value={selectedUrgency} onChange={(e) => { setSelectedUrgency(e.target.value); setPage(1); }}
-                  className="appearance-none px-4 py-2.5 pr-9 bg-[#0F2035] border border-[#1A3148] rounded-lg text-sm text-white focus:outline-none focus:border-[#0077CC]/60 cursor-pointer" data-testid="senra-urgency-filter">
-                  <option value="" className="bg-[#0F2035]">All Urgency</option>
-                  <option value="URGENT" className="bg-[#0F2035]">Urgent</option>
-                  <option value="SOON" className="bg-[#0F2035]">Soon</option>
-                  <option value="NORMAL" className="bg-[#0F2035]">Normal</option>
-                </select>
-                <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
-              </div>
-              <button type="submit" className="px-5 py-2.5 border border-[#0077CC]/50 text-[#00D0FF] rounded-lg text-sm font-semibold hover:bg-[#0077CC]/10 transition-colors" data-testid="senra-search-button">Search</button>
-              {(searchQuery || selectedSector || selectedUrgency) && (
-                <button type="button" onClick={resetFilters} className="px-4 py-2.5 border border-[#1A3148] rounded-lg text-sm text-gray-400 hover:text-white hover:border-gray-500 transition-colors" data-testid="senra-reset-button">Reset</button>
-              )}
-            </div>
-          </form>
-          <div className="flex items-center gap-4 mt-3 text-xs text-gray-500">
-            <span data-testid="senra-result-count">{totalCount} opportunities found</span>
-            {selectedSector && <span className="px-2.5 py-0.5 bg-[#0077CC]/10 text-[#00D0FF] rounded-full border border-[#0077CC]/20">{selectedSector}</span>}
-            {selectedUrgency && <span className="px-2.5 py-0.5 bg-[#0077CC]/10 text-[#00D0FF] rounded-full border border-[#0077CC]/20">{selectedUrgency}</span>}
-          </div>
-        </div>
-      </div>
-
-      <div className="px-6 py-6">
-        <div className="max-w-7xl mx-auto">
-          {loading ? <div className="text-center py-20 text-gray-500" data-testid="senra-loading">Loading intelligence...</div>
-          : tenders.length === 0 ? <div className="text-center py-20 text-gray-500" data-testid="senra-empty">No opportunities match your criteria.</div>
-          : <>
-            <div className="hidden md:block overflow-x-auto">
-              <table className="w-full" data-testid="senra-table">
-                <thead><tr className="border-b border-[#1A3148] text-[10px] text-gray-500 uppercase tracking-wider">
-                  <th className="text-left py-3 px-4 font-bold">Tender</th><th className="text-left py-3 px-4 font-bold">Sector</th><th className="text-left py-3 px-4 font-bold">Deadline</th><th className="text-left py-3 px-4 font-bold">Score</th><th className="text-left py-3 px-4 font-bold">Urgency</th><th className="text-right py-3 px-4"></th>
-                </tr></thead>
-                <tbody>{tenders.map((t) => (
-                  <tr key={t.id} className="border-b border-[#1A3148]/50 tender-row cursor-pointer" onClick={() => openDetail(t.id)} data-testid={`tender-row-${t.id}`}>
-                    <td className="py-4 px-4"><p className="text-white text-sm font-medium">{t.title}</p><p className="text-gray-500 text-xs mt-0.5">{t.organisation}</p></td>
-                    <td className="py-4 px-4"><span className="text-xs text-gray-400 px-2.5 py-1 bg-[#0A1D30] rounded-full border border-[#1A3148]">{t.sector}</span></td>
-                    <td className="py-4 px-4"><div className="text-sm text-gray-300">{t.deadline || "Open"}</div>{t.days_remaining !== null && <div className="text-xs text-gray-500 mt-0.5">{t.days_remaining} days left</div>}</td>
-                    <td className="py-4 px-4"><div className="flex items-center gap-2"><span className="text-sm text-white font-medium w-6">{t.score}</span><div className="score-bar w-16"><div className={`score-fill ${t.score >= 80 ? "score-high" : t.score >= 60 ? "score-mid" : "score-low"}`} style={{ width: `${t.score}%` }}></div></div></div></td>
-                    <td className="py-4 px-4"><span className={`text-[10px] font-bold px-2.5 py-1 rounded-full ${t.urgency === "URGENT" ? "badge-urgent" : t.urgency === "SOON" ? "badge-soon" : "badge-normal"}`}>{t.urgency}</span></td>
-                    <td className="py-4 px-4 text-right"><Eye size={15} className="text-gray-600 hover:text-[#00D0FF] transition-colors inline" /></td>
-                  </tr>
-                ))}</tbody>
-              </table>
-            </div>
-            <div className="md:hidden space-y-3">{tenders.map((t) => (
-              <div key={t.id} className="p-4 card-dark-sm cursor-pointer hover:border-[#0077CC]/30 transition-colors" onClick={() => openDetail(t.id)} data-testid={`tender-card-${t.id}`}>
-                <div className="flex items-start justify-between mb-2"><div className="flex-1 mr-3"><p className="text-white text-sm font-medium">{t.title}</p><p className="text-gray-500 text-xs mt-0.5">{t.organisation}</p></div>
-                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full flex-shrink-0 ${t.urgency === "URGENT" ? "badge-urgent" : t.urgency === "SOON" ? "badge-soon" : "badge-normal"}`}>{t.urgency}</span></div>
-                <div className="flex items-center gap-4 text-xs text-gray-500"><span>{t.sector}</span><span>Score: {t.score}</span>{t.days_remaining !== null && <span>{t.days_remaining}d left</span>}</div>
-              </div>
-            ))}</div>
-            {totalPages > 1 && (
-              <div className="flex items-center justify-between mt-6 pt-6 border-t border-[#1A3148]">
-                <button onClick={() => setPage(Math.max(1, page - 1))} disabled={page === 1} className="flex items-center gap-1 text-sm text-gray-400 hover:text-white disabled:opacity-30 transition-colors" data-testid="senra-prev-page"><ChevronLeft size={16} /> Previous</button>
-                <span className="text-sm text-gray-500" data-testid="senra-page-info">Page {page} of {totalPages}</span>
-                <button onClick={() => setPage(Math.min(totalPages, page + 1))} disabled={page === totalPages} className="flex items-center gap-1 text-sm text-gray-400 hover:text-white disabled:opacity-30 transition-colors" data-testid="senra-next-page">Next <ChevronRight size={16} /></button>
-              </div>
-            )}
-          </>}
-        </div>
-      </div>
-
-      {selectedTender && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm" onClick={() => setSelectedTender(null)} data-testid="tender-detail-modal">
-          <div className="bg-[#0F2035] border border-[#1A3148] rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto p-8" onClick={(e) => e.stopPropagation()}>
-            <div className="flex items-start justify-between mb-6">
-              <div>
-                <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full ${selectedTender.urgency === "URGENT" ? "badge-urgent" : selectedTender.urgency === "SOON" ? "badge-soon" : "badge-normal"}`}>{selectedTender.urgency}</span>
-                <h2 className="text-xl font-medium text-white mt-3 font-['Outfit']" data-testid="tender-detail-title">{selectedTender.title}</h2>
-                <p className="text-gray-400 text-sm mt-1">{selectedTender.organisation}</p>
-              </div>
-              <button onClick={() => setSelectedTender(null)} className="text-gray-500 hover:text-white transition-colors p-1" data-testid="tender-detail-close"><X size={20} /></button>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
-              {[{ l: "Sector", v: selectedTender.sector }, { l: "Score", v: `${selectedTender.score}/100` }, { l: "Deadline", v: selectedTender.deadline || "Open" }, { l: "Days Left", v: selectedTender.days_remaining ?? "N/A" }].map((d, i) => (
-                <div key={i} className="p-3 bg-[#0A1D30] rounded-lg border border-[#1A3148]"><p className="text-[10px] text-gray-500 uppercase tracking-wider font-bold">{d.l}</p><p className="text-sm text-white mt-0.5 font-medium">{d.v}</p></div>
-              ))}
-            </div>
-            {selectedTender.insight && (
-              <div className="p-5 bg-[#0077CC]/[0.06] border border-[#0077CC]/15 rounded-lg mb-6">
-                <p className="text-[10px] tracking-[0.15em] uppercase text-[#0077CC] mb-2 font-['Outfit'] font-bold">SENRA Insight</p>
-                <p className="text-sm text-gray-300 leading-relaxed" data-testid="tender-detail-insight">{selectedTender.insight}</p>
-              </div>
-            )}
-            <div className="flex items-center gap-4 text-xs text-gray-500"><span>Source: {selectedTender.source}</span>{selectedTender.reference && <span>Ref: {selectedTender.reference}</span>}</div>
-            {selectedTender.url && (
-              <a href={selectedTender.url} target="_blank" rel="noopener noreferrer" className="mt-6 flex items-center justify-center gap-2 w-full py-3 border border-[#0077CC]/50 text-[#00D0FF] rounded-lg font-semibold text-sm hover:bg-[#0077CC]/10 transition-colors" data-testid="tender-detail-source-link">
-                View Original Source <ArrowUpRight size={14} />
-              </a>
-            )}
-          </div>
-        </div>
-      )}
-
-      <section className="px-6 py-16 border-t border-[#1A3148]">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-xl font-medium text-white mb-6 font-['Outfit']">About SENRA</h2>
-          <div className="grid md:grid-cols-3 gap-8 text-sm text-gray-400 leading-relaxed">
-            <div><h3 className="text-white font-medium mb-2 font-['Outfit']">What is SENRA</h3><p>SENRA is a system that helps businesses discover, filter, and prioritise tender opportunities more effectively. It centralises procurement data from across South Africa into a single, ranked interface.</p></div>
-            <div><h3 className="text-white font-medium mb-2 font-['Outfit']">Why was it created</h3><p>Manual tender searching is time consuming, fragmented, and inconsistent. Important opportunities are often missed. SENRA solves this by aggregating and ranking opportunities so businesses can make better decisions faster.</p></div>
-            <div><h3 className="text-white font-medium mb-2 font-['Outfit']">Who is it for</h3><p>SENRA serves South African businesses, SMEs, contractors, suppliers, consultants, and growth focused organisations seeking procurement opportunities in both government and private sectors.</p></div>
-          </div>
-        </div>
-      </section>
     </div>
   );
 };
-
 
 /* ── About Page ── */
 
-const AboutPage = () => (
-  <div className="min-h-screen bg-[#0A1D30] pt-16" data-testid="about-page">
-    <section className="py-20 px-6" data-testid="about-hero">
-      <div className="max-w-7xl mx-auto">
-        <div className="card-dark overflow-hidden">
-          <div className="grid lg:grid-cols-2">
-            <div className="p-10 lg:p-16 flex flex-col justify-center">
-              <div className="accent-bar w-10 mb-6"></div>
-              <h1 className="text-4xl md:text-5xl tracking-tighter font-medium text-white mb-6 font-['Outfit'] leading-[1.1]">Built from the belief that technology should create real progress</h1>
-              <p className="text-gray-400 leading-relaxed text-lg">Through persistence, focused effort, and continuous growth, Senueren was established to build systems that help organisations operate smarter and move further.</p>
+const AboutPage = () => {
+  return (
+    <div className="min-h-screen bg-[#0A1D30] pt-28 pb-16" data-testid="about-page">
+      <div className="max-w-4xl mx-auto px-6">
+        <div className="text-center mb-16">
+          <div className="accent-bar w-16 mx-auto mb-6"></div>
+          <h1 className="text-5xl md:text-6xl tracking-tight font-bold text-white mb-6 font-['Outfit']">
+            About Senueren
+          </h1>
+        </div>
+
+        <div className="space-y-12">
+          <div className="p-8 bg-[#0F2035] border border-[#1A3148] rounded-2xl">
+            <h2 className="text-3xl font-bold text-white mb-6 font-['Outfit']">
+              Built from the belief that technology should create real progress
+            </h2>
+            <p className="text-lg text-gray-300 leading-relaxed mb-4">
+              Through persistence, focused effort, and continuous growth, Senueren was established to build systems that help organisations operate smarter and move further.
+            </p>
+            <p className="text-lg text-gray-300 leading-relaxed">
+              We do not build surface-level solutions. We build systems that become part of how a business functions.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="p-8 bg-[#0F2035] border border-[#1A3148] rounded-2xl">
+              <h3 className="text-2xl font-bold text-white mb-4 font-['Outfit']">Our Focus</h3>
+              <p className="text-gray-300 leading-relaxed">
+                Senueren exists to solve one problem: <strong className="text-white">Businesses lack structured systems to operate efficiently at scale.</strong>
+              </p>
             </div>
-            <div className="flex items-center justify-center p-0 lg:p-0 overflow-hidden">
-              <img src="/hero-brand.jpg" alt="Senueren" className="w-full h-full object-cover" />
+
+            <div className="p-8 bg-[#0F2035] border border-[#1A3148] rounded-2xl">
+              <h3 className="text-2xl font-bold text-white mb-4 font-['Outfit']">Our Approach</h3>
+              <p className="text-gray-300 leading-relaxed">
+                Engineering-first, focused on reliability, scalability, and long-term value. We build infrastructure, not quick fixes.
+              </p>
             </div>
+          </div>
+
+          <div className="p-8 bg-gradient-to-br from-[#0F2035] to-[#0A1D30] border border-[#0077CC]/30 rounded-2xl">
+            <div className="flex items-start gap-6">
+              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#0077CC] to-[#00D0FF] flex items-center justify-center text-white text-2xl font-bold flex-shrink-0">
+                QW
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold text-white mb-2 font-['Outfit']">Quelum Wilson</h3>
+                <p className="text-[#00D0FF] mb-4">Founder, Senueren</p>
+                <p className="text-gray-300 leading-relaxed mb-3">
+                  Senueren was founded by Quelum Wilson, a Cape Town entrepreneur with a commitment to building meaningful systems that create higher standards through persistence.
+                </p>
+                <p className="text-gray-300 leading-relaxed mb-3">
+                  The company was established in June 2025 with a clear purpose: to create intelligent systems that help businesses operate smarter and access opportunities that would otherwise be missed.
+                </p>
+                <p className="text-gray-300 leading-relaxed">
+                  Through discipline, resilience, and execution, Senueren is growing into a trusted technology company focused on delivering real value to South African businesses.
+                </p>
+                <div className="mt-6 flex flex-wrap gap-4 text-sm text-gray-400">
+                  <span className="flex items-center gap-2">
+                    <MapPin size={16} className="text-[#00D0FF]" />
+                    Cape Town, South Africa
+                  </span>
+                  <span>•</span>
+                  <span>Established June 2025</span>
+                  <span>•</span>
+                  <span>senueren.co.za</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center p-12 bg-[#0F2035] border border-[#1A3148] rounded-2xl">
+            <p className="text-2xl text-gray-300 font-medium leading-relaxed">
+              The vision is to build a company that South African businesses rely on for systems that <span className="text-white font-bold">actually work</span>.
+            </p>
           </div>
         </div>
       </div>
-    </section>
-
-    <section className="py-20 px-6" data-testid="founder-section">
-      <div className="max-w-7xl mx-auto grid lg:grid-cols-5 gap-12 items-start">
-        <div className="lg:col-span-2">
-          <div className="card-dark p-8 sticky top-24">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#0077CC] to-[#00FF99] flex items-center justify-center text-[#0A1D30] font-bold text-2xl font-['Outfit'] mb-6">QW</div>
-            <h3 className="text-white text-xl font-medium font-['Outfit'] mb-1">Quelum Wilson</h3>
-            <p className="text-gray-400 text-sm mb-4">Founder, Senueren</p>
-            <div className="space-y-3 text-sm">
-              <div className="flex items-center gap-3 text-gray-400"><MapPin size={14} className="text-[#0077CC] flex-shrink-0" /><span>Cape Town, South Africa</span></div>
-              <div className="flex items-center gap-3 text-gray-400"><Clock size={14} className="text-[#0077CC] flex-shrink-0" /><span>Established June 2025</span></div>
-              <div className="flex items-center gap-3 text-gray-400"><Globe size={14} className="text-[#0077CC] flex-shrink-0" /><span>senueren.co.za</span></div>
-            </div>
-          </div>
-        </div>
-        <div className="lg:col-span-3">
-          <div className="accent-bar w-10 mb-4"></div>
-          <h2 className="text-3xl md:text-4xl tracking-tight font-medium text-white mb-8 font-['Outfit']">The Founder</h2>
-          <div className="space-y-5 text-gray-400 leading-relaxed">
-            <p>Senueren was founded by Quelum Wilson, a Cape Town entrepreneur with a commitment to building meaningful systems that create higher standards through persistence.</p>
-            <p>The company was established in June 2025 with a clear purpose: to create intelligent systems that help businesses operate smarter and access opportunities that would otherwise be missed.</p>
-            <p>Through discipline, resilience, and execution, Senueren is growing into a trusted technology company focused on delivering real value to South African businesses. The approach is grounded in practical results, not hype.</p>
-            <p>The vision is to build a company that South African businesses rely on for systems that actually work. Systems that save time, surface value, and create competitive advantage for companies that deserve better tools.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section className="py-20 px-6 bg-[#0F2035]" data-testid="mission-section">
-      <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16">
-        <div>
-          <div className="accent-bar w-10 mb-4"></div>
-          <h2 className="text-3xl md:text-4xl tracking-tight font-medium text-white mb-6 font-['Outfit']">Our Mission</h2>
-          <p className="text-gray-400 leading-relaxed mb-4 text-lg">The mission of Senueren is to help companies operate more efficiently, discover stronger opportunities, and use intelligent systems to grow sustainably.</p>
-          <p className="text-gray-400 leading-relaxed">Senueren builds digital infrastructure and intelligent systems designed to improve how businesses operate and access opportunities. Every system we create is purpose built, grounded in practical business value, and designed for long term impact.</p>
-        </div>
-        <div className="grid grid-cols-2 gap-4 content-start">
-          {[{ icon: <Target size={20} />, title: "Focused", desc: "Purpose built systems, not generic solutions" }, { icon: <Shield size={20} />, title: "Reliable", desc: "Built for stability and long term performance" }, { icon: <TrendingUp size={20} />, title: "Growth", desc: "Designed to scale with your business" }, { icon: <Globe size={20} />, title: "Local", desc: "Built in South Africa, for South Africa" }].map((v, i) => (
-            <div key={i} className="p-5 card-dark-sm"><div className="text-[#00D0FF] mb-3">{v.icon}</div><h4 className="font-medium text-white text-sm font-['Outfit'] mb-1">{v.title}</h4><p className="text-xs text-gray-400 leading-relaxed">{v.desc}</p></div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section className="py-20 px-6 bg-[#0A1D30]" data-testid="what-we-do-section">
-      <div className="max-w-7xl mx-auto">
-        <div className="accent-bar w-10 mb-4"></div>
-        <h2 className="text-3xl md:text-4xl tracking-tight font-medium text-white mb-12 font-['Outfit']">What we build</h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          {[{ icon: <Database size={22} />, title: "Digital Infrastructure", desc: "Backend systems, automation pipelines, and scalable architectures designed for reliable business operations." }, { icon: <BarChart3 size={22} />, title: "Intelligence Systems", desc: "Systems that identify, rank, and prioritise real business opportunities. SENRA is our flagship platform." }, { icon: <Code size={22} />, title: "Custom Solutions", desc: "Tailored software and digital tools designed around specific business workflows and requirements." }].map((item, i) => (
-            <div key={i} className="p-8 card-dark hover:border-[#0077CC]/30 transition-all duration-300" data-testid={`service-card-${i}`}>
-              <div className="w-10 h-10 rounded-lg bg-[#0077CC]/10 flex items-center justify-center text-[#00D0FF] mb-5">{item.icon}</div>
-              <h3 className="text-lg font-medium text-white mb-2 font-['Outfit']">{item.title}</h3>
-              <p className="text-sm text-gray-400 leading-relaxed">{item.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  </div>
-);
-
+    </div>
+  );
+};
 
 /* ── Contact Page ── */
 
-const ContactPage = () => (
-  <div className="min-h-screen bg-[#0A1D30] pt-16" data-testid="contact-page">
-    <section className="py-20 px-6">
-      <div className="max-w-7xl mx-auto">
-        <div className="max-w-2xl mb-16">
-          <div className="accent-bar w-10 mb-6"></div>
-          <h1 className="text-5xl md:text-6xl tracking-tighter font-medium text-white mb-6 font-['Outfit'] leading-[1.08]">Get in touch</h1>
-          <p className="text-lg text-gray-400 leading-relaxed">Whether you have questions about SENRA, want to discuss a custom project, or simply want to connect.</p>
+const ContactPage = () => {
+  return (
+    <div className="min-h-screen bg-[#0A1D30] pt-28 pb-16" data-testid="contact-page">
+      <div className="max-w-4xl mx-auto px-6">
+        <div className="text-center mb-16">
+          <div className="accent-bar w-16 mx-auto mb-6"></div>
+          <h1 className="text-5xl md:text-6xl tracking-tight font-bold text-white mb-6 font-['Outfit']">
+            Get in Touch
+          </h1>
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+            Whether you have questions, want to discuss a custom project, or simply want to connect.
+          </p>
         </div>
+
         <div className="grid md:grid-cols-3 gap-6 mb-12">
-          <a href={`mailto:${CONTACT_EMAIL}`} className="p-8 card-dark hover:border-[#0077CC]/30 transition-all duration-300 group" data-testid="contact-email-card">
-            <div className="w-12 h-12 rounded-xl bg-[#0077CC]/10 flex items-center justify-center mb-5 group-hover:bg-[#0077CC]/20 transition-all duration-300"><Mail size={22} className="text-[#00D0FF]" /></div>
-            <h3 className="text-lg font-medium text-white mb-1 font-['Outfit']">Email</h3>
-            <p className="text-[#00D0FF] text-sm font-medium">{CONTACT_EMAIL}</p>
-          </a>
-          <a href={`tel:${CONTACT_PHONE.replace(/\s/g, "")}`} className="p-8 card-dark hover:border-[#0077CC]/30 transition-all duration-300 group" data-testid="contact-phone-card">
-            <div className="w-12 h-12 rounded-xl bg-[#0077CC]/10 flex items-center justify-center mb-5 group-hover:bg-[#0077CC]/20 transition-all duration-300"><Phone size={22} className="text-[#00D0FF]" /></div>
-            <h3 className="text-lg font-medium text-white mb-1 font-['Outfit']">Phone</h3>
-            <p className="text-gray-400 text-sm">{CONTACT_PHONE}</p>
-          </a>
-          <div className="p-8 card-dark" data-testid="contact-location-card">
-            <div className="w-12 h-12 rounded-xl bg-[#0077CC]/10 flex items-center justify-center mb-5"><MapPin size={22} className="text-[#00D0FF]" /></div>
-            <h3 className="text-lg font-medium text-white mb-1 font-['Outfit']">Location</h3>
-            <p className="text-gray-400 text-sm">Cape Town, South Africa</p>
-          </div>
+          {[
+            {
+              icon: <Mail size={28} />,
+              title: "Email",
+              value: CONTACT_EMAIL,
+              link: `mailto:${CONTACT_EMAIL}`,
+              color: "from-[#0077CC] to-[#00A3E0]"
+            },
+            {
+              icon: <Phone size={28} />,
+              title: "Phone",
+              value: CONTACT_PHONE,
+              link: `tel:${CONTACT_PHONE.replace(/\s/g, "")}`,
+              color: "from-[#00A3E0] to-[#00D0FF]"
+            },
+            {
+              icon: <MapPin size={28} />,
+              title: "Location",
+              value: "Cape Town, South Africa",
+              link: null,
+              color: "from-[#00D0FF] to-[#0077CC]"
+            }
+          ].map((item, i) => (
+            <div key={i} className="p-6 bg-[#0F2035] border border-[#1A3148] rounded-xl hover:border-[#0077CC]/50 transition-all duration-300">
+              <div className={`w-14 h-14 rounded-lg bg-gradient-to-br ${item.color} bg-opacity-20 flex items-center justify-center text-white mb-4`}>
+                {item.icon}
+              </div>
+              <h3 className="text-white font-semibold mb-2">{item.title}</h3>
+              {item.link ? (
+                <a href={item.link} className="text-[#00D0FF] hover:underline">{item.value}</a>
+              ) : (
+                <p className="text-gray-400">{item.value}</p>
+              )}
+            </div>
+          ))}
         </div>
-        <div className="card-dark overflow-hidden">
-          <div className="grid lg:grid-cols-2">
-            <div className="p-10 lg:p-12">
-              <div className="accent-bar w-8 mb-4"></div>
-              <h3 className="text-2xl font-medium text-white mb-3 font-['Outfit']">We typically respond within 24 to 48 hours</h3>
-              <p className="text-gray-400 text-sm leading-relaxed mb-6">For the fastest response, email us directly or reach out via WhatsApp. We are happy to discuss SENRA, custom development projects, or any other enquiries.</p>
-              <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hi%20Senueren,%20I'd%20like%20to%20get%20in%20touch.`} target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 border border-[#0077CC]/50 text-[#00D0FF] rounded-lg font-semibold text-sm hover:bg-[#0077CC]/10 transition-all duration-300" data-testid="contact-whatsapp-button">
-                Message on WhatsApp <ArrowUpRight size={14} />
-              </a>
-            </div>
-            <div className="hidden lg:flex items-center justify-center p-12 bg-[#061222]">
-              <img src="/logo-native.png" alt="Senueren" className="w-24 h-24 object-contain rounded-lg opacity-30" />
-            </div>
-          </div>
+
+        <div className="p-10 bg-gradient-to-br from-[#0F2035] to-[#0A1D30] border border-[#0077CC]/30 rounded-2xl">
+          <h2 className="text-2xl font-bold text-white mb-4 font-['Outfit']">We typically respond within 24 to 48 hours</h2>
+          <p className="text-gray-300 mb-6 leading-relaxed">
+            For the fastest response, email us directly or reach out via WhatsApp. We are happy to discuss systems, custom development projects, or any other enquiries.
+          </p>
+          <a 
+            href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hi%20Senueren%2C%20I%27d%20like%20to%20discuss%20a%20system%20project.`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#25D366] to-[#20C55C] text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-[#25D366]/20 transition-all duration-300"
+          >
+            Message on WhatsApp <ArrowUpRight size={18} />
+          </a>
         </div>
       </div>
-    </section>
-  </div>
-);
+    </div>
+  );
+};
 
-
-/* ── App ── */
+/* ── Main App ── */
 
 function App() {
   return (
     <HashRouter>
-      <ScrollToTop />
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/senra" element={<SenraPage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-      </Routes>
-      <Footer />
+      <div className="App">
+        <ScrollToTop />
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/systems" element={<SystemsPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+        </Routes>
+        <Footer />
+      </div>
     </HashRouter>
   );
 }
