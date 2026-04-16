@@ -1,21 +1,51 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "@/App.css";
 import { HashRouter, Routes, Route, Link, useLocation } from "react-router-dom";
 import {
   ArrowRight, Menu, X, Phone, Mail, MapPin,
   Layers, BarChart3, Target, Zap, Database, Workflow,
-  Shield, CheckCircle2, ArrowUpRight, Building2, Cpu, Network
+  Shield, CheckCircle2, ArrowUpRight, Building2, Cpu, Network,
+  Server, ChevronRight, Globe, Users, TrendingUp, Clock,
+  Award, Code2, Cog, Eye
 } from "lucide-react";
 
 const CONTACT_EMAIL = "info@senueren.co.za";
 const CONTACT_PHONE = "067 326 7417";
 const WHATSAPP_NUMBER = "27673267417";
 
+const HERO_BG = "https://static.prod-images.emergentagent.com/jobs/800278e9-c0cd-426b-9899-e892371f8b9d/images/e1893e5fd846cd62825f7f50b748b3b9b6ae05d857a621a5ec97ef242563cfb4.png";
+const SENRA_IMG = "https://static.prod-images.emergentagent.com/jobs/800278e9-c0cd-426b-9899-e892371f8b9d/images/416d48f3c449e725c2a0cf6893ff74b76d8ae8cb2bbc6a36d2b162d96d753635.png";
+const INFRA_IMG = "https://static.prod-images.emergentagent.com/jobs/800278e9-c0cd-426b-9899-e892371f8b9d/images/fd0b101f3767cbe92563726c8443992600aa69b57bbf7e9d3786eda9f2630df1.png";
+const CAPETOWN_IMG = "https://static.prod-images.emergentagent.com/jobs/800278e9-c0cd-426b-9899-e892371f8b9d/images/748d820771ce8eed36c8353794ee56c33fcbc6b196859d0c9162c42caaf2e2de.png";
+
+/* ── Intersection Observer Hook ── */
+const useInView = (threshold = 0.15) => {
+  const ref = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+  useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setIsVisible(true); }, { threshold });
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, [threshold]);
+  return [ref, isVisible];
+};
+
+const FadeIn = ({ children, delay = 0, className = "" }) => {
+  const [ref, isVisible] = useInView();
+  return (
+    <div ref={ref} className={`transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"} ${className}`}
+      style={{ transitionDelay: `${delay}ms` }}>
+      {children}
+    </div>
+  );
+};
+
 /* ── Shared Components ── */
 
 const Logo = () => (
-  <Link to="/" className="flex items-center gap-2" data-testid="nav-logo">
-    <span className="text-xl font-bold tracking-[0.16em] font-['Outfit'] logo-gradient">SENUEREN</span>
+  <Link to="/" className="flex items-center gap-3" data-testid="nav-logo">
+    <img src="/logo-sm.png" alt="Senueren" className="h-9 rounded-lg object-contain" />
+    <span className="text-lg font-bold tracking-[0.18em] font-['Outfit'] logo-gradient">SENUEREN</span>
   </Link>
 );
 
@@ -45,30 +75,34 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-[#0A0E17]/95 backdrop-blur-lg border-b border-[#1A2332]" : "bg-transparent"}`} data-testid="navbar">
-      <div className="max-w-7xl mx-auto px-6">
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? "bg-[#0A0E17]/60 backdrop-blur-xl border-b border-[#1A2332]" : "bg-transparent"}`} data-testid="navbar">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="flex items-center justify-between h-20">
           <Logo />
           <div className="hidden md:flex items-center gap-10">
             {links.map((l) => (
               <Link key={l.to} to={l.to}
-                className={`text-sm font-medium transition-colors ${location.pathname === l.to ? "text-white" : "text-gray-400 hover:text-white"}`}
+                className={`text-sm font-medium transition-colors duration-300 ${location.pathname === l.to ? "text-[#00FFD4]" : "text-[#E8EDF2] hover:text-[#00FFD4]"}`}
                 data-testid={`nav-${l.label.toLowerCase()}-link`}>{l.label}</Link>
             ))}
-            <a href="#contact" className="text-sm font-semibold px-6 py-3 rounded-lg bg-gradient-to-r from-[#4A9FD8] to-[#00FFD4] text-[#0A0E17] hover:shadow-lg hover:shadow-[#00FFD4]/30 transition-all duration-300" data-testid="nav-cta-button">
+            <Link to="/contact" className="text-sm font-bold px-7 py-3 rounded-full bg-gradient-to-r from-[#4A9FD8] to-[#00FFD4] text-[#0A0E17] hover:shadow-[0_0_30px_rgba(0,255,212,0.4)] hover:scale-105 transition-all duration-300" data-testid="nav-cta-button">
               Work With Us
-            </a>
+            </Link>
           </div>
-          <button className="md:hidden" onClick={() => setIsOpen(!isOpen)} data-testid="mobile-menu-toggle">
-            {isOpen ? <X size={24} className="text-white" /> : <Menu size={24} className="text-white" />}
+          <button className="md:hidden text-white" onClick={() => setIsOpen(!isOpen)} data-testid="mobile-menu-toggle">
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
       {isOpen && (
-        <div className="md:hidden fixed inset-0 top-20 z-40 bg-[#0A0E17] backdrop-blur-lg">
-          <div className="px-6 py-8 space-y-6">
-            {links.map((l) => <Link key={l.to} to={l.to} className="block text-lg font-medium text-gray-300 hover:text-white" data-testid={`mobile-${l.label.toLowerCase()}-link`}>{l.label}</Link>)}
-            <a href="#contact" className="inline-block px-6 py-3 bg-gradient-to-r from-[#4A9FD8] to-[#00FFD4] text-[#0A0E17] rounded-lg font-semibold" data-testid="mobile-cta-button">Work With Us</a>
+        <div className="md:hidden fixed inset-0 top-20 z-40 bg-[#0A0E17]/95 backdrop-blur-xl">
+          <div className="px-6 py-10 space-y-6">
+            {links.map((l) => (
+              <Link key={l.to} to={l.to}
+                className={`block text-xl font-medium transition-colors ${location.pathname === l.to ? "text-[#00FFD4]" : "text-[#E8EDF2]"}`}
+                data-testid={`mobile-${l.label.toLowerCase()}-link`}>{l.label}</Link>
+            ))}
+            <Link to="/contact" className="inline-block px-7 py-3 bg-gradient-to-r from-[#4A9FD8] to-[#00FFD4] text-[#0A0E17] rounded-full font-bold" data-testid="mobile-cta-button">Work With Us</Link>
           </div>
         </div>
       )}
@@ -77,39 +111,54 @@ const Navbar = () => {
 };
 
 const Footer = () => (
-  <footer className="bg-[#060A10] py-16 border-t border-[#1A2332]" data-testid="footer">
-    <div className="max-w-7xl mx-auto px-6">
-      <div className="grid md:grid-cols-4 gap-10 mb-12">
-        <div className="md:col-span-2">
-          <div className="flex items-center gap-3 mb-4">
-            <img src="/logo-native.png" alt="Senueren" className="h-8 rounded" />
-            <span className="text-xl font-semibold tracking-[0.14em] font-['Outfit'] logo-gradient">SENUEREN</span>
-          </div>
-          <p className="text-gray-400 text-sm leading-relaxed max-w-md mb-4">
-            Senueren is not a service provider. It is a systems company building the infrastructure behind modern business operations.
+  <footer className="bg-[#060A10] py-24 md:py-32 border-t border-[#1A2332] relative" data-testid="footer">
+    <div className="max-w-7xl mx-auto px-6 md:px-12">
+      {/* Big CTA */}
+      <FadeIn>
+        <div className="text-center mb-20">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 font-['Outfit'] tracking-tight">
+            Ready to Scale?
+          </h2>
+          <p className="text-[#8B9BB4] text-lg mb-8 max-w-xl mx-auto">
+            Let us build the systems your business runs on.
           </p>
-          <p className="text-gray-600 text-xs">Cape Town, South Africa</p>
+          <Link to="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#4A9FD8] to-[#00FFD4] text-[#0A0E17] rounded-full font-bold hover:shadow-[0_0_30px_rgba(0,255,212,0.4)] hover:scale-105 transition-all duration-300" data-testid="footer-cta">
+            Get Started <ArrowRight size={18} />
+          </Link>
+        </div>
+      </FadeIn>
+
+      <div className="grid md:grid-cols-4 gap-10 mb-16">
+        <div className="md:col-span-2">
+          <div className="flex items-center gap-3 mb-5">
+            <img src="/logo-sm.png" alt="Senueren" className="h-10 rounded-lg object-contain" />
+            <span className="text-xl font-bold tracking-[0.16em] font-['Outfit'] logo-gradient">SENUEREN</span>
+          </div>
+          <p className="text-[#8B9BB4] text-sm leading-relaxed max-w-md mb-4">
+            Building the infrastructure behind modern business operations. Systems, automation, and intelligence platforms for growth-stage SMEs.
+          </p>
+          <p className="text-[#1A2332] text-xs mt-6">Cape Town, South Africa</p>
         </div>
         <div>
-          <h4 className="text-sm font-semibold mb-4 text-gray-300 tracking-wide uppercase font-['Outfit']">Company</h4>
+          <h4 className="text-xs font-bold mb-5 text-[#8B9BB4] tracking-[0.2em] uppercase font-['Outfit']">Company</h4>
           <ul className="space-y-3 text-sm">
-            <li><Link to="/" className="text-gray-400 hover:text-[#00FFD4] transition-colors" data-testid="footer-home-link">Home</Link></li>
-            <li><Link to="/systems" className="text-gray-400 hover:text-[#00FFD4] transition-colors" data-testid="footer-systems-link">Systems</Link></li>
-            <li><Link to="/about" className="text-gray-400 hover:text-[#00FFD4] transition-colors" data-testid="footer-about-link">About</Link></li>
-            <li><Link to="/contact" className="text-gray-400 hover:text-[#00FFD4] transition-colors" data-testid="footer-contact-link">Contact</Link></li>
+            <li><Link to="/" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-home-link">Home</Link></li>
+            <li><Link to="/systems" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-systems-link">Systems</Link></li>
+            <li><Link to="/about" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-about-link">About</Link></li>
+            <li><Link to="/contact" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-contact-link">Contact</Link></li>
           </ul>
         </div>
         <div>
-          <h4 className="text-sm font-semibold mb-4 text-gray-300 tracking-wide uppercase font-['Outfit']">Contact</h4>
+          <h4 className="text-xs font-bold mb-5 text-[#8B9BB4] tracking-[0.2em] uppercase font-['Outfit']">Contact</h4>
           <ul className="space-y-3 text-sm">
             <li><a href={`mailto:${CONTACT_EMAIL}`} className="text-[#00FFD4] hover:underline" data-testid="footer-email">{CONTACT_EMAIL}</a></li>
-            <li><a href={`tel:${CONTACT_PHONE.replace(/\s/g, "")}`} className="text-gray-400 hover:text-white transition-colors" data-testid="footer-phone">{CONTACT_PHONE}</a></li>
+            <li><a href={`tel:${CONTACT_PHONE.replace(/\s/g, "")}`} className="text-[#8B9BB4] hover:text-white transition-colors" data-testid="footer-phone">{CONTACT_PHONE}</a></li>
           </ul>
         </div>
       </div>
-      <div className="pt-8 border-t border-[#1A2332] flex flex-col md:flex-row justify-between text-xs text-gray-600">
+      <div className="pt-8 border-t border-[#1A2332]/50 flex flex-col md:flex-row justify-between text-xs text-[#1A2332]">
         <span>&copy; {new Date().getFullYear()} Senueren. All rights reserved.</span>
-        <span className="mt-2 md:mt-0">Systems · Automation · Intelligence</span>
+        <span className="mt-2 md:mt-0">CRM &middot; Automation &middot; Systems Architecture</span>
       </div>
     </div>
   </footer>
@@ -119,258 +168,296 @@ const Footer = () => (
 
 const HomePage = () => {
   return (
-    <div className="min-h-screen bg-[#0A1D30]" data-testid="home-page">
+    <div className="min-h-screen bg-[#0A0E17]" data-testid="home-page">
       {/* Hero Section */}
-      <section className="relative pt-32 pb-24 px-6 overflow-hidden" data-testid="hero-section">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#4A9FD8]/5 to-transparent"></div>
-        <div className="absolute top-20 right-0 w-96 h-96 bg-[#00FFD4]/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#00E5CC]/5 rounded-full blur-3xl"></div>
-        
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-block px-4 py-2 bg-[#4A9FD8]/10 border border-[#00FFD4]/30 rounded-full mb-6">
-              <span className="text-[#00FFD4] text-sm font-medium">Systems · Automation · Intelligence</span>
-            </div>
-            
-            <h1 className="text-5xl md:text-7xl tracking-tight font-bold text-white mb-8 font-['Outfit'] leading-[1.1]">
-              We Build Systems That<br />
-              <span className="bg-gradient-to-r from-[#00D0FF] to-[#0077CC] bg-clip-text text-transparent">Businesses Run On</span>
-            </h1>
-            
-            <p className="text-xl text-gray-300 leading-relaxed mb-12 max-w-3xl mx-auto">
-              Senueren is a systems and automation company focused on designing and deploying operational infrastructure for modern businesses. 
-              We build the backend engines, automation pipelines, and intelligence platforms that power efficiency, scale, and growth.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <a href="#contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-[#4A9FD8] to-[#00FFD4] text-[#0A0E17] rounded-lg font-semibold text-base hover:shadow-xl hover:shadow-[#00FFD4]/30 transition-all duration-300 group" data-testid="hero-cta-primary">
-                Work With Us <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
-              </a>
-              <a href="#what-we-build" className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-[#1A2332] text-gray-300 rounded-lg font-semibold text-base hover:border-[#00FFD4]/50 hover:bg-[#00FFD4]/5 transition-all duration-300" data-testid="hero-cta-secondary">
-                View Systems
-              </a>
-            </div>
+      <section className="hero-bg relative min-h-screen flex items-center" style={{ backgroundImage: `url(${HERO_BG})` }} data-testid="hero-section">
+        <div className="grid-overlay absolute inset-0 z-[2]"></div>
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10 pt-24 pb-16">
+          <div className="max-w-3xl">
+            <FadeIn>
+              <div className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-[0.2em] uppercase border border-[#00FFD4]/30 bg-[#00FFD4]/10 text-[#00FFD4] mb-8" data-testid="hero-badge">
+                Revenue Infrastructure for Growth SMEs
+              </div>
+            </FadeIn>
 
-            <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
-              {[
-                { icon: <Building2 size={24} />, label: "Business Operating Systems" },
-                { icon: <Workflow size={24} />, label: "Automation Infrastructure" },
-                { icon: <Database size={24} />, label: "Data Intelligence" },
-                { icon: <Cpu size={24} />, label: "Custom Backend Systems" }
-              ].map((item, i) => (
-                <div key={i} className="flex flex-col items-center gap-3 p-4 rounded-lg bg-[#0F1419]/50 border border-[#1A2332]/50">
-                  <div className="text-[#00FFD4]">{item.icon}</div>
-                  <span className="text-xs text-gray-400 text-center">{item.label}</span>
-                </div>
-              ))}
-            </div>
+            <FadeIn delay={100}>
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl tracking-tight font-bold text-white mb-8 font-['Outfit'] leading-[1.05]">
+                Systems Architecture<br />
+                <span className="gradient-text">&amp; Data Intelligence</span>
+              </h1>
+            </FadeIn>
+
+            <FadeIn delay={200}>
+              <p className="text-lg text-[#8B9BB4] leading-relaxed mb-10 max-w-2xl">
+                We build business operating systems, automation infrastructure, and custom backend engines that power efficiency, scale, and growth for modern enterprises.
+              </p>
+            </FadeIn>
+
+            <FadeIn delay={300}>
+              <div className="flex flex-col sm:flex-row gap-4 mb-6">
+                <Link to="/contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-[#4A9FD8] to-[#00FFD4] text-[#0A0E17] rounded-full font-bold text-base hover:shadow-[0_0_30px_rgba(0,255,212,0.4)] hover:scale-105 transition-all duration-300 group" data-testid="hero-cta-primary">
+                  Work With Us <ArrowRight className="group-hover:translate-x-1 transition-transform" size={18} />
+                </Link>
+                <a href="#senra" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#0F1419] border border-[#1A2332] text-[#E8EDF2] rounded-full font-bold text-base hover:border-[#00FFD4] hover:text-[#00FFD4] transition-all duration-300" data-testid="hero-cta-secondary">
+                  Explore SENRA
+                </a>
+              </div>
+            </FadeIn>
+
+            <FadeIn delay={400}>
+              <p className="text-xs text-[#8B9BB4]/60 tracking-wide uppercase mt-4">
+                CRM &middot; Automation &middot; Systems Architecture
+              </p>
+            </FadeIn>
           </div>
+        </div>
+
+        {/* Floating stats on right side for larger screens */}
+        <div className="hidden lg:flex absolute right-12 xl:right-24 top-1/2 -translate-y-1/2 z-10 flex-col gap-4">
+          <FadeIn delay={500}>
+            <div className="bg-[#0F1419]/80 backdrop-blur-lg border border-[#1A2332] rounded-2xl p-5 w-52">
+              <div className="text-3xl font-bold text-white font-['Outfit'] mb-1">1,800+</div>
+              <div className="text-xs text-[#8B9BB4]">Tenders Tracked Daily</div>
+            </div>
+          </FadeIn>
+          <FadeIn delay={600}>
+            <div className="bg-[#0F1419]/80 backdrop-blur-lg border border-[#1A2332] rounded-2xl p-5 w-52">
+              <div className="text-3xl font-bold text-[#00FFD4] font-['Outfit'] mb-1">10</div>
+              <div className="text-xs text-[#8B9BB4]">Sectors Covered</div>
+            </div>
+          </FadeIn>
+          <FadeIn delay={700}>
+            <div className="bg-[#0F1419]/80 backdrop-blur-lg border border-[#1A2332] rounded-2xl p-5 w-52">
+              <div className="text-3xl font-bold text-white font-['Outfit'] mb-1">99.5%</div>
+              <div className="text-xs text-[#8B9BB4]">System Uptime</div>
+            </div>
+          </FadeIn>
         </div>
       </section>
 
       {/* What We Build */}
-      <section id="what-we-build" className="py-24 px-6 bg-[#0F1419]" data-testid="what-we-build-section">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <div className="accent-bar w-16 mx-auto mb-4"></div>
-            <h2 className="text-4xl md:text-5xl tracking-tight font-bold text-white mb-4 font-['Outfit']">What We Build</h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              We design and implement internal systems that transform how companies manage operations, data, and workflows.
-            </p>
-          </div>
+      <section id="what-we-build" className="py-24 md:py-32 px-6 md:px-12 bg-[#0A0E17] relative noise-texture" data-testid="what-we-build-section">
+        <div className="max-w-7xl mx-auto relative z-10">
+          <FadeIn>
+            <div className="mb-16">
+              <div className="accent-bar w-12 mb-6"></div>
+              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+                <div>
+                  <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#00FFD4] mb-3">What We Build</p>
+                  <h2 className="text-3xl sm:text-4xl tracking-tight font-bold text-white font-['Outfit']">Operational Infrastructure<br />for Modern Business</h2>
+                </div>
+                <p className="text-[#8B9BB4] max-w-md text-sm leading-relaxed">
+                  Internal systems that transform how companies manage operations, data, and workflows at scale.
+                </p>
+              </div>
+            </div>
+          </FadeIn>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              {
-                icon: <Building2 size={28} />,
-                title: "Business Operating Systems",
-                desc: "Centralized systems that manage clients, projects, finances, and internal workflows. Built for efficiency and control.",
-                features: ["Client Management", "Project Tracking", "Financial Operations", "Workflow Automation"]
-              },
-              {
-                icon: <Workflow size={28} />,
-                title: "Automation Infrastructure",
-                desc: "We eliminate repetitive work by building workflow automation pipelines, notification systems, and data processing engines.",
-                features: ["Process Automation", "Workflow Orchestration", "Notification Systems", "Data Processing"]
-              },
-              {
-                icon: <Database size={28} />,
-                title: "Data Intelligence Platforms",
-                desc: "We turn raw data into actionable insight through opportunity detection systems, filtering engines, and decision-support tools.",
-                features: ["Opportunity Detection", "Intelligent Filtering", "Scoring Engines", "Decision Support"]
-              },
-              {
-                icon: <Cpu size={28} />,
-                title: "Custom Backend Systems",
-                desc: "Tailored system architecture designed for scalability, integration, and operational control specific to your business needs.",
-                features: ["Scalable Architecture", "API Integration", "Security First", "Performance Optimized"]
-              }
+              { icon: <Building2 size={24} />, title: "Business OS", desc: "Centralized systems managing clients, projects, finances, and workflows. Built for control." },
+              { icon: <Workflow size={24} />, title: "Automation", desc: "Workflow pipelines, notification systems, and data processing engines. Zero repetitive work." },
+              { icon: <Database size={24} />, title: "Data Intelligence", desc: "Opportunity detection, filtering engines, and decision-support tools. Raw data to insight." },
+              { icon: <Server size={24} />, title: "Custom Backends", desc: "Tailored architecture for scalability, integration, and operational control. Your business, your system." },
             ].map((item, i) => (
-              <div key={i} className="group p-8 bg-[#0A0E17] border border-[#1A2332] rounded-xl hover:border-[#00FFD4]/50 hover:shadow-xl hover:shadow-[#00FFD4]/10 transition-all duration-300" data-testid={`system-card-${i}`}>
-                <div className="flex items-start gap-4 mb-6">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#4A9FD8]/20 to-[#00FFD4]/20 flex items-center justify-center text-[#00FFD4] flex-shrink-0 group-hover:scale-110 transition-transform">
+              <FadeIn key={i} delay={i * 100}>
+                <div className="bg-[#0F1419] border border-[#1A2332] rounded-2xl p-8 card-glow group h-full" data-testid={`system-card-${i}`}>
+                  <div className="w-12 h-12 rounded-lg bg-[#0A0E17] border border-[#1A2332] flex items-center justify-center text-[#00FFD4] mb-6 group-hover:scale-110 transition-transform duration-300">
                     {item.icon}
                   </div>
-                  <div>
-                    <h3 className="text-2xl font-bold text-white mb-2 font-['Outfit']">{item.title}</h3>
-                  </div>
+                  <h3 className="text-xl font-bold text-white mb-3 font-['Outfit']">{item.title}</h3>
+                  <p className="text-sm text-[#8B9BB4] leading-relaxed">{item.desc}</p>
                 </div>
-                <p className="text-gray-400 leading-relaxed mb-6">{item.desc}</p>
-                <div className="grid grid-cols-2 gap-3">
-                  {item.features.map((feature, j) => (
-                    <div key={j} className="flex items-center gap-2">
-                      <CheckCircle2 size={16} className="text-[#00D0FF] flex-shrink-0" />
-                      <span className="text-sm text-gray-300">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              </FadeIn>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Flagship System - SENRA */}
-      <section className="py-24 px-6 bg-[#0A0E17] relative overflow-hidden" data-testid="flagship-section">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#00FFD4]/5 rounded-full blur-3xl"></div>
-        
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center mb-12">
-            <div className="inline-block px-4 py-2 bg-[#00FFD4]/10 border border-[#00FFD4]/30 rounded-full mb-4">
-              <span className="text-[#00FFD4] text-sm font-semibold">Flagship System</span>
+      {/* SENRA Flagship */}
+      <section id="senra" className="py-24 md:py-32 px-6 md:px-12 bg-[#0F1419] relative" data-testid="flagship-section">
+        <div className="max-w-7xl mx-auto">
+          <FadeIn>
+            <div className="mb-12">
+              <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold tracking-[0.2em] uppercase border border-[#00FFD4]/30 bg-[#00FFD4]/10 text-[#00FFD4] mb-4">
+                Flagship System
+              </div>
             </div>
-            <h2 className="text-4xl md:text-5xl tracking-tight font-bold text-white mb-4 font-['Outfit']">SENRA</h2>
-            <p className="text-xl text-gray-400">Procurement Intelligence Platform</p>
-          </div>
+          </FadeIn>
 
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-gradient-to-br from-[#0F2035] to-[#0A1D30] border border-[#0077CC]/30 rounded-2xl p-10 shadow-2xl">
-              <p className="text-lg text-gray-300 leading-relaxed mb-8">
-                SENRA is a data intelligence system designed to help businesses identify and act on high-value government tender opportunities. 
-                It represents Senueren's approach to building real-world systems that solve economic problems at scale.
-              </p>
+          <div className="grid grid-cols-12 gap-6">
+            {/* Large image block */}
+            <FadeIn className="col-span-12 lg:col-span-8">
+              <div className="relative rounded-2xl overflow-hidden border border-[#1A2332] h-[320px] md:h-[420px]">
+                <img src={SENRA_IMG} alt="SENRA Intelligence Platform visualization" className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0E17] via-[#0A0E17]/40 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 p-8">
+                  <h2 className="text-4xl md:text-5xl font-bold text-white font-['Outfit'] tracking-tight mb-2">SENRA</h2>
+                  <p className="text-[#00FFD4] text-lg font-medium">Procurement Intelligence Platform</p>
+                </div>
+              </div>
+            </FadeIn>
 
-              <div className="grid md:grid-cols-2 gap-6 mb-8">
-                {[
-                  { label: "Aggregates", desc: "Tender data from official sources" },
-                  { label: "Filters", desc: "Opportunities using intelligent categorization" },
-                  { label: "Validates", desc: "Removes low-quality signals" },
-                  { label: "Delivers", desc: "Structured, actionable opportunities" }
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-3 p-4 bg-[#0A0E17]/50 rounded-lg border border-[#1A2332]/50">
-                    <div className="w-2 h-2 rounded-full bg-[#00FFD4] mt-2 flex-shrink-0"></div>
-                    <div>
-                      <h4 className="text-white font-semibold mb-1">{item.label}</h4>
-                      <p className="text-sm text-gray-400">{item.desc}</p>
-                    </div>
+            {/* Stats column */}
+            <div className="col-span-12 lg:col-span-4 flex flex-col gap-6">
+              <FadeIn delay={100}>
+                <div className="bg-[#0A0E17] border border-[#1A2332] rounded-2xl p-6 card-glow flex-1">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="glow-dot"></div>
+                    <span className="text-xs font-bold tracking-[0.2em] uppercase text-[#00FFD4]">Live Data</span>
                   </div>
-                ))}
-              </div>
-
-              <div className="pt-6 border-t border-[#1A2332]">
-                <p className="text-sm text-gray-500 italic">
-                  SENRA demonstrates our capability in building production-grade intelligence systems. Integration available for business clients.
-                </p>
-              </div>
+                  <div className="text-4xl font-bold text-white font-['Outfit'] mb-1">1,800+</div>
+                  <p className="text-sm text-[#8B9BB4]">SA government tenders tracked daily across 6 verified sources</p>
+                </div>
+              </FadeIn>
+              <FadeIn delay={200}>
+                <div className="bg-[#0A0E17] border border-[#1A2332] rounded-2xl p-6 card-glow flex-1">
+                  <div className="flex items-center gap-3 mb-3">
+                    <Target size={16} className="text-[#00FFD4]" />
+                    <span className="text-xs font-bold tracking-[0.2em] uppercase text-[#8B9BB4]">Intelligence</span>
+                  </div>
+                  <div className="text-4xl font-bold text-white font-['Outfit'] mb-1">10</div>
+                  <p className="text-sm text-[#8B9BB4]">Industry sectors with AI-powered weighted scoring algorithms</p>
+                </div>
+              </FadeIn>
+              <FadeIn delay={300}>
+                <div className="bg-[#0A0E17] border border-[#1A2332] rounded-2xl p-6 card-glow flex-1">
+                  <div className="flex items-center gap-3 mb-3">
+                    <Zap size={16} className="text-[#00FFD4]" />
+                    <span className="text-xs font-bold tracking-[0.2em] uppercase text-[#8B9BB4]">Speed</span>
+                  </div>
+                  <div className="text-4xl font-bold text-white font-['Outfit'] mb-1">&lt;15s</div>
+                  <p className="text-sm text-[#8B9BB4]">API-based ingestion delivering 500 tenders in under 15 seconds</p>
+                </div>
+              </FadeIn>
             </div>
           </div>
+
+          {/* SENRA capabilities row */}
+          <FadeIn delay={200}>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+              {[
+                { label: "Aggregates", desc: "Tender data from official sources" },
+                { label: "Filters", desc: "Intelligent categorization & scoring" },
+                { label: "Validates", desc: "Removes low-quality signals" },
+                { label: "Delivers", desc: "Structured, actionable opportunities" }
+              ].map((item, i) => (
+                <div key={i} className="bg-[#0A0E17] border border-[#1A2332] rounded-xl p-5 card-glow">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#00FFD4]"></div>
+                    <h4 className="text-white font-bold text-sm font-['Outfit']">{item.label}</h4>
+                  </div>
+                  <p className="text-xs text-[#8B9BB4]">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </FadeIn>
         </div>
       </section>
 
       {/* Our Approach */}
-      <section className="py-24 px-6 bg-[#0F1419]" data-testid="approach-section">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <div className="accent-bar w-16 mx-auto mb-4"></div>
-            <h2 className="text-4xl md:text-5xl tracking-tight font-bold text-white mb-4 font-['Outfit']">Our Approach</h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              We follow a structured engineering process to deliver reliable, scalable systems.
-            </p>
-          </div>
+      <section className="py-24 md:py-32 px-6 md:px-12 bg-[#0A0E17] relative noise-texture" data-testid="approach-section">
+        <div className="max-w-7xl mx-auto relative z-10">
+          <FadeIn>
+            <div className="mb-16">
+              <div className="accent-bar w-12 mb-6"></div>
+              <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#00FFD4] mb-3">Process</p>
+              <h2 className="text-3xl sm:text-4xl tracking-tight font-bold text-white font-['Outfit']">Structured Engineering<br />From Design to Deployment</h2>
+            </div>
+          </FadeIn>
 
-          <div className="grid md:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {[
-              { num: "01", title: "System Design", desc: "Define architecture aligned with business operations" },
-              { num: "02", title: "Infrastructure Build", desc: "Develop core backend systems and automation layers" },
-              { num: "03", title: "Integration", desc: "Connect data, workflows, and operational tools" },
-              { num: "04", title: "Deployment", desc: "Deliver a stable, scalable system" },
-              { num: "05", title: "Optimization", desc: "Continuously improve performance and efficiency" }
+              { num: "01", title: "System Design", desc: "Architecture aligned with your business operations", icon: <Eye size={20} /> },
+              { num: "02", title: "Infrastructure", desc: "Core backend systems and automation layers", icon: <Server size={20} /> },
+              { num: "03", title: "Integration", desc: "Data, workflows, and operational tools connected", icon: <Network size={20} /> },
+              { num: "04", title: "Deployment", desc: "Stable, scalable, production-ready systems", icon: <Globe size={20} /> },
+              { num: "05", title: "Optimization", desc: "Continuous performance and efficiency improvements", icon: <TrendingUp size={20} /> }
             ].map((item, i) => (
-              <div key={i} className="relative group">
-                <div className="p-6 bg-[#0A0E17] border border-[#1A2332] rounded-xl hover:border-[#00FFD4]/50 transition-all duration-300 h-full">
-                  <div className="text-5xl font-bold text-[#4A9FD8]/20 mb-4 font-['Outfit']">{item.num}</div>
-                  <h3 className="text-xl font-bold text-white mb-3 font-['Outfit']">{item.title}</h3>
-                  <p className="text-sm text-gray-400 leading-relaxed">{item.desc}</p>
+              <FadeIn key={i} delay={i * 80}>
+                <div className="relative bg-[#0F1419] border border-[#1A2332] rounded-2xl p-6 card-glow h-full">
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="text-[#00FFD4]/20 text-4xl font-bold font-['Outfit']">{item.num}</span>
+                    <div className="text-[#00FFD4]">{item.icon}</div>
+                  </div>
+                  <h3 className="text-lg font-bold text-white mb-2 font-['Outfit']">{item.title}</h3>
+                  <p className="text-sm text-[#8B9BB4] leading-relaxed">{item.desc}</p>
                 </div>
-                {i < 4 && (
-                  <div className="hidden md:block absolute top-1/2 -right-3 w-6 h-0.5 bg-gradient-to-r from-[#0077CC]/50 to-transparent"></div>
-                )}
-              </div>
+              </FadeIn>
             ))}
           </div>
         </div>
       </section>
 
       {/* Why Senueren */}
-      <section className="py-24 px-6 bg-[#0A0E17]" data-testid="why-section">
+      <section className="py-24 md:py-32 px-6 md:px-12 bg-[#0F1419]" data-testid="why-section">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <div className="accent-bar w-16 mx-auto mb-4"></div>
-            <h2 className="text-4xl md:text-5xl tracking-tight font-bold text-white mb-4 font-['Outfit']">Why Senueren</h2>
-          </div>
+          <FadeIn>
+            <div className="mb-16">
+              <div className="accent-bar w-12 mb-6"></div>
+              <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#00FFD4] mb-3">Why Us</p>
+              <h2 className="text-3xl sm:text-4xl tracking-tight font-bold text-white font-['Outfit']">Built Different</h2>
+            </div>
+          </FadeIn>
 
-          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
             {[
-              { icon: <Network size={24} />, label: "Systems-First Thinking" },
-              { icon: <Target size={24} />, label: "Real Operational Problems" },
-              { icon: <Layers size={24} />, label: "Built for Scalability" },
-              { icon: <Shield size={24} />, label: "Structured Engineering" },
-              { icon: <BarChart3 size={24} />, label: "Long-Term Infrastructure" }
+              { icon: <Network size={22} />, title: "Systems-First", desc: "We think in systems, not features. Every component connects to a larger operational architecture." },
+              { icon: <Target size={22} />, title: "Real Problems", desc: "We solve actual operational bottlenecks — not hypothetical ones. Production-grade from day one." },
+              { icon: <Layers size={22} />, title: "Scalable", desc: "Infrastructure designed to grow with your business. No rework, no rebuilds, no limitations." },
+              { icon: <Shield size={22} />, title: "Structured", desc: "Engineering-first approach with structured processes. Reliable, documented, maintainable." },
+              { icon: <BarChart3 size={22} />, title: "Long-Term", desc: "We build infrastructure, not quick fixes. Systems that serve you for years, not months." },
+              { icon: <Zap size={22} />, title: "Efficient", desc: "Automation eliminates repetitive work. Your team focuses on what matters — growth." },
             ].map((item, i) => (
-              <div key={i} className="p-6 bg-[#0F1419] border border-[#1A2332] rounded-xl hover:border-[#00FFD4]/50 hover:bg-[#0F1419]/80 transition-all duration-300 text-center group">
-                <div className="w-12 h-12 mx-auto mb-4 rounded-lg bg-gradient-to-br from-[#4A9FD8]/20 to-[#00FFD4]/20 flex items-center justify-center text-[#00FFD4] group-hover:scale-110 transition-transform">
-                  {item.icon}
+              <FadeIn key={i} delay={i * 80}>
+                <div className="bg-[#0A0E17] border border-[#1A2332] rounded-2xl p-7 card-glow group" data-testid={`why-card-${i}`}>
+                  <div className="w-11 h-11 rounded-lg bg-[#0F1419] border border-[#1A2332] flex items-center justify-center text-[#00FFD4] mb-5 group-hover:scale-110 transition-transform duration-300">
+                    {item.icon}
+                  </div>
+                  <h3 className="text-lg font-bold text-white mb-2 font-['Outfit']">{item.title}</h3>
+                  <p className="text-sm text-[#8B9BB4] leading-relaxed">{item.desc}</p>
                 </div>
-                <h3 className="text-white font-semibold">{item.label}</h3>
-              </div>
+              </FadeIn>
             ))}
           </div>
 
-          <div className="mt-16 max-w-3xl mx-auto text-center">
-            <blockquote className="text-2xl text-gray-300 font-medium italic leading-relaxed">
-              "Businesses lack structured systems to operate efficiently at scale. We design and implement internal systems that transform how companies manage operations, data, and workflows."
-            </blockquote>
-          </div>
+          <FadeIn>
+            <div className="text-center max-w-3xl mx-auto">
+              <blockquote className="text-xl md:text-2xl text-[#E8EDF2] font-medium leading-relaxed font-['Outfit']">
+                "Businesses lack structured systems to operate efficiently at scale. We design and implement internal systems that transform how companies manage operations, data, and workflows."
+              </blockquote>
+              <div className="accent-bar w-12 mx-auto mt-8"></div>
+            </div>
+          </FadeIn>
         </div>
       </section>
 
-      {/* Work With Us */}
-      <section id="contact" className="py-24 px-6 bg-[#0F1419]" data-testid="work-with-us-section">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="accent-bar w-16 mx-auto mb-6"></div>
-          <h2 className="text-4xl md:text-5xl tracking-tight font-bold text-white mb-6 font-['Outfit']">Work With Us</h2>
-          <p className="text-xl text-gray-300 leading-relaxed mb-8 max-w-2xl mx-auto">
-            We partner with businesses that require structured internal systems, automation at scale, and data-driven operations.
-          </p>
-          <p className="text-lg text-gray-400 mb-12">
-            If your business needs systems that improve efficiency and unlock growth, we can design and deploy the solution.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href={`mailto:${CONTACT_EMAIL}`} className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-[#4A9FD8] to-[#00FFD4] text-[#0A0E17] rounded-lg font-semibold text-base hover:shadow-xl hover:shadow-[#00FFD4]/30 transition-all duration-300">
-              <Mail size={20} /> Email Us
-            </a>
-            <a href={`tel:${CONTACT_PHONE.replace(/\s/g, "")}`} className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-[#1A2332] text-gray-300 rounded-lg font-semibold text-base hover:border-[#00FFD4]/50 hover:bg-[#00FFD4]/5 transition-all duration-300">
-              <Phone size={20} /> {CONTACT_PHONE}
-            </a>
-          </div>
-
-          <div className="mt-12 p-8 bg-[#0A0E17]/50 border border-[#1A2332] rounded-xl">
-            <p className="text-gray-400 text-sm">
-              <strong className="text-white">Senueren is not a service provider.</strong><br />
-              It is a systems company building the infrastructure behind modern business operations.
+      {/* Work With Us CTA */}
+      <section id="contact" className="py-24 md:py-32 px-6 md:px-12 bg-[#0A0E17] relative" data-testid="work-with-us-section">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#4A9FD8]/5 to-transparent"></div>
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <FadeIn>
+            <div className="accent-bar w-12 mx-auto mb-8"></div>
+            <h2 className="text-4xl md:text-5xl tracking-tight font-bold text-white mb-6 font-['Outfit']">Work With Us</h2>
+            <p className="text-lg text-[#8B9BB4] leading-relaxed mb-10 max-w-2xl mx-auto">
+              We partner with businesses that require structured internal systems, automation at scale, and data-driven operations. If your business needs systems that improve efficiency and unlock growth — we can deliver.
             </p>
-          </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+              <a href={`mailto:${CONTACT_EMAIL}`} className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-[#4A9FD8] to-[#00FFD4] text-[#0A0E17] rounded-full font-bold hover:shadow-[0_0_30px_rgba(0,255,212,0.4)] hover:scale-105 transition-all duration-300" data-testid="cta-email">
+                <Mail size={18} /> Email Us
+              </a>
+              <a href={`tel:${CONTACT_PHONE.replace(/\s/g, "")}`} className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#0F1419] border border-[#1A2332] text-[#E8EDF2] rounded-full font-bold hover:border-[#00FFD4] hover:text-[#00FFD4] transition-all duration-300" data-testid="cta-phone">
+                <Phone size={18} /> {CONTACT_PHONE}
+              </a>
+            </div>
+
+            <div className="p-6 bg-[#0F1419]/50 border border-[#1A2332] rounded-2xl inline-block">
+              <p className="text-[#8B9BB4] text-sm">
+                <strong className="text-white">Senueren is not a service provider.</strong> It is a systems company building the infrastructure behind modern business operations.
+              </p>
+            </div>
+          </FadeIn>
         </div>
       </section>
     </div>
@@ -381,65 +468,86 @@ const HomePage = () => {
 
 const SystemsPage = () => {
   return (
-    <div className="min-h-screen bg-[#0A1D30] pt-28 pb-16" data-testid="systems-page">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <div className="accent-bar w-16 mx-auto mb-6"></div>
-          <h1 className="text-5xl md:text-6xl tracking-tight font-bold text-white mb-6 font-['Outfit']">
-            Systems We Build
-          </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Our focus areas in building operational infrastructure for modern businesses.
-          </p>
+    <div className="min-h-screen bg-[#0A0E17] pt-28 pb-16" data-testid="systems-page">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        {/* Header with image */}
+        <div className="relative rounded-2xl overflow-hidden mb-16 h-[240px] md:h-[320px] border border-[#1A2332]">
+          <img src={INFRA_IMG} alt="Infrastructure" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0E17] via-[#0A0E17]/70 to-[#0A0E17]/40"></div>
+          <div className="absolute bottom-0 left-0 p-8 md:p-12">
+            <FadeIn>
+              <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#00FFD4] mb-3">What We Build</p>
+              <h1 className="text-4xl md:text-5xl tracking-tight font-bold text-white font-['Outfit']">
+                Systems We Build
+              </h1>
+              <p className="text-[#8B9BB4] mt-3 max-w-lg">Operational infrastructure designed for performance, scalability, and long-term value.</p>
+            </FadeIn>
+          </div>
         </div>
 
-        <div className="space-y-8">
+        <div className="space-y-6">
           {[
             {
-              icon: <Building2 size={32} />,
+              icon: <Building2 size={28} />,
               title: "Business Operating Systems",
               desc: "Centralized systems that manage clients, projects, finances, and internal workflows.",
-              details: "We build comprehensive operating systems that serve as the central nervous system of your business. These systems integrate client management, project tracking, financial operations, and workflow automation into a single, cohesive platform."
+              details: "We build comprehensive operating systems that serve as the central nervous system of your business. These systems integrate client management, project tracking, financial operations, and workflow automation into a single, cohesive platform.",
+              features: ["Client Management", "Project Tracking", "Financial Operations", "Workflow Automation"]
             },
             {
-              icon: <Workflow size={32} />,
+              icon: <Workflow size={28} />,
               title: "Automation Infrastructure",
               desc: "Workflow automation pipelines, notification systems, and data processing engines.",
-              details: "Our automation infrastructure eliminates repetitive manual work by building intelligent workflow orchestration, automated notification systems, and high-performance data processing engines that run reliably at scale."
+              details: "Our automation infrastructure eliminates repetitive manual work by building intelligent workflow orchestration, automated notification systems, and high-performance data processing engines that run reliably at scale.",
+              features: ["Process Automation", "Workflow Orchestration", "Notification Systems", "Data Processing"]
             },
             {
-              icon: <Database size={32} />,
+              icon: <Database size={28} />,
               title: "Data Intelligence Platforms",
               desc: "Opportunity detection systems, filtering engines, and decision-support tools.",
-              details: "We turn raw data into actionable intelligence through sophisticated opportunity detection algorithms, intelligent filtering and scoring engines, and decision-support tools that help you make informed business decisions."
+              details: "We turn raw data into actionable intelligence through sophisticated opportunity detection algorithms, intelligent filtering and scoring engines, and decision-support tools that help you make informed business decisions.",
+              features: ["Opportunity Detection", "Intelligent Filtering", "Scoring Engines", "Decision Support"]
             },
             {
-              icon: <Cpu size={32} />,
+              icon: <Server size={28} />,
               title: "Custom Backend Systems",
               desc: "Tailored system architecture designed for scalability, integration, and operational control.",
-              details: "Every business has unique needs. We design and build custom backend systems with scalable architecture, seamless API integration, security-first approach, and performance optimization tailored specifically for your operational requirements."
+              details: "Every business has unique needs. We design and build custom backend systems with scalable architecture, seamless API integration, security-first approach, and performance optimization tailored for your requirements.",
+              features: ["Scalable Architecture", "API Integration", "Security First", "Performance Optimized"]
             }
           ].map((item, i) => (
-            <div key={i} className="p-8 md:p-10 bg-[#0F1419] border border-[#1A2332] rounded-2xl hover:border-[#00FFD4]/50 hover:shadow-xl hover:shadow-[#00FFD4]/10 transition-all duration-300">
-              <div className="flex items-start gap-6 mb-6">
-                <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-[#4A9FD8]/20 to-[#00FFD4]/20 flex items-center justify-center text-[#00FFD4] flex-shrink-0">
-                  {item.icon}
+            <FadeIn key={i} delay={i * 80}>
+              <div className="bg-[#0F1419] border border-[#1A2332] rounded-2xl p-8 md:p-10 card-glow" data-testid={`systems-detail-${i}`}>
+                <div className="flex items-start gap-5 mb-6">
+                  <div className="w-14 h-14 rounded-xl bg-[#0A0E17] border border-[#1A2332] flex items-center justify-center text-[#00FFD4] flex-shrink-0 group-hover:scale-110">
+                    {item.icon}
+                  </div>
+                  <div>
+                    <h2 className="text-2xl md:text-3xl font-bold text-white mb-2 font-['Outfit']">{item.title}</h2>
+                    <p className="text-[#8B9BB4]">{item.desc}</p>
+                  </div>
                 </div>
-                <div>
-                  <h2 className="text-3xl font-bold text-white mb-2 font-['Outfit']">{item.title}</h2>
-                  <p className="text-lg text-gray-400">{item.desc}</p>
+                <p className="text-[#8B9BB4] leading-relaxed mb-6">{item.details}</p>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {item.features.map((f, j) => (
+                    <div key={j} className="flex items-center gap-2 bg-[#0A0E17] border border-[#1A2332] rounded-lg px-3 py-2">
+                      <CheckCircle2 size={14} className="text-[#00FFD4] flex-shrink-0" />
+                      <span className="text-xs text-[#E8EDF2]">{f}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
-              <p className="text-gray-300 leading-relaxed">{item.details}</p>
-            </div>
+            </FadeIn>
           ))}
         </div>
 
-        <div className="mt-16 text-center">
-          <a href="#contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-[#4A9FD8] to-[#00FFD4] text-[#0A0E17] rounded-lg font-semibold text-base hover:shadow-xl hover:shadow-[#00FFD4]/30 transition-all duration-300">
-            Discuss Your System Needs <ArrowRight size={20} />
-          </a>
-        </div>
+        <FadeIn>
+          <div className="mt-16 text-center">
+            <Link to="/contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-[#4A9FD8] to-[#00FFD4] text-[#0A0E17] rounded-full font-bold hover:shadow-[0_0_30px_rgba(0,255,212,0.4)] hover:scale-105 transition-all duration-300" data-testid="systems-cta">
+              Discuss Your System Needs <ArrowRight size={18} />
+            </Link>
+          </div>
+        </FadeIn>
       </div>
     </div>
   );
@@ -449,80 +557,103 @@ const SystemsPage = () => {
 
 const AboutPage = () => {
   return (
-    <div className="min-h-screen bg-[#0A1D30] pt-28 pb-16" data-testid="about-page">
-      <div className="max-w-4xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <div className="accent-bar w-16 mx-auto mb-6"></div>
-          <h1 className="text-5xl md:text-6xl tracking-tight font-bold text-white mb-6 font-['Outfit']">
-            About Senueren
-          </h1>
+    <div className="min-h-screen bg-[#0A0E17] pt-28 pb-16" data-testid="about-page">
+      <div className="max-w-5xl mx-auto px-6 md:px-12">
+        {/* Hero with Cape Town image */}
+        <div className="relative rounded-2xl overflow-hidden mb-16 h-[280px] md:h-[380px] border border-[#1A2332]">
+          <img src={CAPETOWN_IMG} alt="Cape Town at night" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0E17] via-[#0A0E17]/60 to-[#0A0E17]/30"></div>
+          <div className="absolute bottom-0 left-0 p-8 md:p-12">
+            <FadeIn>
+              <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#00FFD4] mb-3">Our Story</p>
+              <h1 className="text-4xl md:text-5xl tracking-tight font-bold text-white font-['Outfit']">
+                About Senueren
+              </h1>
+            </FadeIn>
+          </div>
         </div>
 
-        <div className="space-y-12">
-          <div className="p-8 bg-[#0F2035] border border-[#1A3148] rounded-2xl">
-            <h2 className="text-3xl font-bold text-white mb-6 font-['Outfit']">
-              Built from the belief that technology should create real progress
-            </h2>
-            <p className="text-lg text-gray-300 leading-relaxed mb-4">
-              Through persistence, focused effort, and continuous growth, Senueren was established to build systems that help organisations operate smarter and move further.
-            </p>
-            <p className="text-lg text-gray-300 leading-relaxed">
-              We do not build surface-level solutions. We build systems that become part of how a business functions.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="p-8 bg-[#0F2035] border border-[#1A3148] rounded-2xl">
-              <h3 className="text-2xl font-bold text-white mb-4 font-['Outfit']">Our Focus</h3>
-              <p className="text-gray-300 leading-relaxed">
-                Senueren exists to solve one problem: <strong className="text-white">Businesses lack structured systems to operate efficiently at scale.</strong>
+        <div className="space-y-10">
+          <FadeIn>
+            <div className="bg-[#0F1419] border border-[#1A2332] rounded-2xl p-8 md:p-10">
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 font-['Outfit']">
+                Built from the belief that technology should create real progress
+              </h2>
+              <p className="text-[#8B9BB4] leading-relaxed mb-4">
+                Through persistence, focused effort, and continuous growth, Senueren was established to build systems that help organisations operate smarter and move further.
+              </p>
+              <p className="text-[#8B9BB4] leading-relaxed">
+                We do not build surface-level solutions. We build systems that become part of how a business functions.
               </p>
             </div>
+          </FadeIn>
 
-            <div className="p-8 bg-[#0F2035] border border-[#1A3148] rounded-2xl">
-              <h3 className="text-2xl font-bold text-white mb-4 font-['Outfit']">Our Approach</h3>
-              <p className="text-gray-300 leading-relaxed">
-                Engineering-first, focused on reliability, scalability, and long-term value. We build infrastructure, not quick fixes.
-              </p>
-            </div>
-          </div>
-
-          <div className="p-8 bg-gradient-to-br from-[#0F2035] to-[#0A1D30] border border-[#0077CC]/30 rounded-2xl">
-            <div className="flex items-start gap-6">
-              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#0077CC] to-[#00D0FF] flex items-center justify-center text-white text-2xl font-bold flex-shrink-0">
-                QW
+          <div className="grid md:grid-cols-2 gap-6">
+            <FadeIn delay={100}>
+              <div className="bg-[#0F1419] border border-[#1A2332] rounded-2xl p-8 card-glow h-full">
+                <div className="w-11 h-11 rounded-lg bg-[#0A0E17] border border-[#1A2332] flex items-center justify-center text-[#00FFD4] mb-5">
+                  <Target size={20} />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3 font-['Outfit']">Our Focus</h3>
+                <p className="text-[#8B9BB4] leading-relaxed">
+                  Senueren exists to solve one problem: <strong className="text-white">Businesses lack structured systems to operate efficiently at scale.</strong>
+                </p>
               </div>
-              <div>
-                <h3 className="text-2xl font-bold text-white mb-2 font-['Outfit']">Quelum Wilson</h3>
-                <p className="text-[#00D0FF] mb-4">Founder, Senueren</p>
-                <p className="text-gray-300 leading-relaxed mb-3">
-                  Senueren was founded by Quelum Wilson, a Cape Town entrepreneur with a commitment to building meaningful systems that create higher standards through persistence.
+            </FadeIn>
+
+            <FadeIn delay={200}>
+              <div className="bg-[#0F1419] border border-[#1A2332] rounded-2xl p-8 card-glow h-full">
+                <div className="w-11 h-11 rounded-lg bg-[#0A0E17] border border-[#1A2332] flex items-center justify-center text-[#00FFD4] mb-5">
+                  <Cog size={20} />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3 font-['Outfit']">Our Approach</h3>
+                <p className="text-[#8B9BB4] leading-relaxed">
+                  Engineering-first, focused on reliability, scalability, and long-term value. We build infrastructure, not quick fixes.
                 </p>
-                <p className="text-gray-300 leading-relaxed mb-3">
-                  The company was established in June 2025 with a clear purpose: to create intelligent systems that help businesses operate smarter and access opportunities that would otherwise be missed.
-                </p>
-                <p className="text-gray-300 leading-relaxed">
-                  Through discipline, resilience, and execution, Senueren is growing into a trusted technology company focused on delivering real value to South African businesses.
-                </p>
-                <div className="mt-6 flex flex-wrap gap-4 text-sm text-gray-400">
-                  <span className="flex items-center gap-2">
-                    <MapPin size={16} className="text-[#00FFD4]" />
-                    Cape Town, South Africa
-                  </span>
-                  <span>•</span>
-                  <span>Established June 2025</span>
-                  <span>•</span>
-                  <span>senueren.co.za</span>
+              </div>
+            </FadeIn>
+          </div>
+
+          {/* Founder Section */}
+          <FadeIn delay={150}>
+            <div className="bg-gradient-to-br from-[#0F1419] to-[#0A0E17] border border-[#00FFD4]/20 rounded-2xl p-8 md:p-10">
+              <div className="flex flex-col md:flex-row items-start gap-6">
+                <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#4A9FD8] to-[#00FFD4] flex items-center justify-center text-[#0A0E17] text-2xl font-bold flex-shrink-0 font-['Outfit']">
+                  QW
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-white mb-1 font-['Outfit']">Quelum Wilson</h3>
+                  <p className="text-[#00FFD4] text-sm font-medium mb-4">Founder, Senueren</p>
+                  <p className="text-[#8B9BB4] leading-relaxed mb-3">
+                    Senueren was founded by Quelum Wilson, a Cape Town entrepreneur with a commitment to building meaningful systems that create higher standards through persistence.
+                  </p>
+                  <p className="text-[#8B9BB4] leading-relaxed mb-3">
+                    The company was established in June 2025 with a clear purpose: to create intelligent systems that help businesses operate smarter and access opportunities that would otherwise be missed.
+                  </p>
+                  <p className="text-[#8B9BB4] leading-relaxed">
+                    Through discipline, resilience, and execution, Senueren is growing into a trusted technology company focused on delivering real value to South African businesses.
+                  </p>
+                  <div className="mt-6 flex flex-wrap gap-4 text-sm text-[#8B9BB4]">
+                    <span className="flex items-center gap-2">
+                      <MapPin size={14} className="text-[#00FFD4]" /> Cape Town, South Africa
+                    </span>
+                    <span className="text-[#1A2332]">|</span>
+                    <span>Est. June 2025</span>
+                    <span className="text-[#1A2332]">|</span>
+                    <span className="text-[#00FFD4]">senueren.co.za</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </FadeIn>
 
-          <div className="text-center p-12 bg-[#0F1419] border border-[#1A2332] rounded-2xl">
-            <p className="text-2xl text-gray-300 font-medium leading-relaxed">
-              The vision is to build a company that South African businesses rely on for systems that <span className="text-white font-bold">actually work</span>.
-            </p>
-          </div>
+          <FadeIn>
+            <div className="text-center py-12 bg-[#0F1419] border border-[#1A2332] rounded-2xl">
+              <p className="text-xl md:text-2xl text-[#E8EDF2] font-medium leading-relaxed px-6 font-['Outfit']">
+                The vision is to build a company that South African businesses rely on for systems that <span className="gradient-text font-bold">actually work</span>.
+              </p>
+            </div>
+          </FadeIn>
         </div>
       </div>
     </div>
@@ -533,70 +664,76 @@ const AboutPage = () => {
 
 const ContactPage = () => {
   return (
-    <div className="min-h-screen bg-[#0A1D30] pt-28 pb-16" data-testid="contact-page">
-      <div className="max-w-4xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <div className="accent-bar w-16 mx-auto mb-6"></div>
-          <h1 className="text-5xl md:text-6xl tracking-tight font-bold text-white mb-6 font-['Outfit']">
-            Get in Touch
-          </h1>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            Whether you have questions, want to discuss a custom project, or simply want to connect.
-          </p>
-        </div>
+    <div className="min-h-screen bg-[#0A0E17] pt-28 pb-16" data-testid="contact-page">
+      <div className="max-w-4xl mx-auto px-6 md:px-12">
+        <FadeIn>
+          <div className="mb-16">
+            <div className="accent-bar w-12 mb-6"></div>
+            <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#00FFD4] mb-3">Get In Touch</p>
+            <h1 className="text-4xl md:text-5xl tracking-tight font-bold text-white mb-4 font-['Outfit']">
+              Let's Build Something
+            </h1>
+            <p className="text-lg text-[#8B9BB4] max-w-2xl">
+              Whether you have questions, want to discuss a custom project, or simply want to connect.
+            </p>
+          </div>
+        </FadeIn>
 
-        <div className="grid md:grid-cols-3 gap-6 mb-12">
+        <div className="grid md:grid-cols-3 gap-6 mb-10">
           {[
-            {
-              icon: <Mail size={28} />,
-              title: "Email",
-              value: CONTACT_EMAIL,
-              link: `mailto:${CONTACT_EMAIL}`,
-              color: "from-[#4A9FD8] to-[#00E5CC]"
-            },
-            {
-              icon: <Phone size={28} />,
-              title: "Phone",
-              value: CONTACT_PHONE,
-              link: `tel:${CONTACT_PHONE.replace(/\s/g, "")}`,
-              color: "from-[#00E5CC] to-[#00FFD4]"
-            },
-            {
-              icon: <MapPin size={28} />,
-              title: "Location",
-              value: "Cape Town, South Africa",
-              link: null,
-              color: "from-[#00FFD4] to-[#4A9FD8]"
-            }
+            { icon: <Mail size={24} />, title: "Email", value: CONTACT_EMAIL, link: `mailto:${CONTACT_EMAIL}` },
+            { icon: <Phone size={24} />, title: "Phone", value: CONTACT_PHONE, link: `tel:${CONTACT_PHONE.replace(/\s/g, "")}` },
+            { icon: <MapPin size={24} />, title: "Location", value: "Cape Town, South Africa", link: null }
           ].map((item, i) => (
-            <div key={i} className="p-6 bg-[#0F1419] border border-[#1A2332] rounded-xl hover:border-[#00FFD4]/50 transition-all duration-300">
-              <div className={`w-14 h-14 rounded-lg bg-gradient-to-br ${item.color} bg-opacity-20 flex items-center justify-center text-white mb-4`}>
-                {item.icon}
+            <FadeIn key={i} delay={i * 100}>
+              <div className="bg-[#0F1419] border border-[#1A2332] rounded-2xl p-6 card-glow" data-testid={`contact-card-${i}`}>
+                <div className="w-12 h-12 rounded-lg bg-[#0A0E17] border border-[#1A2332] flex items-center justify-center text-[#00FFD4] mb-5">
+                  {item.icon}
+                </div>
+                <h3 className="text-white font-bold text-sm mb-2 font-['Outfit']">{item.title}</h3>
+                {item.link ? (
+                  <a href={item.link} className="text-[#00FFD4] text-sm hover:underline">{item.value}</a>
+                ) : (
+                  <p className="text-[#8B9BB4] text-sm">{item.value}</p>
+                )}
               </div>
-              <h3 className="text-white font-semibold mb-2">{item.title}</h3>
-              {item.link ? (
-                <a href={item.link} className="text-[#00D0FF] hover:underline">{item.value}</a>
-              ) : (
-                <p className="text-gray-400">{item.value}</p>
-              )}
-            </div>
+            </FadeIn>
           ))}
         </div>
 
-        <div className="p-10 bg-gradient-to-br from-[#0F1419] to-[#0A0E17] border border-[#00FFD4]/30 rounded-2xl">
-          <h2 className="text-2xl font-bold text-white mb-4 font-['Outfit']">We typically respond within 24 to 48 hours</h2>
-          <p className="text-gray-300 mb-6 leading-relaxed">
-            For the fastest response, email us directly or reach out via WhatsApp. We are happy to discuss systems, custom development projects, or any other enquiries.
-          </p>
-          <a 
-            href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hi%20Senueren%2C%20I%27d%20like%20to%20discuss%20a%20system%20project.`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#25D366] to-[#20C55C] text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-[#25D366]/20 transition-all duration-300"
-          >
-            Message on WhatsApp <ArrowUpRight size={18} />
-          </a>
-        </div>
+        <FadeIn delay={200}>
+          <div className="bg-gradient-to-br from-[#0F1419] to-[#0A0E17] border border-[#00FFD4]/20 rounded-2xl p-8 md:p-10">
+            <h2 className="text-xl font-bold text-white mb-4 font-['Outfit']">We typically respond within 24 to 48 hours</h2>
+            <p className="text-[#8B9BB4] mb-6 leading-relaxed text-sm">
+              For the fastest response, email us directly or reach out via WhatsApp. We are happy to discuss systems, custom development projects, or any other enquiries.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <a
+                href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hi%20Senueren%2C%20I%27d%20like%20to%20discuss%20a%20system%20project.`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-[#25D366] text-white rounded-full font-bold text-sm hover:shadow-lg hover:shadow-[#25D366]/20 hover:scale-105 transition-all duration-300"
+                data-testid="whatsapp-button"
+              >
+                Message on WhatsApp <ArrowUpRight size={16} />
+              </a>
+              <a href={`mailto:${CONTACT_EMAIL}`}
+                className="inline-flex items-center gap-2 px-6 py-3 bg-[#0F1419] border border-[#1A2332] text-[#E8EDF2] rounded-full font-bold text-sm hover:border-[#00FFD4] hover:text-[#00FFD4] transition-all duration-300"
+                data-testid="email-button"
+              >
+                <Mail size={16} /> Send Email
+              </a>
+            </div>
+          </div>
+        </FadeIn>
+
+        <FadeIn delay={300}>
+          <div className="mt-10 p-6 bg-[#0F1419]/50 border border-[#1A2332] rounded-2xl text-center">
+            <p className="text-[#8B9BB4] text-sm">
+              <strong className="text-white">Senueren is not a service provider.</strong> It is a systems company building the infrastructure behind modern business operations.
+            </p>
+          </div>
+        </FadeIn>
       </div>
     </div>
   );
