@@ -9,6 +9,7 @@ import {
   Award, Code2, Cog, Eye
 } from "lucide-react";
 
+const API_URL = "https://senueren-api.onrender.com/api";
 const CONTACT_EMAIL = "info@senueren.co.za";
 const CONTACT_PHONE = "067 326 7417";
 const WHATSAPP_NUMBER = "27673267417";
@@ -164,6 +165,128 @@ const Footer = () => (
   </footer>
 );
 
+/* ── Hero Stats (Live) ── */
+const HeroStats = () => {
+  const [stats, setStats] = useState(null);
+  useEffect(() => {
+    fetch(`${API_URL}/stats`).then(r => r.ok ? r.json() : null).then(d => { if (d) setStats(d); }).catch(() => {});
+  }, []);
+  const items = stats
+    ? [
+        { val: `${stats.active_tenders}+`, label: "Tenders Tracked", color: "text-white" },
+        { val: stats.sectors, label: "Sectors Covered", color: "text-[#00FFD4]" },
+        { val: `${Math.round(stats.avg_score)}`, label: "Avg Intelligence Score", color: "text-white" }
+      ]
+    : [
+        { val: "1,800+", label: "Tenders Tracked Daily", color: "text-white" },
+        { val: "10", label: "Sectors Covered", color: "text-[#00FFD4]" },
+        { val: "99.5%", label: "System Uptime", color: "text-white" }
+      ];
+  return (
+    <div className="hidden lg:flex absolute right-12 xl:right-24 top-1/2 -translate-y-1/2 z-10 flex-col gap-4">
+      {items.map((item, i) => (
+        <FadeIn key={i} delay={500 + i * 100}>
+          <div className="bg-[#0F1419]/80 backdrop-blur-lg border border-[#1A2332] rounded-2xl p-5 w-52">
+            <div className={`text-3xl font-bold ${item.color} font-['Outfit'] mb-1`}>{item.val}</div>
+            <div className="text-xs text-[#8B9BB4]">{item.label}</div>
+          </div>
+        </FadeIn>
+      ))}
+    </div>
+  );
+};
+
+/* ── Live Tender Feed ── */
+
+const urgencyColor = (u) => {
+  if (u === "CRITICAL") return "text-red-400 bg-red-500/10 border-red-500/30";
+  if (u === "URGENT") return "text-orange-400 bg-orange-500/10 border-orange-500/30";
+  if (u === "SOON") return "text-yellow-400 bg-yellow-500/10 border-yellow-500/30";
+  return "text-[#00FFD4] bg-[#00FFD4]/10 border-[#00FFD4]/30";
+};
+
+const LiveTenderFeed = () => {
+  const [tenders, setTenders] = useState([]);
+  const [stats, setStats] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [tendersRes, statsRes] = await Promise.all([
+          fetch(`${API_URL}/tenders/top?limit=8`),
+          fetch(`${API_URL}/stats`)
+        ]);
+        if (tendersRes.ok) setTenders(await tendersRes.json());
+        if (statsRes.ok) setStats(await statsRes.json());
+      } catch (e) { console.log("API fetch:", e); }
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+
+  if (loading) return (
+    <section className="py-20 px-6 md:px-12 bg-[#0A0E17]" data-testid="tender-feed-loading">
+      <div className="max-w-7xl mx-auto text-center">
+        <div className="animate-pulse text-[#8B9BB4]">Loading live tender intelligence...</div>
+      </div>
+    </section>
+  );
+
+  if (!tenders.length) return null;
+
+  return (
+    <section className="py-24 md:py-32 px-6 md:px-12 bg-[#0A0E17] relative" data-testid="tender-feed-section">
+      <div className="max-w-7xl mx-auto">
+        <FadeIn>
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
+            <div>
+              <div className="accent-bar w-12 mb-6"></div>
+              <div className="flex items-center gap-3 mb-3">
+                <div className="glow-dot"></div>
+                <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#00FFD4]">Live Feed</p>
+              </div>
+              <h2 className="text-3xl sm:text-4xl tracking-tight font-bold text-white font-['Outfit']">Top Tender Opportunities</h2>
+            </div>
+            {stats && (
+              <div className="flex gap-6 text-sm">
+                <div><span className="text-white font-bold font-['Outfit'] text-2xl">{stats.active_tenders}</span><br/><span className="text-[#8B9BB4] text-xs">Active</span></div>
+                <div><span className="text-[#00FFD4] font-bold font-['Outfit'] text-2xl">{stats.sectors}</span><br/><span className="text-[#8B9BB4] text-xs">Sectors</span></div>
+                <div><span className="text-white font-bold font-['Outfit'] text-2xl">{stats.urgent_count}</span><br/><span className="text-[#8B9BB4] text-xs">Urgent</span></div>
+              </div>
+            )}
+          </div>
+        </FadeIn>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {tenders.map((t, i) => (
+            <FadeIn key={t.id} delay={i * 60}>
+              <div className="bg-[#0F1419] border border-[#1A2332] rounded-xl p-5 card-glow group" data-testid={`tender-card-${i}`}>
+                <div className="flex items-start justify-between gap-3 mb-3">
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-sm font-bold text-white font-['Outfit'] truncate">{t.title}</h3>
+                    <p className="text-xs text-[#8B9BB4] mt-1">{t.organisation}</p>
+                  </div>
+                  <div className="flex-shrink-0 text-right">
+                    <div className="text-lg font-bold text-white font-['Outfit']">{t.score}</div>
+                    <div className="text-[10px] text-[#8B9BB4]">Score</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase border ${urgencyColor(t.urgency)}`}>{t.urgency}</span>
+                  <span className="text-[10px] text-[#8B9BB4] bg-[#0A0E17] px-2 py-0.5 rounded-full border border-[#1A2332]">{t.sector}</span>
+                  {t.deadline && <span className="text-[10px] text-[#8B9BB4]">{t.deadline}</span>}
+                  <span className="text-[10px] text-[#8B9BB4]/60 ml-auto">{t.source}</span>
+                </div>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 /* ── Home Page ── */
 
 const HomePage = () => {
@@ -213,26 +336,7 @@ const HomePage = () => {
         </div>
 
         {/* Floating stats on right side for larger screens */}
-        <div className="hidden lg:flex absolute right-12 xl:right-24 top-1/2 -translate-y-1/2 z-10 flex-col gap-4">
-          <FadeIn delay={500}>
-            <div className="bg-[#0F1419]/80 backdrop-blur-lg border border-[#1A2332] rounded-2xl p-5 w-52">
-              <div className="text-3xl font-bold text-white font-['Outfit'] mb-1">1,800+</div>
-              <div className="text-xs text-[#8B9BB4]">Tenders Tracked Daily</div>
-            </div>
-          </FadeIn>
-          <FadeIn delay={600}>
-            <div className="bg-[#0F1419]/80 backdrop-blur-lg border border-[#1A2332] rounded-2xl p-5 w-52">
-              <div className="text-3xl font-bold text-[#00FFD4] font-['Outfit'] mb-1">10</div>
-              <div className="text-xs text-[#8B9BB4]">Sectors Covered</div>
-            </div>
-          </FadeIn>
-          <FadeIn delay={700}>
-            <div className="bg-[#0F1419]/80 backdrop-blur-lg border border-[#1A2332] rounded-2xl p-5 w-52">
-              <div className="text-3xl font-bold text-white font-['Outfit'] mb-1">99.5%</div>
-              <div className="text-xs text-[#8B9BB4]">System Uptime</div>
-            </div>
-          </FadeIn>
-        </div>
+        <HeroStats />
       </section>
 
       {/* What We Build */}
@@ -354,6 +458,9 @@ const HomePage = () => {
           </FadeIn>
         </div>
       </section>
+
+      {/* Live Tender Feed */}
+      <LiveTenderFeed />
 
       {/* Our Approach */}
       <section className="py-24 md:py-32 px-6 md:px-12 bg-[#0A0E17] relative noise-texture" data-testid="approach-section">
