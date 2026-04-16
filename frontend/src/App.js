@@ -70,6 +70,7 @@ const Navbar = () => {
 
   const links = [
     { to: "/", label: "Home" },
+    { to: "/senra", label: "SENRA" },
     { to: "/systems", label: "Systems" },
     { to: "/about", label: "About" },
     { to: "/contact", label: "Contact" },
@@ -144,6 +145,7 @@ const Footer = () => (
           <h4 className="text-xs font-bold mb-5 text-[#8B9BB4] tracking-[0.2em] uppercase font-['Outfit']">Company</h4>
           <ul className="space-y-3 text-sm">
             <li><Link to="/" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-home-link">Home</Link></li>
+            <li><Link to="/senra" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-senra-link">SENRA</Link></li>
             <li><Link to="/systems" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-systems-link">Systems</Link></li>
             <li><Link to="/about" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-about-link">About</Link></li>
             <li><Link to="/contact" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-contact-link">Contact</Link></li>
@@ -196,7 +198,7 @@ const HeroStats = () => {
   );
 };
 
-/* ── Live Tender Feed ── */
+/* ── Shared Tender Components ── */
 
 const urgencyColor = (u) => {
   if (u === "CRITICAL") return "text-red-400 bg-red-500/10 border-red-500/30";
@@ -205,85 +207,291 @@ const urgencyColor = (u) => {
   return "text-[#00FFD4] bg-[#00FFD4]/10 border-[#00FFD4]/30";
 };
 
-const LiveTenderFeed = () => {
-  const [tenders, setTenders] = useState([]);
-  const [stats, setStats] = useState(null);
+const TenderCard = ({ t, onClick }) => (
+  <div onClick={() => onClick(t)} className="bg-[#0F1419] border border-[#1A2332] rounded-xl p-5 card-glow group cursor-pointer" data-testid={`tender-${t.id}`}>
+    <div className="flex items-start justify-between gap-3 mb-3">
+      <div className="flex-1 min-w-0">
+        <h3 className="text-sm font-bold text-white font-['Outfit'] line-clamp-2 group-hover:text-[#00FFD4] transition-colors">{t.title}</h3>
+        <p className="text-xs text-[#8B9BB4] mt-1">{t.organisation}</p>
+      </div>
+      <div className="flex-shrink-0 text-right">
+        <div className="text-lg font-bold text-white font-['Outfit']">{t.score}</div>
+        <div className="text-[10px] text-[#8B9BB4]">Score</div>
+      </div>
+    </div>
+    <div className="flex items-center gap-2 flex-wrap">
+      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase border ${urgencyColor(t.urgency)}`}>{t.urgency}</span>
+      <span className="text-[10px] text-[#8B9BB4] bg-[#0A0E17] px-2 py-0.5 rounded-full border border-[#1A2332]">{t.sector}</span>
+      {t.deadline && <span className="text-[10px] text-[#8B9BB4]">{t.deadline}</span>}
+      {t.days_remaining != null && <span className="text-[10px] text-[#8B9BB4]">({t.days_remaining}d left)</span>}
+    </div>
+  </div>
+);
+
+/* ── Tender Detail Modal ── */
+
+const TenderDetailModal = ({ tender, onClose }) => {
+  const [detail, setDetail] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [tendersRes, statsRes] = await Promise.all([
-          fetch(`${API_URL}/tenders/top?limit=8`),
-          fetch(`${API_URL}/stats`)
-        ]);
-        if (tendersRes.ok) setTenders(await tendersRes.json());
-        if (statsRes.ok) setStats(await statsRes.json());
-      } catch (e) { console.log("API fetch:", e); }
-      setLoading(false);
-    };
-    fetchData();
-  }, []);
+    if (!tender) return;
+    fetch(`${API_URL}/tenders/${tender.id}`).then(r => r.ok ? r.json() : null).then(d => { setDetail(d); setLoading(false); }).catch(() => setLoading(false));
+  }, [tender]);
 
-  if (loading) return (
-    <section className="py-20 px-6 md:px-12 bg-[#0A0E17]" data-testid="tender-feed-loading">
-      <div className="max-w-7xl mx-auto text-center">
-        <div className="animate-pulse text-[#8B9BB4]">Loading live tender intelligence...</div>
-      </div>
-    </section>
-  );
-
-  if (!tenders.length) return null;
+  if (!tender) return null;
 
   return (
-    <section className="py-24 md:py-32 px-6 md:px-12 bg-[#0A0E17] relative" data-testid="tender-feed-section">
-      <div className="max-w-7xl mx-auto">
-        <FadeIn>
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
-            <div>
-              <div className="accent-bar w-12 mb-6"></div>
-              <div className="flex items-center gap-3 mb-3">
-                <div className="glow-dot"></div>
-                <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#00FFD4]">Live Feed</p>
+    <div className="fixed inset-0 z-[60] bg-[#0A0E17]/90 backdrop-blur-sm flex items-start justify-center pt-24 px-4 overflow-y-auto" onClick={onClose} data-testid="tender-detail-modal">
+      <div className="bg-[#0F1419] border border-[#1A2332] rounded-2xl max-w-2xl w-full p-8 mb-12" onClick={e => e.stopPropagation()}>
+        <div className="flex justify-between items-start mb-6">
+          <div className="flex items-center gap-3">
+            <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase border ${urgencyColor(tender.urgency)}`}>{tender.urgency}</span>
+            <span className="text-white font-bold font-['Outfit'] text-2xl">{tender.score}<span className="text-sm text-[#8B9BB4] font-normal">/95</span></span>
+          </div>
+          <button onClick={onClose} className="text-[#8B9BB4] hover:text-white" data-testid="close-detail"><X size={20} /></button>
+        </div>
+
+        <h2 className="text-xl font-bold text-white font-['Outfit'] mb-3">{tender.title}</h2>
+        <p className="text-[#8B9BB4] text-sm mb-6">{tender.organisation}</p>
+
+        {loading ? <div className="animate-pulse text-[#8B9BB4] text-sm">Loading details...</div> : detail && (
+          <>
+            <div className="grid grid-cols-2 gap-3 mb-6">
+              {detail.sector && <div className="bg-[#0A0E17] border border-[#1A2332] rounded-lg p-3"><span className="text-[10px] text-[#8B9BB4] uppercase tracking-wider">Sector</span><p className="text-sm text-white mt-1">{detail.sector}</p></div>}
+              {detail.deadline && <div className="bg-[#0A0E17] border border-[#1A2332] rounded-lg p-3"><span className="text-[10px] text-[#8B9BB4] uppercase tracking-wider">Deadline</span><p className="text-sm text-white mt-1">{detail.deadline}{detail.days_remaining != null && ` (${detail.days_remaining}d)`}</p></div>}
+              {detail.reference && <div className="bg-[#0A0E17] border border-[#1A2332] rounded-lg p-3"><span className="text-[10px] text-[#8B9BB4] uppercase tracking-wider">Reference</span><p className="text-sm text-white mt-1">{detail.reference}</p></div>}
+              {detail.province && <div className="bg-[#0A0E17] border border-[#1A2332] rounded-lg p-3"><span className="text-[10px] text-[#8B9BB4] uppercase tracking-wider">Province</span><p className="text-sm text-white mt-1">{detail.province}</p></div>}
+              {detail.size_tier && <div className="bg-[#0A0E17] border border-[#1A2332] rounded-lg p-3"><span className="text-[10px] text-[#8B9BB4] uppercase tracking-wider">Value Tier</span><p className="text-sm text-white mt-1">{detail.size_tier}</p></div>}
+              {detail.source && <div className="bg-[#0A0E17] border border-[#1A2332] rounded-lg p-3"><span className="text-[10px] text-[#8B9BB4] uppercase tracking-wider">Source</span><p className="text-sm text-white mt-1">{detail.source}</p></div>}
+            </div>
+
+            {detail.contact_person && detail.contact_person !== "N/A" && (
+              <div className="bg-[#0A0E17] border border-[#1A2332] rounded-lg p-4 mb-4">
+                <span className="text-[10px] text-[#8B9BB4] uppercase tracking-wider">Contact</span>
+                <p className="text-sm text-white mt-1">{detail.contact_person}</p>
+                {detail.email && <p className="text-xs text-[#00FFD4] mt-1">{detail.email}</p>}
+                {detail.telephone && <p className="text-xs text-[#8B9BB4] mt-1">{detail.telephone}</p>}
               </div>
-              <h2 className="text-3xl sm:text-4xl tracking-tight font-bold text-white font-['Outfit']">Top Tender Opportunities</h2>
+            )}
+
+            <div className="bg-[#0A0E17] border border-[#1A2332] rounded-lg p-4 mb-4">
+              <span className="text-[10px] text-[#00FFD4] uppercase tracking-wider font-bold">Intelligence Insight</span>
+              <p className="text-sm text-[#E8EDF2] mt-2 leading-relaxed">{detail.insight}</p>
+            </div>
+
+            {detail.requirements && detail.requirements.length > 0 && (
+              <div className="bg-[#0A0E17] border border-[#1A2332] rounded-lg p-4 mb-6">
+                <span className="text-[10px] text-[#00FFD4] uppercase tracking-wider font-bold">Required Documentation</span>
+                <ul className="mt-3 space-y-2">
+                  {detail.requirements.map((req, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-[#8B9BB4]">
+                      <CheckCircle2 size={14} className="text-[#00FFD4] mt-0.5 flex-shrink-0" />{req}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {detail.url && (
+              <a href={detail.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#4A9FD8] to-[#00FFD4] text-[#0A0E17] rounded-full font-bold text-sm hover:shadow-[0_0_30px_rgba(0,255,212,0.4)] transition-all" data-testid="tender-link">
+                View on Source <ArrowUpRight size={16} />
+              </a>
+            )}
+          </>
+        )}
+      </div>
+    </div>
+  );
+};
+
+/* ── Homepage Tender Sections ── */
+
+const HomeTenderFeed = () => {
+  const [highValue, setHighValue] = useState([]);
+  const [urgent, setUrgent] = useState([]);
+  const [selected, setSelected] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const [hv, ur] = await Promise.all([
+          fetch(`${API_URL}/tenders/high-value?limit=5`).then(r => r.ok ? r.json() : []),
+          fetch(`${API_URL}/tenders/urgent?limit=5`).then(r => r.ok ? r.json() : [])
+        ]);
+        setHighValue(hv);
+        setUrgent(ur);
+      } catch (e) { console.log(e); }
+      setLoading(false);
+    };
+    load();
+  }, []);
+
+  if (loading) return <section className="py-16 px-6 bg-[#0A0E17]"><div className="max-w-7xl mx-auto text-center animate-pulse text-[#8B9BB4]">Loading intelligence feed...</div></section>;
+  if (!highValue.length && !urgent.length) return null;
+
+  return (
+    <>
+      <section className="py-20 md:py-24 px-6 md:px-12 bg-[#0A0E17] relative" data-testid="home-tender-feed">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* High Value */}
+            {highValue.length > 0 && (
+              <FadeIn>
+                <div>
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="glow-dot"></div>
+                    <h3 className="text-lg font-bold text-white font-['Outfit']">Top High-Value Tenders</h3>
+                  </div>
+                  <div className="space-y-3">
+                    {highValue.map((t, i) => <TenderCard key={t.id} t={t} onClick={setSelected} />)}
+                  </div>
+                </div>
+              </FadeIn>
+            )}
+
+            {/* Urgent */}
+            {urgent.length > 0 && (
+              <FadeIn delay={100}>
+                <div>
+                  <div className="flex items-center gap-3 mb-6">
+                    <Clock size={16} className="text-orange-400" />
+                    <h3 className="text-lg font-bold text-white font-['Outfit']">Urgent — Closing Soon</h3>
+                  </div>
+                  <div className="space-y-3">
+                    {urgent.map((t, i) => <TenderCard key={t.id} t={t} onClick={setSelected} />)}
+                  </div>
+                </div>
+              </FadeIn>
+            )}
+          </div>
+
+          <FadeIn delay={200}>
+            <div className="mt-10 text-center">
+              <Link to="/senra" className="inline-flex items-center gap-2 text-sm font-bold text-[#00FFD4] hover:underline" data-testid="view-all-tenders">
+                View all tenders on SENRA <ArrowRight size={16} />
+              </Link>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+      {selected && <TenderDetailModal tender={selected} onClose={() => setSelected(null)} />}
+    </>
+  );
+};
+
+/* ── SENRA Page — Search, Filter, Browse ── */
+
+const SenraPage = () => {
+  const [tenders, setTenders] = useState([]);
+  const [sectors, setSectors] = useState([]);
+  const [stats, setStats] = useState(null);
+  const [query, setQuery] = useState("");
+  const [sectorFilter, setSectorFilter] = useState("");
+  const [urgencyFilter, setUrgencyFilter] = useState("");
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [count, setCount] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [selected, setSelected] = useState(null);
+
+  const fetchTenders = async (p = 1) => {
+    setLoading(true);
+    try {
+      const params = new URLSearchParams({ limit: "20", page: String(p) });
+      if (query) params.set("q", query);
+      if (sectorFilter) params.set("sector", sectorFilter);
+      if (urgencyFilter) params.set("urgency", urgencyFilter);
+      const res = await fetch(`${API_URL}/tenders/search?${params}`);
+      if (res.ok) {
+        const data = await res.json();
+        setTenders(data.results);
+        setTotalPages(data.total_pages);
+        setCount(data.count);
+        setPage(data.page);
+      }
+    } catch (e) { console.log(e); }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    Promise.all([
+      fetch(`${API_URL}/tenders/sectors`).then(r => r.ok ? r.json() : []),
+      fetch(`${API_URL}/stats`).then(r => r.ok ? r.json() : null)
+    ]).then(([s, st]) => { setSectors(s); setStats(st); });
+    fetchTenders();
+  }, []);
+
+  const handleSearch = (e) => { e.preventDefault(); setPage(1); fetchTenders(1); };
+  const handleSector = (s) => { setSectorFilter(s === sectorFilter ? "" : s); setTimeout(() => fetchTenders(1), 0); };
+  const handleUrgency = (u) => { setUrgencyFilter(u === urgencyFilter ? "" : u); setTimeout(() => fetchTenders(1), 0); };
+
+  return (
+    <div className="min-h-screen bg-[#0A0E17] pt-24 pb-16" data-testid="senra-page">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        {/* Header */}
+        <div className="mb-10">
+          <div className="accent-bar w-12 mb-6"></div>
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+            <div>
+              <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#00FFD4] mb-2">Procurement Intelligence</p>
+              <h1 className="text-4xl md:text-5xl tracking-tight font-bold text-white font-['Outfit']">SENRA</h1>
+              <p className="text-[#8B9BB4] mt-2">Live SA government tender opportunities. Scored. Ranked. Delivered.</p>
             </div>
             {stats && (
-              <div className="flex gap-6 text-sm">
-                <div><span className="text-white font-bold font-['Outfit'] text-2xl">{stats.active_tenders}</span><br/><span className="text-[#8B9BB4] text-xs">Active</span></div>
-                <div><span className="text-[#00FFD4] font-bold font-['Outfit'] text-2xl">{stats.sectors}</span><br/><span className="text-[#8B9BB4] text-xs">Sectors</span></div>
-                <div><span className="text-white font-bold font-['Outfit'] text-2xl">{stats.urgent_count}</span><br/><span className="text-[#8B9BB4] text-xs">Urgent</span></div>
+              <div className="flex gap-5 text-sm">
+                <div className="text-center"><span className="text-white font-bold font-['Outfit'] text-xl">{stats.active_tenders}</span><br/><span className="text-[#8B9BB4] text-[10px]">Active</span></div>
+                <div className="text-center"><span className="text-[#00FFD4] font-bold font-['Outfit'] text-xl">{stats.sectors}</span><br/><span className="text-[#8B9BB4] text-[10px]">Sectors</span></div>
+                <div className="text-center"><span className="text-orange-400 font-bold font-['Outfit'] text-xl">{stats.urgent_count}</span><br/><span className="text-[#8B9BB4] text-[10px]">Urgent</span></div>
               </div>
             )}
           </div>
-        </FadeIn>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {tenders.map((t, i) => (
-            <FadeIn key={t.id} delay={i * 60}>
-              <div className="bg-[#0F1419] border border-[#1A2332] rounded-xl p-5 card-glow group" data-testid={`tender-card-${i}`}>
-                <div className="flex items-start justify-between gap-3 mb-3">
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-sm font-bold text-white font-['Outfit'] truncate">{t.title}</h3>
-                    <p className="text-xs text-[#8B9BB4] mt-1">{t.organisation}</p>
-                  </div>
-                  <div className="flex-shrink-0 text-right">
-                    <div className="text-lg font-bold text-white font-['Outfit']">{t.score}</div>
-                    <div className="text-[10px] text-[#8B9BB4]">Score</div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2 flex-wrap">
-                  <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase border ${urgencyColor(t.urgency)}`}>{t.urgency}</span>
-                  <span className="text-[10px] text-[#8B9BB4] bg-[#0A0E17] px-2 py-0.5 rounded-full border border-[#1A2332]">{t.sector}</span>
-                  {t.deadline && <span className="text-[10px] text-[#8B9BB4]">{t.deadline}</span>}
-                  <span className="text-[10px] text-[#8B9BB4]/60 ml-auto">{t.source}</span>
-                </div>
-              </div>
-            </FadeIn>
+        {/* Search */}
+        <form onSubmit={handleSearch} className="mb-6" data-testid="senra-search-form">
+          <div className="flex gap-3">
+            <input type="text" value={query} onChange={e => setQuery(e.target.value)} placeholder="Search tenders by keyword, organisation..." className="flex-1 bg-[#0F1419] border border-[#1A2332] rounded-xl px-5 py-3 text-sm text-white placeholder-[#8B9BB4]/50 focus:border-[#00FFD4]/50 focus:outline-none transition-colors" data-testid="senra-search-input" />
+            <button type="submit" className="px-6 py-3 bg-gradient-to-r from-[#4A9FD8] to-[#00FFD4] text-[#0A0E17] rounded-xl font-bold text-sm hover:shadow-[0_0_20px_rgba(0,255,212,0.3)] transition-all" data-testid="senra-search-btn">Search</button>
+          </div>
+        </form>
+
+        {/* Filters */}
+        <div className="flex flex-wrap gap-2 mb-8" data-testid="senra-filters">
+          {["CRITICAL", "URGENT", "SOON", "NORMAL"].map(u => (
+            <button key={u} onClick={() => handleUrgency(u)} className={`px-3 py-1.5 rounded-full text-[10px] font-bold uppercase border transition-all ${urgencyFilter === u ? urgencyColor(u) : "text-[#8B9BB4] border-[#1A2332] hover:border-[#8B9BB4]"}`} data-testid={`filter-${u.toLowerCase()}`}>{u}</button>
+          ))}
+          <span className="text-[#1A2332] self-center">|</span>
+          {sectors.slice(0, 8).map(s => (
+            <button key={s.sector} onClick={() => handleSector(s.sector)} className={`px-3 py-1.5 rounded-full text-[10px] font-bold border transition-all ${sectorFilter === s.sector ? "text-[#00FFD4] border-[#00FFD4]/50 bg-[#00FFD4]/10" : "text-[#8B9BB4] border-[#1A2332] hover:border-[#8B9BB4]"}`} data-testid={`filter-sector-${s.sector.replace(/\s/g, '-').toLowerCase()}`}>
+              {s.sector} <span className="opacity-50">({s.count})</span>
+            </button>
           ))}
         </div>
+
+        {/* Results */}
+        <div className="mb-4 text-xs text-[#8B9BB4]">{count} tenders found &middot; Page {page}/{totalPages}</div>
+
+        {loading ? (
+          <div className="text-center py-12 text-[#8B9BB4] animate-pulse">Loading tenders...</div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            {tenders.map(t => <TenderCard key={t.id} t={t} onClick={setSelected} />)}
+          </div>
+        )}
+
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="flex justify-center gap-2" data-testid="senra-pagination">
+            <button onClick={() => fetchTenders(Math.max(1, page - 1))} disabled={page <= 1} className="px-4 py-2 bg-[#0F1419] border border-[#1A2332] rounded-lg text-sm text-[#8B9BB4] hover:border-[#00FFD4] disabled:opacity-30 transition-all">Prev</button>
+            <span className="px-4 py-2 text-sm text-white">{page} / {totalPages}</span>
+            <button onClick={() => fetchTenders(Math.min(totalPages, page + 1))} disabled={page >= totalPages} className="px-4 py-2 bg-[#0F1419] border border-[#1A2332] rounded-lg text-sm text-[#8B9BB4] hover:border-[#00FFD4] disabled:opacity-30 transition-all">Next</button>
+          </div>
+        )}
       </div>
-    </section>
+      {selected && <TenderDetailModal tender={selected} onClose={() => setSelected(null)} />}
+    </div>
   );
 };
 
@@ -460,7 +668,7 @@ const HomePage = () => {
       </section>
 
       {/* Live Tender Feed */}
-      <LiveTenderFeed />
+      <HomeTenderFeed />
 
       {/* Our Approach */}
       <section className="py-24 md:py-32 px-6 md:px-12 bg-[#0A0E17] relative noise-texture" data-testid="approach-section">
@@ -856,6 +1064,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/senra" element={<SenraPage />} />
           <Route path="/systems" element={<SystemsPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
