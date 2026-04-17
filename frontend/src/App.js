@@ -47,7 +47,7 @@ const FadeIn = ({ children, delay = 0, className = "" }) => {
 const Logo = () => (
   <Link to="/" className="flex items-center gap-3" data-testid="nav-logo">
     <SenuerenLogo className="h-11 w-auto" />
-    <span className="text-lg font-bold tracking-[0.18em] font-['Outfit'] logo-gradient">SENUEREN</span>
+    <span className="text-xl logo-chrome">SENUEREN</span>
   </Link>
 );
 
@@ -135,7 +135,7 @@ const Footer = () => (
         <div className="md:col-span-2">
           <div className="flex items-center gap-3 mb-5">
             <SenuerenLogo className="h-12 w-auto" />
-            <span className="text-xl font-bold tracking-[0.16em] font-['Outfit'] logo-gradient">SENUEREN</span>
+            <span className="text-2xl logo-chrome">SENUEREN</span>
           </div>
           <p className="text-[#8B9BB4] text-sm leading-relaxed max-w-md mb-4">
             Building the infrastructure behind modern business operations. Systems, automation, and intelligence platforms for growth-stage SMEs.

@@ -21,6 +21,26 @@
   background-clip: text;
 }
 
+/* Chrome wordmark — matches SEN logo chrome gradient, for authority next to the icon */
+.logo-chrome {
+  font-family: 'Archivo Black', 'Outfit', system-ui, sans-serif;
+  font-style: italic;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  background: linear-gradient(180deg,
+    #DFF9F4 0%,
+    #FFFFFF 18%,
+    #5BD9D0 38%,
+    #00FFD4 55%,
+    #00E5CC 78%,
+    #4A9FD8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 2px 12px rgba(0, 255, 212, 0.25);
+  filter: drop-shadow(0 1px 0 rgba(10, 32, 56, 0.4));
+}
+
 /* Accent bar */
 .accent-bar {
   height: 2px;
