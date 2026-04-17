@@ -73,6 +73,12 @@ const SenuerenLogo = ({ className = "h-10 w-auto", title = "Senueren" }) => (
       </filter>
     </defs>
 
+    {/* Inline style for the comet pulse animation — self-contained, no external CSS needed */}
+    <style>{`
+      @keyframes sen-pulse { 0%,100% { transform: scale(0.82); opacity: 0.85; } 50% { transform: scale(1); opacity: 1; } }
+      .sen-comet { transform-origin: 368px 35px; animation: sen-pulse 3s ease-in-out infinite; }
+    `}</style>
+
     {/* Subtle starfield — renders only at larger sizes, invisible at nav size */}
     <g opacity="0.5" fill="#00FFD4">
       <circle cx="30" cy="30" r="0.6" />
@@ -171,10 +177,12 @@ const SenuerenLogo = ({ className = "h-10 w-auto", title = "Senueren" }) => (
       SEN
     </text>
 
-    {/* Comet head */}
-    <circle cx="368" cy="35" r="22" fill="url(#senCometGlow)" />
-    <circle cx="368" cy="35" r="5.5" fill="#FFFFFF" filter="url(#senSoftGlow)" />
-    <circle cx="368" cy="35" r="2.5" fill="#FFFFFF" />
+    {/* Comet head — pulsing group */}
+    <g className="sen-comet">
+      <circle cx="368" cy="35" r="22" fill="url(#senCometGlow)" />
+      <circle cx="368" cy="35" r="5.5" fill="#FFFFFF" filter="url(#senSoftGlow)" />
+      <circle cx="368" cy="35" r="2.5" fill="#FFFFFF" />
+    </g>
   </svg>
 );
 
