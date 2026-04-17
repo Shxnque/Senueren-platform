@@ -45,10 +45,9 @@ const FadeIn = ({ children, delay = 0, className = "" }) => {
 /* ── Shared Components ── */
 
 const Logo = () => (
-  <Link to="/" className="flex items-center gap-3" data-testid="nav-logo">
-    {/* Mark dominates on mobile; wordmark appears from md+ */}
-    <SenuerenLogo className="h-12 md:h-11 w-auto" />
-    <span className="hidden md:inline text-xl logo-chrome" data-testid="nav-logo-wordmark">SENUEREN</span>
+  <Link to="/" className="flex items-center" data-testid="nav-logo" aria-label="Senueren — Home">
+    {/* Nav wordmark removed — SEN mark carries the brand at all breakpoints */}
+    <SenuerenLogo className="h-12 md:h-14 w-auto" />
   </Link>
 );
 
