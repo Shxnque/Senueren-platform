@@ -38,7 +38,7 @@ jobs:
       - name: Build
         working-directory: frontend
         env:
-          REACT_APP_BACKEND_URL: https://senueren-api.onrender.com
+          REACT_APP_BACKEND_URL: ${{ vars.REACT_APP_BACKEND_URL }}
           GENERATE_SOURCEMAP: false
           CI: false
           DISABLE_ESLINT_PLUGIN: true
