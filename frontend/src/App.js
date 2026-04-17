@@ -9,7 +9,7 @@ import {
   Award, Code2, Cog, Eye
 } from "lucide-react";
 
-const API_URL = "https://senueren-api.onrender.com/api";
+const API_URL = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const CONTACT_EMAIL = "info@senueren.co.za";
 const CONTACT_PHONE = "067 326 7417";
 const WHATSAPP_NUMBER = "27673267417";
