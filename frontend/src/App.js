@@ -78,7 +78,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? "bg-[#0A0E17]/60 backdrop-blur-xl border-b border-[#1A2332]" : "bg-transparent"}`} data-testid="navbar">
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${(scrolled || isOpen) ? "bg-[#0A0E17] md:bg-[#0A0E17]/80 md:backdrop-blur-xl border-b border-[#1A2332]" : "bg-transparent"}`} data-testid="navbar">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="flex items-center justify-between h-20">
           <Logo />
@@ -98,7 +98,7 @@ const Navbar = () => {
         </div>
       </div>
       {isOpen && (
-        <div className="md:hidden fixed inset-0 top-20 z-40 bg-[#0A0E17]/95 backdrop-blur-xl">
+        <div className="md:hidden fixed inset-0 top-20 z-40 bg-[#0A0E17] overflow-y-auto" data-testid="mobile-menu-drawer">
           <div className="px-6 py-10 space-y-6">
             {links.map((l) => (
               <Link key={l.to} to={l.to}
