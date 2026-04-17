@@ -46,8 +46,9 @@ const FadeIn = ({ children, delay = 0, className = "" }) => {
 
 const Logo = () => (
   <Link to="/" className="flex items-center gap-3" data-testid="nav-logo">
-    <SenuerenLogo className="h-11 w-auto" />
-    <span className="text-xl logo-chrome">SENUEREN</span>
+    {/* Mark dominates on mobile; wordmark appears from md+ */}
+    <SenuerenLogo className="h-12 md:h-11 w-auto" />
+    <span className="hidden md:inline text-xl logo-chrome" data-testid="nav-logo-wordmark">SENUEREN</span>
   </Link>
 );
 
