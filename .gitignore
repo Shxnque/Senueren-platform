@@ -1,8 +1,8 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# IDE and editors
-.idea/
-.vscode/
+# -----------------------------------------------------------------------------
+# Senueren public repo — FRONTEND ONLY.
+# Backend code lives in a separate private repository.
+# Never commit secrets, env files, credentials, or backend source here.
+# -----------------------------------------------------------------------------
 
 # Dependencies
 node_modules/
@@ -16,67 +16,72 @@ node_modules/
 !.yarn/releases
 !.yarn/versions
 
-# Testing
-/coverage
-
-# Next.js
+# Production builds
+/build
+dist/
+dist
 /.next/
 /out/
 next-env.d.ts
 *.tsbuildinfo
 
-# Production builds
-/build
-dist/
-dist
+# Testing / coverage
+/coverage
 
-# Environment files (comprehensive coverage)
-
+# ==== SECRETS & ENVIRONMENT — NEVER COMMIT ====
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
 *token.json*
 *credentials.json*
+*service-account*.json
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
 
-# Logs and debug files
+# Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 dump.rdb
+*.log
 
-# System files
+# IDE / editors
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
 .DS_Store
-*.pem
+Thumbs.db
 
-# Python
+# Python (belt & braces — no Python should be here anyway)
 __pycache__/
-*pyc*
+*.pyc
 venv/
 .venv/
 
-# Development tools
-chainlit.md
-.chainlit
-.ipynb_checkpoints/
-.ac
+# Caches
+.cache/
+.eslintcache
+.parcel-cache/
 
-# Deployment
+# Deployment artifacts
 .vercel
+.netlify
 
-# Data and databases
-agenthub/agents/youtube/db
-
-# Archive files and large assets
+# Archives
 **/*.zip
-**/*.tar.gz
 **/*.tar
+**/*.tar.gz
 **/*.tgz
 *.pack
-*.deb
-*.dylib
-
-# Build caches
-.cache/
-
-memory/test_credentials.md
-
-# Mobile development
-android-sdk/
