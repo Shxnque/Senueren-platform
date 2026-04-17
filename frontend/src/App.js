@@ -46,7 +46,7 @@ const FadeIn = ({ children, delay = 0, className = "" }) => {
 
 const Logo = () => (
   <Link to="/" className="flex items-center gap-3" data-testid="nav-logo">
-    <SenuerenLogo className="h-10 w-10" />
+    <SenuerenLogo className="h-11 w-auto" />
     <span className="text-lg font-bold tracking-[0.18em] font-['Outfit'] logo-gradient">SENUEREN</span>
   </Link>
 );
@@ -134,7 +134,7 @@ const Footer = () => (
       <div className="grid md:grid-cols-4 gap-10 mb-16">
         <div className="md:col-span-2">
           <div className="flex items-center gap-3 mb-5">
-            <SenuerenLogo className="h-11 w-11" />
+            <SenuerenLogo className="h-12 w-auto" />
             <span className="text-xl font-bold tracking-[0.16em] font-['Outfit'] logo-gradient">SENUEREN</span>
           </div>
           <p className="text-[#8B9BB4] text-sm leading-relaxed max-w-md mb-4">
