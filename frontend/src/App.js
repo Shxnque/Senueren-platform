@@ -171,30 +171,47 @@ const Footer = () => (
 /* ── Hero Stats (Live) ── */
 const HeroStats = () => {
   const [stats, setStats] = useState(null);
+  const [failed, setFailed] = useState(false);
   useEffect(() => {
-    fetch(`${API_URL}/stats`).then(r => r.ok ? r.json() : null).then(d => { if (d) setStats(d); }).catch(() => {});
+    fetch(`${API_URL}/stats`)
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { if (d) setStats(d); else setFailed(true); })
+      .catch(() => setFailed(true));
   }, []);
-  const items = stats
-    ? [
-        { val: `${stats.active_tenders}+`, label: "Tenders Tracked", color: "text-white" },
-        { val: stats.sectors, label: "Sectors Covered", color: "text-[#00FFD4]" },
-        { val: `${Math.round(stats.avg_score)}`, label: "Avg Intelligence Score", color: "text-white" }
-      ]
-    : [
-        { val: "1,800+", label: "Tenders Tracked Daily", color: "text-white" },
-        { val: "10", label: "Sectors Covered", color: "text-[#00FFD4]" },
-        { val: "99.5%", label: "System Uptime", color: "text-white" }
-      ];
+
   return (
-    <div className="hidden lg:flex absolute right-12 xl:right-24 top-1/2 -translate-y-1/2 z-10 flex-col gap-4">
-      {items.map((item, i) => (
-        <FadeIn key={i} delay={500 + i * 100}>
-          <div className="bg-[#0F1419]/80 backdrop-blur-lg border border-[#1A2332] rounded-2xl p-5 w-52">
-            <div className={`text-3xl font-bold ${item.color} font-['Outfit'] mb-1`}>{item.val}</div>
-            <div className="text-xs text-[#8B9BB4]">{item.label}</div>
+    <div className="hidden lg:flex absolute right-12 xl:right-24 top-1/2 -translate-y-1/2 z-10 flex-col gap-4" data-testid="hero-stats">
+      {stats ? (
+        [
+          { val: `${stats.active_tenders}`, label: "Active Tenders", color: "text-white" },
+          { val: `${stats.sectors}`, label: "Sectors Covered", color: "text-[#00FFD4]" },
+          { val: `${Math.round(stats.avg_score)}`, label: "Avg Intelligence Score", color: "text-white" },
+        ].map((item, i) => (
+          <FadeIn key={i} delay={500 + i * 100}>
+            <div className="bg-[#0F1419]/80 backdrop-blur-lg border border-[#1A2332] rounded-2xl p-5 w-52">
+              <div className={`text-3xl font-bold ${item.color} font-['Outfit'] mb-1`}>{item.val}</div>
+              <div className="text-xs text-[#8B9BB4]">{item.label}</div>
+            </div>
+          </FadeIn>
+        ))
+      ) : (
+        // Honest loading/cold-start state — no fabricated numbers
+        [0, 1, 2].map((i) => (
+          <div key={i} className="bg-[#0F1419]/80 backdrop-blur-lg border border-[#1A2332] rounded-2xl p-5 w-52">
+            {failed ? (
+              <>
+                <div className="text-sm text-[#8B9BB4] font-['Outfit']">Live feed warming up…</div>
+                <div className="text-[10px] text-[#8B9BB4]/60 mt-2">Backend spinning up — refresh in a moment.</div>
+              </>
+            ) : (
+              <>
+                <div className="h-8 w-20 bg-[#1A2332] rounded animate-pulse mb-2" />
+                <div className="h-3 w-28 bg-[#1A2332]/70 rounded animate-pulse" />
+              </>
+            )}
           </div>
-        </FadeIn>
-      ))}
+        ))
+      )}
     </div>
   );
 };
@@ -302,6 +319,66 @@ const TenderDetailModal = ({ tender, onClose }) => {
           </>
         )}
       </div>
+    </div>
+  );
+};
+
+/* ── SENRA home-section live stats — no hardcoded numbers ── */
+const SenraHomeStats = () => {
+  const [stats, setStats] = useState(null);
+  const [failed, setFailed] = useState(false);
+  useEffect(() => {
+    fetch(`${API_URL}/stats`)
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { if (d) setStats(d); else setFailed(true); })
+      .catch(() => setFailed(true));
+  }, []);
+
+  const Card = ({ icon, label, value, caption, delay, valueClass = "text-white" }) => (
+    <FadeIn delay={delay}>
+      <div className="bg-[#0A0E17] border border-[#1A2332] rounded-2xl p-6 card-glow flex-1">
+        <div className="flex items-center gap-3 mb-3">
+          {icon}
+          <span className="text-xs font-bold tracking-[0.2em] uppercase text-[#8B9BB4]">{label}</span>
+        </div>
+        {value !== null && value !== undefined ? (
+          <div className={`text-4xl font-bold ${valueClass} font-['Outfit'] mb-1`}>{value}</div>
+        ) : failed ? (
+          <div className="text-sm text-[#8B9BB4] font-['Outfit'] mb-1">Live feed warming up…</div>
+        ) : (
+          <div className="h-10 w-24 bg-[#1A2332] rounded animate-pulse mb-2" />
+        )}
+        <p className="text-sm text-[#8B9BB4]">{caption}</p>
+      </div>
+    </FadeIn>
+  );
+
+  return (
+    <div className="col-span-12 lg:col-span-4 flex flex-col gap-6" data-testid="senra-home-stats">
+      <Card
+        icon={<div className="glow-dot"></div>}
+        label="Live Data"
+        value={stats ? stats.active_tenders : null}
+        caption={stats
+          ? `Active SA tenders indexed from ${stats.sources} source${stats.sources === 1 ? '' : 's'} — refreshed every 6 hours.`
+          : `Active SA tenders indexed across multiple verified sources — refreshed every 6 hours.`}
+        delay={100}
+      />
+      <Card
+        icon={<Target size={16} className="text-[#00FFD4]" />}
+        label="Intelligence"
+        value={stats ? stats.sectors : null}
+        caption="Industry sectors with weighted scoring, deadline pressure and organisation-importance signals."
+        delay={200}
+        valueClass="text-[#00FFD4]"
+      />
+      <Card
+        icon={<Zap size={16} className="text-[#00FFD4]" />}
+        label="Urgent Now"
+        value={stats ? stats.urgent_count : null}
+        caption="Tenders closing inside 14 days — triaged and surfaced at the top of every feed."
+        delay={300}
+      />
     </div>
   );
 };
@@ -611,39 +688,8 @@ const HomePage = () => {
               </div>
             </FadeIn>
 
-            {/* Stats column */}
-            <div className="col-span-12 lg:col-span-4 flex flex-col gap-6">
-              <FadeIn delay={100}>
-                <div className="bg-[#0A0E17] border border-[#1A2332] rounded-2xl p-6 card-glow flex-1">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="glow-dot"></div>
-                    <span className="text-xs font-bold tracking-[0.2em] uppercase text-[#00FFD4]">Live Data</span>
-                  </div>
-                  <div className="text-4xl font-bold text-white font-['Outfit'] mb-1">1,800+</div>
-                  <p className="text-sm text-[#8B9BB4]">SA government tenders tracked daily across 6 verified sources</p>
-                </div>
-              </FadeIn>
-              <FadeIn delay={200}>
-                <div className="bg-[#0A0E17] border border-[#1A2332] rounded-2xl p-6 card-glow flex-1">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Target size={16} className="text-[#00FFD4]" />
-                    <span className="text-xs font-bold tracking-[0.2em] uppercase text-[#8B9BB4]">Intelligence</span>
-                  </div>
-                  <div className="text-4xl font-bold text-white font-['Outfit'] mb-1">10</div>
-                  <p className="text-sm text-[#8B9BB4]">Industry sectors with AI-powered weighted scoring algorithms</p>
-                </div>
-              </FadeIn>
-              <FadeIn delay={300}>
-                <div className="bg-[#0A0E17] border border-[#1A2332] rounded-2xl p-6 card-glow flex-1">
-                  <div className="flex items-center gap-3 mb-3">
-                    <Zap size={16} className="text-[#00FFD4]" />
-                    <span className="text-xs font-bold tracking-[0.2em] uppercase text-[#8B9BB4]">Speed</span>
-                  </div>
-                  <div className="text-4xl font-bold text-white font-['Outfit'] mb-1">&lt;15s</div>
-                  <p className="text-sm text-[#8B9BB4]">API-based ingestion delivering 500 tenders in under 15 seconds</p>
-                </div>
-              </FadeIn>
-            </div>
+            {/* Stats column — live from backend */}
+            <SenraHomeStats />
           </div>
 
           {/* SENRA capabilities row */}
