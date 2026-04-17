@@ -8,6 +8,7 @@ import {
   Server, ChevronRight, Globe, Users, TrendingUp, Clock,
   Award, Code2, Cog, Eye
 } from "lucide-react";
+import SenuerenLogo from "./components/SenuerenLogo";
 
 const API_URL = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const CONTACT_EMAIL = "info@senueren.co.za";
@@ -45,7 +46,7 @@ const FadeIn = ({ children, delay = 0, className = "" }) => {
 
 const Logo = () => (
   <Link to="/" className="flex items-center gap-3" data-testid="nav-logo">
-    <img src="/logo-sm.png" alt="Senueren" className="h-9 rounded-lg object-contain" />
+    <SenuerenLogo className="h-10 w-10" />
     <span className="text-lg font-bold tracking-[0.18em] font-['Outfit'] logo-gradient">SENUEREN</span>
   </Link>
 );
@@ -133,7 +134,7 @@ const Footer = () => (
       <div className="grid md:grid-cols-4 gap-10 mb-16">
         <div className="md:col-span-2">
           <div className="flex items-center gap-3 mb-5">
-            <img src="/logo-sm.png" alt="Senueren" className="h-10 rounded-lg object-contain" />
+            <SenuerenLogo className="h-11 w-11" />
             <span className="text-xl font-bold tracking-[0.16em] font-['Outfit'] logo-gradient">SENUEREN</span>
           </div>
           <p className="text-[#8B9BB4] text-sm leading-relaxed max-w-md mb-4">
