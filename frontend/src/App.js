@@ -299,21 +299,41 @@ const TenderDetailModal = ({ tender, onClose }) => {
 
         {loading ? <div className="animate-pulse text-[#8B9BB4] text-sm">Loading details...</div> : detail && (
           <>
+            {/* Public engagement strip — anonymous viewer signal */}
+            {(detail.view_count > 0 || detail.click_count > 0) && (
+              <div className="flex items-center gap-4 mb-5 text-xs text-[#8B9BB4]" data-testid="tender-engagement">
+                <span className="inline-flex items-center gap-1.5" title="Total views on SENRA"><Eye size={13} className="text-[#00FFD4]" />{detail.view_count} views</span>
+                <span className="inline-flex items-center gap-1.5" title="Clicks to source"><ArrowUpRight size={13} className="text-[#00FFD4]" />{detail.click_count} clicks</span>
+                {detail.unique_viewers_24h > 0 && (
+                  <span className="inline-flex items-center gap-1.5" title="Unique viewers in the last 24h"><Users size={13} className="text-[#00FFD4]" />{detail.unique_viewers_24h} in 24h</span>
+                )}
+              </div>
+            )}
+
             <div className="grid grid-cols-2 gap-3 mb-6">
               {detail.sector && <div className="bg-[#0A0E17] border border-[#1A2332] rounded-lg p-3"><span className="text-[10px] text-[#8B9BB4] uppercase tracking-wider">Sector</span><p className="text-sm text-white mt-1">{detail.sector}</p></div>}
               {detail.deadline && <div className="bg-[#0A0E17] border border-[#1A2332] rounded-lg p-3"><span className="text-[10px] text-[#8B9BB4] uppercase tracking-wider">Deadline</span><p className="text-sm text-white mt-1">{detail.deadline}{detail.days_remaining != null && ` (${detail.days_remaining}d)`}</p></div>}
+              {detail.date_published && <div className="bg-[#0A0E17] border border-[#1A2332] rounded-lg p-3"><span className="text-[10px] text-[#8B9BB4] uppercase tracking-wider">Published</span><p className="text-sm text-white mt-1">{detail.date_published}</p></div>}
               {detail.reference && <div className="bg-[#0A0E17] border border-[#1A2332] rounded-lg p-3"><span className="text-[10px] text-[#8B9BB4] uppercase tracking-wider">Reference</span><p className="text-sm text-white mt-1">{detail.reference}</p></div>}
               {detail.province && <div className="bg-[#0A0E17] border border-[#1A2332] rounded-lg p-3"><span className="text-[10px] text-[#8B9BB4] uppercase tracking-wider">Province</span><p className="text-sm text-white mt-1">{detail.province}</p></div>}
+              {(detail.town || detail.suburb) && <div className="bg-[#0A0E17] border border-[#1A2332] rounded-lg p-3"><span className="text-[10px] text-[#8B9BB4] uppercase tracking-wider">Location</span><p className="text-sm text-white mt-1 capitalize">{[detail.suburb, detail.town].filter(Boolean).filter((v,i,a) => a.indexOf(v) === i).join(", ").toLowerCase()}</p></div>}
               {detail.size_tier && <div className="bg-[#0A0E17] border border-[#1A2332] rounded-lg p-3"><span className="text-[10px] text-[#8B9BB4] uppercase tracking-wider">Value Tier</span><p className="text-sm text-white mt-1">{detail.size_tier}</p></div>}
               {detail.source && <div className="bg-[#0A0E17] border border-[#1A2332] rounded-lg p-3"><span className="text-[10px] text-[#8B9BB4] uppercase tracking-wider">Source</span><p className="text-sm text-white mt-1">{detail.source}</p></div>}
             </div>
 
             {detail.contact_person && detail.contact_person !== "N/A" && (
               <div className="bg-[#0A0E17] border border-[#1A2332] rounded-lg p-4 mb-4">
-                <span className="text-[10px] text-[#8B9BB4] uppercase tracking-wider">Contact</span>
+                <span className="text-[10px] text-[#8B9BB4] uppercase tracking-wider">Issuing Authority Contact</span>
                 <p className="text-sm text-white mt-1">{detail.contact_person}</p>
-                {detail.email && <p className="text-xs text-[#00FFD4] mt-1">{detail.email}</p>}
+                {detail.email && <p className="text-xs text-[#00FFD4] mt-1"><a href={`mailto:${detail.email}`} className="hover:underline">{detail.email}</a></p>}
                 {detail.telephone && <p className="text-xs text-[#8B9BB4] mt-1">{detail.telephone}</p>}
+              </div>
+            )}
+
+            {detail.description && detail.description.length > 50 && (
+              <div className="bg-[#0A0E17] border border-[#1A2332] rounded-lg p-4 mb-4">
+                <span className="text-[10px] text-[#8B9BB4] uppercase tracking-wider">Full Description</span>
+                <p className="text-sm text-[#E8EDF2] mt-2 leading-relaxed max-h-40 overflow-y-auto">{detail.description}</p>
               </div>
             )}
 
