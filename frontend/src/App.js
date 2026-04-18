@@ -356,11 +356,30 @@ const TenderDetailModal = ({ tender, onClose }) => {
             )}
 
             {detail.url && (
-              <a href={detail.url} target="_blank" rel="noopener noreferrer"
-                 onClick={() => trackTender(tender.id, "click")}
-                 className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#4A9FD8] to-[#00FFD4] text-[#0A0E17] rounded-full font-bold text-sm hover:shadow-[0_0_30px_rgba(0,255,212,0.4)] transition-all" data-testid="tender-link">
-                View on Source <ArrowUpRight size={16} />
-              </a>
+              <div className="flex items-center gap-3 flex-wrap">
+                {detail.reference && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      try { navigator.clipboard.writeText(detail.reference); } catch (_) {}
+                      e.currentTarget.dataset.copied = "1";
+                      e.currentTarget.innerText = "✓ Reference copied";
+                      setTimeout(() => {
+                        if (e.currentTarget) { e.currentTarget.innerText = `Copy reference: ${detail.reference}`; }
+                      }, 1800);
+                    }}
+                    className="inline-flex items-center gap-2 px-4 py-3 bg-[#1A2332] text-[#E8EDF2] rounded-full font-medium text-xs hover:bg-[#243049] transition-all border border-[#2A3A54]"
+                    data-testid="copy-reference">
+                    Copy reference: {detail.reference}
+                  </button>
+                )}
+                <a href={detail.url} target="_blank" rel="noopener noreferrer"
+                   onClick={() => trackTender(tender.id, "click")}
+                   className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#4A9FD8] to-[#00FFD4] text-[#0A0E17] rounded-full font-bold text-sm hover:shadow-[0_0_30px_rgba(0,255,212,0.4)] transition-all" data-testid="tender-link">
+                  Open on eTenders Portal <ArrowUpRight size={16} />
+                </a>
+                {detail.reference && <p className="text-[10px] text-[#8B9BB4] w-full mt-1">Tip: paste the reference into the portal's <em>QuickFind</em> to jump straight to this tender.</p>}
+              </div>
             )}
           </>
         )}
