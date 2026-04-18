@@ -53,8 +53,31 @@ const Logo = () => (
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
-  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    // Fire-and-forget page-visit event. Never blocks rendering.
+    try {
+      fetch(`${API_URL}/page-visit`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ page: pathname, referrer: document.referrer || "" }),
+        keepalive: true,
+      }).catch(() => {});
+    } catch (_) { /* silent */ }
+  }, [pathname]);
   return null;
+};
+
+// Fire-and-forget tender event helper. Use in onClick handlers.
+const trackTender = (tenderId, type) => {
+  try {
+    fetch(`${API_URL}/tenders/${tenderId}/${type}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ page: window.location.pathname }),
+      keepalive: true,
+    }).catch(() => {});
+  } catch (_) { /* silent */ }
 };
 
 const Navbar = () => {
@@ -254,6 +277,7 @@ const TenderDetailModal = ({ tender, onClose }) => {
 
   useEffect(() => {
     if (!tender) return;
+    trackTender(tender.id, "view");
     fetch(`${API_URL}/tenders/${tender.id}`).then(r => r.ok ? r.json() : null).then(d => { setDetail(d); setLoading(false); }).catch(() => setLoading(false));
   }, [tender]);
 
@@ -312,7 +336,9 @@ const TenderDetailModal = ({ tender, onClose }) => {
             )}
 
             {detail.url && (
-              <a href={detail.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#4A9FD8] to-[#00FFD4] text-[#0A0E17] rounded-full font-bold text-sm hover:shadow-[0_0_30px_rgba(0,255,212,0.4)] transition-all" data-testid="tender-link">
+              <a href={detail.url} target="_blank" rel="noopener noreferrer"
+                 onClick={() => trackTender(tender.id, "click")}
+                 className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#4A9FD8] to-[#00FFD4] text-[#0A0E17] rounded-full font-bold text-sm hover:shadow-[0_0_30px_rgba(0,255,212,0.4)] transition-all" data-testid="tender-link">
                 View on Source <ArrowUpRight size={16} />
               </a>
             )}
