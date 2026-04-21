@@ -6,9 +6,11 @@ import {
   Layers, BarChart3, Target, Zap, Database, Workflow,
   Shield, CheckCircle2, ArrowUpRight, Building2, Cpu, Network,
   Server, ChevronRight, Globe, Users, TrendingUp, Clock,
-  Award, Code2, Cog, Eye
+  Award, Code2, Cog, Eye, Brain, Wallet, Hourglass, Calculator,
+  ClipboardList, Scale, HardHat, Info
 } from "lucide-react";
 import SenuerenLogo from "./components/SenuerenLogo";
+import BidToolsPage from "./components/BidTools";
 
 const API_URL = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const CONTACT_EMAIL = "info@senueren.co.za";
@@ -95,6 +97,7 @@ const Navbar = () => {
   const links = [
     { to: "/", label: "Home" },
     { to: "/senra", label: "SENRA" },
+    { to: "/tools", label: "Bid Tools" },
     { to: "/systems", label: "Systems" },
     { to: "/about", label: "About" },
     { to: "/contact", label: "Contact" },
@@ -248,6 +251,41 @@ const urgencyColor = (u) => {
   return "text-[#00FFD4] bg-[#00FFD4]/10 border-[#00FFD4]/30";
 };
 
+// Score → match label (mirrors backend match_label_for). Used on cards
+// where we don't have the full /tenders/{id} payload yet.
+const matchLabelFor = (score) => {
+  if (score >= 80) return "Strong Match";
+  if (score >= 65) return "Solid Match";
+  if (score >= 50) return "Moderate Match";
+  return "Weak Match";
+};
+
+const matchLabelColor = (score) => {
+  if (score >= 80) return "text-[#00FFD4]";
+  if (score >= 65) return "text-[#4A9FD8]";
+  if (score >= 50) return "text-yellow-400";
+  return "text-[#8B9BB4]";
+};
+
+// Small horizontal bar used inside the Tender Detail modal's
+// Opportunity Quality Index breakdown.
+const ScoreBar = ({ label, value, icon, color = "#00FFD4", testid }) => (
+  <div data-testid={testid}>
+    <div className="flex items-center justify-between mb-1.5">
+      <span className="inline-flex items-center gap-1.5 text-[11px] text-[#E8EDF2] font-medium">
+        {icon}{label}
+      </span>
+      <span className="text-[11px] text-[#8B9BB4] font-bold font-['Outfit']">{value}/100</span>
+    </div>
+    <div className="h-1.5 w-full rounded-full bg-[#0A0E17] overflow-hidden">
+      <div
+        className="h-full rounded-full transition-all duration-500"
+        style={{ width: `${Math.max(0, Math.min(100, value))}%`, backgroundColor: color }}
+      />
+    </div>
+  </div>
+);
+
 const TenderCard = ({ t, onClick }) => (
   <div onClick={() => onClick(t)} className="bg-[#0F1419] border border-[#1A2332] rounded-xl p-5 card-glow group cursor-pointer" data-testid={`tender-${t.id}`}>
     <div className="flex items-start justify-between gap-3 mb-3">
@@ -257,7 +295,9 @@ const TenderCard = ({ t, onClick }) => (
       </div>
       <div className="flex-shrink-0 text-right">
         <div className="text-lg font-bold text-white font-['Outfit']">{t.score}</div>
-        <div className="text-[10px] text-[#8B9BB4]">Score</div>
+        <div className={`text-[10px] font-semibold ${matchLabelColor(t.score)}`} data-testid="tender-match-label">
+          {matchLabelFor(t.score)}
+        </div>
       </div>
     </div>
     <div className="flex items-center gap-2 flex-wrap">
@@ -287,9 +327,14 @@ const TenderDetailModal = ({ tender, onClose }) => {
     <div className="fixed inset-0 z-[60] bg-[#0A0E17]/90 backdrop-blur-sm flex items-start justify-center pt-24 px-4 overflow-y-auto" onClick={onClose} data-testid="tender-detail-modal">
       <div className="bg-[#0F1419] border border-[#1A2332] rounded-2xl max-w-2xl w-full p-8 mb-12" onClick={e => e.stopPropagation()}>
         <div className="flex justify-between items-start mb-6">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 flex-wrap">
             <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase border ${urgencyColor(tender.urgency)}`}>{tender.urgency}</span>
-            <span className="text-white font-bold font-['Outfit'] text-2xl">{tender.score}<span className="text-sm text-[#8B9BB4] font-normal">/95</span></span>
+            <div className="flex items-baseline gap-2">
+              <span className="text-white font-bold font-['Outfit'] text-2xl">{tender.score}</span>
+              <span className={`text-xs font-bold ${matchLabelColor(tender.score)}`} data-testid="tender-match-headline">
+                {matchLabelFor(tender.score)}
+              </span>
+            </div>
           </div>
           <button onClick={onClose} className="text-[#8B9BB4] hover:text-white" data-testid="close-detail"><X size={20} /></button>
         </div>
@@ -299,6 +344,43 @@ const TenderDetailModal = ({ tender, onClose }) => {
 
         {loading ? <div className="animate-pulse text-[#8B9BB4] text-sm">Loading details...</div> : detail && (
           <>
+            {/* Opportunity Quality Index — score transparency */}
+            {detail.score_breakdown && (
+              <div className="bg-[#0A0E17] border border-[#1A2332] rounded-xl p-5 mb-5" data-testid="score-breakdown">
+                <div className="flex items-center justify-between mb-3">
+                  <div>
+                    <span className="text-[10px] text-[#00FFD4] uppercase tracking-wider font-bold">Opportunity Quality Index</span>
+                    <p className="text-[11px] text-[#8B9BB4] mt-0.5">Why this scored {tender.score}</p>
+                  </div>
+                  <div className="flex gap-1.5 flex-wrap justify-end max-w-[60%]">
+                    {detail.value_label && <span className="inline-flex items-center gap-1 text-[10px] text-[#E8EDF2] bg-[#1A2332] border border-[#2A3A54] rounded-full px-2 py-0.5"><Wallet size={11} className="text-[#00FFD4]"/>{detail.value_label}</span>}
+                    {detail.urgency_label && <span className="inline-flex items-center gap-1 text-[10px] text-[#E8EDF2] bg-[#1A2332] border border-[#2A3A54] rounded-full px-2 py-0.5"><Hourglass size={11} className="text-[#00FFD4]"/>{detail.urgency_label}</span>}
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  <ScoreBar
+                    label="Relevance (fit to sector)"
+                    value={detail.score_breakdown.relevance}
+                    icon={<Brain size={12} className="text-[#00FFD4]" />}
+                    testid="score-bar-relevance"
+                  />
+                  <ScoreBar
+                    label="Value potential (contract size)"
+                    value={detail.score_breakdown.value}
+                    icon={<Wallet size={12} className="text-[#4A9FD8]" />}
+                    color="#4A9FD8"
+                    testid="score-bar-value"
+                  />
+                  <ScoreBar
+                    label="Urgency (time pressure)"
+                    value={detail.score_breakdown.urgency}
+                    icon={<Hourglass size={12} className="text-orange-400" />}
+                    color="#f59e0b"
+                    testid="score-bar-urgency"
+                  />
+                </div>
+              </div>
+            )}
             {/* Public engagement strip — anonymous viewer signal */}
             {(detail.view_count > 0 || detail.click_count > 0) && (
               <div className="flex items-center gap-4 mb-5 text-xs text-[#8B9BB4]" data-testid="tender-engagement">
@@ -533,19 +615,25 @@ const SenraPage = () => {
   const [query, setQuery] = useState("");
   const [sectorFilter, setSectorFilter] = useState("");
   const [urgencyFilter, setUrgencyFilter] = useState("");
+  const [strictMode, setStrictMode] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [count, setCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState(null);
 
-  const fetchTenders = async (p = 1) => {
+  const fetchTenders = async (p = 1, overrides = {}) => {
     setLoading(true);
     try {
       const params = new URLSearchParams({ limit: "20", page: String(p) });
-      if (query) params.set("q", query);
-      if (sectorFilter) params.set("sector", sectorFilter);
-      if (urgencyFilter) params.set("urgency", urgencyFilter);
+      const effQuery = overrides.query ?? query;
+      const effSector = overrides.sector ?? sectorFilter;
+      const effUrgency = overrides.urgency ?? urgencyFilter;
+      const effStrict = overrides.strict ?? strictMode;
+      if (effQuery) params.set("q", effQuery);
+      if (effSector) params.set("sector", effSector);
+      if (effUrgency) params.set("urgency", effUrgency);
+      if (effStrict && effSector) params.set("strict", "1");
       const res = await fetch(`${API_URL}/tenders/search?${params}`);
       if (res.ok) {
         const data = await res.json();
@@ -564,11 +652,27 @@ const SenraPage = () => {
       fetch(`${API_URL}/stats`).then(r => r.ok ? r.json() : null)
     ]).then(([s, st]) => { setSectors(s); setStats(st); });
     fetchTenders();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSearch = (e) => { e.preventDefault(); setPage(1); fetchTenders(1); };
-  const handleSector = (s) => { setSectorFilter(s === sectorFilter ? "" : s); setTimeout(() => fetchTenders(1), 0); };
-  const handleUrgency = (u) => { setUrgencyFilter(u === urgencyFilter ? "" : u); setTimeout(() => fetchTenders(1), 0); };
+  const handleSector = (s) => {
+    const next = s === sectorFilter ? "" : s;
+    setSectorFilter(next);
+    fetchTenders(1, { sector: next });
+  };
+  const handleUrgency = (u) => {
+    const next = u === urgencyFilter ? "" : u;
+    setUrgencyFilter(next);
+    fetchTenders(1, { urgency: next });
+  };
+  const handleStrictToggle = () => {
+    const next = !strictMode;
+    setStrictMode(next);
+    // Strict only meaningful with a sector selected — if no sector, toggle
+    // is visual only until user picks a category.
+    fetchTenders(1, { strict: next });
+  };
 
   return (
     <div className="min-h-screen bg-[#0A0E17] pt-24 pb-16" data-testid="senra-page">
@@ -581,6 +685,9 @@ const SenraPage = () => {
               <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#00FFD4] mb-2">Procurement Intelligence</p>
               <h1 className="text-4xl md:text-5xl tracking-tight font-bold text-white font-['Outfit']">SENRA</h1>
               <p className="text-[#8B9BB4] mt-2">Live SA government tender opportunities. Scored. Ranked. Delivered.</p>
+              <Link to="/tools" className="inline-flex items-center gap-1.5 mt-3 text-xs text-[#00FFD4] hover:underline" data-testid="senra-tools-link">
+                <Calculator size={12} /> Open Bid Tools (BOQ, margin, bid/no-bid) <ArrowRight size={12} />
+              </Link>
             </div>
             {stats && (
               <div className="flex gap-5 text-sm">
@@ -589,6 +696,17 @@ const SenraPage = () => {
                 <div className="text-center"><span className="text-orange-400 font-bold font-['Outfit'] text-xl">{stats.urgent_count}</span><br/><span className="text-[#8B9BB4] text-[10px]">Urgent</span></div>
               </div>
             )}
+          </div>
+        </div>
+
+        {/* What the SENRA score means — first-time user clarity */}
+        <div className="bg-[#0F1419] border border-[#1A2332] rounded-xl p-4 mb-6 flex items-start gap-3" data-testid="senra-score-explainer">
+          <Info size={16} className="text-[#00FFD4] mt-0.5 flex-shrink-0" />
+          <div className="text-xs text-[#8B9BB4] leading-relaxed">
+            <span className="text-white font-bold">Opportunity Quality Index</span> — every tender is scored out of 95 across three axes:
+            <span className="text-[#E8EDF2]"> Relevance</span> (sector fit),
+            <span className="text-[#E8EDF2]"> Value potential</span> (contract size signal) and
+            <span className="text-[#E8EDF2]"> Urgency</span> (deadline pressure). Click any card to see the full breakdown.
           </div>
         </div>
 
@@ -601,7 +719,7 @@ const SenraPage = () => {
         </form>
 
         {/* Filters */}
-        <div className="flex flex-wrap gap-2 mb-8" data-testid="senra-filters">
+        <div className="flex flex-wrap gap-2 mb-3" data-testid="senra-filters">
           {["CRITICAL", "URGENT", "SOON", "NORMAL"].map(u => (
             <button key={u} onClick={() => handleUrgency(u)} className={`px-3 py-1.5 rounded-full text-[10px] font-bold uppercase border transition-all ${urgencyFilter === u ? urgencyColor(u) : "text-[#8B9BB4] border-[#1A2332] hover:border-[#8B9BB4]"}`} data-testid={`filter-${u.toLowerCase()}`}>{u}</button>
           ))}
@@ -611,6 +729,31 @@ const SenraPage = () => {
               {s.sector} <span className="opacity-50">({s.count})</span>
             </button>
           ))}
+        </div>
+
+        {/* Strict-vs-Expanded mode toggle */}
+        <div className="flex items-center gap-3 mb-8 flex-wrap" data-testid="senra-strict-toggle-row">
+          <button
+            type="button"
+            onClick={handleStrictToggle}
+            aria-pressed={strictMode}
+            data-testid="senra-strict-toggle"
+            className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold border transition-all ${
+              strictMode
+                ? "bg-[#00FFD4]/10 text-[#00FFD4] border-[#00FFD4]/50"
+                : "bg-[#0F1419] text-[#8B9BB4] border-[#1A2332] hover:border-[#8B9BB4]"
+            }`}
+          >
+            <Shield size={13} />
+            {strictMode ? "Strict mode: ON" : "Strict mode: OFF"}
+          </button>
+          <span className="text-[11px] text-[#8B9BB4]">
+            {strictMode
+              ? (sectorFilter
+                  ? `Showing only core ${sectorFilter} tenders (exact-match whitelist).`
+                  : "Pick a category above to apply strict filtering.")
+              : "Expanded view: includes related ecosystem opportunities (engineering, consulting, supporting services)."}
+          </span>
         </div>
 
         {/* Results */}
@@ -1177,6 +1320,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/senra" element={<SenraPage />} />
+          <Route path="/tools" element={<BidToolsPage />} />
           <Route path="/systems" element={<SystemsPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
