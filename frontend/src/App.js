@@ -400,6 +400,7 @@ const TenderDetailModal = ({ tender, onClose }) => {
               {detail.province && <div className="bg-[#0A0E17] border border-[#1A2332] rounded-lg p-3"><span className="text-[10px] text-[#8B9BB4] uppercase tracking-wider">Province</span><p className="text-sm text-white mt-1">{detail.province}</p></div>}
               {(detail.town || detail.suburb) && <div className="bg-[#0A0E17] border border-[#1A2332] rounded-lg p-3"><span className="text-[10px] text-[#8B9BB4] uppercase tracking-wider">Location</span><p className="text-sm text-white mt-1 capitalize">{[detail.suburb, detail.town].filter(Boolean).filter((v,i,a) => a.indexOf(v) === i).join(", ").toLowerCase()}</p></div>}
               {detail.size_tier && <div className="bg-[#0A0E17] border border-[#1A2332] rounded-lg p-3"><span className="text-[10px] text-[#8B9BB4] uppercase tracking-wider">Value Tier</span><p className="text-sm text-white mt-1">{detail.size_tier}</p></div>}
+              {detail.cidb_suggestion && <div className="bg-[#0A0E17] border border-[#1A2332] rounded-lg p-3"><span className="text-[10px] text-[#8B9BB4] uppercase tracking-wider">CIDB hint</span><p className="text-sm text-white mt-1" data-testid="tender-cidb">{detail.cidb_suggestion}</p></div>}
               {detail.source && <div className="bg-[#0A0E17] border border-[#1A2332] rounded-lg p-3"><span className="text-[10px] text-[#8B9BB4] uppercase tracking-wider">Source</span><p className="text-sm text-white mt-1">{detail.source}</p></div>}
             </div>
 
@@ -682,9 +683,9 @@ const SenraPage = () => {
           <div className="accent-bar w-12 mb-6"></div>
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
             <div>
-              <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#00FFD4] mb-2">Procurement Intelligence</p>
+              <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#00FFD4] mb-2">SA Procurement Intelligence for SMEs</p>
               <h1 className="text-4xl md:text-5xl tracking-tight font-bold text-white font-['Outfit']">SENRA</h1>
-              <p className="text-[#8B9BB4] mt-2">Live SA government tender opportunities. Scored. Ranked. Delivered.</p>
+              <p className="text-[#8B9BB4] mt-2">The decision layer for South African contractors. Live tenders, scored, filtered and ranked — so you stop chasing work and start selecting profitable opportunities.</p>
               <Link to="/tools" className="inline-flex items-center gap-1.5 mt-3 text-xs text-[#00FFD4] hover:underline" data-testid="senra-tools-link">
                 <Calculator size={12} /> Open Bid Tools (BOQ, margin, bid/no-bid) <ArrowRight size={12} />
               </Link>
