@@ -1,0 +1,29 @@
+# robots.txt — senueren.co.za
+# SENRA — SA procurement intelligence for SMEs
+# Allow all well-behaved crawlers; no login-gated or noisy endpoints exist.
+
+User-agent: *
+Allow: /
+
+# Block the GitHub Pages build noise and any accidental hash-dup URLs
+Disallow: /*?*utm_
+Disallow: /*?*fbclid=
+Disallow: /*?*gclid=
+
+# Rich-snippet and AI crawlers — explicitly welcomed
+User-agent: Googlebot
+Allow: /
+User-agent: Bingbot
+Allow: /
+User-agent: DuckDuckBot
+Allow: /
+User-agent: GPTBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Applebot
+Allow: /
+
+Sitemap: https://senueren.co.za/sitemap.xml

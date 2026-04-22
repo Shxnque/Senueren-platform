@@ -7,7 +7,7 @@ import {
   Shield, CheckCircle2, ArrowUpRight, Building2, Cpu, Network,
   Server, ChevronRight, Globe, Users, TrendingUp, Clock,
   Award, Code2, Cog, Eye, Brain, Wallet, Hourglass, Calculator,
-  ClipboardList, Scale, HardHat, Info
+  ClipboardList, Scale, HardHat, Info, Facebook
 } from "lucide-react";
 import SenuerenLogo from "./components/SenuerenLogo";
 import BidToolsPage from "./components/BidTools";
@@ -16,6 +16,43 @@ const API_URL = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const CONTACT_EMAIL = "info@senueren.co.za";
 const CONTACT_PHONE = "067 326 7417";
 const WHATSAPP_NUMBER = "27673267417";
+const FACEBOOK_URL = "https://www.facebook.com/share/1CQe92sFUz/";
+const SITE_URL = "https://senueren.co.za";
+
+/* ── SEO helper — dynamic per-route title, description, canonical, OG ──
+ *
+ * Keeps organic traffic rising by giving Googlebot (and AI crawlers like
+ * GPTBot, PerplexityBot, ClaudeBot) route-specific metadata instead of
+ * the shared index.html default. Called once per page with a keyword-rich
+ * title + description targeted at the SA procurement SEO keywords.
+ */
+const useSEO = ({ title, description, path = "/" }) => {
+  useEffect(() => {
+    const fullTitle = title || "SENRA | SA Procurement Intelligence";
+    const fullUrl = `${SITE_URL}${path.startsWith("#") ? path : `/${path.replace(/^\//, "")}`}`;
+    document.title = fullTitle;
+    const setMeta = (selector, attr, value) => {
+      let el = document.head.querySelector(selector);
+      if (!el) {
+        el = document.createElement(selector.startsWith("meta") ? "meta" : "link");
+        const m = selector.match(/\[(.+?)="(.+?)"\]/);
+        if (m) el.setAttribute(m[1], m[2]);
+        document.head.appendChild(el);
+      }
+      el.setAttribute(attr, value);
+    };
+    if (description) {
+      setMeta('meta[name="description"]', "content", description);
+      setMeta('meta[property="og:description"]', "content", description);
+      setMeta('meta[name="twitter:description"]', "content", description);
+    }
+    setMeta('meta[property="og:title"]', "content", fullTitle);
+    setMeta('meta[name="twitter:title"]', "content", fullTitle);
+    setMeta('meta[property="og:url"]', "content", fullUrl);
+    setMeta('meta[name="twitter:url"]', "content", fullUrl);
+    setMeta('link[rel="canonical"]', "href", fullUrl);
+  }, [title, description, path]);
+};
 
 const HERO_BG = "https://static.prod-images.emergentagent.com/jobs/800278e9-c0cd-426b-9899-e892371f8b9d/images/e1893e5fd846cd62825f7f50b748b3b9b6ae05d857a621a5ec97ef242563cfb4.png";
 const SENRA_IMG = "https://static.prod-images.emergentagent.com/jobs/800278e9-c0cd-426b-9899-e892371f8b9d/images/416d48f3c449e725c2a0cf6893ff74b76d8ae8cb2bbc6a36d2b162d96d753635.png";
@@ -164,16 +201,30 @@ const Footer = () => (
             <span className="text-2xl logo-chrome">SENUEREN</span>
           </div>
           <p className="text-[#8B9BB4] text-sm leading-relaxed max-w-md mb-4">
-            Building the infrastructure behind modern business operations. Systems, automation, and intelligence platforms for growth-stage SMEs.
+            SENRA — South Africa's procurement intelligence platform for SMEs. Live government tenders from eTenders, SANRAL, Transnet, Eskom, National Treasury and every metro. Scored, filtered and delivered. Free SA-specific Bid Tools for BOQ, margin and bid/no-bid decisions with CIDB, VAT, P&amp;Gs and retention baked in.
           </p>
-          <p className="text-[#1A2332] text-xs mt-6">Cape Town, South Africa</p>
+          <div className="flex items-center gap-3 mt-4" data-testid="footer-social">
+            <a href={FACEBOOK_URL} target="_blank" rel="noopener noreferrer"
+               aria-label="Senueren on Facebook"
+               className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-[#0F1419] border border-[#1A2332] text-[#8B9BB4] hover:text-[#00FFD4] hover:border-[#00FFD4]/50 transition-all"
+               data-testid="footer-facebook">
+              <Facebook size={16} />
+            </a>
+            <a href={`mailto:${CONTACT_EMAIL}`}
+               aria-label="Email Senueren"
+               className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-[#0F1419] border border-[#1A2332] text-[#8B9BB4] hover:text-[#00FFD4] hover:border-[#00FFD4]/50 transition-all">
+              <Mail size={16} />
+            </a>
+          </div>
+          <p className="text-[#1A2332] text-xs mt-6">Cape Town, South Africa · Serving contractors nationally</p>
         </div>
         <div>
-          <h4 className="text-xs font-bold mb-5 text-[#8B9BB4] tracking-[0.2em] uppercase font-['Outfit']">Company</h4>
+          <h4 className="text-xs font-bold mb-5 text-[#8B9BB4] tracking-[0.2em] uppercase font-['Outfit']">Platform</h4>
           <ul className="space-y-3 text-sm">
             <li><Link to="/" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-home-link">Home</Link></li>
-            <li><Link to="/senra" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-senra-link">SENRA</Link></li>
-            <li><Link to="/systems" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-systems-link">Systems</Link></li>
+            <li><Link to="/senra" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-senra-link">Live tenders (SENRA)</Link></li>
+            <li><Link to="/tools" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-tools-link">Bid Tools (BOQ · Margin · Viability)</Link></li>
+            <li><Link to="/systems" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-systems-link">Systems we build</Link></li>
             <li><Link to="/about" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-about-link">About</Link></li>
             <li><Link to="/contact" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-contact-link">Contact</Link></li>
           </ul>
@@ -183,12 +234,14 @@ const Footer = () => (
           <ul className="space-y-3 text-sm">
             <li><a href={`mailto:${CONTACT_EMAIL}`} className="text-[#00FFD4] hover:underline" data-testid="footer-email">{CONTACT_EMAIL}</a></li>
             <li><a href={`tel:${CONTACT_PHONE.replace(/\s/g, "")}`} className="text-[#8B9BB4] hover:text-white transition-colors" data-testid="footer-phone">{CONTACT_PHONE}</a></li>
+            <li><a href={FACEBOOK_URL} target="_blank" rel="noopener noreferrer" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-fb-text">Facebook page</a></li>
+            <li><a href="/sitemap.xml" className="text-[#8B9BB4]/70 hover:text-[#00FFD4] transition-colors text-xs" data-testid="footer-sitemap">Sitemap</a></li>
           </ul>
         </div>
       </div>
-      <div className="pt-8 border-t border-[#1A2332]/50 flex flex-col md:flex-row justify-between text-xs text-[#1A2332]">
+      <div className="pt-8 border-t border-[#1A2332]/50 flex flex-col md:flex-row justify-between text-xs text-[#8B9BB4]/60">
         <span>&copy; {new Date().getFullYear()} Senueren. All rights reserved.</span>
-        <span className="mt-2 md:mt-0">CRM &middot; Automation &middot; Systems Architecture</span>
+        <span className="mt-2 md:mt-0">Procurement Intelligence · SA Tender Search · BOQ Tools · CIDB · RFQ South Africa</span>
       </div>
     </div>
   </footer>
@@ -610,6 +663,11 @@ const HomeTenderFeed = () => {
 /* ── SENRA Page — Search, Filter, Browse ── */
 
 const SenraPage = () => {
+  useSEO({
+    title: "SENRA — Live SA Government Tenders, Scored & Ranked | Free Tender Search South Africa",
+    description: "Find live South African government tenders from eTenders, SANRAL, Transnet, Eskom, National Treasury and every metro. Each tender scored on relevance, value potential and urgency. Strict category filters, CIDB grade hints, deadline alerts — all free, no signup.",
+    path: "#/senra",
+  });
   const [tenders, setTenders] = useState([]);
   const [sectors, setSectors] = useState([]);
   const [stats, setStats] = useState(null);
@@ -776,15 +834,109 @@ const SenraPage = () => {
             <button onClick={() => fetchTenders(Math.min(totalPages, page + 1))} disabled={page >= totalPages} className="px-4 py-2 bg-[#0F1419] border border-[#1A2332] rounded-lg text-sm text-[#8B9BB4] hover:border-[#00FFD4] disabled:opacity-30 transition-all">Next</button>
           </div>
         )}
+
+        {/* ─── Frequently Asked — mirrors FAQPage JSON-LD in index.html
+             (Google's FAQ schema guideline requires the content to be
+             visible on the page; this is the user-facing copy that
+             enables AI-search citations from ChatGPT / Perplexity /
+             Claude / Gemini AI Overviews.) */}
+        <FAQSection />
+
       </div>
       {selected && <TenderDetailModal tender={selected} onClose={() => setSelected(null)} />}
     </div>
   );
 };
 
+/* ── FAQ Section — SEO + AI-citation target ── */
+const FAQ_ITEMS = [
+  {
+    q: "How do I find government tenders in South Africa for free?",
+    a: "SENRA aggregates live tenders from eTenders, SANRAL, Transnet, Eskom, SARS, National Treasury, SABS, SITA, and all eight South African metros — completely free, no signup. Each tender is scored by relevance, value potential and urgency so you can focus on what matters for your business.",
+  },
+  {
+    q: "What is a BOQ and how do I estimate one quickly?",
+    a: "A Bill of Quantities lists every line item, quantity and rate on a construction project. SENRA's free BOQ Rough Estimator (Bid Tools page) lets you enter quantities for 12 common line items and returns an indicative ZAR cost range including P&Gs, contingency and 15% VAT — a 5-minute sanity check before a full priced BOQ.",
+  },
+  {
+    q: "What is a CIDB grade and how do I know what grade a tender needs?",
+    a: "CIDB grades (1–9) determine the maximum contract value a contractor can bid on in South Africa. Grade 1 caps around R200k; Grade 9 is unlimited. SENRA suggests the likely grade band (1–3, 4–6, or 7–9) for every construction-adjacent tender, based on the contract-size signal and issuing organisation. Always verify against the tender documents.",
+  },
+  {
+    q: "What is the difference between an RFQ and a tender?",
+    a: "An RFQ (Request for Quotation) is typically a smaller, faster procurement — used for goods or services under a quotation threshold (often under R500k). A tender (RFP) is a larger, more formal process with bonds, compulsory briefings and multi-stage evaluation. SENRA shows both, clearly labelled with size tier so you can filter by contract scale.",
+  },
+  {
+    q: "Should I include VAT in my tender quote?",
+    a: "Yes, if you're VAT-registered (turnover above R1 million p.a.), you must include 15% VAT. The SENRA Margin Calculator and BOQ Estimator both have a VAT toggle — flip it on to show inclusive-of-VAT pricing. Never quote without being explicit about VAT status.",
+  },
+  {
+    q: "How do I decide whether to bid on a tender or walk away?",
+    a: "Use the SENRA Bid / No-Bid Viability tool. Rate 9 factors from 1–10: industry fit, contract value, cashflow resilience, CIDB grade fit, timeline feasibility, effort required, competitive position, travel distance and site access. The tool computes a weighted score and gives a verdict — BID (70+), CONSIDER (50–69), or PASS (below 50). It also auto-flags risks like cashflow danger and CIDB mismatch.",
+  },
+  {
+    q: "How much retention is typical on SA construction contracts?",
+    a: "Retention in South Africa is typically 5–10% held for 6–12 months after practical completion, sometimes longer on government contracts. This is money you've earned but haven't been paid. The SENRA Margin Calculator lets you enter retention % and shows the cash you actually see at completion — crucial for cashflow planning.",
+  },
+  {
+    q: "What are P&Gs in a construction tender?",
+    a: "P&Gs (Preliminaries & Generals) cover everything you need on site that isn't a specific scope item — site establishment, supervision, plant hire, insurances, bonds. Typically 8–15% on top of direct cost. The SENRA BOQ Estimator treats P&Gs as a first-class input so your sanity-check range reflects the real total.",
+  },
+];
+
+const FAQSection = () => {
+  const [openIdx, setOpenIdx] = useState(0);
+  return (
+    <section className="mt-16 pt-10 border-t border-[#1A2332]" data-testid="senra-faq">
+      <div className="accent-bar w-12 mb-6"></div>
+      <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#00FFD4] mb-2">Frequently asked</p>
+      <h2 className="text-3xl md:text-4xl tracking-tight font-bold text-white font-['Outfit'] mb-2">
+        Tenders in South Africa — the basics
+      </h2>
+      <p className="text-sm text-[#8B9BB4] mb-8 max-w-2xl">
+        A short glossary for South African contractors and SME bid managers.
+        Covers BOQ, RFQ, CIDB, VAT, retention and P&amp;Gs — the stuff every
+        procurement decision depends on.
+      </p>
+      <div className="space-y-2">
+        {FAQ_ITEMS.map((item, i) => {
+          const open = openIdx === i;
+          return (
+            <div key={i} className="bg-[#0F1419] border border-[#1A2332] rounded-xl overflow-hidden" data-testid={`faq-item-${i}`}>
+              <button
+                type="button"
+                onClick={() => setOpenIdx(open ? -1 : i)}
+                className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left hover:bg-[#131923] transition-colors"
+                aria-expanded={open}
+                data-testid={`faq-question-${i}`}
+              >
+                <span className="text-sm md:text-[15px] font-bold text-white font-['Outfit']">{item.q}</span>
+                <ChevronRight
+                  size={18}
+                  className={`text-[#8B9BB4] flex-shrink-0 transition-transform ${open ? "rotate-90 text-[#00FFD4]" : ""}`}
+                />
+              </button>
+              {open && (
+                <div className="px-5 pb-5 text-sm text-[#E8EDF2] leading-relaxed" data-testid={`faq-answer-${i}`}>
+                  {item.a}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+};
+
 /* ── Home Page ── */
 
 const HomePage = () => {
+  useSEO({
+    title: "Senueren | SENRA — SA Procurement Intelligence for SMEs | Live Tenders + Bid Tools",
+    description: "Senueren builds SENRA, South Africa's procurement intelligence platform for SMEs. Live government tenders from eTenders, SANRAL, Transnet, Eskom and every metro — scored by relevance, value and urgency. Plus free SA-specific BOQ, margin and bid/no-bid tools with CIDB, VAT, P&Gs and retention built in.",
+    path: "/",
+  });
   return (
     <div className="min-h-screen bg-[#0A0E17]" data-testid="home-page">
       {/* Hero Section */}
@@ -1038,6 +1190,11 @@ const HomePage = () => {
 /* ── Systems Page ── */
 
 const SystemsPage = () => {
+  useSEO({
+    title: "Systems & Automation We Build | Senueren — Cape Town",
+    description: "Senueren builds business operating systems, automation infrastructure and data intelligence platforms for growth-stage SMEs in South Africa. Custom backend systems, CRM, opportunity detection, workflow automation.",
+    path: "#/systems",
+  });
   return (
     <div className="min-h-screen bg-[#0A0E17] pt-28 pb-16" data-testid="systems-page">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
@@ -1127,6 +1284,11 @@ const SystemsPage = () => {
 /* ── About Page ── */
 
 const AboutPage = () => {
+  useSEO({
+    title: "About Senueren | Systems & Procurement Intelligence from Cape Town",
+    description: "Senueren is a Cape Town systems and automation company. We build SENRA — the procurement intelligence platform used by South African SMEs to find, score and decide on government tenders. Founded 2025 by Quelum Wilson.",
+    path: "#/about",
+  });
   return (
     <div className="min-h-screen bg-[#0A0E17] pt-28 pb-16" data-testid="about-page">
       <div className="max-w-5xl mx-auto px-6 md:px-12">
@@ -1234,6 +1396,11 @@ const AboutPage = () => {
 /* ── Contact Page ── */
 
 const ContactPage = () => {
+  useSEO({
+    title: "Contact Senueren | Get in Touch — Cape Town Systems Company",
+    description: "Contact Senueren for custom systems, automation, procurement intelligence partnerships or SENRA support. Email info@senueren.co.za or call +27 67 326 7417.",
+    path: "#/contact",
+  });
   return (
     <div className="min-h-screen bg-[#0A0E17] pt-28 pb-16" data-testid="contact-page">
       <div className="max-w-4xl mx-auto px-6 md:px-12">
