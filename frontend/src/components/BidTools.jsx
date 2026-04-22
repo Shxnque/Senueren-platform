@@ -771,7 +771,7 @@ const BidToolsPage = () => {
   useEffect(() => {
     const title = "Free BOQ Calculator + Bid / No-Bid Tool South Africa | SENRA Bid Tools";
     const description = "Free South African contractor decision tools. BOQ rough estimator with 12 line items, editable rates, P&Gs, contingency and 15% VAT. Margin calculator with retention and break-even. Bid / no-bid viability score with cashflow risk, CIDB grade fit and travel factors. All ZAR, all SA-specific.";
-    const url = "https://senueren.co.za/#/tools";
+    const url = "https://senueren.co.za/tools";
     document.title = title;
     const setMeta = (selector, attr, value) => {
       let el = document.head.querySelector(selector);
