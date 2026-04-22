@@ -142,7 +142,7 @@
                 "@type": "SearchAction",
                 "target": {
                     "@type": "EntryPoint",
-                    "urlTemplate": "https://senueren.co.za/#/senra?q={search_term_string}"
+                    "urlTemplate": "https://senueren.co.za/senra?q={search_term_string}"
                 },
                 "query-input": "required name=search_term_string"
             }
@@ -160,7 +160,7 @@
             "applicationCategory": "BusinessApplication",
             "applicationSubCategory": "Procurement Intelligence",
             "operatingSystem": "Web",
-            "url": "https://senueren.co.za/#/senra",
+            "url": "https://senueren.co.za/senra",
             "description": "SENRA aggregates live tenders from eTenders, SANRAL, Transnet, Eskom, SARS, National Treasury, SABS, SITA, and all eight South African metros. Each tender is scored on a three-axis Opportunity Quality Index (relevance, value potential, urgency) and filtered into clean categories. Includes strict category mode so Construction shows only construction tenders, not supporting services.",
             "offers": {
                 "@type": "Offer",
@@ -198,7 +198,7 @@
             "applicationCategory": "BusinessApplication",
             "applicationSubCategory": "Construction Estimating",
             "operatingSystem": "Web",
-            "url": "https://senueren.co.za/#/tools",
+            "url": "https://senueren.co.za/tools",
             "description": "Free online tools for South African contractors and construction SMEs. Rough BOQ estimator with editable rates, P&Gs and contingency. Margin calculator with retention % and break-even discount. Bid / No-Bid viability score with cashflow risk, CIDB fit and travel factors. All ZAR, all SA-specific.",
             "offers": {
                 "@type": "Offer",
@@ -243,35 +243,35 @@
                     "position": 1,
                     "name": "Filter tenders by your sector using Strict mode",
                     "text": "Open SENRA, pick your sector (Construction, ICT, Facilities, Security etc.), toggle Strict mode ON. You'll only see core tenders for your category — no cleaning services under Construction, no consulting under Security.",
-                    "url": "https://senueren.co.za/#/senra"
+                    "url": "https://senueren.co.za/senra"
                 },
                 {
                     "@type": "HowToStep",
                     "position": 2,
                     "name": "Read the Opportunity Quality Index",
                     "text": "Each tender shows a score 0-95 plus a 3-axis breakdown: Relevance (sector fit), Value potential (contract size signal) and Urgency (deadline pressure). Prioritise Strong Match (score 80+) with High Value Potential.",
-                    "url": "https://senueren.co.za/#/senra"
+                    "url": "https://senueren.co.za/senra"
                 },
                 {
                     "@type": "HowToStep",
                     "position": 3,
                     "name": "Check the CIDB grade hint",
                     "text": "On construction-adjacent tenders, SENRA suggests the likely CIDB grade bracket (1-3, 4-6, or 7-9). Skip tenders above your grade unless you're doing a joint venture.",
-                    "url": "https://senueren.co.za/#/senra"
+                    "url": "https://senueren.co.za/senra"
                 },
                 {
                     "@type": "HowToStep",
                     "position": 4,
                     "name": "Run the Bid / No-Bid viability score",
                     "text": "Open Bid Tools, rate 9 factors including cashflow resilience, CIDB fit, travel, timeline and competitive position. Mark critical factors 2× weight. Verdict: BID (score 70+), CONSIDER (50-69), PASS (below 50).",
-                    "url": "https://senueren.co.za/#/tools"
+                    "url": "https://senueren.co.za/tools"
                 },
                 {
                     "@type": "HowToStep",
                     "position": 5,
                     "name": "Do a rough BOQ + margin check before committing estimator time",
                     "text": "Use the BOQ Rough Estimator for a 5-minute sanity check on likely cost range. Then run the Margin Calculator — factor in 15% VAT, 5-10% retention, 15-25% margin. If the numbers don't work, pass and save estimator hours for the next opportunity.",
-                    "url": "https://senueren.co.za/#/tools"
+                    "url": "https://senueren.co.za/tools"
                 }
             ]
         }
@@ -391,11 +391,11 @@
             "@type": "BreadcrumbList",
             "itemListElement": [
                 { "@type": "ListItem", "position": 1, "name": "Home",    "item": "https://senueren.co.za/" },
-                { "@type": "ListItem", "position": 2, "name": "SENRA",   "item": "https://senueren.co.za/#/senra" },
-                { "@type": "ListItem", "position": 3, "name": "Bid Tools","item": "https://senueren.co.za/#/tools" },
-                { "@type": "ListItem", "position": 4, "name": "Systems", "item": "https://senueren.co.za/#/systems" },
-                { "@type": "ListItem", "position": 5, "name": "About",   "item": "https://senueren.co.za/#/about" },
-                { "@type": "ListItem", "position": 6, "name": "Contact", "item": "https://senueren.co.za/#/contact" }
+                { "@type": "ListItem", "position": 2, "name": "SENRA",   "item": "https://senueren.co.za/senra" },
+                { "@type": "ListItem", "position": 3, "name": "Bid Tools","item": "https://senueren.co.za/tools" },
+                { "@type": "ListItem", "position": 4, "name": "Systems", "item": "https://senueren.co.za/systems" },
+                { "@type": "ListItem", "position": 5, "name": "About",   "item": "https://senueren.co.za/about" },
+                { "@type": "ListItem", "position": 6, "name": "Contact", "item": "https://senueren.co.za/contact" }
             ]
         }
         </script>
@@ -406,6 +406,13 @@
         <meta name="rating" content="general" />
         <meta name="distribution" content="global" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <!-- Security headers (meta-tag layer — GitHub Pages does not allow custom HTTP headers).
+             HSTS is already set at the GitHub Pages edge. -->
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://senueren-api.onrender.com https:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests" />
+        <meta name="referrer" content="strict-origin-when-cross-origin" />
+        <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=(), usb=(), interest-cohort=()" />
+        <meta name="format-detection" content="telephone=no" />
 
         <!-- Performance -->
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />

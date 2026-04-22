@@ -27,13 +27,14 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
+
+      - name: Enable Corepack (for yarn classic pinned in package.json)
+        run: corepack enable
 
       - name: Install dependencies
         working-directory: frontend
-        run: |
-          npm install --legacy-peer-deps
-          npm install ajv@8.17.1 --legacy-peer-deps
+        run: yarn install --frozen-lockfile
 
       - name: Build
         working-directory: frontend
@@ -42,11 +43,28 @@ jobs:
           GENERATE_SOURCEMAP: false
           CI: false
           DISABLE_ESLINT_PLUGIN: true
-        run: npx craco build
+        run: yarn build
 
-      - name: Copy 404.html for SPA routing
-        working-directory: frontend
-        run: cp build/index.html build/404.html
+      # Pre-render per-route HTML so GitHub Pages returns HTTP 200 for every
+      # SEO-indexable URL. Without this, BrowserRouter routes would 404 and
+      # Google / Bing would skip indexing them. Each file is a copy of
+      # index.html — when the SPA boots, react-router reads location.pathname
+      # and renders the correct page.
+      - name: Pre-render SPA routes for SEO (200 OK on deep links)
+        working-directory: frontend/build
+        run: |
+          for route in senra tools systems about contact; do
+            # /senra.html  → served when user visits /senra (GH Pages pretty URLs)
+            cp index.html "${route}.html"
+            # /senra/index.html → served when user visits /senra/
+            mkdir -p "${route}"
+            cp index.html "${route}/index.html"
+          done
+          # 404.html fallback keeps any future client-only routes functional
+          cp index.html 404.html
+          echo "Pre-rendered routes:"
+          ls -la *.html
+          ls -la senra tools systems about contact 2>/dev/null || true
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

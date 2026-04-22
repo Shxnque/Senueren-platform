@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import "@/App.css";
-import { HashRouter, Routes, Route, Link, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, useLocation } from "react-router-dom";
 import {
   ArrowRight, Menu, X, Phone, Mail, MapPin,
   Layers, BarChart3, Target, Zap, Database, Workflow,
@@ -666,7 +666,7 @@ const SenraPage = () => {
   useSEO({
     title: "SENRA — Live SA Government Tenders, Scored & Ranked | Free Tender Search South Africa",
     description: "Find live South African government tenders from eTenders, SANRAL, Transnet, Eskom, National Treasury and every metro. Each tender scored on relevance, value potential and urgency. Strict category filters, CIDB grade hints, deadline alerts — all free, no signup.",
-    path: "#/senra",
+    path: "/senra",
   });
   const [tenders, setTenders] = useState([]);
   const [sectors, setSectors] = useState([]);
@@ -1193,7 +1193,7 @@ const SystemsPage = () => {
   useSEO({
     title: "Systems & Automation We Build | Senueren — Cape Town",
     description: "Senueren builds business operating systems, automation infrastructure and data intelligence platforms for growth-stage SMEs in South Africa. Custom backend systems, CRM, opportunity detection, workflow automation.",
-    path: "#/systems",
+    path: "/systems",
   });
   return (
     <div className="min-h-screen bg-[#0A0E17] pt-28 pb-16" data-testid="systems-page">
@@ -1287,7 +1287,7 @@ const AboutPage = () => {
   useSEO({
     title: "About Senueren | Systems & Procurement Intelligence from Cape Town",
     description: "Senueren is a Cape Town systems and automation company. We build SENRA — the procurement intelligence platform used by South African SMEs to find, score and decide on government tenders. Founded 2025 by Quelum Wilson.",
-    path: "#/about",
+    path: "/about",
   });
   return (
     <div className="min-h-screen bg-[#0A0E17] pt-28 pb-16" data-testid="about-page">
@@ -1399,7 +1399,7 @@ const ContactPage = () => {
   useSEO({
     title: "Contact Senueren | Get in Touch — Cape Town Systems Company",
     description: "Contact Senueren for custom systems, automation, procurement intelligence partnerships or SENRA support. Email info@senueren.co.za or call +27 67 326 7417.",
-    path: "#/contact",
+    path: "/contact",
   });
   return (
     <div className="min-h-screen bg-[#0A0E17] pt-28 pb-16" data-testid="contact-page">
@@ -1481,7 +1481,7 @@ const ContactPage = () => {
 
 function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <div className="App">
         <ScrollToTop />
         <Navbar />
@@ -1495,7 +1495,7 @@ function App() {
         </Routes>
         <Footer />
       </div>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 

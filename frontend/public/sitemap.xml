@@ -4,36 +4,36 @@
     <loc>https://senueren.co.za/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-    <lastmod>2026-04-21</lastmod>
+    <lastmod>2026-04-22</lastmod>
   </url>
   <url>
-    <loc>https://senueren.co.za/#/senra</loc>
+    <loc>https://senueren.co.za/senra</loc>
     <changefreq>hourly</changefreq>
     <priority>0.95</priority>
-    <lastmod>2026-04-21</lastmod>
+    <lastmod>2026-04-22</lastmod>
   </url>
   <url>
-    <loc>https://senueren.co.za/#/tools</loc>
+    <loc>https://senueren.co.za/tools</loc>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
-    <lastmod>2026-04-21</lastmod>
+    <lastmod>2026-04-22</lastmod>
   </url>
   <url>
-    <loc>https://senueren.co.za/#/systems</loc>
+    <loc>https://senueren.co.za/systems</loc>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
-    <lastmod>2026-04-21</lastmod>
+    <lastmod>2026-04-22</lastmod>
   </url>
   <url>
-    <loc>https://senueren.co.za/#/about</loc>
+    <loc>https://senueren.co.za/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
-    <lastmod>2026-04-21</lastmod>
+    <lastmod>2026-04-22</lastmod>
   </url>
   <url>
-    <loc>https://senueren.co.za/#/contact</loc>
+    <loc>https://senueren.co.za/contact</loc>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
-    <lastmod>2026-04-21</lastmod>
+    <lastmod>2026-04-22</lastmod>
   </url>
 </urlset>
