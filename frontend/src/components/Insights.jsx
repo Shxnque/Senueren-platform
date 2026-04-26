@@ -15,7 +15,9 @@ import {
   Zap,
   Globe,
   Lock,
-  BarChart4
+  BarChart4,
+  Droplets,
+  Coins
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -70,131 +72,191 @@ const BRIEFS = [
   }
 ];
 
-const SENRA_ARTICLE = {
-  title: "Beyond the Bid: Why 2026 is the Year of Procurement Intelligence",
-  content: [
-    {
-      heading: "The R179 Billion Pipeline Problem",
-      text: "South Africa's infrastructure drive is opening doors, but for many SMEs, those doors are locked by data fragmentation. Finding the right tender at the right time is no longer a manual task."
-    },
-    {
-      heading: "Enter SENRA: The Decision Layer",
-      text: "We didn't just build a tender list. We built a Decision Layer. SENRA analyzes thousands of government and private sector opportunities, scoring them across three axes: Relevance, Value, and Urgency."
-    },
-    {
-      heading: "Digital Maturity vs. The Competition",
-      text: "Enterprise clients are looking for 'Digital Maturity.' Using SENRA to automate your procurement intelligence proves that your firm has the infrastructure to handle large-scale contracts."
-    }
-  ]
-};
+const ARTICLES = [
+  {
+    id: "procurement-2026",
+    title: "Beyond the Bid: Why 2026 is the Year of Procurement Intelligence",
+    tag: "SENRA Intelligence",
+    icon: <Target className="text-[#00FFD4]" size={24} />,
+    sections: [
+      {
+        heading: "The R179 Billion Pipeline Problem",
+        text: "South Africa's infrastructure drive is opening doors, but for many SMEs, those doors are locked by data fragmentation. Finding the right tender at the right time is no longer a manual task."
+      },
+      {
+        heading: "Enter SENRA: The Decision Layer",
+        text: "We didn't just build a tender list. We built a Decision Layer. SENRA analyzes thousands of government and private sector opportunities, scoring them across three axes: Relevance, Value, and Urgency."
+      },
+      {
+        heading: "Digital Maturity vs. The Competition",
+        text: "Enterprise clients are looking for 'Digital Maturity.' Using SENRA to automate your procurement intelligence proves that your firm has the infrastructure to handle large-scale contracts."
+      }
+    ]
+  },
+  {
+    id: "infrastructure-resilience",
+    title: "Infrastructure Resilience: Managing Water and Energy Systems at Scale",
+    tag: "Systems Architecture",
+    icon: <Droplets className="text-[#4A9FD8]" size={24} />,
+    sections: [
+      {
+        heading: "The New Bottom Line: Resource Security",
+        text: "In 2026, water security has surpassed energy as the primary infrastructure concern for SA SMEs. For manufacturers and service providers, managing these resources requires more than just hardware; it requires intelligent monitoring systems."
+      },
+      {
+        heading: "Architecture for Scarcity",
+        text: "We design systems that integrate sensor data with operational workflows. Knowing your water usage in real-time allows you to schedule production around constraints rather than reacting to shutdowns."
+      },
+      {
+        heading: "The Senueren Approach to Resilience",
+        text: "By building a data-first infrastructure, we help companies manage backup power and water storage as integrated business assets, not just emergency fixes. This is the difference between surviving a crisis and thriving through it."
+      }
+    ]
+  },
+  {
+    id: "financial-maturity",
+    title: "The Cashflow Engine: Automating Financial Maturity for SMEs",
+    tag: "Business OS",
+    icon: <Coins className="text-yellow-400" size={24} />,
+    sections: [
+      {
+        heading: "91% of SA SMEs Face Late Payments",
+        text: "Late payments are the leading cause of business failure for South African growth SMEs. Relying on manual follow-ups is an operational risk you can no longer afford."
+      },
+      {
+        heading: "Structured Receivables Architecture",
+        text: "We build the financial engines that automate the invoice-to-cash cycle. By integrating your accounting stack with automated reminders and instant settlement gateways, we reduce the 'cost of waiting' for your revenue."
+      },
+      {
+        heading: "Scaling Profit, Not Just Revenue",
+        text: "A R50m revenue business with R0 cashflow is a liability. Our Systems Architecture ensures that as your top line grows, your operational efficiency protects your bottom line."
+      }
+    ]
+  }
+];
 
 const InsightsPage = () => {
-  const [selected, setSelected] = useState(null);
+  const [selectedBrief, setSelectedBrief] = useState(null);
 
   return (
     <div className="min-h-screen bg-[#0A0E17] pt-24 pb-16" data-testid="insights-page">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Header */}
-        <div className="mb-12">
-          <div className="accent-bar w-12 mb-6"></div>
-          <div className="max-w-3xl">
-            <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#00FFD4] mb-2">Technical Briefs & Sector Analysis</p>
+        <div className="mb-12 text-center md:text-left">
+          <div className="accent-bar w-12 mb-6 mx-auto md:mx-0"></div>
+          <div className="max-w-3xl mx-auto md:mx-0">
+            <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#00FFD4] mb-2">Technical Briefs & Market Analysis</p>
             <h1 className="text-4xl md:text-5xl tracking-tight font-bold text-white font-['Outfit']">Systems Insights</h1>
             <p className="text-[#8B9BB4] mt-4 text-lg">
-              We analyze the 'Systems Gap' in South African growth-stage companies. These briefs show how structured architecture and automation solve common scaling bottlenecks.
+              Analyzing the 'Systems Gap' in South African growth-stage companies. We build the architecture that turns manual bottlenecks into scalable growth.
             </p>
           </div>
         </div>
 
+        {/* Feature Articles */}
+        <div className="space-y-24 mb-24">
+          {ARTICLES.map((article, idx) => (
+            <section key={article.id} className={`py-16 px-8 md:px-12 bg-[#0F1419] border border-[#1A2332] rounded-3xl relative overflow-hidden ${idx % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
+              <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-[#00FFD4]/5 to-transparent"></div>
+              <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div className={idx % 2 === 1 ? 'lg:order-2' : ''}>
+                  <span className="text-[10px] font-bold text-[#00FFD4] uppercase tracking-[0.2em] bg-[#00FFD4]/10 border border-[#00FFD4]/30 px-4 py-1.5 rounded-full mb-6 inline-block">
+                    {article.tag}
+                  </span>
+                  <h2 className="text-3xl md:text-4xl font-bold text-white font-['Outfit'] mb-6">{article.title}</h2>
+                  <div className="space-y-8">
+                    {article.sections.map((section, i) => (
+                      <div key={i}>
+                        <h4 className="text-sm font-bold text-[#E8EDF2] mb-2 flex items-center gap-2">
+                          <div className="w-1.5 h-1.5 bg-[#00FFD4] rounded-full"></div>
+                          {section.heading}
+                        </h4>
+                        <p className="text-sm text-[#8B9BB4] leading-relaxed">{section.text}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-10">
+                    <Link to={article.id === "procurement-2026" ? "/senra" : "/contact"} className="inline-flex items-center gap-2 px-8 py-4 bg-[#00FFD4] text-[#0A0E17] rounded-full font-bold hover:shadow-[0_0_30px_rgba(0,255,212,0.4)] transition-all">
+                      {article.id === "procurement-2026" ? "Explore SENRA Live" : "Discuss Resilience Systems"} <ArrowRight size={18} />
+                    </Link>
+                  </div>
+                </div>
+                <div className={`grid grid-cols-2 gap-4 ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
+                   <div className="col-span-2 flex justify-center mb-4">
+                      <div className="p-6 bg-[#0A0E17] border border-[#1A2332] rounded-full">
+                        {article.icon}
+                      </div>
+                   </div>
+                  {[
+                    { label: "Market Data", val: article.id === "procurement-2026" ? "2,000+ Tenders" : "Real-time Metrics" },
+                    { label: "Design Philosophy", val: "Systems-First" },
+                    { label: "Target Sector", val: "Growth SMEs" },
+                    { label: "ROI Signal", val: "Operational Flow" }
+                  ].map((stat, i) => (
+                    <div key={i} className="bg-[#0A0E17] border border-[#1A2332] p-6 rounded-2xl text-center">
+                      <h4 className="text-xs font-bold text-[#00FFD4] mb-1 uppercase tracking-widest">{stat.label}</h4>
+                      <p className="text-sm text-white font-medium">{stat.val}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          ))}
+        </div>
+
+        {/* Briefs Section Header */}
+        <div className="mb-12">
+          <div className="accent-bar w-12 mb-6"></div>
+          <h2 className="text-3xl font-bold text-white font-['Outfit']">Sector Bottleneck Analysis</h2>
+          <p className="text-[#8B9BB4] mt-2">Deep-dives into the specific 'Systems Gaps' of South African industries.</p>
+        </div>
+
         {/* Briefs Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-24">
           {BRIEFS.map((brief) => (
             <div key={brief.id} 
               className="bg-[#0F1419] border border-[#1A2332] rounded-2xl p-8 card-glow flex flex-col h-full group hover:border-[#00FFD4]/30 transition-all cursor-pointer"
-              onClick={() => setSelected(brief)}>
+              onClick={() => setSelectedBrief(brief)}>
               <div className="flex justify-between items-start mb-6">
                 <div className="p-3 rounded-xl bg-[#0A0E17] border border-[#1A2332] group-hover:border-[#00FFD4]/50 transition-colors">
-                  {brief.sector === "Logistics" && <Workflow size={24} className="text-[#00FFD4]" />}
-                  {brief.sector === "Manufacturing" && <Cpu size={24} className="text-[#4A9FD8]" />}
-                  {brief.sector === "Construction" && <Target size={24} className="text-orange-400" />}
-                  {brief.sector === "Professional Services" && <ShieldCheck size={24} className="text-purple-400" />}
+                  {brief.sector === "Logistics" && <Workflow size={20} className="text-[#00FFD4]" />}
+                  {brief.sector === "Manufacturing" && <Cpu size={20} className="text-[#4A9FD8]" />}
+                  {brief.sector === "Construction" && <Target size={20} className="text-orange-400" />}
+                  {brief.sector === "Professional Services" && <ShieldCheck size={20} className="text-purple-400" />}
                 </div>
-                <span className="text-[10px] font-bold text-[#8B9BB4] uppercase tracking-widest bg-[#0A0E17] px-3 py-1 rounded-full border border-[#1A2332]">
+                <span className="text-[8px] font-bold text-[#8B9BB4] uppercase tracking-widest bg-[#0A0E17] px-2 py-1 rounded-full border border-[#1A2332]">
                   {brief.tag}
                 </span>
               </div>
               
-              <h3 className="text-2xl font-bold text-white font-['Outfit'] mb-2">{brief.issue}</h3>
-              <p className="text-xs text-[#00FFD4] font-medium mb-4">{brief.sector} · {brief.location}</p>
+              <h3 className="text-lg font-bold text-white font-['Outfit'] mb-2">{brief.issue}</h3>
+              <p className="text-[10px] text-[#00FFD4] font-medium mb-4 uppercase tracking-wider">{brief.sector}</p>
               
               <div className="space-y-4 flex-1">
-                <p className="text-sm text-[#8B9BB4] leading-relaxed line-clamp-3">{brief.description}</p>
+                <p className="text-xs text-[#8B9BB4] leading-relaxed line-clamp-3">{brief.description}</p>
               </div>
 
-              <div className="mt-8 flex items-center gap-2 text-sm font-bold text-[#00FFD4] group-hover:gap-3 transition-all">
-                Read Full Insight <ArrowRight size={16} />
+              <div className="mt-8 flex items-center gap-2 text-xs font-bold text-[#00FFD4] group-hover:gap-3 transition-all">
+                Read Brief <ArrowRight size={14} />
               </div>
             </div>
           ))}
         </div>
 
-        {/* SENRA Spotlight Article */}
-        <section className="mb-24 py-16 px-8 md:px-12 bg-[#0F1419] border border-[#1A2332] rounded-3xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-[#00FFD4]/5 to-transparent"></div>
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <span className="text-[10px] font-bold text-[#00FFD4] uppercase tracking-[0.2em] bg-[#00FFD4]/10 border border-[#00FFD4]/30 px-4 py-1.5 rounded-full mb-6 inline-block">
-                SENRA Intelligence Deep Dive
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-white font-['Outfit'] mb-6">{SENRA_ARTICLE.title}</h2>
-              <div className="space-y-8">
-                {SENRA_ARTICLE.content.map((section, i) => (
-                  <div key={i}>
-                    <h4 className="text-sm font-bold text-[#E8EDF2] mb-2 flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 bg-[#00FFD4] rounded-full"></div>
-                      {section.heading}
-                    </h4>
-                    <p className="text-sm text-[#8B9BB4] leading-relaxed">{section.text}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-10">
-                <Link to="/senra" className="inline-flex items-center gap-2 px-8 py-4 bg-[#00FFD4] text-[#0A0E17] rounded-full font-bold hover:shadow-[0_0_30px_rgba(0,255,212,0.4)] transition-all">
-                  Explore SENRA Live <ArrowRight size={18} />
-                </Link>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { icon: <Globe size={20} />, label: "2,000+ Active Tenders", desc: "Aggregated from 15 verified SA sources." },
-                { icon: <Lock size={20} />, label: "Security & Compliance", desc: "Baked-in CIDB and B-BBEE documentation." },
-                { icon: <BarChart4 size={20} />, label: "Weighted Scoring", desc: "Relevance, Value, and Urgency metrics." },
-                { icon: <Zap size={20} />, label: "Urgent Alerts", desc: "Surface opportunities closing within 14 days." }
-              ].map((stat, i) => (
-                <div key={i} className="bg-[#0A0E17] border border-[#1A2332] p-6 rounded-2xl">
-                  <div className="text-[#00FFD4] mb-3">{stat.icon}</div>
-                  <h4 className="text-sm font-bold text-white mb-1">{stat.label}</h4>
-                  <p className="text-[10px] text-[#8B9BB4]">{stat.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Why this matters section */}
+        {/* SEO / Market Intelligence Sidebar */}
         <section className="mt-20 pt-16 border-t border-[#1A2332]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-3xl font-bold text-white font-['Outfit'] mb-6">Turning the 'Systems Gap' into Revenue</h2>
+              <h2 className="text-3xl font-bold text-white font-['Outfit'] mb-6">Bridging the Capability Gap</h2>
               <p className="text-[#8B9BB4] leading-relaxed mb-6">
-                In 2026, digital maturity is the primary differentiator for SA SMEs. Those who move from manual handling to automated pipelines don't just save time—they win larger, more profitable contracts.
+                In 2026, the differentiator isn't what you do, but how you manage it. Growth-stage SMEs that automate their procurement intelligence and internal infrastructure win bigger, scale faster, and stay resilient.
               </p>
               <div className="space-y-4">
                 {[
-                  "Automate tender documentation and matching (SENRA)",
-                  "Eliminate manual data fragmentation between departments",
-                  "Gain real-time operational oversight for distributed teams",
-                  "Professionalize for Grade 7-9 and enterprise contracts"
+                  "Consolidate fragmented business data architecture",
+                  "Automate tender pipeline matching via SENRA",
+                  "Enable data-driven oversight for distributed teams",
+                  "Systems designed for SA resource constraints (Energy/Water)"
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-3">
                     <CheckCircle2 size={18} className="text-[#00FFD4]" />
@@ -216,18 +278,17 @@ const InsightsPage = () => {
                   <h4 className="text-lg font-bold text-white">SA Market SEO Signal</h4>
                 </div>
                 <div className="space-y-6">
-                  <div className="p-4 bg-[#0A0E17] rounded-xl border border-[#1A2332]">
-                    <span className="text-[10px] text-[#8B9BB4] uppercase font-bold block mb-1">Trending Pain Point</span>
-                    <p className="text-sm text-[#E8EDF2] font-medium">'Systems architecture for growth-stage SMEs'</p>
-                  </div>
-                  <div className="p-4 bg-[#0A0E17] rounded-xl border border-[#1A2332]">
-                    <span className="text-[10px] text-[#8B9BB4] uppercase font-bold block mb-1">High-Intent Topic</span>
-                    <p className="text-sm text-[#E8EDF2] font-medium">'Automating Grade 9 tender compliance'</p>
-                  </div>
-                  <div className="p-4 bg-[#0A0E17] rounded-xl border border-[#1A2332]">
-                    <span className="text-[10px] text-[#8B9BB4] uppercase font-bold block mb-1">Procurement Signal</span>
-                    <p className="text-sm text-[#E8EDF2] font-medium">'AI-driven tender matching for SA Logistics'</p>
-                  </div>
+                  {[
+                    { label: "Trending Pain Point", val: "'Systems architecture for growth SMEs'" },
+                    { label: "High-Intent Topic", val: "'Automating Grade 9 tender compliance'" },
+                    { label: "Infrastructure Signal", val: "'Water and Energy resilience systems'" },
+                    { label: "Procurement Signal", val: "'AI-driven tender matching for SA Logistics'" }
+                  ].map((item, i) => (
+                    <div key={i} className="p-4 bg-[#0A0E17] rounded-xl border border-[#1A2332]">
+                      <span className="text-[10px] text-[#8B9BB4] uppercase font-bold block mb-1">{item.label}</span>
+                      <p className="text-sm text-[#E8EDF2] font-medium">{item.val}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -235,37 +296,37 @@ const InsightsPage = () => {
         </section>
       </div>
 
-      {/* Modal / Detail View */}
-      {selected && (
-        <div className="fixed inset-0 z-[70] bg-[#0A0E17]/95 backdrop-blur-md flex items-start justify-center pt-24 px-4 overflow-y-auto" onClick={() => setSelected(null)}>
+      {/* Brief Detail Modal */}
+      {selectedBrief && (
+        <div className="fixed inset-0 z-[70] bg-[#0A0E17]/95 backdrop-blur-md flex items-start justify-center pt-24 px-4 overflow-y-auto" onClick={() => setSelectedBrief(null)}>
           <div className="bg-[#0F1419] border border-[#1A2332] rounded-3xl max-w-3xl w-full p-8 md:p-12 mb-12 shadow-2xl relative" onClick={e => e.stopPropagation()}>
-            <button onClick={() => setSelected(null)} className="absolute top-6 right-6 text-[#8B9BB4] hover:text-white p-2 rounded-full hover:bg-[#1A2332] transition-all">
+            <button onClick={() => setSelectedBrief(null)} className="absolute top-6 right-6 text-[#8B9BB4] hover:text-white p-2 rounded-full hover:bg-[#1A2332] transition-all">
               <Zap size={24} className="text-[#00FFD4]" />
             </button>
             
             <div className="mb-8">
               <span className="text-[10px] font-bold text-[#00FFD4] uppercase tracking-[0.2em] bg-[#00FFD4]/10 border border-[#00FFD4]/30 px-4 py-1.5 rounded-full mb-6 inline-block">
-                Sector Insight: {selected.tag}
+                Sector Insight: {selectedBrief.tag}
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-white font-['Outfit'] mb-4">{selected.issue}</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-white font-['Outfit'] mb-4">{selectedBrief.issue}</h2>
               <div className="flex items-center gap-4 text-sm text-[#8B9BB4]">
-                <span className="flex items-center gap-1.5"><Target size={14} className="text-[#4A9FD8]" /> {selected.sector}</span>
+                <span className="flex items-center gap-1.5"><Target size={14} className="text-[#4A9FD8]" /> {selectedBrief.sector}</span>
                 <span className="flex items-center gap-1.5 font-medium text-[#E8EDF2]"><Lightbulb size={14} className="text-[#00FFD4]" /> Systemic Analysis</span>
               </div>
             </div>
 
             <div className="space-y-6 py-8 border-y border-[#1A2332]">
               <p className="text-[#E8EDF2] leading-relaxed text-lg font-medium italic">
-                "{selected.fullContent}"
+                "{selectedBrief.fullContent}"
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
                 <div>
                   <h4 className="text-xs font-bold text-[#8B9BB4] uppercase tracking-widest mb-3">The Systems Gap</h4>
-                  <p className="text-[#E8EDF2] leading-relaxed text-sm border-l-2 border-red-500/30 pl-4">{selected.systemsGap}</p>
+                  <p className="text-[#E8EDF2] leading-relaxed text-sm border-l-2 border-red-500/30 pl-4">{selectedBrief.systemsGap}</p>
                 </div>
                 <div>
                   <h4 className="text-xs font-bold text-[#8B9BB4] uppercase tracking-widest mb-3 text-[#00FFD4]">The Architecture Fix</h4>
-                  <p className="text-[#E8EDF2] leading-relaxed text-sm">{selected.solution}</p>
+                  <p className="text-[#E8EDF2] leading-relaxed text-sm">{selectedBrief.solution}</p>
                 </div>
               </div>
             </div>
@@ -282,14 +343,14 @@ const InsightsPage = () => {
               </p>
               <div className="flex flex-wrap gap-3">
                 <span className="text-[10px] font-bold text-[#E8EDF2] bg-[#1A2332] px-3 py-1 rounded-lg border border-[#2A3A54]">Scale Ready</span>
-                <span className="text-[10px] font-bold text-[#E8EDF2] bg-[#1A2332] px-3 py-1 rounded-lg border border-[#2A3A54]">Gauteng Pipeline</span>
-                <span className="text-[10px] font-bold text-[#E8EDF2] bg-[#1A2332] px-3 py-1 rounded-lg border border-[#2A3A54]">Operational ROI</span>
+                <span className="text-[10px] font-bold text-[#E8EDF2] bg-[#1A2332] px-3 py-1 rounded-lg border border-[#2A3A54]">Infrastructure Resilience</span>
+                <span className="text-[10px] font-bold text-[#E8EDF2] bg-[#1A2332] px-3 py-1 rounded-lg border border-[#2A3A54]">SA Market Logic</span>
               </div>
             </div>
 
             <div className="mt-10 flex justify-center">
               <Link to="/contact" className="inline-flex items-center gap-2 text-[#00FFD4] font-bold hover:underline group">
-                Schedule a Systems Audit for your firm <ArrowUpRight size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                Schedule a briefing for your firm <ArrowUpRight size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </Link>
             </div>
           </div>
