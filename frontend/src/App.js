@@ -188,7 +188,7 @@ const Footer = () => (
             Ready to Scale?
           </h2>
           <p className="text-[#8B9BB4] text-lg mb-8 max-w-xl mx-auto">
-            Let us build the systems your business runs on.
+            Let us build the systems your business runs on. Get a free digital credibility check today.
           </p>
           <Link to="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#4A9FD8] to-[#00FFD4] text-[#0A0E17] rounded-full font-bold hover:shadow-[0_0_30px_rgba(0,255,212,0.4)] hover:scale-105 transition-all duration-300" data-testid="footer-cta">
             Get Started <ArrowRight size={18} />
