@@ -15,36 +15,36 @@ import { Link } from "react-router-dom";
 
 const BRIEFS = [
   {
-    id: "skipit-green",
-    company: "SkipIt Green",
-    sector: "Waste Management & Logistics",
-    location: "Cape Town",
+    id: "logistics-sme",
+    company: "Logistics & Waste Management SME",
+    sector: "Logistics",
+    location: "Western Cape",
     issue: "Manual Scaling Bottleneck",
-    description: "Reputable brand since 2014 but currently managing logistics with 1990s technology. Relying on manual phone-based dispatch and quote requests.",
-    systemsGap: "Lack of real-time availability tracking, automated dispatch engines, and customer self-service portals.",
-    solution: "Implementation of an Automated Logistics Engine for real-time bookings, fleet tracking, and automated customer notifications.",
-    tag: "Logistics Automation"
+    description: "An established fleet operation managing high-volume skip rentals and removals. Current operations rely on manual quote requests and phone-based dispatching.",
+    systemsGap: "Lack of real-time availability tracking and automated dispatch engines, leading to high administrative overhead per contract.",
+    solution: "Implementation of a centralized dispatch OS for real-time booking, automated driver notifications, and digital client reporting.",
+    tag: "Logistics OS"
   },
   {
-    id: "zenitec",
-    company: "Zenitec",
-    sector: "IT & Managed Services",
-    location: "Cape Town",
-    issue: "Digital Footprint Disconnect",
-    description: "An IT firm whose own digital infrastructure lags behind its service quality. Reliance on manual WhatsApp links for support instead of professional portals.",
-    systemsGap: "Absence of an integrated CRM/Ticketing backend that proves operational maturity to enterprise clients.",
-    solution: "Building a Structured Business OS with a centralized client dashboard to manage tickets, contracts, and IT health metrics.",
-    tag: "Business OS"
+    id: "it-services",
+    company: "Regional Managed Services Provider",
+    sector: "IT & Technology",
+    location: "Gauteng / CPT",
+    issue: "Operational Maturity Gap",
+    description: "A technical service firm providing critical infrastructure support, but lacking a structured internal system to manage high-value corporate service level agreements (SLAs).",
+    systemsGap: "Fragmented support channels and manual tracking of project milestones, creating friction for enterprise-grade clients.",
+    solution: "Building a custom 'Business OS' layer that centralizes client data, automates ticketing workflows, and provides real-time SLA reporting.",
+    tag: "Infrastructure"
   },
   {
-    id: "initiate-international",
-    company: "Initiate International",
-    sector: "Recruitment",
-    location: "Cape Town",
-    issue: "Data Intelligence Lag",
-    description: "Fragmented candidate intake journey and manual screening processes in high-speed sectors like iGaming and FinTech.",
-    systemsGap: "Broken time-to-match pipelines and technical fragmentation in backend data intake.",
-    solution: "Deployment of a Custom Data Intelligence Engine to automate candidate screening and intake workflows, accelerating placement speed.",
+    id: "recruitment-firm",
+    company: "High-Volume Recruitment Agency",
+    sector: "Professional Services",
+    location: "National",
+    issue: "Data Pipeline Fragmentation",
+    description: "A growth-stage agency in high-speed sectors like FinTech. Currently managing a massive candidate database through manual screening and fragmented intake tools.",
+    systemsGap: "A 'speed-to-match' bottleneck caused by manual data entry and lack of an automated candidate-matching engine.",
+    solution: "Deployment of a Custom Data Intelligence Engine to automate candidate intake and prioritize matches based on real-time client requirements.",
     tag: "Data Intelligence"
   }
 ];
@@ -59,10 +59,10 @@ const InsightsPage = () => {
         <div className="mb-12">
           <div className="accent-bar w-12 mb-6"></div>
           <div className="max-w-3xl">
-            <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#00FFD4] mb-2">Technical Briefs & Case Studies</p>
+            <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#00FFD4] mb-2">Technical Briefs & Sector Analysis</p>
             <h1 className="text-4xl md:text-5xl tracking-tight font-bold text-white font-['Outfit']">Systems Insights</h1>
             <p className="text-[#8B9BB4] mt-4 text-lg">
-              We analyze the 'Systems Gap' in South African SMEs. These briefs highlight how custom architecture and automation turn operational chaos into scalable growth.
+              We analyze the 'Systems Gap' in South African growth-stage companies. These briefs show how structured architecture and automation solve common scaling bottlenecks.
             </p>
           </div>
         </div>
@@ -75,9 +75,9 @@ const InsightsPage = () => {
               onClick={() => setSelected(brief)}>
               <div className="flex justify-between items-start mb-6">
                 <div className="p-3 rounded-xl bg-[#0A0E17] border border-[#1A2332] group-hover:border-[#00FFD4]/50 transition-colors">
-                  {brief.id === "skipit-green" && <Workflow size={24} className="text-[#00FFD4]" />}
-                  {brief.id === "zenitec" && <Cpu size={24} className="text-[#4A9FD8]" />}
-                  {brief.id === "initiate-international" && <Database size={24} className="text-purple-400" />}
+                  {brief.id === "logistics-sme" && <Workflow size={24} className="text-[#00FFD4]" />}
+                  {brief.id === "it-services" && <Cpu size={24} className="text-[#4A9FD8]" />}
+                  {brief.id === "recruitment-firm" && <Database size={24} className="text-purple-400" />}
                 </div>
                 <span className="text-[10px] font-bold text-[#8B9BB4] uppercase tracking-widest bg-[#0A0E17] px-3 py-1 rounded-full border border-[#1A2332]">
                   {brief.tag}
@@ -89,13 +89,13 @@ const InsightsPage = () => {
               
               <div className="space-y-4 flex-1">
                 <div>
-                  <span className="text-[10px] text-[#8B9BB4] uppercase font-bold tracking-wider block mb-1">Primary Issue</span>
+                  <span className="text-[10px] text-[#8B9BB4] uppercase font-bold tracking-wider block mb-1">Common Bottleneck</span>
                   <p className="text-sm text-[#E8EDF2] leading-relaxed">{brief.issue}</p>
                 </div>
               </div>
 
               <div className="mt-8 flex items-center gap-2 text-sm font-bold text-[#00FFD4] group-hover:gap-3 transition-all">
-                Read Technical Brief <ArrowRight size={16} />
+                View Systems Analysis <ArrowRight size={16} />
               </div>
             </div>
           ))}
@@ -107,15 +107,15 @@ const InsightsPage = () => {
             <div>
               <h2 className="text-3xl font-bold text-white font-['Outfit'] mb-6">Is your business 'Scaling into Chaos'?</h2>
               <p className="text-[#8B9BB4] leading-relaxed mb-6">
-                Most growth-stage SMEs in South Africa have the market and the talent, but their internal infrastructure is reaching a breaking point. 
-                Gmail accounts for business, manual spreadsheets for dispatch, and fragmented data are the "silent killers" of profitability.
+                Most growth-stage SMEs in South Africa have the market and the talent, but their internal infrastructure reaches a breaking point as volume increases. 
+                Senueren identifies and fixes these gaps through structured engineering.
               </p>
               <div className="space-y-4">
                 {[
-                  "Reduce admin time by up to 80%",
-                  "Eliminate manual data entry errors",
-                  "Gain real-time operational visibility",
-                  "Professionalize for enterprise-grade contracts"
+                  "Eliminate manual administrative bottlenecks",
+                  "Remove data entry fragmentation and errors",
+                  "Enable real-time operational oversight",
+                  "Standardize workflows for enterprise growth"
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-3">
                     <CheckCircle2 size={18} className="text-[#00FFD4]" />
@@ -125,7 +125,7 @@ const InsightsPage = () => {
               </div>
               <div className="mt-10">
                 <Link to="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#4A9FD8] to-[#00FFD4] text-[#0A0E17] rounded-full font-bold hover:shadow-[0_0_30px_rgba(0,255,212,0.4)] transition-all">
-                  Request a Systems Audit <ArrowRight size={18} />
+                  Discuss a Systems Audit <ArrowRight size={18} />
                 </Link>
               </div>
             </div>
@@ -134,29 +134,29 @@ const InsightsPage = () => {
               <div className="relative bg-[#0F1419] border border-[#1A2332] rounded-2xl p-8 card-glow">
                 <div className="flex items-center gap-4 mb-8">
                   <BarChart3 size={32} className="text-[#00FFD4]" />
-                  <h4 className="text-lg font-bold text-white">The Systems ROI</h4>
+                  <h4 className="text-lg font-bold text-white">Expected Systems ROI</h4>
                 </div>
                 <div className="space-y-6">
                   <div>
                     <div className="flex justify-between mb-2">
-                      <span className="text-sm text-[#8B9BB4]">Operational Efficiency</span>
-                      <span className="text-sm text-[#00FFD4] font-bold">+65%</span>
+                      <span className="text-sm text-[#8B9BB4]">Operational Performance</span>
+                      <span className="text-xs text-[#00FFD4] font-medium uppercase tracking-wider">Increase</span>
                     </div>
-                    <div className="h-2 w-full bg-[#0A0E17] rounded-full overflow-hidden">
-                      <div className="h-full bg-[#00FFD4] w-[65%] rounded-full"></div>
-                    </div>
+                    <p className="text-xs text-[#E8EDF2] leading-relaxed">
+                      Replacement of manual dispatch and intake with automated pipelines.
+                    </p>
                   </div>
                   <div>
                     <div className="flex justify-between mb-2">
-                      <span className="text-sm text-[#8B9BB4]">Manual Work Reduction</span>
-                      <span className="text-sm text-[#4A9FD8] font-bold">-80%</span>
+                      <span className="text-sm text-[#8B9BB4]">Manual Overhead</span>
+                      <span className="text-xs text-[#4A9FD8] font-medium uppercase tracking-wider">Reduction</span>
                     </div>
-                    <div className="h-2 w-full bg-[#0A0E17] rounded-full overflow-hidden">
-                      <div className="h-full bg-[#4A9FD8] w-[80%] rounded-full"></div>
-                    </div>
+                    <p className="text-xs text-[#E8EDF2] leading-relaxed">
+                      Systemic removal of repetitive data entry and spreadsheet-based reporting.
+                    </p>
                   </div>
                   <p className="text-[11px] text-[#8B9BB4] mt-6 italic">
-                    *Based on average performance improvements following Senueren systems implementation.
+                    *Outcomes based on structured engineering implementation for growth-stage SMEs.
                   </p>
                 </div>
               </div>
@@ -175,7 +175,7 @@ const InsightsPage = () => {
             
             <div className="mb-8">
               <span className="text-[10px] font-bold text-[#00FFD4] uppercase tracking-[0.2em] bg-[#00FFD4]/10 border border-[#00FFD4]/30 px-4 py-1.5 rounded-full mb-6 inline-block">
-                Technical Brief: {selected.company}
+                Systems Analysis: {selected.company}
               </span>
               <h2 className="text-3xl md:text-4xl font-bold text-white font-['Outfit'] mb-4">{selected.issue}</h2>
               <div className="flex items-center gap-4 text-sm text-[#8B9BB4]">
@@ -186,7 +186,7 @@ const InsightsPage = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-8 border-y border-[#1A2332]">
               <div>
-                <h4 className="text-xs font-bold text-[#8B9BB4] uppercase tracking-widest mb-3">The Problem</h4>
+                <h4 className="text-xs font-bold text-[#8B9BB4] uppercase tracking-widest mb-3">Context</h4>
                 <p className="text-[#E8EDF2] leading-relaxed text-sm">{selected.description}</p>
               </div>
               <div>
@@ -200,7 +200,7 @@ const InsightsPage = () => {
                 <div className="p-2 bg-[#00FFD4]/10 rounded-lg">
                   <Cpu size={20} className="text-[#00FFD4]" />
                 </div>
-                <h4 className="text-lg font-bold text-white font-['Outfit']">The Senueren Architecture</h4>
+                <h4 className="text-lg font-bold text-white font-['Outfit']">Proposed Architecture</h4>
               </div>
               <p className="text-[#8B9BB4] text-sm leading-relaxed mb-6">
                 {selected.solution}
