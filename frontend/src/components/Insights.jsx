@@ -243,57 +243,7 @@ const InsightsPage = () => {
           ))}
         </div>
 
-        {/* SEO / Market Intelligence Sidebar */}
-        <section className="mt-20 pt-16 border-t border-[#1A2332]">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 className="text-3xl font-bold text-white font-['Outfit'] mb-6">Bridging the Capability Gap</h2>
-              <p className="text-[#8B9BB4] leading-relaxed mb-6">
-                In 2026, the differentiator isn't what you do, but how you manage it. Growth-stage SMEs that automate their procurement intelligence and internal infrastructure win bigger, scale faster, and stay resilient.
-              </p>
-              <div className="space-y-4">
-                {[
-                  "Consolidate fragmented business data architecture",
-                  "Automate tender pipeline matching via SENRA",
-                  "Enable data-driven oversight for distributed teams",
-                  "Systems designed for SA resource constraints (Energy/Water)"
-                ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-3">
-                    <CheckCircle2 size={18} className="text-[#00FFD4]" />
-                    <span className="text-sm text-[#E8EDF2] font-medium">{item}</span>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-10">
-                <Link to="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#4A9FD8] to-[#00FFD4] text-[#0A0E17] rounded-full font-bold hover:shadow-[0_0_30px_rgba(0,255,212,0.4)] transition-all">
-                  Request a Systems Audit <ArrowRight size={18} />
-                </Link>
-              </div>
-            </div>
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-[#00FFD4]/10 to-transparent blur-3xl rounded-full"></div>
-              <div className="relative bg-[#0F1419] border border-[#1A2332] rounded-2xl p-8 card-glow">
-                <div className="flex items-center gap-4 mb-8">
-                  <TrendingUp size={32} className="text-[#00FFD4]" />
-                  <h4 className="text-lg font-bold text-white">SA Market SEO Signal</h4>
-                </div>
-                <div className="space-y-6">
-                  {[
-                    { label: "Trending Pain Point", val: "'Systems architecture for growth SMEs'" },
-                    { label: "High-Intent Topic", val: "'Automating Grade 9 tender compliance'" },
-                    { label: "Infrastructure Signal", val: "'Water and Energy resilience systems'" },
-                    { label: "Procurement Signal", val: "'AI-driven tender matching for SA Logistics'" }
-                  ].map((item, i) => (
-                    <div key={i} className="p-4 bg-[#0A0E17] rounded-xl border border-[#1A2332]">
-                      <span className="text-[10px] text-[#8B9BB4] uppercase font-bold block mb-1">{item.label}</span>
-                      <p className="text-sm text-[#E8EDF2] font-medium">{item.val}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        
       </div>
 
       {/* Brief Detail Modal */}
