@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import SenuerenLogo from "./components/SenuerenLogo";
 import BidToolsPage from "./components/BidTools";
+import InsightsPage from "./components/Insights";
 
 const API_URL = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const CONTACT_EMAIL = "info@senueren.co.za";
@@ -136,6 +137,7 @@ const Navbar = () => {
     { to: "/senra", label: "SENRA" },
     { to: "/tools", label: "Bid Tools" },
     { to: "/systems", label: "Systems" },
+    { to: "/insights", label: "Insights" },
     { to: "/about", label: "About" },
     { to: "/contact", label: "Contact" },
   ];
@@ -225,6 +227,7 @@ const Footer = () => (
             <li><Link to="/senra" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-senra-link">Live tenders (SENRA)</Link></li>
             <li><Link to="/tools" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-tools-link">Bid Tools (BOQ · Margin · Viability)</Link></li>
             <li><Link to="/systems" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-systems-link">Systems we build</Link></li>
+            <li><Link to="/insights" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-insights-link">Insights</Link></li>
             <li><Link to="/about" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-about-link">About</Link></li>
             <li><Link to="/contact" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-contact-link">Contact</Link></li>
           </ul>
@@ -1490,6 +1493,7 @@ function App() {
           <Route path="/senra" element={<SenraPage />} />
           <Route path="/tools" element={<BidToolsPage />} />
           <Route path="/systems" element={<SystemsPage />} />
+          <Route path="/insights" element={<InsightsPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
