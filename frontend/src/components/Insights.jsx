@@ -12,7 +12,10 @@ import {
   BarChart3,
   TrendingUp,
   ShieldCheck,
-  Zap
+  Zap,
+  Globe,
+  Lock,
+  BarChart4
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -67,6 +70,24 @@ const BRIEFS = [
   }
 ];
 
+const SENRA_ARTICLE = {
+  title: "Beyond the Bid: Why 2026 is the Year of Procurement Intelligence",
+  content: [
+    {
+      heading: "The R179 Billion Pipeline Problem",
+      text: "South Africa's infrastructure drive is opening doors, but for many SMEs, those doors are locked by data fragmentation. Finding the right tender at the right time is no longer a manual task."
+    },
+    {
+      heading: "Enter SENRA: The Decision Layer",
+      text: "We didn't just build a tender list. We built a Decision Layer. SENRA analyzes thousands of government and private sector opportunities, scoring them across three axes: Relevance, Value, and Urgency."
+    },
+    {
+      heading: "Digital Maturity vs. The Competition",
+      text: "Enterprise clients are looking for 'Digital Maturity.' Using SENRA to automate your procurement intelligence proves that your firm has the infrastructure to handle large-scale contracts."
+    }
+  ]
+};
+
 const InsightsPage = () => {
   const [selected, setSelected] = useState(null);
 
@@ -80,7 +101,7 @@ const InsightsPage = () => {
             <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#00FFD4] mb-2">Technical Briefs & Sector Analysis</p>
             <h1 className="text-4xl md:text-5xl tracking-tight font-bold text-white font-['Outfit']">Systems Insights</h1>
             <p className="text-[#8B9BB4] mt-4 text-lg">
-              We analyze the 'Systems Gap' in South African growth-stage companies. These briefs show how structured architecture and automation solve common scaling bottlenecks in the 2026 market.
+              We analyze the 'Systems Gap' in South African growth-stage companies. These briefs show how structured architecture and automation solve common scaling bottlenecks.
             </p>
           </div>
         </div>
@@ -116,6 +137,49 @@ const InsightsPage = () => {
             </div>
           ))}
         </div>
+
+        {/* SENRA Spotlight Article */}
+        <section className="mb-24 py-16 px-8 md:px-12 bg-[#0F1419] border border-[#1A2332] rounded-3xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-[#00FFD4]/5 to-transparent"></div>
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <span className="text-[10px] font-bold text-[#00FFD4] uppercase tracking-[0.2em] bg-[#00FFD4]/10 border border-[#00FFD4]/30 px-4 py-1.5 rounded-full mb-6 inline-block">
+                SENRA Intelligence Deep Dive
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-white font-['Outfit'] mb-6">{SENRA_ARTICLE.title}</h2>
+              <div className="space-y-8">
+                {SENRA_ARTICLE.content.map((section, i) => (
+                  <div key={i}>
+                    <h4 className="text-sm font-bold text-[#E8EDF2] mb-2 flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 bg-[#00FFD4] rounded-full"></div>
+                      {section.heading}
+                    </h4>
+                    <p className="text-sm text-[#8B9BB4] leading-relaxed">{section.text}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-10">
+                <Link to="/senra" className="inline-flex items-center gap-2 px-8 py-4 bg-[#00FFD4] text-[#0A0E17] rounded-full font-bold hover:shadow-[0_0_30px_rgba(0,255,212,0.4)] transition-all">
+                  Explore SENRA Live <ArrowRight size={18} />
+                </Link>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { icon: <Globe size={20} />, label: "2,000+ Active Tenders", desc: "Aggregated from 15 verified SA sources." },
+                { icon: <Lock size={20} />, label: "Security & Compliance", desc: "Baked-in CIDB and B-BBEE documentation." },
+                { icon: <BarChart4 size={20} />, label: "Weighted Scoring", desc: "Relevance, Value, and Urgency metrics." },
+                { icon: <Zap size={20} />, label: "Urgent Alerts", desc: "Surface opportunities closing within 14 days." }
+              ].map((stat, i) => (
+                <div key={i} className="bg-[#0A0E17] border border-[#1A2332] p-6 rounded-2xl">
+                  <div className="text-[#00FFD4] mb-3">{stat.icon}</div>
+                  <h4 className="text-sm font-bold text-white mb-1">{stat.label}</h4>
+                  <p className="text-[10px] text-[#8B9BB4]">{stat.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* Why this matters section */}
         <section className="mt-20 pt-16 border-t border-[#1A2332]">
