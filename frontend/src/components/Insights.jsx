@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { 
   Lightbulb, 
   ArrowRight, 
@@ -137,6 +137,49 @@ const ARTICLES = [
 
 const InsightsPage = () => {
   const [selectedBrief, setSelectedBrief] = useState(null);
+
+  useEffect(() => {
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the 'Systems Gap' in South African SMEs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The Systems Gap is the disconnect between a company's scaling revenue and its manual operational infrastructure. It often manifests as a reliance on spreadsheets and manual dispatch, which becomes a bottleneck once revenue hits the R10m-R50m range."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does procurement intelligence help contractors win tenders?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Procurement intelligence like SENRA filters and scores live tenders based on relevance and value. This allows bid teams to focus on 'Solid Match' opportunities, increasing the win rate while reducing time spent on manual portal searching."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is logistics automation critical for SA fleet operators in 2026?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Enterprise clients now demand real-time visibility. Automating dispatch and fleet management eliminates manual errors and provides the digital maturity signals required to secure larger corporate and government logistics contracts."
+          }
+        }
+      ]
+    };
+    
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.innerHTML = JSON.stringify(schema);
+    document.head.appendChild(script);
+    
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
+
 
   return (
     <div className="min-h-screen bg-[#0A0E17] pt-24 pb-16" data-testid="insights-page">
