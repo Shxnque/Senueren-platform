@@ -2,15 +2,18 @@ import { useState, useEffect, useRef } from "react";
 import "@/App.css";
 import { BrowserRouter, Routes, Route, Link, useLocation } from "react-router-dom";
 import {
-  ArrowRight, Menu, X, Mail, MapPin,
+  ArrowRight, Menu, X, Mail, MapPin, MessageCircle,
   Shield, Brain, Network, Cpu, Lock,
   Eye, Layers, ChevronRight, Globe, Server
 } from "lucide-react";
 import SenuerenLogo from "./components/SenuerenLogo";
 import { SenuerenLogoFull } from "./components/SenuerenLogo";
 import { QuesenPage, ShinrenPage, QarsarPage, DiosenPage } from "./components/SystemPages";
+import WhyPage from "./components/WhyPage";
 
 const CONTACT_EMAIL = "info@senueren.co.za";
+const CONTACT_WHATSAPP_DISPLAY = "067 326 7417";
+const CONTACT_WHATSAPP_INTL = "27673267417"; // +27 (South Africa), no leading 0
 const SITE_URL = "https://senueren.co.za";
 
 const useSEO = ({ title, description, path = "/" }) => {
@@ -91,6 +94,7 @@ const Navbar = () => {
 
   const links = [
     { to: "/", label: "Home" },
+    { to: "/why", label: "Why" },
     { to: "/quesen", label: "Quesen" },
     { to: "/shinren", label: "Shinren" },
     { to: "/qarsar", label: "Qarsar" },
@@ -146,7 +150,18 @@ const Footer = () => (
         <div>
           <h4 className="text-xs font-bold mb-5 text-[#8B9BB4] tracking-[0.2em] uppercase font-['Outfit']">Contact</h4>
           <ul className="space-y-3 text-sm">
-            <li><a href={`mailto:${CONTACT_EMAIL}`} className="text-[#00FFD4] hover:underline">{CONTACT_EMAIL}</a></li>
+            <li><a href={`mailto:${CONTACT_EMAIL}`} className="text-[#00FFD4] hover:underline" data-testid="footer-email-link">{CONTACT_EMAIL}</a></li>
+            <li>
+              <a
+                href={`https://wa.me/${CONTACT_WHATSAPP_INTL}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#00FFD4] hover:underline inline-flex items-center gap-2"
+                data-testid="footer-whatsapp-link"
+              >
+                <MessageCircle size={14} /> WhatsApp · {CONTACT_WHATSAPP_DISPLAY}
+              </a>
+            </li>
             <li><span className="text-[#8B9BB4]">Cape Town, South Africa</span></li>
           </ul>
         </div>
@@ -501,18 +516,38 @@ const ContactPage = () => {
           </div>
         </FadeIn>
 
-        <div className="grid md:grid-cols-2 gap-6 mb-10">
+        <div className="grid md:grid-cols-3 gap-6 mb-10">
           <FadeIn delay={100}>
-            <div className="bg-[#0F1419] border border-[#1A2332] rounded-2xl p-6 card-glow">
+            <a
+              href={`mailto:${CONTACT_EMAIL}`}
+              className="block bg-[#0F1419] border border-[#1A2332] rounded-2xl p-6 card-glow hover:border-[#00FFD4]/40 transition-colors"
+              data-testid="contact-email-card"
+            >
               <div className="w-12 h-12 rounded-lg bg-[#0A0E17] border border-[#1A2332] flex items-center justify-center text-[#00FFD4] mb-5">
                 <Mail size={24} />
               </div>
               <h3 className="text-white font-bold text-sm mb-2 font-['Outfit']">Email</h3>
-              <a href={`mailto:${CONTACT_EMAIL}`} className="text-[#00FFD4] text-sm hover:underline">{CONTACT_EMAIL}</a>
-            </div>
+              <span className="text-[#00FFD4] text-sm hover:underline break-all">{CONTACT_EMAIL}</span>
+            </a>
+          </FadeIn>
+          <FadeIn delay={150}>
+            <a
+              href={`https://wa.me/${CONTACT_WHATSAPP_INTL}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block bg-[#0F1419] border border-[#1A2332] rounded-2xl p-6 card-glow hover:border-[#00FFD4]/40 transition-colors"
+              data-testid="contact-whatsapp-card"
+            >
+              <div className="w-12 h-12 rounded-lg bg-[#0A0E17] border border-[#1A2332] flex items-center justify-center text-[#00FFD4] mb-5">
+                <MessageCircle size={24} />
+              </div>
+              <h3 className="text-white font-bold text-sm mb-2 font-['Outfit']">WhatsApp</h3>
+              <span className="text-[#00FFD4] text-sm hover:underline">{CONTACT_WHATSAPP_DISPLAY}</span>
+              <p className="text-[11px] text-[#8B9BB4] mt-2">Direct line for aligned enquiries.</p>
+            </a>
           </FadeIn>
           <FadeIn delay={200}>
-            <div className="bg-[#0F1419] border border-[#1A2332] rounded-2xl p-6 card-glow">
+            <div className="bg-[#0F1419] border border-[#1A2332] rounded-2xl p-6 card-glow" data-testid="contact-location-card">
               <div className="w-12 h-12 rounded-lg bg-[#0A0E17] border border-[#1A2332] flex items-center justify-center text-[#00FFD4] mb-5">
                 <MapPin size={24} />
               </div>
@@ -544,6 +579,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/why" element={<WhyPage />} />
           <Route path="/quesen" element={<QuesenPage />} />
           <Route path="/shinren" element={<ShinrenPage />} />
           <Route path="/qarsar" element={<QarsarPage />} />
