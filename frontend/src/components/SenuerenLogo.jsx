@@ -1,188 +1,153 @@
 import React from "react";
 
 /**
- * Senueren "SEN" logo mark — pure SVG chrome wordmark with comet swoosh.
+ * Senueren logo — Saturn-ring emblem + wordmark.
  *
- * Wide aspect ratio (2:1). Set height via className; width scales via viewBox.
- * Example: <SenuerenLogo className="h-10 w-auto" />
+ * Two exports:
+ *   <SenuerenLogo />       — navbar-sized "SEN" ring mark
+ *   <SenuerenLogoFull />   — hero-sized ring + "SENUEREN" wordmark + tagline
+ *
+ * Aesthetic anchors: deep-space navy field, brushed-blue-to-emerald gradient,
+ * circuit-etched ring, subtle inner glow. No mascots, no clutter.
  */
-const SenuerenLogo = ({ className = "h-10 w-auto", title = "Senueren" }) => (
-  <svg
-    viewBox="0 0 400 200"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-    role="img"
-    aria-label={title}
-    data-testid="senueren-logo-svg"
-    preserveAspectRatio="xMidYMid meet"
-  >
-    <defs>
-      {/* Chrome fill — bright highlight band at top, teal/cyan core, deeper blue base */}
-      <linearGradient id="senChromeFill" x1="50%" y1="0%" x2="50%" y2="100%">
-        <stop offset="0%" stopColor="#DFF9F4" />
-        <stop offset="18%" stopColor="#FFFFFF" />
-        <stop offset="38%" stopColor="#5BD9D0" />
-        <stop offset="55%" stopColor="#00FFD4" />
-        <stop offset="78%" stopColor="#00E5CC" />
-        <stop offset="100%" stopColor="#4A9FD8" />
-      </linearGradient>
 
-      {/* Subtle white edge highlight along the top of the letters */}
-      <linearGradient id="senChromeEdge" x1="50%" y1="0%" x2="50%" y2="100%">
-        <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.9" />
-        <stop offset="8%" stopColor="#FFFFFF" stopOpacity="0.6" />
-        <stop offset="20%" stopColor="#FFFFFF" stopOpacity="0" />
-      </linearGradient>
+const RingDefs = ({ id }) => (
+  <defs>
+    {/* Blue → emerald ring gradient (matches wordmark) */}
+    <linearGradient id={`ring-${id}`} x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stopColor="#3B82F6" />
+      <stop offset="50%" stopColor="#22D3EE" />
+      <stop offset="100%" stopColor="#10B981" />
+    </linearGradient>
+    {/* Highlight along the top edge of the ring */}
+    <linearGradient id={`ring-hi-${id}`} x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.55" />
+      <stop offset="40%" stopColor="#FFFFFF" stopOpacity="0" />
+    </linearGradient>
+    {/* Inner-orb gradient */}
+    <radialGradient id={`orb-${id}`} cx="40%" cy="35%" r="75%">
+      <stop offset="0%" stopColor="#1B3B70" />
+      <stop offset="55%" stopColor="#0B1E3A" />
+      <stop offset="100%" stopColor="#050B1A" />
+    </radialGradient>
+    <filter id={`glow-${id}`} x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="b" />
+      <feMerge>
+        <feMergeNode in="b" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    {/* Wordmark gradient */}
+    <linearGradient id={`word-${id}`} x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stopColor="#4F8CFF" />
+      <stop offset="55%" stopColor="#22D3EE" />
+      <stop offset="100%" stopColor="#34D399" />
+    </linearGradient>
+  </defs>
+);
 
-      {/* Swoosh trail: fades in from left, brightens toward the comet head */}
-      <linearGradient id="senSwoosh" x1="0%" y1="100%" x2="100%" y2="0%">
-        <stop offset="0%" stopColor="#4A9FD8" stopOpacity="0" />
-        <stop offset="25%" stopColor="#4A9FD8" stopOpacity="0.7" />
-        <stop offset="65%" stopColor="#00FFD4" stopOpacity="1" />
-        <stop offset="100%" stopColor="#E0FFFC" stopOpacity="1" />
-      </linearGradient>
+/* ── Small navbar mark ── */
+export const SenuerenLogo = ({ className = "h-10 w-auto", title = "Senueren" }) => (
+  <svg viewBox="0 0 220 80" xmlns="http://www.w3.org/2000/svg" className={className} role="img" aria-label={title} preserveAspectRatio="xMidYMid meet">
+    <RingDefs id="nav" />
 
-      {/* Soft glow for the swoosh */}
-      <filter id="senSoftGlow" x="-30%" y="-30%" width="160%" height="160%">
-        <feGaussianBlur stdDeviation="3" result="b" />
-        <feMerge>
-          <feMergeNode in="b" />
-          <feMergeNode in="SourceGraphic" />
-        </feMerge>
-      </filter>
-
-      {/* Radial glow for the comet head */}
-      <radialGradient id="senCometGlow" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stopColor="#FFFFFF" stopOpacity="1" />
-        <stop offset="25%" stopColor="#00FFD4" stopOpacity="0.9" />
-        <stop offset="70%" stopColor="#4A9FD8" stopOpacity="0.3" />
-        <stop offset="100%" stopColor="#4A9FD8" stopOpacity="0" />
-      </radialGradient>
-
-      {/* Drop shadow for letter depth */}
-      <filter id="senDrop" x="-10%" y="-10%" width="120%" height="130%">
-        <feGaussianBlur in="SourceAlpha" stdDeviation="1.5" />
-        <feOffset dx="2" dy="3" result="off" />
-        <feComponentTransfer>
-          <feFuncA type="linear" slope="0.55" />
-        </feComponentTransfer>
-        <feMerge>
-          <feMergeNode />
-          <feMergeNode in="SourceGraphic" />
-        </feMerge>
-      </filter>
-    </defs>
-
-    {/* Inline style for the comet pulse animation — self-contained, no external CSS needed */}
-    <style>{`
-      @keyframes sen-pulse { 0%,100% { transform: scale(0.82); opacity: 0.85; } 50% { transform: scale(1); opacity: 1; } }
-      .sen-comet { transform-origin: 368px 35px; animation: sen-pulse 3s ease-in-out infinite; }
-    `}</style>
-
-    {/* Subtle starfield — renders only at larger sizes, invisible at nav size */}
-    <g opacity="0.5" fill="#00FFD4">
-      <circle cx="30" cy="30" r="0.6" />
-      <circle cx="360" cy="25" r="0.5" />
-      <circle cx="50" cy="170" r="0.6" />
-      <circle cx="380" cy="160" r="0.5" />
-      <circle cx="120" cy="15" r="0.4" />
-      <circle cx="280" cy="180" r="0.5" />
+    {/* Saturn-ring emblem centred at (40, 40) */}
+    <g transform="translate(40 40)">
+      {/* Outer glow disc */}
+      <ellipse cx="0" cy="0" rx="34" ry="14" fill="none" stroke="url(#ring-nav)" strokeWidth="1.5" opacity="0.35" filter="url(#glow-nav)" />
+      {/* Inner orb */}
+      <circle cx="0" cy="0" r="18" fill="url(#orb-nav)" stroke="#22D3EE" strokeWidth="0.6" opacity="0.9" />
+      {/* Ring band (elliptical) */}
+      <ellipse cx="0" cy="0" rx="32" ry="11" fill="none" stroke="url(#ring-nav)" strokeWidth="4" transform="rotate(-18)" />
+      <ellipse cx="0" cy="0" rx="32" ry="11" fill="none" stroke="url(#ring-hi-nav)" strokeWidth="1.4" transform="rotate(-18)" />
+      {/* Two tiny segment gaps to suggest engineered plates */}
+      <line x1="-32" y1="0" x2="-26" y2="0" stroke="#050B1A" strokeWidth="4" transform="rotate(-18)" />
+      <line x1="26" y1="0" x2="32" y2="0" stroke="#050B1A" strokeWidth="4" transform="rotate(-18)" />
     </g>
 
-    {/* Swoosh — broad under-glow */}
-    <path
-      d="M 60 155 Q 80 60, 220 55 Q 320 52, 368 35"
-      stroke="url(#senSwoosh)"
-      strokeWidth="16"
-      fill="none"
-      strokeLinecap="round"
-      opacity="0.35"
-      filter="url(#senSoftGlow)"
-    />
-    {/* Swoosh — main arc */}
-    <path
-      d="M 60 155 Q 80 60, 220 55 Q 320 52, 368 35"
-      stroke="url(#senSwoosh)"
-      strokeWidth="6"
-      fill="none"
-      strokeLinecap="round"
-      filter="url(#senSoftGlow)"
-    />
-    {/* Swoosh — thin bright core */}
-    <path
-      d="M 80 150 Q 100 65, 225 60 Q 315 58, 365 38"
-      stroke="#E0FFFC"
-      strokeWidth="1.5"
-      fill="none"
-      strokeLinecap="round"
-      opacity="0.85"
-    />
-
-    {/* Sparkle particles */}
-    <g fill="#E0FFFC">
-      <circle cx="75" cy="150" r="1.3" opacity="0.9" />
-      <circle cx="105" cy="120" r="0.9" opacity="0.7" />
-      <circle cx="135" cy="95" r="1" opacity="0.8" />
-      <circle cx="175" cy="72" r="0.8" opacity="0.7" />
-      <circle cx="245" cy="55" r="1.1" opacity="0.9" />
-      <circle cx="305" cy="48" r="0.9" opacity="0.8" />
-      <circle cx="340" cy="40" r="1" opacity="0.85" />
-    </g>
-
-    {/* SEN letters — chrome fill with drop shadow */}
-    <g filter="url(#senDrop)">
-      <text
-        x="200"
-        y="140"
-        textAnchor="middle"
-        fontFamily="'Archivo Black','Outfit',system-ui,sans-serif"
-        fontWeight="900"
-        fontSize="110"
-        letterSpacing="-4"
-        fontStyle="italic"
-        fill="url(#senChromeFill)"
-      >
-        SEN
-      </text>
-    </g>
-    {/* Dark outline for crisp edge */}
+    {/* SEN wordmark */}
     <text
-      x="200"
-      y="140"
-      textAnchor="middle"
-      fontFamily="'Archivo Black','Outfit',system-ui,sans-serif"
-      fontWeight="900"
-      fontSize="110"
-      letterSpacing="-4"
-      fontStyle="italic"
-      fill="none"
-      stroke="#0A2038"
-      strokeWidth="1.2"
-      opacity="0.7"
+      x="90"
+      y="52"
+      fontFamily="'Outfit','Inter',system-ui,sans-serif"
+      fontWeight="800"
+      fontSize="36"
+      letterSpacing="1"
+      fill="url(#word-nav)"
     >
       SEN
     </text>
-    {/* Top chrome highlight */}
+  </svg>
+);
+
+/* ── Full hero-sized logo (ring + SENUEREN + tagline) ── */
+export const SenuerenLogoFull = ({ className = "w-full max-w-lg", title = "Senueren" }) => (
+  <svg viewBox="0 0 640 320" xmlns="http://www.w3.org/2000/svg" className={className} role="img" aria-label={title} preserveAspectRatio="xMidYMid meet">
+    <RingDefs id="hero" />
+
+    {/* Emblem centered at (320, 130) */}
+    <g transform="translate(320 130)">
+      {/* Wide glow disc behind */}
+      <ellipse cx="0" cy="0" rx="170" ry="70" fill="none" stroke="url(#ring-hero)" strokeWidth="1.2" opacity="0.18" filter="url(#glow-hero)" />
+
+      {/* Back half of ring (behind orb) */}
+      <path d="M -125 0 A 125 46 0 0 1 125 0" fill="none" stroke="url(#ring-hero)" strokeWidth="14" transform="rotate(-16)" strokeLinecap="butt" />
+
+      {/* Inner orb */}
+      <circle cx="0" cy="0" r="78" fill="url(#orb-hero)" stroke="#22D3EE" strokeWidth="0.8" opacity="0.95" />
+      {/* Faint orb inner texture (concentric arcs) */}
+      <g fill="none" stroke="#22D3EE" strokeWidth="0.6" opacity="0.35">
+        <circle cx="0" cy="0" r="55" />
+        <circle cx="0" cy="0" r="38" />
+        <circle cx="0" cy="0" r="20" />
+      </g>
+      {/* Highlight glint on orb */}
+      <ellipse cx="-24" cy="-28" rx="22" ry="10" fill="#FFFFFF" opacity="0.12" />
+
+      {/* Front half of ring (in front of orb) */}
+      <path d="M -125 0 A 125 46 0 0 0 125 0" fill="none" stroke="url(#ring-hero)" strokeWidth="14" transform="rotate(-16)" strokeLinecap="butt" />
+      {/* Ring highlight along top edge */}
+      <path d="M -122 -3 A 125 46 0 0 0 122 -3" fill="none" stroke="url(#ring-hi-hero)" strokeWidth="3.5" transform="rotate(-16)" strokeLinecap="butt" opacity="0.9" />
+
+      {/* Two engineered plate gaps */}
+      <g transform="rotate(-16)">
+        <line x1="-118" y1="0" x2="-102" y2="0" stroke="#050B1A" strokeWidth="14" />
+        <line x1="102" y1="0" x2="118" y2="0" stroke="#050B1A" strokeWidth="14" />
+        <line x1="-10" y1="46" x2="10" y2="46" stroke="#050B1A" strokeWidth="14" />
+      </g>
+
+      {/* Small “light tip” at ring end */}
+      <circle cx="126" cy="-38" r="3" fill="#E0FFFC" filter="url(#glow-hero)" />
+      <circle cx="-126" cy="38" r="2.5" fill="#7DD3FC" opacity="0.85" />
+    </g>
+
+    {/* Wordmark */}
     <text
-      x="200"
-      y="140"
+      x="320"
+      y="250"
       textAnchor="middle"
-      fontFamily="'Archivo Black','Outfit',system-ui,sans-serif"
-      fontWeight="900"
-      fontSize="110"
-      letterSpacing="-4"
-      fontStyle="italic"
-      fill="url(#senChromeEdge)"
+      fontFamily="'Outfit','Inter',system-ui,sans-serif"
+      fontWeight="800"
+      fontSize="64"
+      letterSpacing="6"
+      fill="url(#word-hero)"
     >
-      SEN
+      SENUEREN
     </text>
 
-    {/* Comet head — pulsing group */}
-    <g className="sen-comet">
-      <circle cx="368" cy="35" r="22" fill="url(#senCometGlow)" />
-      <circle cx="368" cy="35" r="5.5" fill="#FFFFFF" filter="url(#senSoftGlow)" />
-      <circle cx="368" cy="35" r="2.5" fill="#FFFFFF" />
-    </g>
+    {/* Tagline */}
+    <text
+      x="320"
+      y="288"
+      textAnchor="middle"
+      fontFamily="'Outfit','Inter',system-ui,sans-serif"
+      fontWeight="400"
+      fontSize="13"
+      letterSpacing="12"
+      fill="#8FA3C4"
+    >
+      AUTOMATE  •  INNOVATE  •  ELEVATE
+    </text>
   </svg>
 );
 
