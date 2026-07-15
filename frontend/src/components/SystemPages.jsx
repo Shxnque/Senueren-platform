@@ -196,13 +196,13 @@ if ((await q.validate(signals)).decision === "SKIP") return;`}</CodeBlock>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {[
               { name: "quesen-sdk-py", desc: "Official Python SDK.", url: "https://github.com/Shxnque/quesen-sdk-py" },
-              { name: "quesen-sdk-js", desc: "Official JavaScript / TypeScript SDK. Zero runtime dependencies.", url: "https://github.com/Shxnque/quesen-sdk-py" },
               { name: "quesen-langchain", desc: "LangChain / LangGraph tool integration.", url: "https://github.com/Shxnque/quesen-langchain" },
               { name: "quesen-crewai", desc: "CrewAI tool integration.", url: "https://github.com/Shxnque/quesen-crewai" },
               { name: "quesen-autogen", desc: "AutoGen v0.4+ function-tool integration.", url: "https://github.com/Shxnque/quesen-autogen" },
+              { name: "quesen-sdk-js", desc: "JavaScript / TypeScript SDK — public release upcoming. Enterprise early-access available on request.", url: "/contact" },
               { name: "MCP · stdio", desc: "Native server for Claude Desktop, Cursor, Windsurf, Zed, Cline, Continue, Roo Code.", url: "https://github.com/Shxnque/quesen-sdk-py" },
             ].map((r) => (
-              <a key={r.name} href={r.url} target="_blank" rel="noreferrer" className="group bg-[#0B1424]/70 border border-white/[0.06] rounded-xl p-5 hover:border-[#22D3EE]/40 transition-all backdrop-blur">
+              <a key={r.name} href={r.url} target={r.url.startsWith("http") ? "_blank" : undefined} rel={r.url.startsWith("http") ? "noreferrer" : undefined} className="group bg-[#0B1424]/70 border border-white/[0.06] rounded-xl p-5 hover:border-[#22D3EE]/40 transition-all backdrop-blur">
                 <div className="flex items-start justify-between mb-2">
                   <code className="text-sm text-white font-medium">{r.name}</code>
                   <ExternalLink size={14} className="text-[#94A3B8] group-hover:text-[#22D3EE] transition-colors" />
@@ -399,8 +399,8 @@ export const QarsarPage = () => {
 
 export const DiosenPage = () => {
   useSEO({
-    title: "Diosen — Institutional-Grade Autonomous Trading Infrastructure | Senueren",
-    description: "Diosen is Senueren's autonomous quantitative trading infrastructure. Evidence-driven strategy discovery, progressive deployment lifecycle, deterministic risk gating.",
+    title: "Diosen — Quantitative Intelligence System | Senueren",
+    description: "Diosen is Senueren's institutional-grade quantitative intelligence system. Evidence-driven research, simulation, optimisation, and decision support. Progressive validation lifecycle with deterministic promotion gates at every step.",
     path: "/diosen",
   });
 
@@ -413,27 +413,27 @@ export const DiosenPage = () => {
             <div className="h-px w-14 bg-gradient-to-r from-[#22D3EE] to-[#10B981]" />
             <StatusBadge />
           </div>
-          <p className="text-[11px] font-semibold tracking-[0.24em] uppercase text-[#22D3EE] mb-3">Autonomous Quantitative Trading</p>
+          <p className="text-[11px] font-semibold tracking-[0.24em] uppercase text-[#22D3EE] mb-3">Quantitative Intelligence System</p>
           <h1 className="text-4xl md:text-6xl tracking-tight font-bold text-white font-['Outfit'] leading-[1.05] max-w-4xl">
-            Institutional trading infrastructure
+            Institutional quantitative intelligence
             <span className="block bg-gradient-to-r from-[#4F8CFF] via-[#22D3EE] to-[#34D399] bg-clip-text text-transparent">
-              built to trade on evidence.
+              built to reason on evidence.
             </span>
           </h1>
           <p className="text-lg text-[#94A3B8] mt-8 max-w-2xl leading-relaxed">
-            Diosen is Senueren's flagship autonomous quantitative trading system.
-            Strategies are discovered, validated, and deployed through a progressive lifecycle with explicit promotion criteria at every step.
+            Diosen is Senueren's institutional-grade quantitative intelligence infrastructure.
+            Research, simulation, optimisation, and decision-support flow through a progressive validation lifecycle with explicit promotion criteria at every stage. Every conclusion is reproducible; every deployment is reversible.
           </p>
         </section>
 
         <section>
-          <SectionHeader eyebrow="Lifecycle" title="Progressive deployment gates." subtitle="No strategy skips a gate. Every promotion requires pre-declared evidence." />
+          <SectionHeader eyebrow="Lifecycle" title="Progressive validation gates." subtitle="No hypothesis skips a stage. Every promotion requires pre-declared, reproducible evidence." />
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {[
-              { name: "Observation", desc: "Strategy runs against live market data with no capital exposure. Behavioural evidence collected before any risk is taken." },
-              { name: "Simulation", desc: "Broker-simulated execution. Zero real capital. Confirms order-management and latency assumptions." },
-              { name: "Bounded live", desc: "Limited real-capital deployment with pre-declared exit thresholds. Every trade instrumented." },
-              { name: "Full deployment", desc: "Full capital allocation under continuous monitoring. Reversible on any material deviation." },
+              { name: "Observation", desc: "Hypotheses run against live market data with no capital exposure. Behavioural evidence and signal quality are measured before commitment." },
+              { name: "Simulation", desc: "Broker-simulated execution and full-stack replay. Zero real capital. Confirms operational assumptions, latency, and order-management behaviour." },
+              { name: "Bounded operation", desc: "Limited capital-committed operation with pre-declared exit thresholds. Every action instrumented and audit-logged." },
+              { name: "Full deployment", desc: "Full capital allocation under continuous monitoring. Reversible on any material deviation from pre-declared invariants." },
             ].map((s, i) => (
               <div key={s.name} className="bg-[#0B1424]/70 border border-white/[0.06] rounded-2xl p-6 relative overflow-hidden backdrop-blur">
                 <div className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-lg bg-white/[0.03] border border-white/10 text-[#22D3EE] text-xs font-bold">{i + 1}</div>
@@ -445,11 +445,23 @@ export const DiosenPage = () => {
         </section>
 
         <section>
-          <SectionHeader eyebrow="Framework" title="Strategy is a research asset." subtitle="Every deployed strategy owns its evidence, promotion history, and retirement condition. Code is derived from strategy — never the other way around." />
+          <SectionHeader eyebrow="Framework" title="A hypothesis is a research asset." subtitle="Every hypothesis owns its evidence, promotion history, and retirement condition. Implementation follows research — never the reverse." />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <InfoCard icon={<LineChart size={22} />} title="Evidence-owned" desc="Every strategy carries its full research provenance. Nothing is deployed on intuition." />
-            <InfoCard icon={<Cpu size={22} />} title="Meta-learning" desc="Continuous learning about which strategy classes tend to persist. Deterministic scoring; no black-box models in the meta-layer." />
-            <InfoCard icon={<Layers size={22} />} title="Explicit allocation" desc="Capital allocation is explicit, versioned, and gated on strategy promotion. No implicit exposure." />
+            <InfoCard icon={<LineChart size={22} />} title="Evidence-owned" desc="Every hypothesis carries its full research provenance. Nothing advances on intuition." />
+            <InfoCard icon={<Cpu size={22} />} title="Meta-learning" desc="Continuous learning about which hypothesis classes tend to persist. Deterministic scoring; no black-box models in the meta-layer." />
+            <InfoCard icon={<Layers size={22} />} title="Explicit allocation" desc="Capital and compute allocation is explicit, versioned, and gated on promotion. No implicit exposure." />
+          </div>
+        </section>
+
+        <section>
+          <SectionHeader eyebrow="Capabilities" title="What Diosen produces." subtitle="Quantitative intelligence has many faces. Diosen is designed to occupy the space where measurable evidence meets institutional decision-making." />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <InfoCard icon={<Radar size={22} />} title="Market research" desc="Continuous quantitative research across mandate-relevant markets. Findings are structured, reproducible, and versioned." />
+            <InfoCard icon={<Compass size={22} />} title="Forecasting & simulation" desc="Scenario simulation, stress testing, and forward-looking modelling grounded in reproducible data pipelines." />
+            <InfoCard icon={<Zap size={22} />} title="Portfolio & strategy" desc="Portfolio construction, strategy discovery, and capital-allocation intelligence with explicit promotion criteria." />
+            <InfoCard icon={<Shield size={22} />} title="Execution intelligence" desc="When execution is in scope, operational behaviour is instrumented end-to-end and gated on the same evidence rubric." />
+            <InfoCard icon={<BookOpen size={22} />} title="Decision support" desc="Institutional decision packets — evidence, uncertainty, and recommendations rendered in a format built for review, not for hype." />
+            <InfoCard icon={<Eye size={22} />} title="Observability" desc="Every stage is inspectable. Every deployment produces a signal trail. Documentation drift is treated as a defect." />
           </div>
         </section>
 
@@ -457,11 +469,11 @@ export const DiosenPage = () => {
           <SectionHeader eyebrow="Discipline" title="Non-negotiable invariants." />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {[
-              "No live-capital deployment without full-gate clearance.",
-              "No popularity signals — social metrics are not admissible strategy inputs.",
+              "No capital deployment without full-gate clearance.",
+              "No popularity signals — social metrics are not admissible research inputs.",
               "No open-ended observation. Every hypothesis has an explicit rejection criterion.",
               "No hypothesis re-opens without a triggered revisit condition.",
-              "Documentation drift is a bug, not a nuisance.",
+              "Documentation drift is a defect, not a nuisance.",
               "Every deployment is reversible on material deviation.",
             ].map((r) => (
               <div key={r} className="flex items-start gap-3 bg-[#0B1424]/70 border border-white/[0.06] rounded-xl p-4 backdrop-blur">
@@ -473,9 +485,9 @@ export const DiosenPage = () => {
         </section>
 
         <section>
-          <SectionHeader eyebrow="Access" title="Institutional & internal only." />
+          <SectionHeader eyebrow="Access" title="Selective institutional engagement." />
           <p className="text-[#94A3B8] max-w-2xl mb-8 leading-relaxed">
-            Diosen is not licensable. It operates internally within the Senueren Bureau and under selective institutional partnership.
+            Diosen is not a licensable retail product. It operates under selective institutional engagement and inside the Senueren research portfolio. Enterprise access is by conversation.
           </p>
           <Link to="/contact" className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm text-[#050B1A] bg-gradient-to-r from-[#22D3EE] to-[#34D399] hover:shadow-[0_0_40px_rgba(34,211,238,0.35)] transition-all">
             Discuss a partnership <ArrowRight size={16} />
