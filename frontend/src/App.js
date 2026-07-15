@@ -7,6 +7,7 @@ import {
   Eye, Layers, ChevronRight, Globe, Server
 } from "lucide-react";
 import SenuerenLogo from "./components/SenuerenLogo";
+import { SenuerenLogoFull } from "./components/SenuerenLogo";
 import { QuesenPage, ShinrenPage, QarsarPage, DiosenPage } from "./components/SystemPages";
 
 const CONTACT_EMAIL = "info@senueren.co.za";
@@ -179,21 +180,21 @@ const HomePage = () => {
       icon: <Brain size={24} />,
       title: "Shinren",
       subtitle: "Protocol Intelligence",
-      desc: "Discipline-first EVM static-analysis toolchain. Six scanners, four Mokujin primitives, a Kyogi contest orchestrator, and a 13-rule submission gate. Every finding is evidence-gated.",
+      desc: "Discipline-first security research infrastructure for on-chain autonomous systems. Composable analysis stack with an evidence-gated findings pipeline.",
       href: "/shinren",
     },
     {
       icon: <Network size={24} />,
       title: "Qarsar",
       subtitle: "Strategic Governance · MEV Research",
-      desc: "Standalone MEV / arbitrage research bureau on Base L2. Deterministic hypothesis lifecycle · 7-gate promotion · rejected-alpha registry · immutable Aave-V3 flash-loan proxy execution.",
+      desc: "Autonomous discovery and execution infrastructure for on-chain economic opportunities. Evidence-first hypothesis lifecycle with deterministic promotion gates.",
       href: "/qarsar",
     },
     {
       icon: <Cpu size={24} />,
       title: "Diosen",
       subtitle: "Autonomous Quantitative Trading",
-      desc: "Institutional-grade quant framework. Evidence-driven strategy discovery through 8-gate promotion. Progressive capital-tier lifecycle: Shadow → Paper → Live-Small → Live-Full.",
+      desc: "Institutional-grade trading infrastructure. Evidence-driven strategy discovery through a progressive deployment lifecycle with explicit promotion gates at every step.",
       href: "/diosen",
     },
     {
@@ -209,7 +210,7 @@ const HomePage = () => {
     <div className="min-h-screen bg-[#0A0E17]">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center bg-[#0A0E17]">
-        <div className="grid-overlay absolute inset-0 z-[2]"></div>
+        {/* grid overlay removed — starfield in App.css handles the atmosphere */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#0A0E17] via-[#0A0E17]/95 to-[#0A0E17]"></div>
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10 pt-24 pb-16">
           <div className="max-w-3xl">

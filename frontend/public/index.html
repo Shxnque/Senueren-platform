@@ -1,111 +1,91 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#0A0E17" />
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#050B1A" />
 
-        <!-- Primary Meta Tags -->
-        <title>Senueren — Sovereign Systems Bureau</title>
-        <meta name="title" content="Senueren — Sovereign Systems Bureau" />
-        <meta name="description" content="Proprietary research and execution bureau. Protocol intelligence, risk engineering, strategic governance, and information architecture. Decentralized protocols and AI security tooling." />
-        <meta name="keywords" content="sovereign systems, protocol intelligence, risk engineering, decentralized protocols, AI security, governance mechanisms, information architecture, Cape Town" />
-        <meta name="author" content="Senueren" />
-        <meta name="robots" content="index, follow" />
+    <!-- Fonts (preconnected) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" />
 
-        <!-- Canonical -->
-        <link rel="canonical" href="https://senueren.co.za/" />
+    <!-- Favicon -->
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
-        <!-- Open Graph -->
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://senueren.co.za/" />
-        <meta property="og:site_name" content="Senueren" />
-        <meta property="og:title" content="Senueren — Sovereign Systems Bureau" />
-        <meta property="og:description" content="Proprietary research and execution bureau. Protocol intelligence, risk engineering, strategic governance, and information architecture." />
-        <meta property="og:image" content="https://senueren.co.za/logo-full.png" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:locale" content="en_ZA" />
+    <!-- Primary meta -->
+    <title>Senueren — Sovereign Systems Firm for the Autonomous Economy</title>
+    <meta name="description" content="Senueren is a sovereign systems firm building deterministic infrastructure for the autonomous economy. Risk validation, protocol intelligence, autonomous discovery, and institutional quantitative trading — engineered for evidence, deployed selectively." />
+    <meta name="keywords" content="autonomous agents, deterministic risk, MCP server, LangChain, CrewAI, AutoGen, on-chain intelligence, quantitative trading, autonomous economy, agent infrastructure, senueren, quesen" />
+    <meta name="author" content="Senueren" />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />
+    <meta name="googlebot" content="index,follow" />
+    <link rel="canonical" href="https://senueren.co.za/" />
 
-        <!-- Twitter Card -->
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content="https://senueren.co.za/" />
-        <meta name="twitter:title" content="Senueren — Sovereign Systems Bureau" />
-        <meta name="twitter:description" content="Proprietary research and execution bureau. Protocol intelligence, risk engineering, strategic governance, and information architecture." />
-        <meta name="twitter:image" content="https://senueren.co.za/logo-full.png" />
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Senueren" />
+    <meta property="og:title" content="Senueren — Sovereign Systems Firm for the Autonomous Economy" />
+    <meta property="og:description" content="Deterministic infrastructure for autonomous agents, on-chain systems, and institutional quantitative operations. Built for evidence. Deployed selectively." />
+    <meta property="og:url" content="https://senueren.co.za/" />
+    <meta property="og:image" content="https://senueren.co.za/logo-full.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_ZA" />
 
-        <!-- Geo Tags — Cape Town -->
-        <meta name="geo.region" content="ZA-WC" />
-        <meta name="geo.placename" content="Cape Town" />
-        <meta name="geo.position" content="-33.918861;18.423300" />
-        <meta name="ICBM" content="-33.918861, 18.423300" />
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Senueren — Sovereign Systems Firm" />
+    <meta name="twitter:description" content="Deterministic infrastructure for the autonomous economy." />
+    <meta name="twitter:image" content="https://senueren.co.za/logo-full.png" />
 
-        <!-- Favicons -->
-        <link rel="icon" type="image/svg+xml" href="%PUBLIC_URL%/senueren-icon.svg" />
-        <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/favicon-32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/favicon-16.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/apple-touch-icon.png" />
-        <link rel="mask-icon" href="%PUBLIC_URL%/senueren-icon.svg" color="#00FFD4" />
-
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-
-        <!-- Structured Data -->
-        <script type="application/ld+json">
+    <!-- Structured data — Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Senueren",
+      "url": "https://senueren.co.za",
+      "logo": "https://senueren.co.za/logo-full.png",
+      "description": "Sovereign systems firm building deterministic infrastructure for the autonomous economy.",
+      "founder": { "@type": "Person", "name": "Senueren" },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Cape Town",
+        "addressCountry": "ZA"
+      },
+      "sameAs": [
+        "https://github.com/Shxnque"
+      ],
+      "makesOffer": [
         {
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "@id": "https://senueren.co.za/#organization",
-            "name": "Senueren",
-            "url": "https://senueren.co.za",
-            "logo": {
-                "@type": "ImageObject",
-                "url": "https://senueren.co.za/logo-full.png",
-                "width": 512,
-                "height": 512
-            },
-            "description": "Sovereign Systems Bureau. Proprietary research and execution across protocol intelligence, risk engineering, strategic governance, and information architecture.",
-            "founder": {
-                "@type": "Person",
-                "name": "Quelum Wilson",
-                "jobTitle": "Founder"
-            },
-            "foundingLocation": {
-                "@type": "Place",
-                "name": "Cape Town, South Africa"
-            },
-            "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "Cape Town",
-                "addressRegion": "Western Cape",
-                "addressCountry": "ZA"
-            },
-            "contactPoint": {
-                "@type": "ContactPoint",
-                "contactType": "Business Inquiries",
-                "email": "info@senueren.co.za",
-                "availableLanguage": ["English"]
-            }
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "SoftwareApplication",
+            "name": "Quesen",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "Any"
+          }
         }
-        </script>
+      ]
+    }
+    </script>
 
-        <!-- Security & Performance -->
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="referrer" content="strict-origin-when-cross-origin" />
-        <meta name="format-detection" content="telephone=no" />
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-    </head>
-    <body>
-        <noscript>
-            <div style="padding: 2rem; text-align: center; background: #0A0E17; color: #fff;">
-                <h1>Senueren — Sovereign Systems Bureau</h1>
-                <p>Proprietary research and execution bureau operating across protocol intelligence, risk engineering, strategic governance, and information architecture.</p>
-                <p>Please enable JavaScript to use the full experience, or contact us at info@senueren.co.za.</p>
-            </div>
-        </noscript>
-        <div id="root"></div>
-    </body>
+    <!-- Structured data — WebSite -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Senueren",
+      "url": "https://senueren.co.za",
+      "publisher": { "@type": "Organization", "name": "Senueren" }
+    }
+    </script>
+  </head>
+  <body>
+    <noscript>Senueren requires JavaScript to run. Please enable it to view the site.</noscript>
+    <div id="root"></div>
+  </body>
 </html>
