@@ -11,7 +11,7 @@
 - **Quesen** — Deterministic risk validation infrastructure for autonomous agents. HTTP API, Python + JavaScript SDKs, LangChain / CrewAI / AutoGen integrations, and native MCP support.
 - **Shinren** — Security research infrastructure for on-chain autonomous systems.
 - **Qarsar** — Autonomous discovery and execution infrastructure for on-chain economic opportunities.
-- **Diosen** — Institutional-grade quantitative trading infrastructure.
+- **Diosen** — Institutional-grade quantitative intelligence system. Evidence-driven research, simulation, optimisation, and decision support through a progressive validation lifecycle.
 
 ## Operating principles
 

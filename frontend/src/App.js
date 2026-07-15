@@ -188,7 +188,7 @@ const HomePage = () => {
       icon: <Shield size={24} />,
       title: "Quesen",
       subtitle: "Risk Engineering · v1.5.0",
-      desc: "The deterministic trust layer for autonomous agents. Same input in, same decision out. No LLM in the scoring loop. 7-rule Conflict Matrix + on-chain enrichment across 7 EVM chains.",
+      desc: "The deterministic trust layer for autonomous agents. Same input in, same decision out. No LLM in the scoring loop. An expanding Conflict Matrix and on-chain enrichment across major EVM networks.",
       href: "/quesen",
     },
     {
@@ -208,8 +208,8 @@ const HomePage = () => {
     {
       icon: <Cpu size={24} />,
       title: "Diosen",
-      subtitle: "Autonomous Quantitative Trading",
-      desc: "Institutional-grade trading infrastructure. Evidence-driven strategy discovery through a progressive deployment lifecycle with explicit promotion gates at every step.",
+      subtitle: "Quantitative Intelligence System",
+      desc: "Institutional-grade quantitative intelligence infrastructure. Evidence-driven research, simulation, and decision-support flowing through a progressive validation lifecycle with explicit promotion criteria at every step.",
       href: "/diosen",
     },
     {
@@ -320,7 +320,7 @@ const HomePage = () => {
           <FadeIn>
             <div className="mb-16">
               <div className="accent-bar w-12 mb-6"></div>
-              <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#00FFD4] mb-3">Doctrine</p>
+              <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#00FFD4] mb-3">Principles</p>
               <h2 className="text-3xl sm:text-4xl tracking-tight font-bold text-white font-['Outfit']">Operating Principles</h2>
             </div>
           </FadeIn>

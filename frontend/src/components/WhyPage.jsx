@@ -110,7 +110,7 @@ export const WhyPage = () => {
               { icon: <Shield size={22} />, name: "Quesen", tag: "Deterministic trust infrastructure", desc: "The decision layer. Every autonomous action passes through it. Same input, same decision." },
               { icon: <Radar size={22} />, name: "Shinren", tag: "Autonomous protocol intelligence", desc: "The security research spine. Every finding is evidence-gated before it reaches a customer." },
               { icon: <Network size={22} />, name: "Qarsar", tag: "Strategic intelligence & discovery", desc: "The opportunity engine. Continuous survey of the on-chain landscape. Deterministic promotion gates." },
-              { icon: <Binary size={22} />, name: "Diosen", tag: "Autonomous quantitative execution", desc: "The trading spine. Evidence-driven strategy discovery. Progressive deployment lifecycle." },
+              { icon: <Binary size={22} />, name: "Diosen", tag: "Quantitative intelligence system", desc: "The research and decision spine. Evidence-driven quantitative intelligence flowing through a progressive validation lifecycle." },
             ].map((p) => (
               <Card key={p.name} icon={p.icon} title={`${p.name} — ${p.tag}`} desc={p.desc} />
             ))}
