@@ -53,10 +53,10 @@ jobs:
       - name: Pre-render SPA routes for SEO (200 OK on deep links)
         working-directory: frontend/build
         run: |
-          for route in senra tools systems about contact; do
-            # /senra.html  → served when user visits /senra (GH Pages pretty URLs)
+          for route in quesen shinren qarsar diosen senra tools systems insights about contact; do
+            # /route.html  → served when user visits /route (GH Pages pretty URLs)
             cp index.html "${route}.html"
-            # /senra/index.html → served when user visits /senra/
+            # /route/index.html → served when user visits /route/
             mkdir -p "${route}"
             cp index.html "${route}/index.html"
           done
@@ -64,7 +64,7 @@ jobs:
           cp index.html 404.html
           echo "Pre-rendered routes:"
           ls -la *.html
-          ls -la senra tools systems about contact 2>/dev/null || true
+          ls -la quesen shinren qarsar diosen senra tools systems insights about contact 2>/dev/null || true
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

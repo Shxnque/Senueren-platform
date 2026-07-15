@@ -7,6 +7,7 @@ import {
   Eye, Layers, ChevronRight, Globe, Server
 } from "lucide-react";
 import SenuerenLogo from "./components/SenuerenLogo";
+import { QuesenPage, ShinrenPage, QarsarPage, DiosenPage } from "./components/SystemPages";
 
 const CONTACT_EMAIL = "info@senueren.co.za";
 const SITE_URL = "https://senueren.co.za";
@@ -89,6 +90,10 @@ const Navbar = () => {
 
   const links = [
     { to: "/", label: "Home" },
+    { to: "/quesen", label: "Quesen" },
+    { to: "/shinren", label: "Shinren" },
+    { to: "/qarsar", label: "Qarsar" },
+    { to: "/diosen", label: "Diosen" },
     { to: "/about", label: "About" },
     { to: "/contact", label: "Contact" },
   ];
@@ -164,28 +169,39 @@ const HomePage = () => {
 
   const pillars = [
     {
+      icon: <Shield size={24} />,
+      title: "Quesen",
+      subtitle: "Risk Engineering · v1.5.0",
+      desc: "The deterministic trust layer for autonomous agents. Same input in, same decision out. No LLM in the scoring loop. 7-rule Conflict Matrix + on-chain enrichment across 7 EVM chains.",
+      href: "/quesen",
+    },
+    {
       icon: <Brain size={24} />,
       title: "Shinren",
       subtitle: "Protocol Intelligence",
-      desc: "Autonomous reasoning systems for decentralized protocol analysis. Pattern recognition across on-chain state, governance proposals, and liquidity topology."
-    },
-    {
-      icon: <Shield size={24} />,
-      title: "Quesen",
-      subtitle: "Risk Engineering",
-      desc: "Adversarial modeling and threat surface enumeration. Pre-deployment simulation of economic attack vectors and systemic failure modes."
+      desc: "Discipline-first EVM static-analysis toolchain. Six scanners, four Mokujin primitives, a Kyogi contest orchestrator, and a 13-rule submission gate. Every finding is evidence-gated.",
+      href: "/shinren",
     },
     {
       icon: <Network size={24} />,
       title: "Qarsar",
-      subtitle: "Strategic Governance",
-      desc: "Decision frameworks for distributed coordination. Mechanism design, delegation architecture, and governance parameter optimization."
+      subtitle: "Strategic Governance · MEV Research",
+      desc: "Standalone MEV / arbitrage research bureau on Base L2. Deterministic hypothesis lifecycle · 7-gate promotion · rejected-alpha registry · immutable Aave-V3 flash-loan proxy execution.",
+      href: "/qarsar",
+    },
+    {
+      icon: <Cpu size={24} />,
+      title: "Diosen",
+      subtitle: "Autonomous Quantitative Trading",
+      desc: "Institutional-grade quant framework. Evidence-driven strategy discovery through 8-gate promotion. Progressive capital-tier lifecycle: Shadow → Paper → Live-Small → Live-Full.",
+      href: "/diosen",
     },
     {
       icon: <Layers size={24} />,
       title: "Scrapling",
       subtitle: "Information Architecture",
-      desc: "Structured extraction and synthesis of unstructured protocol data. Intelligence feeds, documentation systems, and knowledge graph construction."
+      desc: "Adaptive scraping framework. Structured extraction and synthesis of unstructured protocol data. Intelligence feeds, documentation systems, and knowledge graph construction.",
+      href: null,
     },
   ];
 
@@ -246,18 +262,36 @@ const HomePage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {pillars.map((item, i) => (
               <FadeIn key={i} delay={i * 100}>
-                <div className="bg-[#0F1419] border border-[#1A2332] rounded-2xl p-8 card-glow group h-full">
-                  <div className="flex items-start gap-5 mb-5">
-                    <div className="w-12 h-12 rounded-lg bg-[#0A0E17] border border-[#1A2332] flex items-center justify-center text-[#00FFD4] group-hover:scale-110 transition-transform duration-300">
-                      {item.icon}
+                {item.href ? (
+                  <Link to={item.href} className="block bg-[#0F1419] border border-[#1A2332] rounded-2xl p-8 card-glow group h-full hover:border-[#00FFD4]/40 transition-all">
+                    <div className="flex items-start gap-5 mb-5">
+                      <div className="w-12 h-12 rounded-lg bg-[#0A0E17] border border-[#1A2332] flex items-center justify-center text-[#00FFD4] group-hover:scale-110 transition-transform duration-300">
+                        {item.icon}
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between">
+                          <h3 className="text-xl font-bold text-white font-['Outfit']">{item.title}</h3>
+                          <ChevronRight size={16} className="text-[#8B9BB4] group-hover:text-[#00FFD4] group-hover:translate-x-1 transition-all" />
+                        </div>
+                        <p className="text-xs text-[#00FFD4] font-medium tracking-wide uppercase">{item.subtitle}</p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-white font-['Outfit']">{item.title}</h3>
-                      <p className="text-xs text-[#00FFD4] font-medium tracking-wide uppercase">{item.subtitle}</p>
+                    <p className="text-sm text-[#8B9BB4] leading-relaxed">{item.desc}</p>
+                  </Link>
+                ) : (
+                  <div className="bg-[#0F1419] border border-[#1A2332] rounded-2xl p-8 card-glow group h-full">
+                    <div className="flex items-start gap-5 mb-5">
+                      <div className="w-12 h-12 rounded-lg bg-[#0A0E17] border border-[#1A2332] flex items-center justify-center text-[#00FFD4] group-hover:scale-110 transition-transform duration-300">
+                        {item.icon}
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold text-white font-['Outfit']">{item.title}</h3>
+                        <p className="text-xs text-[#00FFD4] font-medium tracking-wide uppercase">{item.subtitle}</p>
+                      </div>
                     </div>
+                    <p className="text-sm text-[#8B9BB4] leading-relaxed">{item.desc}</p>
                   </div>
-                  <p className="text-sm text-[#8B9BB4] leading-relaxed">{item.desc}</p>
-                </div>
+                )}
               </FadeIn>
             ))}
           </div>
@@ -509,6 +543,10 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/quesen" element={<QuesenPage />} />
+          <Route path="/shinren" element={<ShinrenPage />} />
+          <Route path="/qarsar" element={<QarsarPage />} />
+          <Route path="/diosen" element={<DiosenPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
