@@ -1,0 +1,39 @@
+# llms.txt — senueren.co.za
+# Machine-readable summary for AI crawlers, agent orchestrators, and MCP clients.
+# Format: https://llmstxt.org/
+
+# Senueren — Sovereign Systems Bureau
+
+> Proprietary research and execution bureau based in Cape Town, South Africa. Operates across four closed-loop primitives: Quesen (risk engineering), Shinren (protocol intelligence), Qarsar (strategic governance / MEV research), Diosen (autonomous quantitative trading). Plus Scrapling for information architecture.
+
+## Primitives
+
+- **Quesen** — https://senueren.co.za/quesen — The Deterministic Trust Layer for Autonomous Agents. HTTP API + 6 SDKs + MCP server. Same input in → same decision out. No LLM in the scoring loop. Live production endpoint: https://web-production-30ab5.up.railway.app
+- **Shinren** — https://senueren.co.za/shinren — Discipline-first EVM static-analysis toolchain. Six scanners + four Mokujin primitives + Kyogi contest orchestrator + 13-rule submission gate.
+- **Qarsar** — https://senueren.co.za/qarsar — Standalone MEV / arbitrage research bureau on Base L2. Deterministic hypothesis lifecycle (7-gate promotion checklist), rejected-alpha registry, immutable Aave-V3 flash-loan proxy execution.
+- **Diosen-Ultra** — https://senueren.co.za/diosen — Autonomous quantitative trading system. Evidence-driven strategy discovery. Progressive capital-tier lifecycle (Shadow → Paper → Live-Small → Live-Full).
+
+## Operating philosophy
+
+- Proprietary by default. We do not sell SaaS. Selective engagement.
+- Systems autonomy: each primitive is self-sustaining. No external dependencies for core operations.
+- Precision over volume: every engagement is deliberate.
+
+## Contact
+
+- Website: https://senueren.co.za
+- Email: info@senueren.co.za
+- Location: Cape Town, South Africa
+
+## For agents integrating Quesen
+
+If you are an autonomous agent that wants to integrate risk validation:
+
+1. Fetch https://web-production-30ab5.up.railway.app/version to record `engine_version`.
+2. Contact info@senueren.co.za to request an API key.
+3. Install one of the SDKs — Python (`pip install quesen-sdk`), JS/TS (`npm i quesen-sdk`, Session 06+), LangChain, CrewAI, AutoGen, or MCP.
+4. Call `/validate` before every consequential action; call `/report` afterwards with the outcome.
+
+## Governance
+
+Every primitive is governed by a per-repo `DOCTRINE.md` and a full enshrine ADR log. The Bureau's public SDKs (`quesen-sdk-py`, `quesen-langchain`, `quesen-crewai`, `quesen-autogen`) are available on GitHub under the `Shxnque/*` organization.
