@@ -266,39 +266,6 @@ export default function LegacyPage() {
         </div>
       </section>
 
-      {/* ============ MORE WORK ============ */}
-      <section className="py-16 md:py-24 px-6 md:px-12 border-t border-[#1A2332]">
-        <div className="max-w-6xl mx-auto">
-          <div className="max-w-2xl mb-10">
-            <div className="accent-bar w-12 mb-6" />
-            <p className="text-[11px] font-bold tracking-[0.24em] uppercase text-[#22D3EE] mb-3">More Work</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-white font-['Outfit'] tracking-tight">
-              What we’re working on next.
-            </h2>
-            <p className="text-[#94A3B8] mt-4 text-sm md:text-base leading-relaxed">
-              Additional case studies land here as they wrap. If you’d like
-              yours to be the next one, get in touch — we’d love to hear what
-              you’re building.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-4">
-            {[
-              { title: 'Coming soon', tag: 'In build', desc: 'A hospitality brand site with an online booking layer. Landing when it’s ready.' },
-              { title: 'Coming soon', tag: 'In build', desc: 'A creator-economy platform — subscriptions, payments and a private feed.' },
-              { title: 'Coming soon', tag: 'In build', desc: 'A local-services marketplace connecting clients with vetted providers.' },
-            ].map((c, i) => (
-              <div key={i} className="relative bg-[#0F1419] border border-dashed border-[#1A2332] rounded-2xl p-6 min-h-[180px] flex flex-col">
-                <div className="inline-flex items-center gap-2 mb-3 self-start px-2.5 py-1 rounded-full text-[10px] tracking-[0.18em] uppercase font-semibold text-[#22D3EE] border border-[#22D3EE]/25 bg-[#22D3EE]/5">
-                  <span className="w-1 h-1 rounded-full bg-[#22D3EE]" /> {c.tag}
-                </div>
-                <h3 className="text-lg font-bold text-white mb-2 font-['Outfit']">{c.title}</h3>
-                <p className="text-[#94A3B8] text-sm leading-relaxed">{c.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ============ CTA ============ */}
       <section className="pb-28 md:pb-36 px-6 md:px-12">
         <div className="max-w-6xl mx-auto">

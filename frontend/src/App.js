@@ -101,7 +101,7 @@ const Navbar = () => {
     { to: "/shinren", label: "Shinren" },
     { to: "/qarsar", label: "Qarsar" },
     { to: "/diosen", label: "Diosen" },
-    { to: "/legacy", label: "Work" },
+    { to: "/legacy", label: "Portfolio" },
     { to: "/about", label: "About" },
     { to: "/contact", label: "Contact" },
   ];
@@ -638,7 +638,7 @@ const HomePage = () => {
                   Get in touch <ArrowRight size={14} />
                 </Link>
                 <Link to="/legacy" data-testid="home-cta-rail-legacy-button" className="cta-secondary">
-                  See our work <ChevronRight size={14} />
+                  See our portfolio <ChevronRight size={14} />
                 </Link>
               </div>
             </div>
