@@ -123,7 +123,7 @@ export const WhyPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card icon={<Lock size={22} />} title="Determinism over probability" desc="Every decision-path invariant: same input, same output. No probabilistic scoring where autonomy is at stake." />
             <Card icon={<Eye size={22} />} title="Evidence over conviction" desc="Nothing ships on intuition. Every promotion, every deployment, every rule requires reproducible evidence." />
-            <Card icon={<Compass size={22} />} title="Selective over scale" desc="We do not pursue volume. Every partnership is deliberate. Every engagement is chosen." />
+            <Card icon={<Compass size={22} />} title="Considered, not chaotic" desc="We take on work we can actually do well and stay hands-on with every project. Small enough to care, technical enough to build serious things." />
             <Card icon={<Sparkles size={22} />} title="Sovereign over dependent" desc="Systems must stand alone before they integrate. No external dependencies at the core of any product." />
           </div>
         </section>

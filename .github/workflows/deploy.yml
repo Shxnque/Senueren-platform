@@ -53,7 +53,7 @@ jobs:
       - name: Pre-render SPA routes for SEO (200 OK on deep links)
         working-directory: frontend/build
         run: |
-          for route in quesen shinren qarsar diosen senra tools systems insights about contact; do
+          for route in quesen shinren qarsar diosen senra tools systems insights about contact legacy; do
             # /route.html  → served when user visits /route (GH Pages pretty URLs)
             cp index.html "${route}.html"
             # /route/index.html → served when user visits /route/

@@ -11,6 +11,7 @@ import SenuerenLogo from "./components/SenuerenLogo";
 import { SenuerenLogoFull } from "./components/SenuerenLogo";
 import { QuesenPage, ShinrenPage, QarsarPage, DiosenPage } from "./components/SystemPages";
 import WhyPage from "./components/WhyPage";
+import LegacyPage from "./components/LegacyPage";
 
 const CONTACT_EMAIL = "info@senueren.co.za";
 const CONTACT_WHATSAPP_DISPLAY = "067 326 7417";
@@ -100,6 +101,7 @@ const Navbar = () => {
     { to: "/shinren", label: "Shinren" },
     { to: "/qarsar", label: "Qarsar" },
     { to: "/diosen", label: "Diosen" },
+    { to: "/legacy", label: "Work" },
     { to: "/about", label: "About" },
     { to: "/contact", label: "Contact" },
   ];
@@ -144,7 +146,7 @@ const Footer = () => (
             <span className="text-2xl logo-chrome">SENUEREN</span>
           </div>
           <p className="text-[#8B9BB4] text-sm leading-relaxed max-w-md mb-4">
-            Sovereign Systems Bureau. Proprietary research and execution across protocol intelligence, risk engineering, strategic governance, and information architecture.
+            A small, hands-on studio building proprietary AI + decentralized-protocol systems, and designing premium websites and platforms for founders and brands. Cape Town \u2014 remote-friendly.
           </p>
           <p className="text-[#1A2332] text-xs mt-6">Cape Town, South Africa</p>
         </div>
@@ -426,9 +428,9 @@ const HomePage = () => {
   ];
 
   const principles = [
-    { icon: <Lock size={20} />,     title: "Closed-Loop",         line: "We do not sell tooling. We build and control what our systems require.", promise: "Every primitive is internally sufficient." },
-    { icon: <Eye size={20} />,      title: "Precision Over Volume", line: "Every engagement is deliberate. Selective scale over noisy growth.",     promise: "Structural problems only." },
-    { icon: <Sparkles size={20} />, title: "Systems Autonomy",    line: "Sovereign by construction. No external dependencies at the core.",       promise: "Stand alone before integrating." },
+    { icon: <Lock size={20} />,     title: "Built With Care",       line: "Every system, brand site or platform is built and looked after by us end-to-end.",                             promise: "Same team, from first sketch to shipped." },
+    { icon: <Eye size={20} />,      title: "Craft Over Speed",      line: "We move quickly, but never at the cost of the finish. Good enough is not our finish line.",                  promise: "Details are the work." },
+    { icon: <Sparkles size={20} />, title: "Made to Last",          line: "Systems designed to stand on their own \u2014 built so they keep working long after we walk away.",           promise: "Durable by construction." },
   ];
 
   return (
@@ -459,7 +461,8 @@ const HomePage = () => {
                 <p className="mt-7 text-[15px] md:text-lg text-[#94A3B8] leading-relaxed max-w-xl">
                   Four reinforcing systems engineered from first principles.
                   Same input, same decision. Same evidence, same conclusion.
-                  Built to reason, defend, and act at institutional scale.
+                  Alongside them we design and build premium web platforms for
+                  founders, brands and operators \u2014 done end-to-end.
                 </p>
               </FadeIn>
               <FadeIn delay={240}>
@@ -618,24 +621,24 @@ const HomePage = () => {
               </div>
             </div>
 
-            {/* Investors / Partners */}
+            {/* Partners / Founders */}
             <div className="cta-lane cta-lane-partners">
               <div className="cta-lane-eyebrow">
                 <LineChart size={14} />
-                <span>Investors / Partners</span>
+                <span>Founders & Partners</span>
               </div>
-              <h3 className="cta-lane-title">Selective institutional engagement.</h3>
+              <h3 className="cta-lane-title">Have a project in mind?</h3>
               <p className="cta-lane-desc">
-                Enterprise, protocol teams, and institutional partners only.
-                Every conversation is deliberate. Every partnership is chosen.
+                From a brand site to a full platform \u2014 we\u2019d love to hear what you\u2019re building.
+                First conversations are free, honest and free of jargon.
               </p>
               <div className="cta-lane-actions">
                 <Link to="/contact" data-testid="home-cta-rail-contact-button"
                   className="cta-primary">
-                  Start a conversation <ArrowRight size={14} />
+                  Get in touch <ArrowRight size={14} />
                 </Link>
-                <Link to="/why" data-testid="home-cta-rail-why-button" className="cta-secondary">
-                  Why Senueren <ChevronRight size={14} />
+                <Link to="/legacy" data-testid="home-cta-rail-legacy-button" className="cta-secondary">
+                  See our work <ChevronRight size={14} />
                 </Link>
               </div>
             </div>
@@ -674,10 +677,10 @@ const AboutPage = () => {
                 A research and execution bureau
               </h2>
               <p className="text-[#8B9BB4] leading-relaxed mb-4">
-                Senueren operates as a sovereign systems bureau — building proprietary intelligence and security tooling across decentralized protocols and AI infrastructure. We do not pursue volume. We do not seek visibility. The work speaks through its outputs.
+                Senueren is a small, hands-on studio building proprietary intelligence and security tooling across decentralized protocols and AI infrastructure, alongside premium websites and platforms for founders and brands. We ship considered work, look after it after launch, and stay open to good conversations from good people.
               </p>
               <p className="text-[#8B9BB4] leading-relaxed">
-                Our operational primitives — Shinren, Quesen, Qarsar, and Scrapling — represent closed-loop systems designed to identify, model, govern, and structure information across complex protocol environments.
+                Our four operational primitives \u2014 Shinren, Quesen, Qarsar, and Diosen \u2014 represent closed-loop systems for identifying, modelling, governing and structuring information across complex protocol environments. Our web work covers everything from brand sites to full-stack platforms.
               </p>
             </div>
           </FadeIn>
@@ -702,7 +705,7 @@ const AboutPage = () => {
                 </div>
                 <h3 className="text-xl font-bold text-white mb-3 font-['Outfit']">Posture</h3>
                 <p className="text-[#8B9BB4] leading-relaxed">
-                  Proprietary by default. We build tools for controlled deployment — not open-market distribution. Precision, discretion, structural integrity.
+                  Small team, hands-on, honest. We build serious things and stay approachable while we do it \u2014 warm on the phone, precise on the page.
                 </p>
               </div>
             </FadeIn>
@@ -758,7 +761,7 @@ const ContactPage = () => {
               Enquiries
             </h1>
             <p className="text-lg text-[#8B9BB4] max-w-2xl">
-              For matters relating to strategic infrastructure, protocol security, or foundational engineering capacity.
+              Whether it\u2019s strategic infrastructure, protocol security, or a brand-new website or platform \u2014 we\u2019d love to hear about it. Drop us a note and we\u2019ll get back within one working day.
             </p>
           </div>
         </FadeIn>
@@ -790,7 +793,7 @@ const ContactPage = () => {
               </div>
               <h3 className="text-white font-bold text-sm mb-2 font-['Outfit']">WhatsApp</h3>
               <span className="text-[#00FFD4] text-sm hover:underline">{CONTACT_WHATSAPP_DISPLAY}</span>
-              <p className="text-[11px] text-[#8B9BB4] mt-2">Direct line for aligned enquiries.</p>
+              <p className="text-[11px] text-[#8B9BB4] mt-2">Fastest way to reach us on a workday.</p>
             </a>
           </FadeIn>
           <FadeIn delay={200}>
@@ -807,7 +810,11 @@ const ContactPage = () => {
         <FadeIn delay={300}>
           <div className="mt-10 p-6 bg-[#0F1419]/50 border border-[#1A2332] rounded-2xl text-center">
             <p className="text-[#8B9BB4] text-sm">
-              Senueren does not operate as a service provider. Engagement is selective and by alignment only.
+              Prefer email? Drop us a line at{' '}
+              <a href={`mailto:${CONTACT_EMAIL}`} className="text-[#00FFD4] hover:underline">
+                {CONTACT_EMAIL}
+              </a>{' '}
+              and we\u2019ll come back within one working day.
             </p>
           </div>
         </FadeIn>
@@ -831,6 +838,7 @@ function App() {
           <Route path="/shinren" element={<ShinrenPage />} />
           <Route path="/qarsar" element={<QarsarPage />} />
           <Route path="/diosen" element={<DiosenPage />} />
+          <Route path="/legacy" element={<LegacyPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
