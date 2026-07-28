@@ -146,7 +146,7 @@ const Footer = () => (
             <span className="text-2xl logo-chrome">SENUEREN</span>
           </div>
           <p className="text-[#8B9BB4] text-sm leading-relaxed max-w-md mb-4">
-            A small, hands-on studio building proprietary AI + decentralized-protocol systems, and designing premium websites and platforms for founders and brands. Cape Town \u2014 remote-friendly.
+            A small, hands-on studio building proprietary AI + decentralized-protocol systems, and designing premium websites and platforms for founders and brands. Cape Town — remote-friendly.
           </p>
           <p className="text-[#1A2332] text-xs mt-6">Cape Town, South Africa</p>
         </div>
@@ -430,7 +430,7 @@ const HomePage = () => {
   const principles = [
     { icon: <Lock size={20} />,     title: "Built With Care",       line: "Every system, brand site or platform is built and looked after by us end-to-end.",                             promise: "Same team, from first sketch to shipped." },
     { icon: <Eye size={20} />,      title: "Craft Over Speed",      line: "We move quickly, but never at the cost of the finish. Good enough is not our finish line.",                  promise: "Details are the work." },
-    { icon: <Sparkles size={20} />, title: "Made to Last",          line: "Systems designed to stand on their own \u2014 built so they keep working long after we walk away.",           promise: "Durable by construction." },
+    { icon: <Sparkles size={20} />, title: "Made to Last",          line: "Systems designed to stand on their own — built so they keep working long after we walk away.",           promise: "Durable by construction." },
   ];
 
   return (
@@ -462,7 +462,7 @@ const HomePage = () => {
                   Four reinforcing systems engineered from first principles.
                   Same input, same decision. Same evidence, same conclusion.
                   Alongside them we design and build premium web platforms for
-                  founders, brands and operators \u2014 done end-to-end.
+                  founders, brands and operators — done end-to-end.
                 </p>
               </FadeIn>
               <FadeIn delay={240}>
@@ -629,7 +629,7 @@ const HomePage = () => {
               </div>
               <h3 className="cta-lane-title">Have a project in mind?</h3>
               <p className="cta-lane-desc">
-                From a brand site to a full platform \u2014 we\u2019d love to hear what you\u2019re building.
+                From a brand site to a full platform — we’d love to hear what you’re building.
                 First conversations are free, honest and free of jargon.
               </p>
               <div className="cta-lane-actions">
@@ -680,7 +680,7 @@ const AboutPage = () => {
                 Senueren is a small, hands-on studio building proprietary intelligence and security tooling across decentralized protocols and AI infrastructure, alongside premium websites and platforms for founders and brands. We ship considered work, look after it after launch, and stay open to good conversations from good people.
               </p>
               <p className="text-[#8B9BB4] leading-relaxed">
-                Our four operational primitives \u2014 Shinren, Quesen, Qarsar, and Diosen \u2014 represent closed-loop systems for identifying, modelling, governing and structuring information across complex protocol environments. Our web work covers everything from brand sites to full-stack platforms.
+                Our four operational primitives — Shinren, Quesen, Qarsar, and Diosen — represent closed-loop systems for identifying, modelling, governing and structuring information across complex protocol environments. Our web work covers everything from brand sites to full-stack platforms.
               </p>
             </div>
           </FadeIn>
@@ -705,7 +705,7 @@ const AboutPage = () => {
                 </div>
                 <h3 className="text-xl font-bold text-white mb-3 font-['Outfit']">Posture</h3>
                 <p className="text-[#8B9BB4] leading-relaxed">
-                  Small team, hands-on, honest. We build serious things and stay approachable while we do it \u2014 warm on the phone, precise on the page.
+                  Small team, hands-on, honest. We build serious things and stay approachable while we do it — warm on the phone, precise on the page.
                 </p>
               </div>
             </FadeIn>
@@ -761,7 +761,7 @@ const ContactPage = () => {
               Enquiries
             </h1>
             <p className="text-lg text-[#8B9BB4] max-w-2xl">
-              Whether it\u2019s strategic infrastructure, protocol security, or a brand-new website or platform \u2014 we\u2019d love to hear about it. Drop us a note and we\u2019ll get back within one working day.
+              Whether it’s strategic infrastructure, protocol security, or a brand-new website or platform — we’d love to hear about it. Drop us a note and we’ll get back within one working day.
             </p>
           </div>
         </FadeIn>
@@ -814,7 +814,7 @@ const ContactPage = () => {
               <a href={`mailto:${CONTACT_EMAIL}`} className="text-[#00FFD4] hover:underline">
                 {CONTACT_EMAIL}
               </a>{' '}
-              and we\u2019ll come back within one working day.
+              and we’ll come back within one working day.
             </p>
           </div>
         </FadeIn>
