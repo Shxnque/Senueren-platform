@@ -20,7 +20,7 @@ const SITE_URL = "https://senueren.co.za";
 
 const useSEO = ({ title, description, path = "/" }) => {
   useEffect(() => {
-    const fullTitle = title || "Senueren — Sovereign Systems Bureau";
+    const fullTitle = title || "Senueren — AI Systems & Premium Web Platforms";
     const fullUrl = `${SITE_URL}${path.startsWith("#") ? path : `/${path.replace(/^\//, "")}`}`;
     document.title = fullTitle;
     const setMeta = (selector, attr, value) => {
@@ -171,7 +171,7 @@ const Footer = () => (
       </div>
       <div className="pt-8 border-t border-[#1A2332]/50 flex flex-col md:flex-row justify-between text-xs text-[#8B9BB4]/60">
         <span>&copy; {new Date().getFullYear()} Senueren. All rights reserved.</span>
-        <span className="mt-2 md:mt-0">Sovereign Systems Bureau</span>
+        <span className="mt-2 md:mt-0">Cape Town · Studio</span>
       </div>
     </div>
   </footer>
@@ -383,8 +383,8 @@ const LiveProof = () => {
 
 const HomePage = () => {
   useSEO({
-    title: "Senueren — Sovereign Systems Bureau",
-    description: "Sovereign infrastructure firm building deterministic systems for the autonomous economy. Quesen, Shinren, Qarsar, Diosen — engineered, evidence-first, quietly formidable.",
+    title: "Senueren — AI Systems & Premium Web Platforms",
+    description: "Small hands-on studio in Cape Town. We build AI + decentralized-protocol systems (Quesen, Shinren, Qarsar, Diosen) and premium websites and platforms for founders, brands and operators.",
     path: "/",
   });
 
@@ -447,7 +447,7 @@ const HomePage = () => {
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.02] backdrop-blur">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#22D3EE] shadow-[0_0_10px_#22D3EE]" />
                   <span className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[#CBD5E1]">
-                    Sovereign Systems Bureau
+                    AI Systems & Premium Web Platforms
                   </span>
                 </div>
               </FadeIn>
@@ -588,7 +588,7 @@ const HomePage = () => {
                 <span className="block gradient-text">We build for the problem.</span>
               </blockquote>
               <div className="manifest-underline" aria-hidden="true" />
-              <p className="manifest-signature">— Senueren · Sovereign Systems Bureau</p>
+              <p className="manifest-signature">— Senueren · Cape Town</p>
             </div>
           </FadeIn>
         </div>
@@ -653,8 +653,8 @@ const HomePage = () => {
 
 const AboutPage = () => {
   useSEO({
-    title: "About — Senueren | Sovereign Systems Bureau",
-    description: "Senueren is a sovereign systems bureau operating from Cape Town. Proprietary AI and decentralized protocol tooling. Founded by Quelum Wilson.",
+    title: "About — Senueren",
+    description: "Senueren is a small, hands-on studio in Cape Town. We build proprietary AI + decentralized-protocol systems and premium websites and platforms for founders and brands. Founded by Quelum Wilson.",
     path: "/about",
   });
   return (
@@ -746,8 +746,8 @@ const AboutPage = () => {
 
 const ContactPage = () => {
   useSEO({
-    title: "Contact — Senueren | Sovereign Systems Bureau",
-    description: "Contact Senueren for strategic infrastructure enquiries. Cape Town, South Africa.",
+    title: "Contact — Senueren",
+    description: "Get in touch with Senueren. Cape Town, South Africa. We reply within one working day.",
     path: "/contact",
   });
   return (
