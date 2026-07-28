@@ -485,9 +485,9 @@ export const DiosenPage = () => {
         </section>
 
         <section>
-          <SectionHeader eyebrow="Access" title="Selective institutional engagement." />
+          <SectionHeader eyebrow="Access" title="Enterprise engagement." />
           <p className="text-[#94A3B8] max-w-2xl mb-8 leading-relaxed">
-            Diosen is not a licensable retail product. It operates under selective institutional engagement and inside the Senueren research portfolio. Enterprise access is by conversation.
+            Diosen is not sold as a retail product. Enterprise and institutional access is by conversation \u2014 reach out and we\u2019ll take it from there.
           </p>
           <Link to="/contact" className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm text-[#050B1A] bg-gradient-to-r from-[#22D3EE] to-[#34D399] hover:shadow-[0_0_40px_rgba(34,211,238,0.35)] transition-all">
             Discuss a partnership <ArrowRight size={16} />
