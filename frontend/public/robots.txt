@@ -1,29 +1,42 @@
-# robots.txt — senueren.co.za
-# SENRA — SA procurement intelligence for SMEs
-# Allow all well-behaved crawlers; no login-gated or noisy endpoints exist.
+# senueren.co.za, robots.txt
 
 User-agent: *
 Allow: /
+Disallow: /404
+Disallow: /*.json$
+Crawl-delay: 0
 
-# Block the GitHub Pages build noise and any accidental hash-dup URLs
-Disallow: /*?*utm_
-Disallow: /*?*fbclid=
-Disallow: /*?*gclid=
+# Explicit sitemap for every crawler
+Sitemap: https://senueren.co.za/sitemap.xml
 
-# Rich-snippet and AI crawlers — explicitly welcomed
-User-agent: Googlebot
-Allow: /
-User-agent: Bingbot
-Allow: /
-User-agent: DuckDuckBot
-Allow: /
+# Bing / IndexNow key file (see /indexnow-key.txt)
+# Yandex + Bing detect this automatically via robots.txt sitemap directive
+
+# LLM crawlers, allowed for discovery
 User-agent: GPTBot
 Allow: /
-User-agent: PerplexityBot
-Allow: /
+
 User-agent: ClaudeBot
 Allow: /
-User-agent: Applebot
+
+User-agent: Claude-Web
 Allow: /
 
-Sitemap: https://senueren.co.za/sitemap.xml
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Traditional search engines, explicit allow for search-preview
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /

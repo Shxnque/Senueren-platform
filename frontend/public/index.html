@@ -47,17 +47,43 @@
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "Senueren",
+      "alternateName": "Senueren Bureau",
       "url": "https://senueren.co.za",
       "logo": "https://senueren.co.za/logo-full.png",
-      "description": "Sovereign systems firm building deterministic infrastructure for the autonomous economy.",
-      "founder": { "@type": "Person", "name": "Senueren" },
+      "image": "https://senueren.co.za/og-image.png",
+      "description": "Cape Town studio. Sovereign systems on one side (Quesen, Shinren, Qarsar, Diosen). Legacy infrastructure on the other: bespoke sites and platforms for founders and brands. Same team, end to end.",
+      "founder": { "@type": "Person", "name": "Quelum Wilson" },
+      "foundingLocation": "Cape Town, South Africa",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Cape Town",
+        "addressRegion": "Western Cape",
         "addressCountry": "ZA"
       },
+      "areaServed": [
+        { "@type": "Country", "name": "South Africa" },
+        { "@type": "Place", "name": "Global (remote)" }
+      ],
+      "knowsAbout": [
+        "deterministic risk verdict",
+        "autonomous agent infrastructure",
+        "Model Context Protocol",
+        "MCP server",
+        "sovereign systems",
+        "POPIA compliance",
+        "protocol intelligence",
+        "on-chain security research",
+        "quantitative research systems",
+        "LangChain integration",
+        "CrewAI tools",
+        "AutoGen tools",
+        "legacy infrastructure",
+        "full-stack platform development"
+      ],
       "sameAs": [
-        "https://github.com/Shxnque"
+        "https://github.com/Shxnque",
+        "https://huggingface.co/Qushxn",
+        "https://smithery.ai/servers/@shinque03/Quesen"
       ],
       "makesOffer": [
         {
@@ -66,7 +92,17 @@
             "@type": "SoftwareApplication",
             "name": "Quesen",
             "applicationCategory": "DeveloperApplication",
-            "operatingSystem": "Any"
+            "operatingSystem": "Any",
+            "description": "Deterministic risk-verdict engine for autonomous agents."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Legacy Infrastructure",
+            "serviceType": "Custom platform build",
+            "description": "Bespoke websites and full-stack platform builds for founders and brands."
           }
         }
       ]
@@ -80,7 +116,84 @@
       "@type": "WebSite",
       "name": "Senueren",
       "url": "https://senueren.co.za",
-      "publisher": { "@type": "Organization", "name": "Senueren" }
+      "publisher": { "@type": "Organization", "name": "Senueren" },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": { "@type": "EntryPoint", "urlTemplate": "https://senueren.co.za/?q={search_term_string}" },
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    <!-- Structured data, Quesen SoftwareApplication -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Quesen",
+      "applicationCategory": "DeveloperApplication",
+      "applicationSubCategory": "Agent Infrastructure",
+      "operatingSystem": "Any (HTTP)",
+      "softwareVersion": "1.10.0-rc1",
+      "url": "https://senueren.co.za/quesen",
+      "downloadUrl": "https://github.com/Shxnque/quesen",
+      "author": { "@type": "Organization", "name": "Senueren" },
+      "publisher": { "@type": "Organization", "name": "Senueren" },
+      "offers": [
+        { "@type": "Offer", "name": "Developer", "price": "0", "priceCurrency": "USD" },
+        { "@type": "Offer", "name": "Starter", "price": "19", "priceCurrency": "USD" },
+        { "@type": "Offer", "name": "Professional", "price": "99", "priceCurrency": "USD" }
+      ],
+      "description": "Deterministic risk-verdict engine for autonomous agents. Returns PROCEED, REVIEW, or SKIP with explicit conflict-rule attribution. Every response carries input_snapshot_hash and commit_sha so verdicts are reproducible months after the fact.",
+      "featureList": [
+        "Deterministic verdicts (no LLM in scoring path)",
+        "Replayable receipts (input_snapshot_hash + commit_sha)",
+        "MCP server (5 tools)",
+        "Five official SDKs (Python, TypeScript, LangChain, CrewAI, AutoGen)",
+        "Free counterfactual /simulate endpoint"
+      ]
+    }
+    </script>
+
+    <!-- Structured data, FAQ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is Quesen?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Quesen is a deterministic risk-verdict engine for autonomous agents. POST the context of an action, receive back PROCEED, REVIEW, or SKIP with an explicit conflict-rule attribution. No LLM in the scoring path."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is legacy infrastructure in the Senueren context?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Legacy infrastructure is Senueren\u0027s term for the bespoke website and full-stack platform builds we ship for founders and brands. Same engineering discipline as our sovereign systems side."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Senueren a Cape Town company?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Senueren is a small, hands-on studio based in Cape Town, South Africa. We work with clients globally on a remote-friendly basis."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I integrate Quesen?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Direct HTTP (POST /validate), MCP (npx -y @smithery/cli mcp add shinque03/Quesen), or the official SDKs (pip install quesen-sdk for Python, npm i quesen-sdk for TypeScript, plus quesen-langchain, quesen-crewai, quesen-autogen)."
+          }
+        }
+      ]
     }
     </script>
   </head>
