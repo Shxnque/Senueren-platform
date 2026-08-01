@@ -100,8 +100,8 @@ const PillGroup = ({ items }) => (
 
 export const QuesenPage = () => {
   useSEO({
-    title: "Quesen — Deterministic Risk Infrastructure for Autonomous Agents | Senueren",
-    description: "Quesen is a deterministic decision infrastructure for autonomous agents. Same input, same decision — no LLM in the scoring path, fully replayable audit trail. Trusted by autonomous systems that cannot afford probabilistic risk.",
+    title: "Quesen, Deterministic Risk Infrastructure for Autonomous Agents | Senueren",
+    description: "Quesen is a deterministic decision infrastructure for autonomous agents. Same input, same decision, no LLM in the scoring path, fully replayable audit trail. Trusted by autonomous systems that cannot afford probabilistic risk.",
     path: "/quesen",
   });
 
@@ -123,7 +123,7 @@ export const QuesenPage = () => {
             </span>
           </h1>
           <p className="text-lg text-[#94A3B8] mt-8 max-w-2xl leading-relaxed">
-            Quesen answers one question for every autonomous agent — <em>should this action proceed?</em>
+            Quesen answers one question for every autonomous agent, <em>should this action proceed?</em>
             No LLM in the scoring path. No randomness. Every response is fully reproducible and audit-ready.
           </p>
           <div className="mt-10 flex flex-wrap gap-3">
@@ -199,7 +199,7 @@ if ((await q.validate(signals)).decision === "SKIP") return;`}</CodeBlock>
               { name: "quesen-langchain", desc: "LangChain / LangGraph tool integration.", url: "https://github.com/Shxnque/quesen-langchain" },
               { name: "quesen-crewai", desc: "CrewAI tool integration.", url: "https://github.com/Shxnque/quesen-crewai" },
               { name: "quesen-autogen", desc: "AutoGen v0.4+ function-tool integration.", url: "https://github.com/Shxnque/quesen-autogen" },
-              { name: "quesen-sdk-js", desc: "JavaScript / TypeScript SDK — public release upcoming. Enterprise early-access available on request.", url: "/contact" },
+              { name: "quesen-sdk-js", desc: "JavaScript / TypeScript SDK, public release upcoming. Enterprise early-access available on request.", url: "/contact" },
               { name: "MCP · stdio", desc: "Native server for Claude Desktop, Cursor, Windsurf, Zed, Cline, Continue, Roo Code.", url: "https://github.com/Shxnque/quesen-sdk-py" },
             ].map((r) => (
               <a key={r.name} href={r.url} target={r.url.startsWith("http") ? "_blank" : undefined} rel={r.url.startsWith("http") ? "noreferrer" : undefined} className="group bg-[#0B1424]/70 border border-white/[0.06] rounded-xl p-5 hover:border-[#22D3EE]/40 transition-all backdrop-blur">
@@ -240,7 +240,7 @@ if ((await q.validate(signals)).decision === "SKIP") return;`}</CodeBlock>
 
 export const ShinrenPage = () => {
   useSEO({
-    title: "Shinren — Security Research Infrastructure for On-Chain Systems | Senueren",
+    title: "Shinren, Security Research Infrastructure for On-Chain Systems | Senueren",
     description: "Shinren is Senueren's security research infrastructure for autonomous on-chain systems. Evidence-first analysis, discipline-driven findings pipeline, gated on-chain triage.",
     path: "/shinren",
   });
@@ -270,7 +270,7 @@ export const ShinrenPage = () => {
         <section>
           <SectionHeader eyebrow="Architecture" title="An analysis stack, not a scanner." subtitle="Composable subsystems that plug into a single, evidence-first findings pipeline." />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <InfoCard icon={<Radar size={22} />} title="Reconnaissance" desc="Automated scope profiling — contract family recognition and surface prioritisation before any deep analysis." />
+            <InfoCard icon={<Radar size={22} />} title="Reconnaissance" desc="Automated scope profiling, contract family recognition and surface prioritisation before any deep analysis." />
             <InfoCard icon={<Binary size={22} />} title="Static analysis" desc="Multi-domain scanner suite covering privilege, reentrancy, access control, arithmetic, oracle exposure, and upgradeability." />
             <InfoCard icon={<Boxes size={22} />} title="Shared primitives" desc="Registry of semantic patterns so every scanner speaks a common language and findings compose cleanly." />
             <InfoCard icon={<Shield size={22} />} title="Findings schema" desc="Structured finding format with trust modelling and duplication-risk estimation. No noise reaches the report." />
@@ -283,7 +283,7 @@ export const ShinrenPage = () => {
           <SectionHeader eyebrow="Discipline" title="Every finding is earned." subtitle="Findings are gated by a fixed evidence rulebook before they enter the submission queue. Claim without evidence is not admissible." />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <InfoCard icon={<Compass size={22} />} title="Evidence over conviction" desc="No finding ships without on-chain trigger, boundary condition, and impact evidence. Theory-only claims are rejected inside the toolchain." />
-            <InfoCard icon={<Sparkles size={22} />} title="Defensibility gate" desc="Every submission passes a defensibility review — 'is this defensible to a protocol team?' — before it leaves." />
+            <InfoCard icon={<Sparkles size={22} />} title="Defensibility gate" desc="Every submission passes a defensibility review, 'is this defensible to a protocol team?', before it leaves." />
           </div>
         </section>
 
@@ -321,7 +321,7 @@ export const ShinrenPage = () => {
 
 export const QarsarPage = () => {
   useSEO({
-    title: "Qarsar — Autonomous On-Chain Opportunity Discovery | Senueren",
+    title: "Qarsar, Autonomous On-Chain Opportunity Discovery | Senueren",
     description: "Qarsar is Senueren's autonomous discovery and execution infrastructure for on-chain economic opportunities. Evidence-first hypothesis lifecycle. Deterministic promotion gates. Selective deployment.",
     path: "/qarsar",
   });
@@ -373,7 +373,7 @@ export const QarsarPage = () => {
           <div className="bg-[#0B1424]/70 border border-white/[0.06] rounded-2xl p-8 md:p-10 backdrop-blur">
             <p className="text-[#94A3B8] text-sm md:text-base leading-relaxed">
               Qarsar targets the capacity-limited edges that are structurally invisible to large capital pools.
-              Its edge is discipline: evidence-first hypothesis management, permanent rejection registry, and deterministic promotion gates —
+              Its edge is discipline: evidence-first hypothesis management, permanent rejection registry, and deterministic promotion gates,
               not raw throughput or capital scale.
             </p>
           </div>
@@ -399,7 +399,7 @@ export const QarsarPage = () => {
 
 export const DiosenPage = () => {
   useSEO({
-    title: "Diosen — Quantitative Intelligence System | Senueren",
+    title: "Diosen, Quantitative Intelligence System | Senueren",
     description: "Diosen is Senueren's institutional-grade quantitative intelligence system. Evidence-driven research, simulation, optimisation, and decision support. Progressive validation lifecycle with deterministic promotion gates at every step.",
     path: "/diosen",
   });
@@ -445,7 +445,7 @@ export const DiosenPage = () => {
         </section>
 
         <section>
-          <SectionHeader eyebrow="Framework" title="A hypothesis is a research asset." subtitle="Every hypothesis owns its evidence, promotion history, and retirement condition. Implementation follows research — never the reverse." />
+          <SectionHeader eyebrow="Framework" title="A hypothesis is a research asset." subtitle="Every hypothesis owns its evidence, promotion history, and retirement condition. Implementation follows research, never the reverse." />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <InfoCard icon={<LineChart size={22} />} title="Evidence-owned" desc="Every hypothesis carries its full research provenance. Nothing advances on intuition." />
             <InfoCard icon={<Cpu size={22} />} title="Meta-learning" desc="Continuous learning about which hypothesis classes tend to persist. Deterministic scoring; no black-box models in the meta-layer." />
@@ -460,7 +460,7 @@ export const DiosenPage = () => {
             <InfoCard icon={<Compass size={22} />} title="Forecasting & simulation" desc="Scenario simulation, stress testing, and forward-looking modelling grounded in reproducible data pipelines." />
             <InfoCard icon={<Zap size={22} />} title="Portfolio & strategy" desc="Portfolio construction, strategy discovery, and capital-allocation intelligence with explicit promotion criteria." />
             <InfoCard icon={<Shield size={22} />} title="Execution intelligence" desc="When execution is in scope, operational behaviour is instrumented end-to-end and gated on the same evidence rubric." />
-            <InfoCard icon={<BookOpen size={22} />} title="Decision support" desc="Institutional decision packets — evidence, uncertainty, and recommendations rendered in a format built for review, not for hype." />
+            <InfoCard icon={<BookOpen size={22} />} title="Decision support" desc="Institutional decision packets, evidence, uncertainty, and recommendations rendered in a format built for review, not for hype." />
             <InfoCard icon={<Eye size={22} />} title="Observability" desc="Every stage is inspectable. Every deployment produces a signal trail. Documentation drift is treated as a defect." />
           </div>
         </section>
@@ -470,7 +470,7 @@ export const DiosenPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {[
               "No capital deployment without full-gate clearance.",
-              "No popularity signals — social metrics are not admissible research inputs.",
+              "No popularity signals, social metrics are not admissible research inputs.",
               "No open-ended observation. Every hypothesis has an explicit rejection criterion.",
               "No hypothesis re-opens without a triggered revisit condition.",
               "Documentation drift is a defect, not a nuisance.",
@@ -487,7 +487,7 @@ export const DiosenPage = () => {
         <section>
           <SectionHeader eyebrow="Access" title="Enterprise engagement." />
           <p className="text-[#94A3B8] max-w-2xl mb-8 leading-relaxed">
-            Diosen is not sold as a retail product. Enterprise and institutional access is by conversation — reach out and we’ll take it from there.
+            Diosen is not sold as a retail product. Enterprise and institutional access is by conversation, reach out and we’ll take it from there.
           </p>
           <Link to="/contact" className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm text-[#050B1A] bg-gradient-to-r from-[#22D3EE] to-[#34D399] hover:shadow-[0_0_40px_rgba(34,211,238,0.35)] transition-all">
             Discuss a partnership <ArrowRight size={16} />

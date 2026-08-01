@@ -198,7 +198,7 @@ const BOQEstimator = ({ state, setState }) => {
       "",
       `Labour/material split: ${Math.round(labPct)}% labour · ${Math.round(matPct)}% material`,
       "",
-      "— Indicative only. Not a quote.",
+      ", Indicative only. Not a quote.",
     ].filter(Boolean).join("\n");
   })();
 
@@ -207,7 +207,7 @@ const BOQEstimator = ({ state, setState }) => {
       <div className="flex items-start gap-3 mb-6 bg-[#0A0E17] border border-[#1A2332] rounded-lg p-4">
         <Info size={16} className="text-[#00FFD4] mt-0.5 flex-shrink-0" />
         <p className="text-xs text-[#8B9BB4] leading-relaxed">
-          Quick SA market sanity check — not a replacement for a priced BOQ.
+          Quick SA market sanity check, not a replacement for a priced BOQ.
           Rates are editable per line (click "override"). Output includes P&amp;Gs,
           contingency, and 15% VAT.
         </p>
@@ -449,7 +449,7 @@ const MarginCalc = ({ state, setState }) => {
         </button>
       </div>
 
-      {/* Target scenario — the big number */}
+      {/* Target scenario, the big number */}
       <div className="bg-gradient-to-br from-[#0F1419] to-[#0A0E17] border border-[#00FFD4]/30 rounded-xl p-6 mb-5" data-testid="margin-output">
         <span className="text-[10px] text-[#00FFD4] uppercase tracking-wider font-bold">Your quote price (at {m.marginPct}% margin)</span>
         <div className="text-3xl font-bold text-white font-['Outfit'] mt-2" data-testid="margin-quote">
@@ -469,7 +469,7 @@ const MarginCalc = ({ state, setState }) => {
             </p>
             <p className="text-[10px] text-yellow-400 mt-1 flex items-center gap-1">
               <AlertTriangle size={11}/>
-              {fmtZAR(target.retention)} held for typically 6–12 months — factor this into cashflow.
+              {fmtZAR(target.retention)} held for typically 6–12 months, factor this into cashflow.
             </p>
           </div>
         )}
@@ -526,7 +526,7 @@ const FACTORS = [
   { key: "cashflow",    label: "Cashflow resilience",    help: "Can your business float 30–60 days of site costs?" },
   { key: "cidb",        label: "CIDB grade fit",         help: "Do you have the required CIDB grade (or the joint venture to bridge it)?" },
   { key: "timeline",    label: "Timeline feasibility",   help: "Can you realistically mobilise in the required timeframe?" },
-  { key: "effort",      label: "Low prep effort",        help: "Inverse — low effort = high score. Massive RFPs score lower." },
+  { key: "effort",      label: "Low prep effort",        help: "Inverse, low effort = high score. Massive RFPs score lower." },
   { key: "competition", label: "Competitive position",   help: "Strong prior experience / relationships = higher score." },
   { key: "travel",      label: "Location / travel",      help: "Local = 10. Same province = 7. Out of province = 3." },
   { key: "location",    label: "Site access",            help: "Known geography, access routes, local labour availability." },
@@ -548,10 +548,10 @@ const ViabilityScore = ({ state, setState }) => {
 
   // Risk detection
   const risks = [];
-  if (Number(b.cashflow) <= 4) risks.push({ kind: "cashflow", msg: "Cashflow risk is high — this job could strangle your operations even if profitable." });
-  if (Number(b.cidb) <= 4) risks.push({ kind: "cidb", msg: "CIDB grade mismatch — consider joint venture or skip." });
+  if (Number(b.cashflow) <= 4) risks.push({ kind: "cashflow", msg: "Cashflow risk is high, this job could strangle your operations even if profitable." });
+  if (Number(b.cidb) <= 4) risks.push({ kind: "cidb", msg: "CIDB grade mismatch, consider joint venture or skip." });
   if (Number(b.travel) <= 3) risks.push({ kind: "travel", msg: "Out-of-province travel cost will erode margin fast." });
-  if (Number(b.effort) <= 4 && Number(b.value) <= 5) risks.push({ kind: "effort", msg: "High prep effort for modest value — opportunity cost on other bids." });
+  if (Number(b.effort) <= 4 && Number(b.value) <= 5) risks.push({ kind: "effort", msg: "High prep effort for modest value, opportunity cost on other bids." });
 
   const verdict = pctScore >= 70 ? "BID" : pctScore >= 50 ? "CONSIDER" : "PASS";
   const vColor = verdict === "BID" ? "text-[#00FFD4] border-[#00FFD4]/40 bg-[#00FFD4]/10"
@@ -580,7 +580,7 @@ const ViabilityScore = ({ state, setState }) => {
         <Info size={16} className="text-[#00FFD4] mt-0.5 flex-shrink-0" />
         <p className="text-xs text-[#8B9BB4] leading-relaxed">
           Rate each factor 1–10. Mark factors <span className="text-white">2×</span> to double their weight.
-          Cashflow, CIDB fit, and industry fit default to 2× — that's where most SA contractors die.
+          Cashflow, CIDB fit, and industry fit default to 2×, that's where most SA contractors die.
         </p>
       </div>
 
@@ -674,7 +674,7 @@ const ViabilityScore = ({ state, setState }) => {
             data-testid="viability-save">
             <Plus size={12}/> Save this decision
           </button>
-          <p className="text-[11px] text-[#8B9BB4]">Saved to <em>Past decisions</em> — stays on this device only.</p>
+          <p className="text-[11px] text-[#8B9BB4]">Saved to <em>Past decisions</em>, stays on this device only.</p>
         </div>
       </div>
     </div>
@@ -689,7 +689,7 @@ const PastDecisions = ({ state, setState }) => {
   const h = state.history || [];
 
   const exportText = h.map(e =>
-    `[${e.verdict}] ${e.tenderRef} — ${e.score}/100 (${e.savedAt.slice(0,10)})\n${e.notes ? `  notes: ${e.notes}\n` : ""}${e.risks?.length ? `  risks: ${e.risks.join("; ")}\n` : ""}`
+    `[${e.verdict}] ${e.tenderRef}, ${e.score}/100 (${e.savedAt.slice(0,10)})\n${e.notes ? `  notes: ${e.notes}\n` : ""}${e.risks?.length ? `  risks: ${e.risks.join("; ")}\n` : ""}`
   ).join("\n");
 
   const vColor = (v) => v === "BID" ? "text-[#00FFD4] border-[#00FFD4]/40 bg-[#00FFD4]/10"
@@ -701,7 +701,7 @@ const PastDecisions = ({ state, setState }) => {
       <div className="flex items-start gap-3 mb-6 bg-[#0A0E17] border border-[#1A2332] rounded-lg p-4">
         <Info size={16} className="text-[#00FFD4] mt-0.5 flex-shrink-0" />
         <p className="text-xs text-[#8B9BB4] leading-relaxed">
-          Your last 50 bid/no-bid verdicts. Local to this device — nothing
+          Your last 50 bid/no-bid verdicts. Local to this device, nothing
           leaves your browser. Use to track what you chased vs. what you won.
         </p>
       </div>
@@ -769,8 +769,8 @@ const BidToolsPage = () => {
 
   // SEO — dynamic title + description + canonical for this route
   useEffect(() => {
-    const title = "Free BOQ Calculator + Bid / No-Bid Tool South Africa | SENRA Bid Tools";
-    const description = "Free South African contractor decision tools. BOQ rough estimator with 12 line items, editable rates, P&Gs, contingency and 15% VAT. Margin calculator with retention and break-even. Bid / no-bid viability score with cashflow risk, CIDB grade fit and travel factors. All ZAR, all SA-specific.";
+    const title = "BOQ Calculator + Bid / No-Bid Tool South Africa | SENRA Bid Tools";
+    const description = "South African contractor decision tools. BOQ rough estimator with 12 line items, editable rates, P&Gs, contingency and 15% VAT. Margin calculator with retention and break-even. Bid / no-bid viability score with cashflow risk, CIDB grade fit and travel factors. All ZAR, all SA-specific.";
     const url = "https://senueren.co.za/tools";
     document.title = title;
     const setMeta = (selector, attr, value) => {
@@ -835,7 +835,7 @@ const BidToolsPage = () => {
         <div className="mt-10 bg-[#0F1419] border border-[#1A2332] rounded-2xl p-6 flex items-center justify-between flex-wrap gap-3">
           <div>
             <p className="text-xs text-[#00FFD4] uppercase font-bold tracking-wider">Tip</p>
-            <p className="text-sm text-[#E8EDF2] mt-1">Run the viability tool against any live tender from SENRA — the CIDB grade hint on the tender detail page tells you the likely grade requirement.</p>
+            <p className="text-sm text-[#E8EDF2] mt-1">Run the viability tool against any live tender from SENRA, the CIDB grade hint on the tender detail page tells you the likely grade requirement.</p>
           </div>
           <Link to="/senra" className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#4A9FD8] to-[#00FFD4] text-[#0A0E17] rounded-full font-bold text-xs hover:shadow-[0_0_20px_rgba(0,255,212,0.3)] transition-all" data-testid="tools-open-senra">
             Browse live tenders <ArrowRight size={14} />

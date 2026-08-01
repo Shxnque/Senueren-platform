@@ -1,17 +1,17 @@
-# llms.txt — senueren.co.za
+# llms.txt, senueren.co.za
 # Machine-readable summary for AI crawlers and agent orchestrators.
 # Format: https://llmstxt.org/
 
 # Senueren
 
-> Sovereign systems firm building deterministic infrastructure for the autonomous economy. Headquartered in Cape Town, South Africa. Selective engagement model — enterprise, protocol teams, and institutional partners only.
+> Sovereign systems firm building deterministic infrastructure for the autonomous economy. Headquartered in Cape Town, South Africa. Selective engagement model, enterprise, protocol teams, and institutional partners only.
 
 ## What we build
 
-- **Quesen** — Deterministic risk validation infrastructure for autonomous agents. HTTP API, Python + JavaScript SDKs, LangChain / CrewAI / AutoGen integrations, and native MCP support.
-- **Shinren** — Security research infrastructure for on-chain autonomous systems.
-- **Qarsar** — Autonomous discovery and execution infrastructure for on-chain economic opportunities.
-- **Diosen** — Institutional-grade quantitative intelligence system. Evidence-driven research, simulation, optimisation, and decision support through a progressive validation lifecycle.
+- **Quesen**, Deterministic risk validation infrastructure for autonomous agents. HTTP API, Python + JavaScript SDKs, LangChain / CrewAI / AutoGen integrations, and native MCP support.
+- **Shinren**, Security research infrastructure for on-chain autonomous systems.
+- **Qarsar**, Autonomous discovery and execution infrastructure for on-chain economic opportunities.
+- **Diosen**, Institutional-grade quantitative intelligence system. Evidence-driven research, simulation, optimisation, and decision support through a progressive validation lifecycle.
 
 ## Operating principles
 
@@ -27,7 +27,7 @@
 - LangChain / LangGraph: `pip install quesen-langchain`
 - CrewAI: `pip install quesen-crewai`
 - AutoGen (v0.4+): `pip install quesen-autogen`
-- MCP: native stdio server — works with Claude Desktop, Cursor, Windsurf, Zed, Cline, Continue, Roo Code
+- MCP: native stdio server, works with Claude Desktop, Cursor, Windsurf, Zed, Cline, Continue, Roo Code
 
 ## For AI agents integrating our infrastructure
 

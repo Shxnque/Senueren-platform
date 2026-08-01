@@ -50,21 +50,29 @@ jobs:
       # Google / Bing would skip indexing them. Each file is a copy of
       # index.html — when the SPA boots, react-router reads location.pathname
       # and renders the correct page.
+      #
+      # NOTE: Route list must match App.js <Routes>. Adding a route in App.js
+      # without adding it here breaks that route's HTTP status (404) even
+      # though the client-side render works.
       - name: Pre-render SPA routes for SEO (200 OK on deep links)
         working-directory: frontend/build
         run: |
-          for route in quesen shinren qarsar diosen senra tools systems insights about contact legacy; do
-            # /route.html  → served when user visits /route (GH Pages pretty URLs)
+          # Flat top-level routes
+          for route in why quesen shinren qarsar diosen about contact legacy; do
             cp index.html "${route}.html"
-            # /route/index.html → served when user visits /route/
             mkdir -p "${route}"
             cp index.html "${route}/index.html"
           done
-          # 404.html fallback keeps any future client-only routes functional
-          cp index.html 404.html
+          # Nested route: /quesen/servers
+          mkdir -p quesen
+          cp index.html quesen/servers.html
+          mkdir -p quesen/servers
+          cp index.html quesen/servers/index.html
+          # 404.html fallback also runs the SPA-redirect script (see public/404.html)
+          # It is already emitted by CRA from public/404.html — do not overwrite it here.
           echo "Pre-rendered routes:"
           ls -la *.html
-          ls -la quesen shinren qarsar diosen senra tools systems insights about contact 2>/dev/null || true
+          ls -la why quesen shinren qarsar diosen about contact legacy quesen/servers 2>/dev/null || true
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
