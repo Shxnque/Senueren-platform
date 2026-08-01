@@ -62,8 +62,8 @@ const Card = ({ icon, title, desc }) => (
 
 export const WhyPage = () => {
   useSEO({
-    title: "Why Senueren — Engineering Autonomous Infrastructure",
-    description: "Senueren is an autonomous infrastructure company. Four reinforcing systems — Quesen, Shinren, Qarsar, Diosen — engineered to serve the autonomous economy: deterministic, auditable, and defensible under scrutiny.",
+    title: "Why Senueren, Engineering Autonomous Infrastructure",
+    description: "Senueren is an autonomous infrastructure company. Four reinforcing systems, Quesen, Shinren, Qarsar, Diosen, engineered to serve the autonomous economy: deterministic, auditable, and defensible under scrutiny.",
     path: "/why",
   });
 
@@ -83,7 +83,7 @@ export const WhyPage = () => {
           </h1>
           <p className="text-lg text-[#94A3B8] mt-8 max-w-2xl leading-relaxed">
             The next generation of software will operate without humans in the loop. Autonomous agents, protocols, and trading systems will act
-            on the world at machine speed. The infrastructure they rely on cannot be probabilistic — it has to be reproducible,
+            on the world at machine speed. The infrastructure they rely on cannot be probabilistic, it has to be reproducible,
             auditable, and defensible under scrutiny. Senueren builds that layer.
           </p>
         </section>
@@ -93,7 +93,7 @@ export const WhyPage = () => {
           <SectionHeader eyebrow="Audiences" title="Built for three readers at once." />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card icon={<Cpu size={22} />} title="For developers" desc="A small, opinionated integration surface. Framework-neutral SDKs. Three lines to your first deterministic decision. No LLM, no vendor lock-in." />
-            <Card icon={<LineChart size={22} />} title="For investors" desc="One platform, four reinforcing products. A single deterministic engine feeds risk, security, discovery, and trading — with a public developer surface driving distribution." />
+            <Card icon={<LineChart size={22} />} title="For investors" desc="One platform, four reinforcing products. A single deterministic engine feeds risk, security, discovery, and trading, with a public developer surface driving distribution." />
             <Card icon={<Building2 size={22} />} title="For enterprise buyers" desc="Auditable, reproducible, framework-neutral. Every response is versioned. Every decision is defensible under scrutiny. Deploy where it matters." />
           </div>
         </section>
@@ -103,7 +103,7 @@ export const WhyPage = () => {
           <SectionHeader
             eyebrow="Platform"
             title="One platform. Four reinforcing products."
-            subtitle="Each product stands alone commercially. Together they form a coherent trust layer for autonomous systems — with the Quesen decision engine as the shared spine."
+            subtitle="Each product stands alone commercially. Together they form a coherent trust layer for autonomous systems, with the Quesen decision engine as the shared spine."
           />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {[
@@ -112,7 +112,7 @@ export const WhyPage = () => {
               { icon: <Network size={22} />, name: "Qarsar", tag: "Strategic intelligence & discovery", desc: "The opportunity engine. Continuous survey of the on-chain landscape. Deterministic promotion gates." },
               { icon: <Binary size={22} />, name: "Diosen", tag: "Quantitative intelligence system", desc: "The research and decision spine. Evidence-driven quantitative intelligence flowing through a progressive validation lifecycle." },
             ].map((p) => (
-              <Card key={p.name} icon={p.icon} title={`${p.name} — ${p.tag}`} desc={p.desc} />
+              <Card key={p.name} icon={p.icon} title={`${p.name}, ${p.tag}`} desc={p.desc} />
             ))}
           </div>
         </section>
@@ -137,7 +137,7 @@ export const WhyPage = () => {
               Not another AI product. Deterministic infrastructure.
             </h2>
             <p className="text-[#94A3B8] max-w-2xl leading-relaxed mb-8">
-              The market is crowded with probabilistic tools. Senueren occupies a different position — the layer beneath them, providing the
+              The market is crowded with probabilistic tools. Senueren occupies a different position, the layer beneath them, providing the
               reproducible decisions and auditable evidence they cannot supply on their own.
             </p>
             <Link to="/contact" className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-[#050B1A] bg-gradient-to-r from-[#22D3EE] to-[#34D399] hover:shadow-[0_0_40px_rgba(34,211,238,0.4)] transition-all">

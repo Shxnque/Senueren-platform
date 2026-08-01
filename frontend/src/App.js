@@ -21,7 +21,7 @@ const SITE_URL = "https://senueren.co.za";
 
 const useSEO = ({ title, description, path = "/" }) => {
   useEffect(() => {
-    const fullTitle = title || "Senueren — Deterministic Systems & Premium Web Platforms";
+    const fullTitle = title || "Senueren, Sovereign Systems & Legacy Infrastructure";
     const fullUrl = `${SITE_URL}${path.startsWith("#") ? path : `/${path.replace(/^\//, "")}`}`;
     document.title = fullTitle;
     const setMeta = (selector, attr, value) => {
@@ -72,7 +72,7 @@ const FadeIn = ({ children, delay = 0, className = "" }) => {
 /* ── Shared Components ── */
 
 const Logo = () => (
-  <Link to="/" className="flex items-center" aria-label="Senueren — Home">
+  <Link to="/" className="flex items-center" aria-label="Senueren, Home">
     <SenuerenLogo className="h-12 md:h-14 w-auto" />
   </Link>
 );
@@ -148,7 +148,7 @@ const Footer = () => (
             <span className="text-2xl logo-chrome">SENUEREN</span>
           </div>
           <p className="text-[#8B9BB4] text-sm leading-relaxed max-w-md mb-4">
-            A small, hands-on studio building deterministic decision, protocol-intelligence, autonomous-discovery and quantitative-research systems on one side — and premium websites and platforms (legacy infrastructure) for founders and brands on the other. Same team. Cape Town — remote-friendly.
+            A small, hands-on studio. On one side, sovereign systems: deterministic decision, protocol intelligence, autonomous discovery, quantitative research. On the other, legacy infrastructure: bespoke sites and platforms for founders and brands. Same team. Cape Town, remote friendly.
           </p>
           <p className="text-[#1A2332] text-xs mt-6">Cape Town, South Africa</p>
         </div>
@@ -292,7 +292,7 @@ const LiveProof = () => {
               version = j.engine_version || null;
               reportSchema = j.report_schema_version || null;
             }
-          } catch { /* silent — /version is decorative */ }
+          } catch { /* silent, /version is decorative */ }
         }
         if (!alive) return;
         setState({
@@ -328,7 +328,7 @@ const LiveProof = () => {
   const s = statusMap[state.status];
 
   const relative = (d) => {
-    if (!d) return "—";
+    if (!d) return "…";
     const diff = Math.round((Date.now() - d.getTime()) / 1000);
     if (diff < 5) return "just now";
     if (diff < 60) return `${diff}s ago`;
@@ -361,11 +361,11 @@ const LiveProof = () => {
           </div>
           <div className="live-proof-meta-item" data-testid="home-proof-latency">
             <span className="live-proof-eyebrow">Latency</span>
-            <span className="live-proof-value">{state.latencyMs == null ? "—" : `${state.latencyMs} ms`}</span>
+            <span className="live-proof-value">{state.latencyMs == null ? "…" : `${state.latencyMs} ms`}</span>
           </div>
           <div className="live-proof-meta-item" data-testid="home-proof-version">
             <span className="live-proof-eyebrow">Engine</span>
-            <span className="live-proof-value">{state.version ? `v${state.version}` : "—"}</span>
+            <span className="live-proof-value">{state.version ? `v${state.version}` : "…"}</span>
           </div>
         </div>
       </div>
@@ -385,8 +385,8 @@ const LiveProof = () => {
 
 const HomePage = () => {
   useSEO({
-    title: "Senueren — Deterministic Systems & Premium Web Platforms",
-    description: "Small hands-on studio in Cape Town. We build deterministic decision, protocol-intelligence, autonomous-discovery, and quantitative-research systems (Quesen, Shinren, Qarsar, Diosen), and design premium web platforms for founders, brands and operators. Sovereign systems on one side. Legacy infrastructure on the other. Same team.",
+    title: "Senueren, Sovereign Systems & Legacy Infrastructure",
+    description: "Cape Town studio. Sovereign systems on one side: Quesen, Shinren, Qarsar, Diosen. Legacy infrastructure on the other: bespoke sites and platforms for founders and brands. Same team, end to end.",
     path: "/",
   });
 
@@ -396,7 +396,7 @@ const HomePage = () => {
       icon: <Cpu size={22} />,
       title: "Quesen",
       subtitle: "Deterministic Trust Infrastructure",
-      desc: "The decision layer for autonomous agents. Same input, same decision — no LLM in the scoring loop. Chain-neutral, framework-neutral, versioned by design.",
+      desc: "The decision layer for autonomous agents. Same input, same decision, no LLM in the scoring loop. Chain-neutral, framework-neutral, versioned by design.",
       href: "/quesen",
       signatureClass: "sys-quesen",
     },
@@ -432,7 +432,7 @@ const HomePage = () => {
   const principles = [
     { icon: <Lock size={20} />,     title: "Built With Care",       line: "Every system, brand site or platform is built and looked after by us end-to-end.",                             promise: "Same team, from first sketch to shipped." },
     { icon: <Eye size={20} />,      title: "Craft Over Speed",      line: "We move quickly, but never at the cost of the finish. Good enough is not our finish line.",                  promise: "Details are the work." },
-    { icon: <Sparkles size={20} />, title: "Made to Last",          line: "Systems designed to stand on their own — built so they keep working long after we walk away.",           promise: "Durable by construction." },
+    { icon: <Sparkles size={20} />, title: "Made to Last",          line: "Systems designed to stand on their own, built so they keep working long after we walk away.",           promise: "Durable by construction." },
   ];
 
   return (
@@ -443,7 +443,7 @@ const HomePage = () => {
         <div className="aurora-glow" aria-hidden="true" />
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid lg:grid-cols-[minmax(0,1fr)_460px] gap-14 lg:gap-20 items-center">
-            {/* Left — copy */}
+            {/* Left, copy */}
             <div>
               <FadeIn>
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.02] backdrop-blur">
@@ -463,8 +463,8 @@ const HomePage = () => {
                 <p className="mt-7 text-[15px] md:text-lg text-[#94A3B8] leading-relaxed max-w-xl">
                   Four reinforcing systems engineered from first principles.
                   Same input, same decision. Same evidence, same conclusion.
-                  Alongside them we design and build premium web platforms for
-                  founders, brands and operators — done end-to-end.
+                  Alongside them we design and build legacy infrastructure for
+                  founders, brands and operators, end to end.
                 </p>
               </FadeIn>
               <FadeIn delay={240}>
@@ -490,7 +490,7 @@ const HomePage = () => {
               </FadeIn>
             </div>
 
-            {/* Right — orbital diagram */}
+            {/* Right, orbital diagram */}
             <FadeIn delay={140}>
               <OrbitalDiagram />
             </FadeIn>
@@ -519,7 +519,7 @@ const HomePage = () => {
                 <h2 className="text-3xl md:text-4xl font-bold text-white font-['Outfit'] tracking-tight">The four systems.</h2>
                 <p className="text-[#94A3B8] mt-4 text-sm leading-relaxed">
                   Each system stands alone commercially.
-                  Together they form the deterministic trust layer of the autonomous economy — with Quesen as the shared spine.
+                  Together they form the deterministic trust layer of the autonomous economy, with Quesen as the shared spine.
                 </p>
                 <Link to="/why" className="mt-6 inline-flex items-center gap-2 text-xs font-semibold tracking-[0.14em] uppercase text-[#22D3EE] hover:text-[#34D399] transition-colors" data-testid="home-systems-interlock-cta">
                   See how they interlock <ArrowRight size={13} />
@@ -574,7 +574,7 @@ const HomePage = () => {
                   <div className="plaque-hairline" aria-hidden="true" />
                   <h3 className="plaque-title">{p.title}</h3>
                   <p className="plaque-body">{p.line}</p>
-                  <p className="plaque-promise">— {p.promise}</p>
+                  <p className="plaque-promise">, {p.promise}</p>
                 </div>
               </FadeIn>
             ))}
@@ -590,7 +590,7 @@ const HomePage = () => {
                 <span className="block gradient-text">We build for the problem.</span>
               </blockquote>
               <div className="manifest-underline" aria-hidden="true" />
-              <p className="manifest-signature">— Senueren · Cape Town</p>
+              <p className="manifest-signature">, Senueren · Cape Town</p>
             </div>
           </FadeIn>
         </div>
@@ -631,8 +631,9 @@ const HomePage = () => {
               </div>
               <h3 className="cta-lane-title">Have a project in mind?</h3>
               <p className="cta-lane-desc">
-                From a brand site to a full platform — we’d love to hear what you’re building.
-                First conversations are free, honest and free of jargon.
+                From a brand site to a full platform, tell us what you're
+                building. We'll respond within one working day with a scoped
+                proposal and a price. Straight talk, no jargon.
               </p>
               <div className="cta-lane-actions">
                 <Link to="/contact" data-testid="home-cta-rail-contact-button"
@@ -655,8 +656,8 @@ const HomePage = () => {
 
 const AboutPage = () => {
   useSEO({
-    title: "About — Senueren",
-    description: "Senueren is a small, hands-on studio in Cape Town. We build proprietary AI + decentralized-protocol systems and premium websites and platforms for founders and brands. Founded by Quelum Wilson.",
+    title: "About, Senueren",
+    description: "Senueren is a small, hands-on studio in Cape Town building deterministic autonomous-agent decision infrastructure (Quesen, Shinren, Qarsar, Diosen), plus a legacy-infrastructure practice for legacy infrastructure builds. Founded by Quelum Wilson.",
     path: "/about",
   });
   return (
@@ -679,10 +680,10 @@ const AboutPage = () => {
                 A research and execution bureau
               </h2>
               <p className="text-[#8B9BB4] leading-relaxed mb-4">
-                Senueren is a small, hands-on studio building proprietary intelligence and security tooling across decentralized protocols and autonomous-agent infrastructure — and premium websites and platforms (which we call our legacy infrastructure) for founders and brands. We ship considered work, look after it after launch, and stay open to good conversations from good people.
+                Senueren is a small, hands-on studio building proprietary intelligence and security tooling across decentralized protocols and autonomous-agent infrastructure, and premium legacy infrastructure (which we call our legacy infrastructure) for founders and brands. We ship considered work, look after it after launch, and stay open to good conversations from good people.
               </p>
               <p className="text-[#8B9BB4] leading-relaxed">
-                Our four operational primitives — Shinren, Quesen, Qarsar, and Diosen — form closed-loop systems for identifying, modelling, governing and structuring information across complex protocol environments. Our legacy-infrastructure work covers everything from brand sites to full-stack platforms, built with the same discipline as the sovereign stack.
+                Our four operational primitives, Shinren, Quesen, Qarsar, and Diosen, form closed-loop systems for identifying, modelling, governing and structuring information across complex protocol environments. Our legacy-infrastructure work covers everything from brand sites to full-stack platforms, built with the same discipline as the sovereign stack.
               </p>
             </div>
           </FadeIn>
@@ -695,7 +696,7 @@ const AboutPage = () => {
                 </div>
                 <h3 className="text-xl font-bold text-white mb-3 font-['Outfit']">Domain</h3>
                 <p className="text-[#8B9BB4] leading-relaxed">
-                  Decentralized protocol security, autonomous-agent decision systems, governance mechanism design, and structured intelligence extraction. Plus a dedicated legacy-infrastructure practice for premium websites and full-stack platforms.
+                  Decentralized protocol security, autonomous-agent decision systems, governance mechanism design, and structured intelligence extraction. Plus a dedicated legacy-infrastructure practice for legacy infrastructure builds.
                 </p>
               </div>
             </FadeIn>
@@ -707,7 +708,7 @@ const AboutPage = () => {
                 </div>
                 <h3 className="text-xl font-bold text-white mb-3 font-['Outfit']">Posture</h3>
                 <p className="text-[#8B9BB4] leading-relaxed">
-                  Small team, hands-on, honest. We build serious things and stay approachable while we do it — warm on the phone, precise on the page.
+                  Small team, hands-on, honest. We build serious things and stay approachable while we do it, warm on the phone, precise on the page.
                 </p>
               </div>
             </FadeIn>
@@ -724,7 +725,7 @@ const AboutPage = () => {
                   <h3 className="text-2xl font-bold text-white mb-1 font-['Outfit']">Quelum Wilson</h3>
                   <p className="text-[#00FFD4] text-sm font-medium mb-4">Founder</p>
                   <p className="text-[#8B9BB4] leading-relaxed mb-3">
-                    Senueren was established by Quelum Wilson in Cape Town with a singular orientation: build systems of consequence. The bureau operates at the intersection of autonomous-agent infrastructure, decentralized protocols, and security research — with a separate practice for legacy infrastructure (premium websites and full-stack platforms).
+                    Senueren was established by Quelum Wilson in Cape Town with a singular orientation: build systems of consequence. The bureau operates at the intersection of autonomous-agent infrastructure, decentralized protocols, and security research, with a separate practice for legacy infrastructure (legacy infrastructure builds).
                   </p>
                   <p className="text-[#8B9BB4] leading-relaxed">
                     Prior to the bureau's current configuration, foundational work in systems architecture and operational engineering informed the development of each proprietary primitive.
@@ -748,7 +749,7 @@ const AboutPage = () => {
 
 const ContactPage = () => {
   useSEO({
-    title: "Contact — Senueren",
+    title: "Contact, Senueren",
     description: "Get in touch with Senueren. Cape Town, South Africa. We reply within one working day.",
     path: "/contact",
   });
@@ -763,7 +764,7 @@ const ContactPage = () => {
               Enquiries
             </h1>
             <p className="text-lg text-[#8B9BB4] max-w-2xl">
-              Whether it’s strategic infrastructure, protocol security, or a brand-new website or platform — we’d love to hear about it. Drop us a note and we’ll get back within one working day.
+              Whether it’s strategic infrastructure, protocol security, or a brand-new website or platform, we’d love to hear about it. Drop us a note and we’ll get back within one working day.
             </p>
           </div>
         </FadeIn>

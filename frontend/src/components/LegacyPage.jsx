@@ -27,11 +27,11 @@ const SERVICES = [
   {
     icon: <Globe size={20} />,
     title: 'Brand & Marketing Sites',
-    desc: 'Full brand websites that read premium and load fast — crafted, not templated. Every section written and designed for the story it needs to carry.',
+    desc: 'Full brand builds that read premium and load fast, crafted, not templated. Every section written and designed for the story it needs to carry.',
   },
   {
     icon: <Code2 size={20} />,
-    title: 'Custom Web Platforms',
+    title: 'Custom Platform Builds',
     desc: 'React + Node/FastAPI applications for teams that have outgrown off-the-shelf tools. Bespoke where it counts, standard where it should be.',
   },
   {
@@ -42,7 +42,7 @@ const SERVICES = [
   {
     icon: <Search size={20} />,
     title: 'SEO, Baked In',
-    desc: 'Structured data (JSON-LD), sitemap, canonicals, Open Graph, per-page meta, and clean semantic markup on every page. Not an add-on — the way we build.',
+    desc: 'Structured data (JSON-LD), sitemap, canonicals, Open Graph, per-page meta, and clean semantic markup on every page. Not an add-on, the way we build.',
   },
   {
     icon: <ShieldCheck size={20} />,
@@ -80,13 +80,13 @@ export default function LegacyPage() {
         <div className="max-w-6xl mx-auto relative z-10">
           <Eyebrow>Legacy Infrastructure</Eyebrow>
           <h1 className="mt-7 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white font-['Outfit'] leading-[1.02] tracking-tight max-w-4xl">
-            Websites and platforms
+            Legacy infrastructure
             <span className="block gradient-text">built to feel real.</span>
           </h1>
           <p className="mt-7 text-[15px] md:text-lg text-[#94A3B8] leading-relaxed max-w-2xl">
             Alongside the sovereign systems work, Senueren designs and builds
-            premium web platforms for founders, brands and operators.
-            Bespoke sites and applications, engineered end-to-end — fast,
+            legacy infrastructure for founders, brands and operators.
+            Bespoke sites and applications, engineered end-to-end, fast,
             secure, mobile-first, and shipped with the same care we put into
             the rest of our stack. If you have a project in mind, we’d love to
             hear about it.
@@ -121,7 +121,7 @@ export default function LegacyPage() {
               Web platforms, done carefully.
             </h2>
             <p className="text-[#94A3B8] mt-4 text-sm md:text-base leading-relaxed">
-              Everything under one roof — design, build, deploy, and the SEO,
+              Everything under one roof, design, build, deploy, and the SEO,
               security and performance work that makes a site actually last.
               Small enough to move fast, technical enough to build serious things.
             </p>
@@ -140,7 +140,7 @@ export default function LegacyPage() {
         </div>
       </section>
 
-      {/* ============ CASE STUDY — NEHEMIA / MLNI ============ */}
+      {/* ============ CASE STUDY, NEHEMIA / MLNI ============ */}
       <section id="nehemia" className="py-16 md:py-24 px-6 md:px-12 border-t border-[#1A2332]">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-start justify-between flex-wrap gap-4 mb-10">
@@ -148,13 +148,13 @@ export default function LegacyPage() {
               <div className="accent-bar w-12 mb-6" />
               <p className="text-[11px] font-bold tracking-[0.24em] uppercase text-[#22D3EE] mb-3">Featured build</p>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white font-['Outfit'] tracking-tight leading-[1.05]">
-                Nehemia — <span className="gradient-text">MLNI Holdings</span>
+                Nehemia, <span className="gradient-text">MLNI Holdings</span>
               </h2>
               <p className="mt-4 text-[#94A3B8] text-sm md:text-base leading-relaxed">
                 A premium construction and property development brand website
                 for MLNI Holdings, based in Grabouw, Western Cape. Replaced
                 their older WordPress site with a modern React platform,
-                custom-built end-to-end — design, engineering, SEO and deploy.
+                custom-built end-to-end, design, engineering, SEO and deploy.
               </p>
             </div>
             <a
@@ -231,11 +231,11 @@ export default function LegacyPage() {
               <p className="text-[11px] font-bold tracking-[0.24em] uppercase text-[#22D3EE] mb-4">What we built</p>
               <ul className="space-y-3">
                 <Check>Full React single-page app replacing a legacy WordPress site, with a 7-project portfolio system that Que and the team can extend.</Check>
-                <Check>Design system built around MLNI’s navy + gold brand — hero art direction, custom project cards, sticky mobile action bar (Call / WhatsApp / Quote).</Check>
+                <Check>Design system built around MLNI’s navy + gold brand, hero art direction, custom project cards, sticky mobile action bar (Call / WhatsApp / Quote).</Check>
                 <Check>Contact and quote endpoints via PHP on xneelo shared hosting, with server-side validation and honeypot spam protection.</Check>
                 <Check>Google Maps embed, WhatsApp float, POPIA-aware cookie consent, and a compliance-ready /trust page.</Check>
                 <Check>Custom SEO layer: per-page titles + descriptions, canonical + sitemap, Open Graph and Twitter cards.</Check>
-                <Check>Structured data (JSON-LD): GeneralContractor, ItemList of projects, CreativeWork per project, BreadcrumbList, FAQPage on the quote form — all the shapes Google likes.</Check>
+                <Check>Structured data (JSON-LD): GeneralContractor, ItemList of projects, CreativeWork per project, BreadcrumbList, FAQPage on the quote form, all the shapes Google likes.</Check>
               </ul>
             </div>
             <div>
@@ -243,10 +243,10 @@ export default function LegacyPage() {
               <ul className="space-y-3">
                 <Check>GitHub Actions CI/CD: every push to <span className="font-mono text-[#CBD5E1]">main</span> rebuilds and FTP-deploys to xneelo automatically.</Check>
                 <Check>Proper 404 status codes via Apache <span className="font-mono text-[#CBD5E1]">.htaccess</span> whitelist so Google stops indexing phantom URLs.</Check>
-                <Check>Content-Security-Policy, HSTS, X-Frame-Options, Referrer-Policy — the full security-header set.</Check>
+                <Check>Content-Security-Policy, HSTS, X-Frame-Options, Referrer-Policy, the full security-header set.</Check>
                 <Check>Sub-300 ms DOM ready on the live site, images compressed and progressive JPEG, gzip on all text assets.</Check>
                 <Check>Custom monogram logo lockup and cropped favicon set generated from the source mark.</Check>
-                <Check>Ongoing care — iterating on copy, portfolio pages and SEO after the initial launch.</Check>
+                <Check>Ongoing care, iterating on copy, portfolio pages and SEO after the initial launch.</Check>
               </ul>
             </div>
           </div>
@@ -276,8 +276,9 @@ export default function LegacyPage() {
             </div>
             <h3 className="cta-lane-title">Let’s build something you’ll be proud of.</h3>
             <p className="cta-lane-desc">
-              From a single-page brand site to a full platform, we’d love to hear about it.
-              First conversations are free, honest and free of jargon.
+              From a single-page brand site to a full platform, tell us
+              what you need. We respond within one working day with a
+              scoped proposal and a price. Straight talk, no jargon.
             </p>
             <div className="cta-lane-actions">
               <Link to="/contact" data-testid="legacy-cta-footer-contact" className="cta-primary">

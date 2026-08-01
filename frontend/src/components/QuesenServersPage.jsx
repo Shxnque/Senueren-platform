@@ -54,7 +54,7 @@ const SERVERS = [
     name: 'Quesen MCP server',
     url: 'https://web-production-30ab5.up.railway.app/mcp',
     tag: 'MCP · streamable-HTTP',
-    detail: 'Five tools exposed: validate, simulate, report, health, version. Speaks the Model Context Protocol natively — works with any MCP-compatible agent runtime.',
+    detail: 'Five tools exposed: validate, simulate, report, health, version. Speaks the Model Context Protocol natively, works with any MCP-compatible agent runtime.',
     icon: <Terminal size={18} />,
     testId: 'servers-card-live-mcp',
   },
@@ -125,8 +125,8 @@ const grouped = SERVERS.reduce((acc, s) => {
 
 export default function QuesenServersPage() {
   useSEO({
-    title: 'Quesen Servers & Distribution — Senueren',
-    description: 'Every live endpoint, MCP registry, marketplace and SDK for Quesen v1.10.0-rc1. Deterministic risk-verdict engine for autonomous agents — built and maintained by Senueren.',
+    title: 'Quesen Servers & Distribution, Senueren',
+    description: 'Every live endpoint, MCP registry, marketplace and SDK for Quesen v1.10.0-rc1. Deterministic risk-verdict engine for autonomous agents, built and maintained by Senueren.',
     path: '/quesen/servers',
   });
 
@@ -142,7 +142,7 @@ export default function QuesenServersPage() {
           </h1>
           <p className="mt-6 text-[15px] md:text-lg text-[#94A3B8] leading-relaxed max-w-2xl">
             The complete map of Quesen production endpoints, MCP registries,
-            discovery surfaces, and language SDKs — all currently tracking
+            discovery surfaces, and language SDKs, all currently tracking
             engine tag <code className="text-[#22D3EE] bg-white/[0.03] px-2 py-0.5 rounded text-sm">v1.10.0-rc1</code>.
             Deterministic risk verdicts. Same input in, same PROCEED / REVIEW
             / SKIP out. No LLM in the loop.
@@ -255,11 +255,13 @@ export default function QuesenServersPage() {
       <section className="py-16 md:py-24 px-6 md:px-12">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-white font-['Outfit'] mb-4">
-            Free tier open. 1,000 calls per month.
+            Point Quesen at your stack.
           </h2>
           <p className="text-[#94A3B8] mb-8 max-w-xl mx-auto">
-            No card, no email verification — just an API key on request. Tell
-            us what you’re protecting and we’ll send it over.
+            Tell us the agent stack you&rsquo;re running and the risk axis
+            you&rsquo;re gating. We&rsquo;ll respond within one working day
+            with an API key, a scoped starter plan, and a direct line to
+            engineering.
           </p>
           <Link
             to="/contact"
