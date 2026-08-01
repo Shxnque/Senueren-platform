@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Senueren — Redirecting…</title>
+    <meta name="robots" content="noindex,follow" />
+    <!--
+      GitHub Pages SPA redirect trick.
+
+      GitHub Pages serves this 404.html for any deep link (/quesen, /shinren, /quesen/servers, etc.).
+      This script rewrites the URL into a hash-fragment query string that index.html then
+      converts back to the intended URL, so React Router can render the correct route.
+
+      Reference: https://github.com/rafgraph/spa-github-pages (MIT).
+      This is a proven SPA-on-GH-Pages pattern.
+
+      Setting `pathSegmentsToKeep = 0` because we serve from a custom apex domain
+      (senueren.co.za) rather than a project-path subfolder.
+    -->
+    <script type="text/javascript">
+      var pathSegmentsToKeep = 0;
+
+      var l = window.location;
+      l.replace(
+        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+        l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
+        l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
+        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+        l.hash
+      );
+    </script>
+    <style>
+      body {
+        margin: 0;
+        background: #050B1A;
+        color: #94A3B8;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>
+      <p>
+        Redirecting to <a href="/" style="color:#22D3EE">senueren.co.za</a>…
+      </p>
+    </noscript>
+    <p>Loading Senueren…</p>
+  </body>
+</html>

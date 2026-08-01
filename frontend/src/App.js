@@ -12,6 +12,7 @@ import { SenuerenLogoFull } from "./components/SenuerenLogo";
 import { QuesenPage, ShinrenPage, QarsarPage, DiosenPage } from "./components/SystemPages";
 import WhyPage from "./components/WhyPage";
 import LegacyPage from "./components/LegacyPage";
+import QuesenServersPage from "./components/QuesenServersPage";
 
 const CONTACT_EMAIL = "info@senueren.co.za";
 const CONTACT_WHATSAPP_DISPLAY = "067 326 7417";
@@ -20,7 +21,7 @@ const SITE_URL = "https://senueren.co.za";
 
 const useSEO = ({ title, description, path = "/" }) => {
   useEffect(() => {
-    const fullTitle = title || "Senueren — AI Systems & Premium Web Platforms";
+    const fullTitle = title || "Senueren — Deterministic Systems & Premium Web Platforms";
     const fullUrl = `${SITE_URL}${path.startsWith("#") ? path : `/${path.replace(/^\//, "")}`}`;
     document.title = fullTitle;
     const setMeta = (selector, attr, value) => {
@@ -98,10 +99,11 @@ const Navbar = () => {
     { to: "/", label: "Home" },
     { to: "/why", label: "Why" },
     { to: "/quesen", label: "Quesen" },
+    { to: "/quesen/servers", label: "Servers" },
     { to: "/shinren", label: "Shinren" },
     { to: "/qarsar", label: "Qarsar" },
     { to: "/diosen", label: "Diosen" },
-    { to: "/legacy", label: "Portfolio" },
+    { to: "/legacy", label: "Legacy Infrastructure" },
     { to: "/about", label: "About" },
     { to: "/contact", label: "Contact" },
   ];
@@ -146,7 +148,7 @@ const Footer = () => (
             <span className="text-2xl logo-chrome">SENUEREN</span>
           </div>
           <p className="text-[#8B9BB4] text-sm leading-relaxed max-w-md mb-4">
-            A small, hands-on studio building proprietary AI + decentralized-protocol systems, and designing premium websites and platforms for founders and brands. Cape Town — remote-friendly.
+            A small, hands-on studio building deterministic decision, protocol-intelligence, autonomous-discovery and quantitative-research systems on one side — and premium websites and platforms (legacy infrastructure) for founders and brands on the other. Same team. Cape Town — remote-friendly.
           </p>
           <p className="text-[#1A2332] text-xs mt-6">Cape Town, South Africa</p>
         </div>
@@ -383,8 +385,8 @@ const LiveProof = () => {
 
 const HomePage = () => {
   useSEO({
-    title: "Senueren — AI Systems & Premium Web Platforms",
-    description: "Small hands-on studio in Cape Town. We build AI + decentralized-protocol systems (Quesen, Shinren, Qarsar, Diosen) and premium websites and platforms for founders, brands and operators.",
+    title: "Senueren — Deterministic Systems & Premium Web Platforms",
+    description: "Small hands-on studio in Cape Town. We build deterministic decision, protocol-intelligence, autonomous-discovery, and quantitative-research systems (Quesen, Shinren, Qarsar, Diosen), and design premium web platforms for founders, brands and operators. Sovereign systems on one side. Legacy infrastructure on the other. Same team.",
     path: "/",
   });
 
@@ -447,7 +449,7 @@ const HomePage = () => {
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.02] backdrop-blur">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#22D3EE] shadow-[0_0_10px_#22D3EE]" />
                   <span className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[#CBD5E1]">
-                    AI Systems & Premium Web Platforms
+                    Sovereign Systems · Legacy Infrastructure
                   </span>
                 </div>
               </FadeIn>
@@ -638,7 +640,7 @@ const HomePage = () => {
                   Get in touch <ArrowRight size={14} />
                 </Link>
                 <Link to="/legacy" data-testid="home-cta-rail-legacy-button" className="cta-secondary">
-                  See our portfolio <ChevronRight size={14} />
+                  Legacy infrastructure <ChevronRight size={14} />
                 </Link>
               </div>
             </div>
@@ -677,10 +679,10 @@ const AboutPage = () => {
                 A research and execution bureau
               </h2>
               <p className="text-[#8B9BB4] leading-relaxed mb-4">
-                Senueren is a small, hands-on studio building proprietary intelligence and security tooling across decentralized protocols and AI infrastructure, alongside premium websites and platforms for founders and brands. We ship considered work, look after it after launch, and stay open to good conversations from good people.
+                Senueren is a small, hands-on studio building proprietary intelligence and security tooling across decentralized protocols and autonomous-agent infrastructure — and premium websites and platforms (which we call our legacy infrastructure) for founders and brands. We ship considered work, look after it after launch, and stay open to good conversations from good people.
               </p>
               <p className="text-[#8B9BB4] leading-relaxed">
-                Our four operational primitives — Shinren, Quesen, Qarsar, and Diosen — represent closed-loop systems for identifying, modelling, governing and structuring information across complex protocol environments. Our web work covers everything from brand sites to full-stack platforms.
+                Our four operational primitives — Shinren, Quesen, Qarsar, and Diosen — form closed-loop systems for identifying, modelling, governing and structuring information across complex protocol environments. Our legacy-infrastructure work covers everything from brand sites to full-stack platforms, built with the same discipline as the sovereign stack.
               </p>
             </div>
           </FadeIn>
@@ -693,7 +695,7 @@ const AboutPage = () => {
                 </div>
                 <h3 className="text-xl font-bold text-white mb-3 font-['Outfit']">Domain</h3>
                 <p className="text-[#8B9BB4] leading-relaxed">
-                  Decentralized protocol security, AI reasoning systems, governance mechanism design, and structured intelligence extraction.
+                  Decentralized protocol security, autonomous-agent decision systems, governance mechanism design, and structured intelligence extraction. Plus a dedicated legacy-infrastructure practice for premium websites and full-stack platforms.
                 </p>
               </div>
             </FadeIn>
@@ -722,7 +724,7 @@ const AboutPage = () => {
                   <h3 className="text-2xl font-bold text-white mb-1 font-['Outfit']">Quelum Wilson</h3>
                   <p className="text-[#00FFD4] text-sm font-medium mb-4">Founder</p>
                   <p className="text-[#8B9BB4] leading-relaxed mb-3">
-                    Senueren was established by Quelum Wilson in Cape Town with a singular orientation: build systems of consequence. The bureau operates at the intersection of AI, decentralized protocols, and security infrastructure.
+                    Senueren was established by Quelum Wilson in Cape Town with a singular orientation: build systems of consequence. The bureau operates at the intersection of autonomous-agent infrastructure, decentralized protocols, and security research — with a separate practice for legacy infrastructure (premium websites and full-stack platforms).
                   </p>
                   <p className="text-[#8B9BB4] leading-relaxed">
                     Prior to the bureau's current configuration, foundational work in systems architecture and operational engineering informed the development of each proprietary primitive.
@@ -826,6 +828,32 @@ const ContactPage = () => {
 /* ── Main App ── */
 
 function App() {
+  // GitHub Pages SPA-redirect: 404.html serialised the intended deep-link path
+  // into a hash-style query string. If we detect it on load, rewrite the URL
+  // back into the real pathname *before* BrowserRouter mounts, so React Router
+  // renders the correct route on first paint.
+  //
+  // This is the second half of the rafgraph/spa-github-pages pattern and is
+  // what actually makes /quesen, /quesen/servers, /shinren etc. crawlable on
+  // GitHub Pages (Google will follow the 30x-style rewrite and index the
+  // canonical URL, not the 404).
+  useEffect(() => {
+    const l = window.location;
+    if (l.search && l.search.startsWith('?/')) {
+      const decoded = l.search
+        .slice(2)
+        .split('&')
+        .map((s) => s.replace(/~and~/g, '&'))
+        .join('?');
+      const [path, query] = decoded.split('?');
+      window.history.replaceState(
+        null,
+        '',
+        l.pathname.slice(0, -1) + '/' + path + (query ? '?' + query : '') + l.hash
+      );
+    }
+  }, []);
+
   return (
     <BrowserRouter>
       <div className="App">
@@ -835,6 +863,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/why" element={<WhyPage />} />
           <Route path="/quesen" element={<QuesenPage />} />
+          <Route path="/quesen/servers" element={<QuesenServersPage />} />
           <Route path="/shinren" element={<ShinrenPage />} />
           <Route path="/qarsar" element={<QarsarPage />} />
           <Route path="/diosen" element={<DiosenPage />} />
