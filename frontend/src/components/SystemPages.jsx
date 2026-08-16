@@ -130,6 +130,9 @@ export const QuesenPage = () => {
             <Link to="/contact" className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm text-[#050B1A] bg-gradient-to-r from-[#22D3EE] to-[#34D399] hover:shadow-[0_0_40px_rgba(34,211,238,0.35)] transition-all">
               Request enterprise access <ArrowRight size={16} />
             </Link>
+            <Link to="/evidence" data-testid="quesen-hero-evidence-link" className="inline-flex items-center gap-2 px-6 py-3 border border-[#22D3EE]/30 bg-[#22D3EE]/[0.04] hover:border-[#22D3EE]/60 text-[#E2E8F0] rounded-full font-semibold text-sm transition-all">
+              See the evidence <ArrowRight size={14} />
+            </Link>
             <a href="https://github.com/Shxnque?tab=repositories&q=quesen" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-6 py-3 border border-white/10 hover:border-[#22D3EE]/40 text-[#E2E8F0] rounded-full font-semibold text-sm transition-all">
               View SDKs <ArrowUpRight size={14} />
             </a>
@@ -210,6 +213,27 @@ if ((await q.validate(signals)).decision === "SKIP") return;`}</CodeBlock>
                 <p className="text-xs text-[#94A3B8] leading-relaxed">{r.desc}</p>
               </a>
             ))}
+          </div>
+        </section>
+
+        {/* Evidence bridge: ties the product page to its public proof */}
+        <section>
+          <div className="relative overflow-hidden rounded-3xl border border-white/[0.08] p-8 md:p-10 bg-[#0B1424]/70 backdrop-blur" data-testid="quesen-evidence-bridge">
+            <div className="absolute inset-0 opacity-30 pointer-events-none" style={{ background: "radial-gradient(circle at 15% 20%, rgba(34,211,238,0.12), transparent 55%)" }} />
+            <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
+              <div className="max-w-xl">
+                <p className="text-[11px] font-semibold tracking-[0.24em] uppercase text-[#22D3EE] mb-3">Proof, not promises</p>
+                <h3 className="text-2xl md:text-3xl font-bold text-white font-['Outfit'] mb-3">The engineering behind Quesen, in the open.</h3>
+                <p className="text-[#94A3B8] text-sm leading-relaxed">
+                  Merged upstream contributions, open pull requests, and a live decision engine you can probe
+                  yourself. Every status is verified against live GitHub state, with nothing inflated. This is
+                  the same evidence discipline Quesen applies to every decision.
+                </p>
+              </div>
+              <Link to="/evidence" data-testid="quesen-evidence-bridge-cta" className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm text-[#050B1A] bg-gradient-to-r from-[#22D3EE] to-[#34D399] hover:shadow-[0_0_40px_rgba(34,211,238,0.35)] transition-all whitespace-nowrap">
+                View the evidence <ArrowRight size={16} />
+              </Link>
+            </div>
           </div>
         </section>
 

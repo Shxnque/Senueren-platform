@@ -3,15 +3,15 @@ import { Link } from "react-router-dom";
 import {
   ArrowRight, ExternalLink, GitMerge, GitPullRequest, Flag, Eye,
   ShieldCheck, Cpu, Terminal, Boxes, Network, ScrollText, Activity,
-  CheckCircle2, Hash, GitBranch, MessageSquare
+  CheckCircle2, Hash, GitBranch, MessageSquare, ChevronRight
 } from "lucide-react";
 
 /**
- * /evidence — Senueren External Engineering & Ecosystem Evidence.
+ * /evidence  Senueren External Engineering & Ecosystem Evidence.
  *
  * PUBLIC surface. Every entry here is EVIDENCE-BASED and verified against live
  * GitHub state before publication. Statuses use a controlled, deterministic
- * vocabulary (Merged / PR Open / Claimed / Discussion / Assist) — never
+ * vocabulary (Merged / PR Open / Claimed / Discussion / Assist), never
  * collapsed or inflated. Mirrors Quesen's own doctrine: the reputation layer
  * is itself auditable. Source of truth: BEA (sib-bureau-external-affairs)
  * portfolio records.
@@ -51,7 +51,7 @@ const useSEO = ({ title, description, path = "/evidence" }) => {
   }, [title, description, path]);
 };
 
-/* ── Controlled status vocabulary — deterministic, never collapsed ── */
+/* Controlled status vocabulary: deterministic, never collapsed */
 const STATUS = {
   MERGED:      { label: "Merged",        color: "#34D399", bg: "rgba(52,211,153,0.10)", border: "rgba(52,211,153,0.30)", icon: <GitMerge size={13} /> },
   PR_OPEN:     { label: "PR Open",       color: "#22D3EE", bg: "rgba(34,211,238,0.10)", border: "rgba(34,211,238,0.30)", icon: <GitPullRequest size={13} /> },
@@ -85,44 +85,44 @@ const SectionHeader = ({ eyebrow, title, subtitle }) => (
 /* ── VERIFIED external contributions (live GitHub state @ 2026-08-16) ── */
 const CONTRIBUTIONS = [
   {
-    repo: "dheerajjha/mcp-migrate", ref: "#246", status: "MERGED",
+    repo: "dheerajjha/mcp-migrate", ref: "#246", bureau: "Quesen", status: "MERGED",
     title: "Warn on unrecognised top-level config keys (closes #235)",
     detail: "A linter whose proposition is a trustworthy grade silently dropped misspelled/mis-nested config keys. Reproduced three real failure shapes, converted silent drops into targeted warnings with difflib “did you mean” hints, and fixed a pre-existing Rich-markup escaping bug.",
     metrics: ["+123 / 3 files", "8 new tests", "698-test suite green"],
     url: "https://github.com/dheerajjha/mcp-migrate/pull/246",
   },
   {
-    repo: "agentguard-ai/tealtiger", ref: "#453", status: "PR_OPEN",
+    repo: "agentguard-ai/tealtiger", ref: "#453", bureau: "Quesen", status: "PR_OPEN",
     title: "Deterministic KYC Decision Agent (Quesen-shaped)",
     detail: "A make_decision(identity, sanctions, risk) surface built to Quesen invariants: no LLM in the scoring loop, canonicalised inputs SHA-256 hashed onto the audit record, POLICY_VERSION stamped on every decision, sanctions veto, identity-confidence floor, and named escalation reasons. Submitted into Agent Guard’s agent-governance SDK.",
     metrics: ["+630 / 10 files", "15 offline tests (30ms)", "review-gated"],
     url: "https://github.com/agentguard-ai/tealtiger/pull/453",
   },
   {
-    repo: "codexbt/cortex", ref: "#27", status: "MERGED",
+    repo: "codexbt/cortex", ref: "#27", bureau: "Quesen", status: "MERGED",
     title: "MCP TransportInterface + Stdio / SSE / StreamableHTTP",
     detail: "Introduced a clean transport abstraction for the MCP client stack, the foundation for closing the upstream transport tracking issue.",
     metrics: ["+1,141 / 9 files", "merged from draft"],
     url: "https://github.com/codexbt/cortex/pull/27",
   },
   {
-    repo: "codexbt/cortex", ref: "#28", status: "MERGED",
+    repo: "codexbt/cortex", ref: "#28", bureau: "Quesen", status: "MERGED",
     title: "MCPClientManager refactor + spec conformance",
     detail: "Refactored MCPClientManager onto the TransportInterface and fixed MCP-spec notifications/initialized conformance. Closed upstream issue #3 via the merge.",
     metrics: ["+522 / -135", "closed issue #3"],
     url: "https://github.com/codexbt/cortex/pull/28",
   },
   {
-    repo: "thingctx/thingctx", ref: "#98", status: "CLAIMED",
+    repo: "thingctx/thingctx", ref: "#98", bureau: "Quesen", status: "CLAIMED",
     title: "Cover untested retry paths in reliability.py",
-    detail: "Reliability-path coverage claimed with the maintainer. Held at claim per our claim-before-PR protocol — no PR is published until maintainer confirmation, so the public status stays exactly “Claimed.”",
+    detail: "Reliability path coverage claimed with the maintainer. Held at claim per protocol. No PR is published until the maintainer confirms, so the public status stays exactly “Claimed.”",
     metrics: ["issue open", "PR intentionally held"],
     url: "https://github.com/thingctx/thingctx/issues/98",
   },
   {
-    repo: "omnigent-ai/omnigent", ref: "#4191", status: "ASSIST",
+    repo: "omnigent-ai/omnigent", ref: "#4191", bureau: "Quesen", status: "ASSIST",
     title: "MCP initialize.instructions → system prompt",
-    detail: "Our design (#4038) was implemented upstream by the maintainer, crediting Senueren; we delivered the invited code review. Filed as an assist — not claimed as our commit.",
+    detail: "Our design (#4038) was implemented upstream by the maintainer, crediting Senueren; we delivered the invited code review. Filed as an assist, not claimed as our commit.",
     metrics: ["design credited", "review delivered"],
     url: "https://github.com/omnigent-ai/omnigent/pull/4191",
   },
@@ -137,12 +137,12 @@ const VERDICTS = [
 
 const RESPONSE_FIELDS = [
   { f: "decision", d: "PROCEED · REVIEW · SKIP" },
-  { f: "risk_score", d: "0.0 – 1.0, deterministic" },
-  { f: "confidence", d: "0.0 – 1.0" },
+  { f: "risk_score", d: "0.0 to 1.0, deterministic" },
+  { f: "confidence", d: "0.0 to 1.0" },
   { f: "conflict_triggers[]", d: "stable rule IDs that fired" },
   { f: "engine_version", d: "e.g. 1.10.0" },
   { f: "weights / thresholds", d: "exact snapshot used" },
-  { f: "input_snapshot_hash", d: "SHA-256 canonical JSON — replay any verdict" },
+  { f: "input_snapshot_hash", d: "SHA-256 canonical JSON, replays any verdict" },
   { f: "request_id / commit_sha", d: "traceable to engine build" },
 ];
 
@@ -211,7 +211,7 @@ const EngineProbe = () => {
         </div>
       )}
       <p className="mt-4 text-[11px] text-[#64748B] leading-relaxed">
-        Fetched live from the canonical Quesen deployment in your browser. Same inputs return the same decision — these weights and thresholds are the exact snapshot the engine reports.
+        Fetched live from the canonical Quesen deployment in your browser. Same inputs return the same decision. These weights and thresholds are the exact snapshot the engine reports.
       </p>
     </div>
   );
@@ -237,7 +237,7 @@ const GOVERNANCE = [
 
 const EvidencePage = () => {
   useSEO({
-    title: "Engineering Evidence — Verified External Work | Senueren",
+    title: "Engineering Evidence, Verified External Work | Senueren",
     description: "Senueren’s verified external engineering: merged upstream contributions, open PRs, and Quesen’s live deterministic decision layer. Every status audited against live GitHub state. No inflated claims.",
     path: "/evidence",
   });
@@ -251,10 +251,16 @@ const EvidencePage = () => {
 
         {/* Hero */}
         <section>
+          {/* Breadcrumb ties this page to the Quesen system */}
+          <div className="flex items-center gap-2 mb-5 text-[11px] font-semibold tracking-[0.18em] uppercase" data-testid="evidence-breadcrumb">
+            <Link to="/quesen" className="text-[#22D3EE] hover:text-[#34D399] transition-colors">Quesen</Link>
+            <ChevronRight size={12} className="text-[#334155]" />
+            <span className="text-[#64748B]">Evidence</span>
+          </div>
           <div className="flex items-center gap-4 mb-6">
             <div className="h-px w-14 bg-gradient-to-r from-[#22D3EE] to-[#10B981]" />
             <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#10B981]/10 border border-[#10B981]/30 text-[11px] font-semibold tracking-[0.14em] uppercase text-[#10B981]">
-              <ScrollText size={13} /> Evidence-gated
+              <ScrollText size={13} /> Evidence first
             </span>
           </div>
           <p className="text-[11px] font-semibold tracking-[0.24em] uppercase text-[#22D3EE] mb-3">Engineering Evidence</p>
@@ -265,9 +271,14 @@ const EvidencePage = () => {
             </span>
           </h1>
           <p className="text-lg text-[#94A3B8] mt-8 max-w-2xl leading-relaxed">
-            Senueren develops Quesen against real-world failure modes: fixing upstream agent-infrastructure,
-            reviewing implementations, and testing governance in public. Every entry below is verified against
-            live GitHub state, with a controlled status that is never inflated.
+            This is the public record behind{" "}
+            <Link to="/quesen" className="text-[#22D3EE] hover:text-[#34D399] transition-colors font-medium">Quesen</Link>{" "}
+            and{" "}
+            <Link to="/shinren" className="text-[#22D3EE] hover:text-[#34D399] transition-colors font-medium">Shinren</Link>,
+            the deterministic decision and security research systems built by Senueren. We harden them against real
+            world failure modes by fixing upstream agent infrastructure, reviewing implementations, and testing
+            governance in public. Every entry below is verified against live GitHub state, with a controlled status
+            that is never inflated.
           </p>
           <div className="mt-8 flex flex-wrap gap-3" data-testid="evidence-summary-chips">
             <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs text-[#34D399] bg-[#34D399]/10 border border-[#34D399]/25"><GitMerge size={13} /> {merged} merged upstream</span>
@@ -276,12 +287,12 @@ const EvidencePage = () => {
           </div>
         </section>
 
-        {/* Layer 1 — External contributions */}
+        {/* Layer 1: External contributions */}
         <section>
           <SectionHeader
             eyebrow="External contributions"
             title="Upstream engineering, verified."
-            subtitle="Merged work, open PRs, and honestly-held claims across the autonomous-agent ecosystem. Statuses mirror live GitHub — audit any link yourself."
+            subtitle="Merged work, open PRs, and honestly held claims across the autonomous agent ecosystem. Statuses mirror live GitHub, so audit any link yourself."
           />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {CONTRIBUTIONS.map((c) => (
@@ -296,6 +307,9 @@ const EvidencePage = () => {
                 <div className="flex items-start justify-between gap-3 mb-3">
                   <div className="min-w-0">
                     <code className="text-sm text-white font-semibold break-all">{c.repo}<span className="text-[#22D3EE]">{c.ref}</span></code>
+                    <span className="mt-1.5 flex items-center gap-1.5 text-[10px] font-semibold tracking-[0.14em] uppercase text-[#64748B]">
+                      <Cpu size={11} className="text-[#22D3EE]" /> {c.bureau} contribution
+                    </span>
                   </div>
                   <StatusChip s={c.status} />
                 </div>
@@ -314,12 +328,12 @@ const EvidencePage = () => {
           </div>
         </section>
 
-        {/* Layer 2 — Quesen evidence */}
+        {/* Layer 2: Quesen evidence */}
         <section>
           <SectionHeader
             eyebrow="Quesen evidence"
             title="A live, deterministic decision layer."
-            subtitle="Quesen answers one question before an agent executes a consequential action: should it proceed? The answer is reproducible and evidence-bound — not a probability."
+            subtitle="Quesen answers one question before an agent executes a consequential action: should it proceed? The answer is reproducible and evidence bound, not a probability."
           />
           <div className="grid lg:grid-cols-[1fr_1fr] gap-5">
             <div className="space-y-5">
@@ -360,7 +374,7 @@ const EvidencePage = () => {
           </div>
         </section>
 
-        {/* Layer 3 — Ecosystem distribution */}
+        {/* Layer 3: Ecosystem distribution */}
         <section>
           <SectionHeader
             eyebrow="Ecosystem distribution"
@@ -383,7 +397,7 @@ const EvidencePage = () => {
           </div>
         </section>
 
-        {/* Layer 4 — Governance research */}
+        {/* Layer 4: Governance research */}
         <section>
           <SectionHeader
             eyebrow="Governance research"
@@ -415,7 +429,7 @@ const EvidencePage = () => {
               If a bad action has real consequences, Quesen is worth a conversation.
             </h2>
             <p className="text-[#94A3B8] max-w-2xl mx-auto mb-10 leading-relaxed">
-              We’re looking for autonomous workflows where a wrong action costs money, security, or trust — the exact boundary Quesen governs.
+              We’re looking for autonomous workflows where a wrong action costs money, security, or trust. That is the exact boundary Quesen governs.
             </p>
             <Link to="/contact" className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-[#050B1A] bg-gradient-to-r from-[#22D3EE] to-[#34D399] hover:shadow-[0_0_40px_rgba(34,211,238,0.4)] transition-all" data-testid="evidence-cta-contact">
               Start a conversation <ArrowRight size={16} />
