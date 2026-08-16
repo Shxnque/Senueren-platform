@@ -11,8 +11,10 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" />
 
     <!-- Favicon -->
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="icon" type="image/svg+xml" href="%PUBLIC_URL%/senueren-icon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/apple-touch-icon.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
     <!-- Primary meta -->
@@ -38,7 +40,8 @@
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@SenuerenGroup" />
-    <meta name="twitter:creator" content="@SenuerenGroup" />    <meta name="twitter:title" content="Senueren, Sovereign Systems & Legacy Infrastructure" />
+    <meta name="twitter:creator" content="@SenuerenGroup" />
+    <meta name="twitter:title" content="Senueren, Sovereign Systems & Legacy Infrastructure" />
     <meta name="twitter:description" content="Deterministic decision infrastructure for the autonomous economy, plus legacy infrastructure." />
     <meta name="twitter:image" content="https://senueren.co.za/logo-full.png" />
 
@@ -51,7 +54,7 @@
       "alternateName": "Senueren Bureau",
       "url": "https://senueren.co.za",
       "logo": "https://senueren.co.za/logo-full.png",
-      "image": "https://senueren.co.za/og-image.png",
+      "image": "https://senueren.co.za/logo-full.png",
       "description": "Cape Town studio. Sovereign systems on one side (Quesen, Shinren, Qarsar, Diosen). Legacy infrastructure on the other: bespoke sites and platforms for founders and brands. Same team, end to end.",
       "founder": { "@type": "Person", "name": "Quelum Wilson" },
       "foundingLocation": "Cape Town, South Africa",
@@ -194,6 +197,14 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Direct HTTP (POST /validate), MCP (npx -y @smithery/cli mcp add shinque03/Quesen), or the official SDKs (pip install quesen-sdk for Python, npm i quesen-sdk for TypeScript, plus quesen-langchain, quesen-crewai, quesen-autogen)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I get a Quesen API key?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Instantly and self-serve, with no sign-up, email, or card. Run: curl -X POST https://web-production-aa5ba.up.railway.app/sandbox/keys . The response returns a sandbox key (sk_sandbox_...) with 1000 starter credits, and the exact next call to POST /validate so an autonomous agent can chain straight into it."
           }
         }
       ]

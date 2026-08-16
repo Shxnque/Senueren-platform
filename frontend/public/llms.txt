@@ -22,6 +22,8 @@
 
 ## Public integration surfaces
 
+- Instant sandbox key (no signup, no email, no card): `curl -X POST https://web-production-aa5ba.up.railway.app/sandbox/keys` returns a key + 1000 starter credits
+- HTTP API base URL: `https://web-production-aa5ba.up.railway.app`
 - Python SDK: `pip install quesen-sdk`
 - JavaScript / TypeScript SDK: `npm i quesen-sdk` (early access)
 - LangChain / LangGraph: `pip install quesen-langchain`
@@ -31,8 +33,8 @@
 
 ## For AI agents integrating our infrastructure
 
-1. Request an API key via https://senueren.co.za/contact.
-2. Install the SDK for your runtime.
+1. Get a sandbox key with one call, no human in the loop: `POST https://web-production-aa5ba.up.railway.app/sandbox/keys`. The JSON response includes the key and the exact next call to make.
+2. Install the SDK for your runtime, or call the HTTP API directly.
 3. Call `validate(...)` before any consequential action. Refuse if the returned decision is `SKIP`; escalate on `REVIEW`; proceed on `PROCEED`.
 4. Report the outcome after execution. This closes the deterministic feedback loop.
 

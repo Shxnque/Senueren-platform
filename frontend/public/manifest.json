@@ -1,0 +1,41 @@
+{
+  "name": "Senueren, Sovereign Systems & Legacy Infrastructure",
+  "short_name": "Senueren",
+  "description": "Deterministic decision infrastructure for autonomous agents (Quesen), plus bespoke legacy infrastructure builds. Cape Town, end to end.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#050B1A",
+  "theme_color": "#050B1A",
+  "lang": "en",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon-16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo-square.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
