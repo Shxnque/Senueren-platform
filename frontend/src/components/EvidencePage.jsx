@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  ArrowRight, ExternalLink, GitMerge, GitPullRequest, Flag, Eye,
+  ArrowRight, ExternalLink, GitMerge, GitPullRequest, Flag,
   ShieldCheck, Cpu, Terminal, Boxes, Network, ScrollText, Activity,
   CheckCircle2, Hash, GitBranch, MessageSquare, ChevronRight
 } from "lucide-react";
@@ -285,7 +285,6 @@ const EvidencePage = () => {
           <div className="mt-8 flex flex-wrap gap-3" data-testid="evidence-summary-chips">
             <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs text-[#34D399] bg-[#34D399]/10 border border-[#34D399]/25"><GitMerge size={13} /> {merged} merged upstream</span>
             <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs text-[#22D3EE] bg-[#22D3EE]/10 border border-[#22D3EE]/25"><GitPullRequest size={13} /> {open} open PRs</span>
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs text-[#94A3B8] bg-white/[0.03] border border-white/10"><Eye size={13} /> No customer traction claimed</span>
           </div>
         </section>
 
