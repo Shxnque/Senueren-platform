@@ -14,6 +14,7 @@ import WhyPage from "./components/WhyPage";
 import LegacyPage from "./components/LegacyPage";
 import QuesenServersPage from "./components/QuesenServersPage";
 import EvidencePage from "./components/EvidencePage";
+import TryQuesenPage from "./components/TryQuesenPage";
 
 const CONTACT_EMAIL = "info@senueren.co.za";
 const CONTACT_WHATSAPP_DISPLAY = "067 326 7417";
@@ -100,6 +101,7 @@ const Navbar = () => {
     { to: "/", label: "Home" },
     { to: "/why", label: "Why" },
     { to: "/quesen", label: "Quesen" },
+    { to: "/try", label: "Try" },
     { to: "/quesen/servers", label: "Servers" },
     { to: "/evidence", label: "Evidence" },
     { to: "/shinren", label: "Shinren" },
@@ -885,6 +887,7 @@ function App() {
           <Route path="/why" element={<WhyPage />} />
           <Route path="/quesen" element={<QuesenPage />} />
           <Route path="/quesen/servers" element={<QuesenServersPage />} />
+          <Route path="/try" element={<TryQuesenPage />} />
           <Route path="/evidence" element={<EvidencePage />} />
           <Route path="/shinren" element={<ShinrenPage />} />
           <Route path="/qarsar" element={<QarsarPage />} />
