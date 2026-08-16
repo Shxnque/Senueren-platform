@@ -58,7 +58,7 @@ jobs:
         working-directory: frontend/build
         run: |
           # Flat top-level routes
-          for route in why quesen shinren qarsar diosen about contact legacy; do
+          for route in why quesen shinren qarsar diosen evidence about contact legacy; do
             cp index.html "${route}.html"
             mkdir -p "${route}"
             cp index.html "${route}/index.html"
