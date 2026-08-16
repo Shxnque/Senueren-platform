@@ -220,9 +220,11 @@ const EngineProbe = () => {
 /* ── Ecosystem distribution surfaces ── */
 const ECOSYSTEM = [
   { name: "GitHub", icon: <GitBranch size={18} />, detail: "Public developer portal + 5 SDK / framework repos.", url: "https://github.com/Shxnque/quesen" },
-  { name: "MCP", icon: <Terminal size={18} />, detail: "Native Streamable-HTTP MCP endpoint, live on the canonical deployment.", url: "https://github.com/Shxnque/quesen/blob/main/mcp.json" },
-  { name: "Smithery", icon: <Boxes size={18} />, detail: "MCP registry manifest (smithery.yaml) published in the portal.", url: "https://github.com/Shxnque/quesen/blob/main/smithery.yaml" },
+  { name: "MCP Registry", icon: <Terminal size={18} />, detail: "Published to the official MCP registry as io.github.Shxnque/quesen (v1.10.0).", url: "https://glama.ai/mcp/connectors/io.github.Shxnque/quesen" },
+  { name: "Glama", icon: <Boxes size={18} />, detail: "Listed as a Glama MCP connector with per-tool quality grades.", url: "https://glama.ai/mcp/connectors/io.github.Shxnque/quesen" },
+  { name: "Smithery", icon: <Network size={18} />, detail: "MCP registry manifest (smithery.yaml) published in the portal.", url: "https://smithery.ai/servers/@shinque03/Quesen" },
   { name: "Hugging Face", icon: <Network size={18} />, detail: "Quesen MCP integration space (Qushxn/quesen-mcp).", url: "https://huggingface.co/Qushxn" },
+  { name: "Awesome MCP Servers", icon: <GitBranch size={18} />, detail: "Submitted to the community index under Finance & Fintech.", url: "https://github.com/punkpeye/awesome-mcp-servers" },
 ];
 
 /* ── Governance research themes (Quesen's model, tested against real systems) ── */

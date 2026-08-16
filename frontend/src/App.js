@@ -169,9 +169,27 @@ const Footer = () => (
                 <MessageCircle size={14} /> WhatsApp · {CONTACT_WHATSAPP_DISPLAY}
               </a>
             </li>
+            <li>
+              <a
+                href="https://x.com/SenuerenGroup"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#00FFD4] hover:underline inline-flex items-center gap-2"
+                data-testid="footer-x-link"
+              >
+                X · @SenuerenGroup
+              </a>
+            </li>
             <li><span className="text-[#8B9BB4]">Cape Town, South Africa</span></li>
           </ul>
         </div>
+      </div>
+      <div className="mb-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs" data-testid="footer-ecosystem">
+        <span className="text-[#8B9BB4]/60 uppercase tracking-[0.2em] font-['Outfit']">Quesen ecosystem</span>
+        <a href="https://glama.ai/mcp/connectors/io.github.Shxnque/quesen" target="_blank" rel="noopener noreferrer" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-glama-link">Glama</a>
+        <a href="https://github.com/punkpeye/awesome-mcp-servers" target="_blank" rel="noopener noreferrer" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-awesome-link">Awesome MCP Servers</a>
+        <a href="https://github.com/Shxnque/quesen" target="_blank" rel="noopener noreferrer" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-github-link">GitHub</a>
+        <a href="https://x.com/SenuerenGroup" target="_blank" rel="noopener noreferrer" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-x-eco-link">X</a>
       </div>
       <div className="pt-8 border-t border-[#1A2332]/50 flex flex-col md:flex-row justify-between text-xs text-[#8B9BB4]/60">
         <span>&copy; {new Date().getFullYear()} Senueren. All rights reserved.</span>
