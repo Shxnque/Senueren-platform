@@ -13,6 +13,7 @@ import { QuesenPage, ShinrenPage, QarsarPage, DiosenPage } from "./components/Sy
 import WhyPage from "./components/WhyPage";
 import LegacyPage from "./components/LegacyPage";
 import QuesenServersPage from "./components/QuesenServersPage";
+import EvidencePage from "./components/EvidencePage";
 
 const CONTACT_EMAIL = "info@senueren.co.za";
 const CONTACT_WHATSAPP_DISPLAY = "067 326 7417";
@@ -100,6 +101,7 @@ const Navbar = () => {
     { to: "/why", label: "Why" },
     { to: "/quesen", label: "Quesen" },
     { to: "/quesen/servers", label: "Servers" },
+    { to: "/evidence", label: "Evidence" },
     { to: "/shinren", label: "Shinren" },
     { to: "/qarsar", label: "Qarsar" },
     { to: "/diosen", label: "Diosen" },
@@ -182,7 +184,7 @@ const Footer = () => (
 /* ── Home Page primitives ────────────────────────────────────────── */
 
 // Internal health endpoint constant. NEVER rendered in visible copy.
-const HEALTH_BASE = "https://web-production-30ab5.up.railway.app";
+const HEALTH_BASE = "https://web-production-aa5ba.up.railway.app";
 
 /* Orbital systems diagram — SVG core + 4 orbiting nodes.
    Container rotates slowly; each node counter-rotates to keep labels legible.
@@ -865,6 +867,7 @@ function App() {
           <Route path="/why" element={<WhyPage />} />
           <Route path="/quesen" element={<QuesenPage />} />
           <Route path="/quesen/servers" element={<QuesenServersPage />} />
+          <Route path="/evidence" element={<EvidencePage />} />
           <Route path="/shinren" element={<ShinrenPage />} />
           <Route path="/qarsar" element={<QarsarPage />} />
           <Route path="/diosen" element={<DiosenPage />} />
