@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route, Link, useLocation } from "react-router-do
 import {
   ArrowRight, Menu, X, Mail, MapPin, MessageCircle,
   Shield, Brain, Network, Cpu, Lock,
-  Eye, Layers, ChevronRight, Globe, Server,
+  Eye, Layers, ChevronRight, ChevronDown, Globe, Server,
   Activity, Radar, Sparkles, GitBranch, Terminal, LineChart, Zap
 } from "lucide-react";
 import SenuerenLogo from "./components/SenuerenLogo";
@@ -88,6 +88,7 @@ const ScrollToTop = () => {
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [systemsOpen, setSystemsOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -95,33 +96,61 @@ const Navbar = () => {
     window.addEventListener("scroll", h);
     return () => window.removeEventListener("scroll", h);
   }, []);
-  useEffect(() => { setIsOpen(false); }, [location]);
+  useEffect(() => { setIsOpen(false); setSystemsOpen(false); }, [location]);
 
-  const links = [
+  // Primary information architecture — a developer-first journey that surfaces
+  // the highest-value Quesen path. Ancillary systems (Shinren/Qarsar/Diosen)
+  // are grouped under "Systems"; Legacy/About/Why live in the footer.
+  const primary = [
     { to: "/", label: "Home" },
-    { to: "/why", label: "Why" },
     { to: "/quesen", label: "Quesen" },
     { to: "/try", label: "Try" },
-    { to: "/quesen/servers", label: "Servers" },
     { to: "/evidence", label: "Evidence" },
+    { to: "/quesen/servers", label: "Servers" },
+  ];
+  const systems = [
     { to: "/shinren", label: "Shinren" },
     { to: "/qarsar", label: "Qarsar" },
     { to: "/diosen", label: "Diosen" },
-    { to: "/legacy", label: "Legacy Infrastructure" },
-    { to: "/about", label: "About" },
-    { to: "/contact", label: "Contact" },
   ];
+  const DOCS_URL = "https://github.com/Shxnque/quesen#readme";
+  const systemsActive = systems.some((s) => s.to === location.pathname);
+  const linkCls = (active) =>
+    `text-sm font-medium transition-colors duration-300 ${active ? "text-[#00FFD4]" : "text-[#E8EDF2] hover:text-[#00FFD4]"}`;
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${(scrolled || isOpen) ? "bg-[#0A0E17] md:bg-[#0A0E17]/80 md:backdrop-blur-xl border-b border-[#1A2332]" : "bg-transparent"}`}>
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="flex items-center justify-between h-20">
           <Logo />
-          <div className="hidden md:flex items-center gap-10">
-            {links.map((l) => (
-              <Link key={l.to} to={l.to}
-                className={`text-sm font-medium transition-colors duration-300 ${location.pathname === l.to ? "text-[#00FFD4]" : "text-[#E8EDF2] hover:text-[#00FFD4]"}`}>{l.label}</Link>
+          {/* Desktop nav */}
+          <div className="hidden md:flex items-center gap-8">
+            {primary.map((l) => (
+              <Link key={l.to} to={l.to} data-testid={`nav-${l.label.toLowerCase()}`}
+                className={linkCls(location.pathname === l.to)}>{l.label}</Link>
             ))}
+            <a href={DOCS_URL} target="_blank" rel="noopener noreferrer" data-testid="nav-docs"
+              className={linkCls(false)}>Docs</a>
+            <div className="relative"
+              onMouseEnter={() => setSystemsOpen(true)}
+              onMouseLeave={() => setSystemsOpen(false)}>
+              <button type="button" data-testid="nav-systems"
+                onClick={() => setSystemsOpen((v) => !v)}
+                aria-haspopup="true" aria-expanded={systemsOpen}
+                className={`inline-flex items-center gap-1 ${linkCls(systemsActive)}`}>
+                Systems <ChevronDown size={14} className={`transition-transform ${systemsOpen ? "rotate-180" : ""}`} />
+              </button>
+              {systemsOpen && (
+                <div className="absolute right-0 mt-3 w-44 rounded-xl border border-[#1A2332] bg-[#0A0E17] shadow-2xl py-2" data-testid="nav-systems-menu">
+                  {systems.map((s) => (
+                    <Link key={s.to} to={s.to} data-testid={`nav-systems-${s.label.toLowerCase()}`}
+                      className={`block px-4 py-2 text-sm transition-colors ${location.pathname === s.to ? "text-[#00FFD4]" : "text-[#E8EDF2] hover:text-[#00FFD4] hover:bg-[#111A29]"}`}>{s.label}</Link>
+                  ))}
+                </div>
+              )}
+            </div>
+            <Link to="/contact" data-testid="nav-contact"
+              className={linkCls(location.pathname === "/contact")}>Contact</Link>
           </div>
           <button className="md:hidden text-white" onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -131,10 +160,23 @@ const Navbar = () => {
       {isOpen && (
         <div className="md:hidden fixed inset-0 top-20 z-40 bg-[#0A0E17] overflow-y-auto">
           <div className="px-6 py-10 space-y-6">
-            {links.map((l) => (
+            {primary.map((l) => (
               <Link key={l.to} to={l.to}
                 className={`block text-xl font-medium transition-colors ${location.pathname === l.to ? "text-[#00FFD4]" : "text-[#E8EDF2]"}`}>{l.label}</Link>
             ))}
+            <a href={DOCS_URL} target="_blank" rel="noopener noreferrer"
+              className="block text-xl font-medium text-[#E8EDF2]">Docs</a>
+            <div className="pt-1">
+              <p className="text-xs uppercase tracking-[0.2em] text-[#8B9BB4] mb-3 font-['Outfit']">Systems</p>
+              <div className="space-y-4 pl-3">
+                {systems.map((s) => (
+                  <Link key={s.to} to={s.to}
+                    className={`block text-lg font-medium transition-colors ${location.pathname === s.to ? "text-[#00FFD4]" : "text-[#E8EDF2]"}`}>{s.label}</Link>
+                ))}
+              </div>
+            </div>
+            <Link to="/contact"
+              className={`block text-xl font-medium transition-colors ${location.pathname === "/contact" ? "text-[#00FFD4]" : "text-[#E8EDF2]"}`}>Contact</Link>
           </div>
         </div>
       )}
@@ -185,6 +227,13 @@ const Footer = () => (
             <li><span className="text-[#8B9BB4]">Cape Town, South Africa</span></li>
           </ul>
         </div>
+      </div>
+      <div className="mb-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs" data-testid="footer-secondary-nav">
+        <span className="text-[#8B9BB4]/60 uppercase tracking-[0.2em] font-['Outfit']">Studio</span>
+        <Link to="/why" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-why-link">Why Quesen</Link>
+        <Link to="/about" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-about-link">About</Link>
+        <Link to="/legacy" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-legacy-link">Legacy Infrastructure</Link>
+        <Link to="/contact" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-contact-link">Contact</Link>
       </div>
       <div className="mb-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs" data-testid="footer-ecosystem">
         <span className="text-[#8B9BB4]/60 uppercase tracking-[0.2em] font-['Outfit']">Quesen ecosystem</span>

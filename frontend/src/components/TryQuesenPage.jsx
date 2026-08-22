@@ -152,12 +152,11 @@ export default function TryQuesenPage() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-[#E8EDF2] border border-[#1E2A3D] hover:border-[#334155] transition-colors">
             How Quesen works
           </Link>
+          <Link to="/quesen/servers" data-testid="try-servers-link"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-[#E8EDF2] border border-[#1E2A3D] hover:border-[#334155] transition-colors">
+            Distribution &amp; Servers
+          </Link>
         </div>
-
-        <p className="mt-10 text-[13px] text-[#475569] border-t border-[#141C2B] pt-6">
-          A full interactive walkthrough — agent action → deterministic decision → evidence receipt —
-          is being rebuilt here around the real Quesen architecture.
-        </p>
       </div>
     </div>
   );

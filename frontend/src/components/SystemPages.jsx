@@ -127,15 +127,18 @@ export const QuesenPage = () => {
             No LLM in the scoring path. No randomness. Every response is fully reproducible and audit-ready.
           </p>
           <div className="mt-10 flex flex-wrap gap-3">
-            <Link to="/contact" className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm text-[#050B1A] bg-gradient-to-r from-[#22D3EE] to-[#34D399] hover:shadow-[0_0_40px_rgba(34,211,238,0.35)] transition-all">
-              Request enterprise access <ArrowRight size={16} />
+            <Link to="/try" data-testid="quesen-hero-try-link" className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm text-[#050B1A] bg-gradient-to-r from-[#22D3EE] to-[#34D399] hover:shadow-[0_0_40px_rgba(34,211,238,0.35)] transition-all">
+              Try Quesen free <ArrowRight size={16} />
             </Link>
             <Link to="/evidence" data-testid="quesen-hero-evidence-link" className="inline-flex items-center gap-2 px-6 py-3 border border-[#22D3EE]/30 bg-[#22D3EE]/[0.04] hover:border-[#22D3EE]/60 text-[#E2E8F0] rounded-full font-semibold text-sm transition-all">
               See the evidence <ArrowRight size={14} />
             </Link>
-            <a href="https://github.com/Shxnque?tab=repositories&q=quesen" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-6 py-3 border border-white/10 hover:border-[#22D3EE]/40 text-[#E2E8F0] rounded-full font-semibold text-sm transition-all">
-              View SDKs <ArrowUpRight size={14} />
-            </a>
+            <Link to="/quesen/servers" data-testid="quesen-hero-servers-link" className="inline-flex items-center gap-2 px-6 py-3 border border-white/10 hover:border-[#22D3EE]/40 text-[#E2E8F0] rounded-full font-semibold text-sm transition-all">
+              Distribution &amp; Servers <ArrowRight size={14} />
+            </Link>
+            <Link to="/contact" data-testid="quesen-hero-enterprise-link" className="inline-flex items-center gap-2 px-6 py-3 border border-white/10 hover:border-[#22D3EE]/40 text-[#94A3B8] hover:text-[#E2E8F0] rounded-full font-semibold text-sm transition-all">
+              Request enterprise access <ArrowUpRight size={14} />
+            </Link>
           </div>
         </section>
 
