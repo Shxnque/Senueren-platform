@@ -111,11 +111,11 @@ const SERVERS = [
 ];
 
 const SDKS = [
-  { name: 'quesen-sdk (Python)', version: 'v0.2.0', install: 'pip install quesen-sdk', repo: 'https://github.com/Shxnque/quesen-sdk-py', testId: 'servers-sdk-python' },
-  { name: 'quesen-sdk (TypeScript / JS)', version: 'v0.2.0', install: 'npm i quesen-sdk', repo: 'https://github.com/Shxnque/quesen-sdk-js', testId: 'servers-sdk-js' },
-  { name: 'quesen-langchain', version: 'v0.2.0', install: 'pip install quesen-langchain', repo: 'https://github.com/Shxnque/quesen-langchain', testId: 'servers-sdk-langchain' },
-  { name: 'quesen-crewai', version: 'v0.2.0', install: 'pip install quesen-crewai', repo: 'https://github.com/Shxnque/quesen-crewai', testId: 'servers-sdk-crewai' },
-  { name: 'quesen-autogen', version: 'v0.2.0', install: 'pip install quesen-autogen', repo: 'https://github.com/Shxnque/quesen-autogen', testId: 'servers-sdk-autogen' },
+  { name: 'quesen-sdk (Python)', version: 'v0.4.1', install: 'pip install quesen-sdk', repo: 'https://github.com/Shxnque/quesen-sdk-py', registry: 'https://pypi.org/project/quesen-sdk/', registryLabel: 'PyPI', testId: 'servers-sdk-python' },
+  { name: 'quesen-sdk (TypeScript / JS)', version: 'v0.4.0', install: 'npm i quesen-sdk', repo: 'https://github.com/Shxnque/quesen-sdk-js', registry: 'https://www.npmjs.com/package/quesen-sdk', registryLabel: 'npm', testId: 'servers-sdk-js' },
+  { name: 'quesen-langchain', version: 'v0.3.0', install: 'pip install quesen-langchain', repo: 'https://github.com/Shxnque/quesen-langchain', registry: 'https://pypi.org/project/quesen-langchain/', registryLabel: 'PyPI', testId: 'servers-sdk-langchain' },
+  { name: 'quesen-crewai', version: 'v0.3.0', install: 'pip install quesen-crewai', repo: 'https://github.com/Shxnque/quesen-crewai', registry: 'https://pypi.org/project/quesen-crewai/', registryLabel: 'PyPI', testId: 'servers-sdk-crewai' },
+  { name: 'quesen-autogen', version: 'v0.3.0', install: 'pip install quesen-autogen', repo: 'https://github.com/Shxnque/quesen-autogen', registry: 'https://pypi.org/project/quesen-autogen/', registryLabel: 'PyPI', testId: 'servers-sdk-autogen' },
 ];
 
 const grouped = SERVERS.reduce((acc, s) => {
@@ -237,14 +237,27 @@ export default function QuesenServersPage() {
                   <span className="ml-3 text-[10px] tracking-[0.14em] uppercase text-[#22D3EE]">{sdk.version}</span>
                 </div>
                 <code className="text-xs font-mono text-[#94A3B8] bg-[#050B1A] px-3 py-1.5 rounded">{sdk.install}</code>
-                <a
-                  href={sdk.repo}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-sm text-[#22D3EE] hover:underline inline-flex items-center gap-1.5 justify-self-start md:justify-self-end"
-                >
-                  Source <ExternalLink size={12} />
-                </a>
+                <div className="inline-flex items-center gap-4 justify-self-start md:justify-self-end">
+                  {sdk.registry && (
+                    <a
+                      href={sdk.registry}
+                      target="_blank"
+                      rel="noreferrer"
+                      data-testid={`${sdk.testId}-registry`}
+                      className="text-sm text-[#34D399] hover:underline inline-flex items-center gap-1.5"
+                    >
+                      {sdk.registryLabel} <ExternalLink size={12} />
+                    </a>
+                  )}
+                  <a
+                    href={sdk.repo}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-sm text-[#22D3EE] hover:underline inline-flex items-center gap-1.5"
+                  >
+                    Source <ExternalLink size={12} />
+                  </a>
+                </div>
               </div>
             ))}
           </div>
