@@ -205,7 +205,7 @@ if ((await q.validate(signals)).decision === "SKIP") return;`}</CodeBlock>
               { name: "quesen-langchain", desc: "LangChain / LangGraph tool integration.", url: "https://github.com/Shxnque/quesen-langchain" },
               { name: "quesen-crewai", desc: "CrewAI tool integration.", url: "https://github.com/Shxnque/quesen-crewai" },
               { name: "quesen-autogen", desc: "AutoGen v0.4+ function-tool integration.", url: "https://github.com/Shxnque/quesen-autogen" },
-              { name: "quesen-sdk-js", desc: "JavaScript / TypeScript SDK, public release upcoming. Enterprise early-access available on request.", url: "/contact" },
+              { name: "quesen-sdk-js", desc: "Official JavaScript / TypeScript SDK. Published on npm (npm i quesen-sdk).", url: "https://github.com/Shxnque/quesen-sdk-js" },
               { name: "MCP · stdio", desc: "Native server for Claude Desktop, Cursor, Windsurf, Zed, Cline, Continue, Roo Code.", url: "https://github.com/Shxnque/quesen-sdk-py" },
             ].map((r) => (
               <a key={r.name} href={r.url} target={r.url.startsWith("http") ? "_blank" : undefined} rel={r.url.startsWith("http") ? "noreferrer" : undefined} className="group bg-[#0B1424]/70 border border-white/[0.06] rounded-xl p-5 hover:border-[#22D3EE]/40 transition-all backdrop-blur">

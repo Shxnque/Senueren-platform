@@ -54,25 +54,21 @@ jobs:
       # NOTE: Route list must match App.js <Routes>. Adding a route in App.js
       # without adding it here breaks that route's HTTP status (404) even
       # though the client-side render works.
-      - name: Pre-render SPA routes for SEO (200 OK on deep links)
-        working-directory: frontend/build
+      # Real prerender: writes a per-route HTML file with route-specific
+      # <title>, meta description, canonical + OG tags AND a crawlable static
+      # content block injected into <div id="root">. Non-JS crawlers / LLM
+      # retrieval systems now see correct per-page metadata and real content;
+      # real browsers discard the injected markup because src/index.js uses
+      # ReactDOM.createRoot(...).render() (container children are replaced on
+      # mount, so there is no hydration mismatch).
+      # NOTE: route list lives in frontend/scripts/prerender.mjs and must match
+      # App.js <Routes>. 404.html (SPA redirect) is emitted by CRA and untouched.
+      - name: Pre-render SPA routes for SEO (per-route metadata + crawlable content)
+        working-directory: frontend
         run: |
-          # Flat top-level routes
-          for route in why quesen shinren qarsar diosen evidence about contact legacy try; do
-            cp index.html "${route}.html"
-            mkdir -p "${route}"
-            cp index.html "${route}/index.html"
-          done
-          # Nested route: /quesen/servers
-          mkdir -p quesen
-          cp index.html quesen/servers.html
-          mkdir -p quesen/servers
-          cp index.html quesen/servers/index.html
-          # 404.html fallback also runs the SPA-redirect script (see public/404.html)
-          # It is already emitted by CRA from public/404.html — do not overwrite it here.
+          node scripts/prerender.mjs
           echo "Pre-rendered routes:"
-          ls -la *.html
-          ls -la why quesen shinren qarsar diosen about contact legacy quesen/servers 2>/dev/null || true
+          ls -la build/*.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
