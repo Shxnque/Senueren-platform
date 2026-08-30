@@ -84,6 +84,8 @@ const routes = {
         <li>Deterministic behaviour: secret egress to an untrusted destination returns <code>BLOCK</code> (<code>EGRESS_SECRET_UNTRUSTED</code>); benign public egress returns <code>PASS</code>.</li>
         <li>Published, installable SDKs on <a href="https://pypi.org/project/quesen-sdk/">PyPI</a> and <a href="https://www.npmjs.com/package/quesen-sdk">npm</a>.</li>
         <li>Native MCP interface at <a href="${AA5BA}/mcp">/mcp</a> and OpenAPI 3.1 at <a href="${AA5BA}/openapi.json">/openapi.json</a>.</li>
+        <li>Public standards engagement: a crosswalk mapping Quesen onto the <a href="https://github.com/aeoess/agent-governance-vocabulary/pull/151">Agent Governance Vocabulary (PR #151)</a>, plus contributions to <a href="https://github.com/Universal-Commerce-Protocol/ucp/discussions/724">UCP #724</a> and <a href="https://github.com/modelcontextprotocol/modelcontextprotocol/discussions/2498">MCP #2498</a>.</li>
+        <li>Reproducible cross-domain lifecycle test vectors (PRESERVED / RECOVERED / DEGRADED / MISSING / MUTATED) with live receipts, published at <a href="https://github.com/Shxnque/quesen/blob/main/evaluation/UCP724-LIFECYCLE-VECTORS.md">evaluation/UCP724-LIFECYCLE-VECTORS.md</a>.</li>
       </ul>` + distBlock,
   },
   "quesen/servers": {

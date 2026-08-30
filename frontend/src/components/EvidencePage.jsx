@@ -82,8 +82,36 @@ const SectionHeader = ({ eyebrow, title, subtitle }) => (
   </div>
 );
 
-/* ── VERIFIED external contributions (live GitHub state @ 2026-08-16) ── */
+/* ── VERIFIED external contributions (live GitHub state @ 2026-08-29) ── */
 const CONTRIBUTIONS = [
+  {
+    repo: "aeoess/agent-governance-vocabulary", ref: "#151", bureau: "Quesen", status: "PR_OPEN",
+    title: "Crosswalk: map Quesen onto the canonical governance vocabulary",
+    detail: "Contributed crosswalk/quesen.yaml mapping Quesen's decision receipt onto the canonical vocabulary. Maintainer requested five changes; all resolved against the public repo + live engine — evidence re-grounded in the shipped API, real receipt fields (commit_sha, input_snapshot_hash), match downgraded to non_equivalent_similar_label, role scoped to /tsc/validate, novel dimension moved to an issue. Validator green.",
+    metrics: ["crosswalk: 1 file", "5 review items resolved", "validator 0 errors"],
+    url: "https://github.com/aeoess/agent-governance-vocabulary/pull/151",
+  },
+  {
+    repo: "aeoess/agent-governance-vocabulary", ref: "#152", bureau: "Quesen", status: "DISCUSSION",
+    title: "Proposal: provenance_tier as a context dimension",
+    detail: "Filed the trust-tier-of-the-authority dimension as a proper vocabulary proposal (not smuggled through a crosswalk). Closes the permission-through-derivation-chain gap that MCP #2498 and UCP #724 independently converged on.",
+    metrics: ["dimension proposal", "cross-refs #2498 / #724"],
+    url: "https://github.com/aeoess/agent-governance-vocabulary/issues/152",
+  },
+  {
+    repo: "Universal-Commerce-Protocol/ucp", ref: "#724", bureau: "Quesen", status: "DISCUSSION",
+    title: "Commercial-intervention provenance across Cart → Checkout",
+    detail: "Maintainer engaged directly. Contributed the 'derivation must not silently upgrade authority' invariant and published six live, reproducible cross-domain test vectors (PRESERVED / RECOVERED / DEGRADED / MISSING / MUTATED) with real receipts — including the honest observed boundary (fail-closed on an unattested claim, not on absence).",
+    metrics: ["6 live test vectors", "maintainer engaged"],
+    url: "https://github.com/Universal-Commerce-Protocol/ucp/discussions/724",
+  },
+  {
+    repo: "modelcontextprotocol/modelcontextprotocol", ref: "#2498", bureau: "Quesen", status: "DISCUSSION",
+    title: "Permission specification for MCP tool calls",
+    detail: "Contributed the provenance-tier framing (authority tier ≠ attestation) and, on the APC execution-seam question, the exact-call-binding / TOCTOU point: a decision must bind a content hash of the normalized call so the enforcement boundary can prove the executed side effect is the authorized one.",
+    metrics: ["provenance-tier framing", "PEP + receipt seam"],
+    url: "https://github.com/modelcontextprotocol/modelcontextprotocol/discussions/2498",
+  },
   {
     repo: "dheerajjha/mcp-migrate", ref: "#246", bureau: "Quesen", status: "MERGED",
     title: "Warn on unrecognised top-level config keys (closes #235)",
@@ -237,6 +265,18 @@ const GOVERNANCE = [
   "Reproducible pre-execution verdicts",
 ];
 
+/* ── Cross-domain lifecycle test vectors (generated live @ /tsc/validate) ── */
+const XDOMAIN_VECTORS = [
+  { outcome: "PRESERVED", state: "Attested authority, survives the transition unchanged", decision: "PASS", reason: "NO_ADVERSE_SIGNAL", color: "#34D399" },
+  { outcome: "RECOVERED", state: "Evidence reconstructed and re-attested after the boundary", decision: "PASS", reason: "NO_ADVERSE_SIGNAL", color: "#34D399" },
+  { outcome: "DEGRADED", state: "Crossed a derivation boundary without re-attestation", decision: "REVIEW", reason: "UNVERIFIED_GRANT", color: "#FBBF24" },
+  { outcome: "MISSING", state: "Required authority claimed but evidence unverifiable", decision: "REVIEW", reason: "UNVERIFIED_GRANT", color: "#FBBF24" },
+  { outcome: "MUTATED", state: "Mutated flow exfiltrates a secret to an unverified sink", decision: "BLOCK", reason: "EGRESS_SECRET_UNTRUSTED", color: "#F87171" },
+];
+const XDOMAIN_COMMIT = "0095b6183a796ce678086a77e17de6eef9c6a263";
+const XDOMAIN_DOC = "https://github.com/Shxnque/quesen/blob/main/evaluation/UCP724-LIFECYCLE-VECTORS.md";
+const XDOMAIN_FIXTURE = "https://github.com/Shxnque/quesen/blob/main/evaluation/fixtures/ucp724_lifecycle_vectors.json";
+
 const EvidencePage = () => {
   useSEO({
     title: "Engineering Evidence, Verified External Work | Senueren",
@@ -371,6 +411,57 @@ const EvidencePage = () => {
                 <a href={`${HEALTH_BASE}/docs`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#22D3EE] hover:underline"><ExternalLink size={12} /> OpenAPI docs</a>
                 <Link to="/quesen" className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#94A3B8] hover:text-white"><Cpu size={12} /> Read Quesen</Link>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Layer 2b: Cross-domain test vectors */}
+        <section data-testid="evidence-xdomain-vectors">
+          <SectionHeader
+            eyebrow="Cross-domain test vectors"
+            title="The model, proven against live receipts."
+            subtitle="Generated live against the canonical engine — not hand-written fixtures. Each row is reproducible without signup, and every verdict replays from its receipt. Published as evidence for the UCP #724 and MCP #2498 discussions."
+          />
+          <div className="bg-[#0B1424]/70 border border-white/[0.06] rounded-2xl p-6 md:p-8 backdrop-blur">
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 mb-6 text-[11px]">
+              <span className="inline-flex items-center gap-1.5 text-[#94A3B8]"><Cpu size={12} className="text-[#22D3EE]" /> POST /tsc/validate · tsc_version 2.0</span>
+              <span className="inline-flex items-center gap-1.5 text-[#94A3B8]"><Hash size={12} className="text-[#22D3EE]" /> ruleset commit <code className="text-[#CBD5E1] font-mono">{XDOMAIN_COMMIT.slice(0, 12)}…</code></span>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse min-w-[640px]">
+                <thead>
+                  <tr className="text-[10px] tracking-[0.16em] uppercase text-[#64748B] border-b border-white/[0.08]">
+                    <th className="py-2.5 pr-4 font-semibold">Lifecycle outcome</th>
+                    <th className="py-2.5 pr-4 font-semibold">Modelled authority state</th>
+                    <th className="py-2.5 pr-4 font-semibold">Decision</th>
+                    <th className="py-2.5 font-semibold">Reason code</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {XDOMAIN_VECTORS.map((v) => (
+                    <tr key={v.outcome} className="border-b border-white/[0.05] last:border-0" data-testid={`evidence-vector-${v.outcome.toLowerCase()}`}>
+                      <td className="py-3 pr-4"><span className="text-[13px] font-bold text-white font-mono">{v.outcome}</span></td>
+                      <td className="py-3 pr-4 text-[12px] text-[#94A3B8] leading-snug">{v.state}</td>
+                      <td className="py-3 pr-4"><span className="px-2 py-0.5 rounded-md text-[11px] font-bold font-mono" style={{ color: v.color, backgroundColor: `${v.color}18`, border: `1px solid ${v.color}44` }}>{v.decision}</span></td>
+                      <td className="py-3"><code className="text-[11px] text-[#CBD5E1]">{v.reason}</code></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="mt-6 pt-5 border-t border-white/[0.06] flex items-start gap-3">
+              <ShieldCheck size={15} className="text-[#34D399] mt-0.5 flex-shrink-0" />
+              <p className="text-[12px] text-[#94A3B8] leading-relaxed">
+                <span className="text-[#E2E8F0] font-medium">Integrity binding:</span> mutating a single field flips the receipt&apos;s
+                <code className="text-[#22D3EE] px-1">input_snapshot_hash</code>
+                (<code className="text-[#CBD5E1] font-mono">2ae328…</code> → <code className="text-[#CBD5E1] font-mono">eaa8f6…</code>),
+                so a prior authorization no longer binds the mutated call. And an honest boundary we state rather than hide: the engine
+                fails closed on an <em>unattested claim</em>, not on the mere <em>absence</em> of one.
+              </p>
+            </div>
+            <div className="mt-5 flex flex-wrap gap-2">
+              <a href={XDOMAIN_DOC} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#22D3EE] hover:underline" data-testid="evidence-vector-doc"><ScrollText size={12} /> Vectors write-up</a>
+              <a href={XDOMAIN_FIXTURE} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#22D3EE] hover:underline" data-testid="evidence-vector-fixture"><ExternalLink size={12} /> Machine-readable fixture</a>
             </div>
           </div>
         </section>
