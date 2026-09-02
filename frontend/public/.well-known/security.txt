@@ -1,0 +1,6 @@
+Contact: mailto:info@senueren.co.za
+Expires: 2027-03-02T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://senueren.co.za/.well-known/security.txt
+Policy: https://github.com/Shxnque/quesen/security/policy
+# Senueren / Quesen security contact. Coordinated disclosure welcome.
