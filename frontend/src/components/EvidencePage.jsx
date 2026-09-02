@@ -82,8 +82,22 @@ const SectionHeader = ({ eyebrow, title, subtitle }) => (
   </div>
 );
 
-/* ── VERIFIED external contributions (live GitHub state @ 2026-08-29) ── */
+/* ── VERIFIED external contributions (live GitHub state @ 2026-09-02) ── */
 const CONTRIBUTIONS = [
+  {
+    repo: "google-agentic-commerce/AP2", ref: "#332", bureau: "Quesen", status: "DISCUSSION",
+    title: "When does a checkout change require renewed authorization?",
+    detail: "Contributed the two-invariant decomposition of mandate authority: closed→execution is an integrity check (recompute + compare the bound checkout hash), while open→closed is an authority-derivability check (typed constraints, fail-closed on any dimension the grant never named). Added the issuer/provenance angle and a three-outcome model (integrity-fail / out-of-envelope / underspecified), with a link to reproducible receipts.",
+    metrics: ["two-invariant model", "3-outcome seam", "reproducible receipts"],
+    url: "https://github.com/google-agentic-commerce/AP2/discussions/332",
+  },
+  {
+    repo: "agentguard-ai/tealtiger", ref: "#443", bureau: "Quesen", status: "DISCUSSION",
+    title: "TealTiger governance layer around the KYC decision agent",
+    detail: "Follow-up to the merged decision agent (#453): proposed the concrete governance-wrapper seam (kill-switch → budget → tool-auth → decision), the key distinction between the governance admission decision (ALLOW/DENY) and the KYC business decision (approve/escalate/reject), and binding the governance receipt to the decision agent's existing input hash. Offered to author the wrapper PR.",
+    metrics: ["governance seam design", "receipt binding", "PR offered"],
+    url: "https://github.com/agentguard-ai/tealtiger/issues/443",
+  },
   {
     repo: "aeoess/agent-governance-vocabulary", ref: "#151", bureau: "Quesen", status: "PR_OPEN",
     title: "Crosswalk: map Quesen onto the canonical governance vocabulary",
@@ -120,10 +134,10 @@ const CONTRIBUTIONS = [
     url: "https://github.com/dheerajjha/mcp-migrate/pull/246",
   },
   {
-    repo: "agentguard-ai/tealtiger", ref: "#453", bureau: "Quesen", status: "PR_OPEN",
+    repo: "agentguard-ai/tealtiger", ref: "#453", bureau: "Quesen", status: "MERGED",
     title: "Deterministic KYC Decision Agent (Quesen-shaped)",
-    detail: "A make_decision(identity, sanctions, risk) surface built to Quesen invariants: no LLM in the scoring loop, canonicalised inputs SHA-256 hashed onto the audit record, POLICY_VERSION stamped on every decision, sanctions veto, identity-confidence floor, and named escalation reasons. Submitted into Agent Guard’s agent-governance SDK.",
-    metrics: ["+630 / 10 files", "15 offline tests (30ms)", "review-gated"],
+    detail: "A make_decision(identity, sanctions, risk) surface built to Quesen invariants: no LLM in the scoring loop, canonicalised inputs SHA-256 hashed onto the audit record, POLICY_VERSION stamped on every decision, sanctions veto, identity-confidence floor, and named escalation reasons. Merged into Agent Guard's agent-governance SDK (2026-08-17); governance-wrapper follow-up now in flight at #443.",
+    metrics: ["+630 / 10 files", "15 offline tests (30ms)", "merged"],
     url: "https://github.com/agentguard-ai/tealtiger/pull/453",
   },
   {
