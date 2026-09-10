@@ -5,6 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#050B1A" />
 
+    <!-- Security: perimeter hardening (Session 31 · BEA 2026-09-10 audit).
+         GitHub Pages cannot emit custom HTTP response headers, so CSP + Referrer
+         are delivered via <meta>. This CSP intentionally allows 'unsafe-inline'
+         for scripts (JSON-LD structured data + CRA runtime chunk) and styles
+         (Tailwind/Radix inject <style>), so it cannot white-screen the site or
+         strip SEO structured data, while still adding real protection:
+         object-src 'none', base-uri 'self', form-action 'self', and an explicit
+         connect-src allowlist (self + the Quesen API the Try/Evidence pages call).
+         NOTE (honest limit): X-Frame-Options, X-Content-Type-Options=nosniff and
+         Permissions-Policy are HEADER-ONLY and are ignored via <meta>; and
+         CSP frame-ancestors is ignored in <meta>. Full clickjacking/nosniff
+         hardening requires fronting senueren.co.za with a header-capable layer
+         (Cloudflare free-tier Transform Rules or Netlify _headers). Tracked in
+         the Session-31 SITREP as an operator ops recommendation. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://web-production-aa5ba.up.railway.app; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
     <!-- Fonts (preconnected) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
