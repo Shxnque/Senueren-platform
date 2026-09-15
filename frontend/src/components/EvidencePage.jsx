@@ -20,7 +20,7 @@ import {
  * have adoption we have not earned.
  */
 
-const HEALTH_BASE = "https://web-production-aa5ba.up.railway.app";
+const HEALTH_BASE = "https://web-production-3df26.up.railway.app";
 const SITE_URL = "https://senueren.co.za";
 
 /* ── SEO ── */

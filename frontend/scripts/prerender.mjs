@@ -18,7 +18,7 @@ const BUILD = process.env.PRERENDER_BUILD_DIR || join(__dirname, "..", "build");
 const ORIGIN = "https://senueren.co.za";
 const OG_IMAGE = `${ORIGIN}/logo-full.png`;
 
-const AA5BA = "https://web-production-aa5ba.up.railway.app";
+const AA5BA = "https://web-production-3df26.up.railway.app";
 
 // Shared, verifiable install / distribution block (crawlable text).
 const distBlock = `
