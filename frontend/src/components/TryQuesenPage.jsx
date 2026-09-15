@@ -12,7 +12,7 @@ import { ArrowRight, KeyRound, Loader2, Check, Copy, Terminal, BookOpen } from "
  * around the real Quesen architecture.
  */
 
-const API_BASE = "https://web-production-aa5ba.up.railway.app";
+const API_BASE = "https://web-production-3df26.up.railway.app";
 const SITE_URL = "https://senueren.co.za";
 
 const useSEO = () => {

@@ -253,7 +253,7 @@ const Footer = () => (
 /* ── Home Page primitives ────────────────────────────────────────── */
 
 // Internal health endpoint constant. NEVER rendered in visible copy.
-const HEALTH_BASE = "https://web-production-aa5ba.up.railway.app";
+const HEALTH_BASE = "https://web-production-3df26.up.railway.app";
 
 /* Orbital systems diagram — SVG core + 4 orbiting nodes.
    Container rotates slowly; each node counter-rotates to keep labels legible.
