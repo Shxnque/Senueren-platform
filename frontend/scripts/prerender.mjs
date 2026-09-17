@@ -81,6 +81,20 @@ const routes = {
       <p>MCP servers, tools and autonomous agents ship faster than anyone reviews them. Senueren's Agent Surface Review is a bounded, fixed-price review of your agent's tool boundary — the gap between what a message says and what your agent is allowed to do.</p>
       <p>Fixed checklist: MCP tool authorization, confused-deputy, privilege escalation, secret exposure, token passthrough, SSRF, tool poisoning / malicious tool descriptions, excessive permissions, cross-agent authority, unsafe filesystem access, command execution, data exfiltration, missing auditability, replayability, and authorization-vs-execution mismatch.</p>
       <p>Engagements: Focused Review (one MCP server / boundary, 48h, from R2,500); Agent Surface Review (agent + tools + auth seam, 72h, from R6,000); Extended / multi-agent (custom). Consent-first — authorized scope only. Findings are evidence-first with reproductions, and where deterministic policy enforcement fits we recommend <a href="/quesen">Quesen</a>. Proof of our engineering: <a href="/evidence">verified external work</a>.</p>` + distBlock,
+    jsonld: [{
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "AI agent & MCP server security review",
+      "name": "Senueren Agent Surface Review",
+      "provider": { "@type": "Organization", "name": "Senueren", "url": `${ORIGIN}/` },
+      "areaServed": "Worldwide",
+      "url": `${ORIGIN}/services`,
+      "description": "Fixed-scope 48-72h security review of an MCP server or AI-agent tool boundary: authorization, confused-deputy, privilege escalation, secret exposure, token passthrough, SSRF, tool poisoning, excessive permissions, cross-agent authority, command execution, data exfiltration, auditability, replayability and authorization-vs-execution mismatch, with a concrete remediation report.",
+      "offers": [
+        { "@type": "Offer", "name": "Focused Review (48h)", "price": "2500", "priceCurrency": "ZAR", "description": "One MCP server / tool boundary." },
+        { "@type": "Offer", "name": "Agent Surface Review (72h)", "price": "6000", "priceCurrency": "ZAR", "description": "Agent + tools + auth seam." }
+      ]
+    }],
   },
   "evidence": {
     title: "Quesen Evidence — Independently Verifiable Production Proof",
@@ -236,6 +250,13 @@ function apply(template, cfg) {
     }
   };
   html = html.replace("</head>", `  <script type="application/ld+json">${JSON.stringify(ld)}</script>\n</head>`);
+  // Optional route-specific structured data (e.g. Service on /services). Injected
+  // post-build so it is never stripped by the HTML minifier (see craco.config.js).
+  if (Array.isArray(cfg.jsonld)) {
+    for (const block of cfg.jsonld) {
+      html = html.replace("</head>", `  <script type="application/ld+json">${JSON.stringify(block)}</script>\n</head>`);
+    }
+  }
   // Inject crawlable content into the (empty) root container.
   const seo = `<div data-prerender="seo" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">${cfg.body || ""}</div>`;
   html = html.replace('<div id="root"></div>', `<div id="root">${seo}</div>`);
