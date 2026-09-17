@@ -72,6 +72,16 @@ const routes = {
       <pre><code>curl -X POST ${AA5BA}/sandbox/keys</code></pre>
       <p>Then send a typed security context to <code>POST ${AA5BA}/tsc/validate</code> with header <code>X-API-Key: sk_sandbox_...</code> and gate your agent on the returned PASS/REVIEW/BLOCK/SKIP decision.</p>` + distBlock,
   },
+  "services": {
+    title: "Services — Agent Surface Review & Deterministic Governance | Senueren",
+    description: "Senueren's Agent Surface Review: a fixed-scope 48–72h security review of your MCP server or AI-agent tool boundary — authorization, confused-deputy, secret exposure, SSRF, tool poisoning, authorization-vs-execution mismatch — with a concrete remediation report and, where it fits, a deterministic Quesen policy recommendation. From R2,500.",
+    canonical: `${ORIGIN}/services`,
+    body: `
+      <h1>Agent Surface Review — find where your agent can be made to act wrongly.</h1>
+      <p>MCP servers, tools and autonomous agents ship faster than anyone reviews them. Senueren's Agent Surface Review is a bounded, fixed-price review of your agent's tool boundary — the gap between what a message says and what your agent is allowed to do.</p>
+      <p>Fixed checklist: MCP tool authorization, confused-deputy, privilege escalation, secret exposure, token passthrough, SSRF, tool poisoning / malicious tool descriptions, excessive permissions, cross-agent authority, unsafe filesystem access, command execution, data exfiltration, missing auditability, replayability, and authorization-vs-execution mismatch.</p>
+      <p>Engagements: Focused Review (one MCP server / boundary, 48h, from R2,500); Agent Surface Review (agent + tools + auth seam, 72h, from R6,000); Extended / multi-agent (custom). Consent-first — authorized scope only. Findings are evidence-first with reproductions, and where deterministic policy enforcement fits we recommend <a href="/quesen">Quesen</a>. Proof of our engineering: <a href="/evidence">verified external work</a>.</p>` + distBlock,
+  },
   "evidence": {
     title: "Quesen Evidence — Independently Verifiable Production Proof",
     description: "Independently verifiable evidence for Quesen: live production engine (/health, /version), deterministic BLOCK/PASS behaviour, recomputable receipts (input_snapshot_hash + commit_sha), published SDKs on PyPI and npm, native MCP endpoint, OpenAPI 3.1, and public standards engagement. No customer traction, pilots or revenue are claimed.",
