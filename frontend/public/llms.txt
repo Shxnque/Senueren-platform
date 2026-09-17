@@ -38,6 +38,12 @@
 3. Call `validate(...)` before any consequential action. Refuse if the returned decision is `SKIP`; escalate on `REVIEW`; proceed on `PROCEED`.
 4. Report the outcome after execution. This closes the deterministic feedback loop.
 
+## Services (paid engagements)
+
+- **Agent Surface Review** — a fixed-scope 48-72h security review of an MCP server or AI-agent tool boundary. Checklist: MCP tool authorization, confused-deputy, privilege escalation, secret exposure, token passthrough, SSRF, tool poisoning / malicious tool descriptions, excessive permissions, cross-agent authority, unsafe filesystem access, command execution, data exfiltration, auditability, replayability, authorization-vs-execution mismatch. Deliverable: a concrete remediation report, plus a deterministic Quesen policy recommendation where it fits. Consent-first — authorized scope only. From R2,500. Details: https://senueren.co.za/services
+- **Quesen integration** — deterministic pre-action governance for agent frameworks / MCP / payment execution.
+- **Shinren security research** — authorized, public-scope security research for on-chain and agent infrastructure.
+
 ## Contact
 
 - Website: https://senueren.co.za
