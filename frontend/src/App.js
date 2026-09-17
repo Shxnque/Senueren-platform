@@ -15,6 +15,7 @@ import LegacyPage from "./components/LegacyPage";
 import QuesenServersPage from "./components/QuesenServersPage";
 import EvidencePage from "./components/EvidencePage";
 import TryQuesenPage from "./components/TryQuesenPage";
+import ServicesPage from "./components/ServicesPage";
 
 const CONTACT_EMAIL = "info@senueren.co.za";
 const CONTACT_WHATSAPP_DISPLAY = "067 326 7417";
@@ -233,6 +234,7 @@ const Footer = () => (
         <Link to="/why" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-why-link">Why Quesen</Link>
         <Link to="/about" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-about-link">About</Link>
         <Link to="/legacy" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-legacy-link">Legacy Infrastructure</Link>
+        <Link to="/services" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-services-link">Services</Link>
         <Link to="/contact" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-contact-link">Contact</Link>
       </div>
       <div className="mb-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs" data-testid="footer-ecosystem">
@@ -938,6 +940,7 @@ function App() {
           <Route path="/quesen/servers" element={<QuesenServersPage />} />
           <Route path="/try" element={<TryQuesenPage />} />
           <Route path="/evidence" element={<EvidencePage />} />
+          <Route path="/services" element={<ServicesPage />} />
           <Route path="/shinren" element={<ShinrenPage />} />
           <Route path="/qarsar" element={<QarsarPage />} />
           <Route path="/diosen" element={<DiosenPage />} />
