@@ -82,7 +82,7 @@ const SectionHeader = ({ eyebrow, title, subtitle }) => (
   </div>
 );
 
-/* ── VERIFIED external contributions (live GitHub state @ 2026-09-02) ── */
+/* ── VERIFIED external contributions (live GitHub state @ 2026-09-17) ── */
 const CONTRIBUTIONS = [
   {
     repo: "google-agentic-commerce/AP2", ref: "#332", bureau: "Quesen", status: "DISCUSSION",
@@ -99,10 +99,10 @@ const CONTRIBUTIONS = [
     url: "https://github.com/agentguard-ai/tealtiger/issues/443",
   },
   {
-    repo: "aeoess/agent-governance-vocabulary", ref: "#151", bureau: "Quesen", status: "PR_OPEN",
+    repo: "aeoess/agent-governance-vocabulary", ref: "#151", bureau: "Quesen", status: "MERGED",
     title: "Crosswalk: map Quesen onto the canonical governance vocabulary",
-    detail: "Contributed crosswalk/quesen.yaml mapping Quesen's decision receipt onto the canonical vocabulary. Maintainer requested five changes; all resolved against the public repo + live engine — evidence re-grounded in the shipped API, real receipt fields (commit_sha, input_snapshot_hash), match downgraded to non_equivalent_similar_label, role scoped to /tsc/validate, novel dimension moved to an issue. Validator green.",
-    metrics: ["crosswalk: 1 file", "5 review items resolved", "validator 0 errors"],
+    detail: "crosswalk/quesen.yaml — Quesen's deterministic decision receipt mapped onto the canonical agent-governance vocabulary, now living upstream alongside 30+ peer entries (a2a, agentid, payment_rail, signet…). Five maintainer review items resolved against the public repo + live engine (evidence re-grounded in the shipped API and real receipt fields commit_sha / input_snapshot_hash; match downgraded to non_equivalent_similar_label; role scoped to /tsc/validate); DCO linearised. Merged 2026-09-11 — our first contribution to reach an agent-governance standards vocabulary.",
+    metrics: ["crosswalk/quesen.yaml live upstream", "5 review items resolved", "merged 2026-09-11"],
     url: "https://github.com/aeoess/agent-governance-vocabulary/pull/151",
   },
   {
