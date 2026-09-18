@@ -82,8 +82,36 @@ const SectionHeader = ({ eyebrow, title, subtitle }) => (
   </div>
 );
 
-/* ── VERIFIED external contributions (live GitHub state @ 2026-09-17) ── */
+/* ── VERIFIED external contributions (live GitHub state @ 2026-09-18) ── */
 const CONTRIBUTIONS = [
+  {
+    repo: "x402-foundation/x402", ref: "#3506", bureau: "Quesen", status: "DISCUSSION",
+    title: "Independent intent clearance on the x402 settle hook",
+    detail: "On the x402 BeforeSettleHook seam, contributed the split between proving a payment is well-formed and proving the signer was authorized to move that value — an opaque receipt_id as a locator vs a recomputable intent_hash the counterparty can verify without trusting the payer. The author of XAPS (live pre-settle clearance at api.xaps.network) agreed and accepted the conformance-vector definition as the interoperable intent_hash (JCS canonicalisation, integer minor-units, CAIP-19 / CAIP-2). Provider-neutral conformance vector to follow.",
+    metrics: ["intent_hash definition accepted", "XAPS design-partner", "canonicalisation pinned"],
+    url: "https://github.com/x402-foundation/x402/issues/3506",
+  },
+  {
+    repo: "Universal-Commerce-Protocol/ucp", ref: "#827", bureau: "Quesen", status: "DISCUSSION",
+    title: "Lifecycle projection contract across Cart → Checkout",
+    detail: "Formalised the #788 discussion into an Enhancement Proposal: one carrier-agnostic projection contract so an authorization established upstream is reproducible downstream instead of silently losing its basis at the boundary. Maintainer converged; folded in the no-silent-authority-upgrade invariant (N1: preservation is not elevation; N2: re-attestation is the only upgrade path) plus a six-row conformance-vector matrix — including the negative case where a byte-exact carrier is treated as stronger authority without a new attestation and must fail.",
+    metrics: ["EP filed", "maintainer converged", "6 conformance vectors"],
+    url: "https://github.com/Universal-Commerce-Protocol/ucp/issues/827",
+  },
+  {
+    repo: "x402-agentic/x402agentic-firewall", ref: "#2", bureau: "Quesen", status: "DISCUSSION",
+    title: "Recomputable decision receipt on the deterministic pre-flight gate",
+    detail: "First-mover proposal on x402Agentic's deterministic firewall: emit a recomputable decision receipt (bind the normalised payment call by content hash) so an agent can prove which payment produced a given verdict, and offered a conformance-vector PR read against their engine core.",
+    metrics: ["first-mover", "receipt seam", "conformance PR offered"],
+    url: "https://github.com/x402-agentic/x402agentic-firewall/issues/2",
+  },
+  {
+    repo: "Rul1an/assay", ref: "#2422", bureau: "Quesen", status: "ASSIST",
+    title: "Declared-depth session-coverage invariant (assay-evidence)",
+    detail: "Proposed the non-major “Option 2” shape for assay-evidence — a declared depth extent on the session-coverage sibling event so a compacted trace turns the completeness check red instead of silently reporting a whole trace. The maintainer implemented it as #3099 (merged 2026-09-17, reviewed adversarially), crediting the proposed shape. Filed as a design assist, not our commit.",
+    metrics: ["#3099 merged 2026-09-17", "design credited"],
+    url: "https://github.com/Rul1an/assay/issues/2422",
+  },
   {
     repo: "google-agentic-commerce/AP2", ref: "#332", bureau: "Quesen", status: "DISCUSSION",
     title: "When does a checkout change require renewed authorization?",
