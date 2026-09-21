@@ -18,7 +18,9 @@ const BUILD = process.env.PRERENDER_BUILD_DIR || join(__dirname, "..", "build");
 const ORIGIN = "https://senueren.co.za";
 const OG_IMAGE = `${ORIGIN}/logo-full.png`;
 
-const AA5BA = "https://web-production-3df26.up.railway.app";
+// Quesen production API base (Railway). Named plainly to avoid confusion with the
+// decommissioned aa5ba host — value is the CURRENT live 3df26 deployment.
+const API_BASE = "https://web-production-3df26.up.railway.app";
 
 // Shared, verifiable install / distribution block (crawlable text).
 const distBlock = `
@@ -28,12 +30,12 @@ npm i quesen-sdk              # JavaScript / TypeScript
 pip install quesen-langchain  # LangChain
 pip install quesen-crewai     # CrewAI
 pip install quesen-autogen    # AutoGen</code></pre>
-  <p>Free sandbox key (no signup, no card): <code>curl -X POST ${AA5BA}/sandbox/keys</code></p>
+  <p>Free sandbox key (no signup, no card): <code>curl -X POST ${API_BASE}/sandbox/keys</code></p>
   <ul>
     <li><a href="https://pypi.org/project/quesen-sdk/">Quesen SDK on PyPI</a></li>
     <li><a href="https://www.npmjs.com/package/quesen-sdk">Quesen SDK on npm</a></li>
     <li><a href="https://github.com/Shxnque/quesen">Quesen developer portal (docs, spec, fixtures)</a></li>
-    <li><a href="${AA5BA}/mcp">MCP endpoint (Streamable HTTP)</a> · <a href="${AA5BA}/openapi.json">OpenAPI 3.1</a> · <a href="${AA5BA}/health">Health</a></li>
+    <li><a href="${API_BASE}/mcp">MCP endpoint (Streamable HTTP)</a> · <a href="${API_BASE}/openapi.json">OpenAPI 3.1</a> · <a href="${API_BASE}/health">Health</a></li>
   </ul>`;
 
 const routes = {
@@ -69,8 +71,8 @@ const routes = {
     body: `
       <h1>Try Quesen free.</h1>
       <p>Self-serve, instant, no signup. One call returns a sandbox key with 1000 starter credits:</p>
-      <pre><code>curl -X POST ${AA5BA}/sandbox/keys</code></pre>
-      <p>Then send a typed security context to <code>POST ${AA5BA}/tsc/validate</code> with header <code>X-API-Key: sk_sandbox_...</code> and gate your agent on the returned PASS/REVIEW/BLOCK/SKIP decision.</p>` + distBlock,
+      <pre><code>curl -X POST ${API_BASE}/sandbox/keys</code></pre>
+      <p>Then send a typed security context to <code>POST ${API_BASE}/tsc/validate</code> with header <code>X-API-Key: sk_sandbox_...</code> and gate your agent on the returned PASS/REVIEW/BLOCK/SKIP decision.</p>` + distBlock,
   },
   "services": {
     title: "Services — Agent Surface Review & Deterministic Governance | Senueren",
@@ -105,7 +107,7 @@ const routes = {
       <p>Every claim on this page resolves to a live endpoint, a package registry, or a public repository you can open right now. We deliberately do <strong>not</strong> claim customer traction, pilots, or revenue — only what is independently checkable. Quesen's thesis is deterministic authorization and independently recomputable evidence for consequential autonomous actions.</p>
       <h2>Live production engine</h2>
       <ul>
-        <li>Health &amp; version: <a href="${AA5BA}/health">/health</a> and <a href="${AA5BA}/version">/version</a> report the current engine version and configuration.</li>
+        <li>Health &amp; version: <a href="${API_BASE}/health">/health</a> and <a href="${API_BASE}/version">/version</a> report the current engine version and configuration.</li>
         <li>Deterministic decision: a high-risk input returns <code>SKIP</code>/<code>BLOCK</code> with named conflict rules; the same input always yields the same verdict (no LLM in the scoring path).</li>
         <li>Recomputable receipt: every <code>/validate</code> response embeds <code>input_snapshot_hash</code> (SHA-256 over the canonical request) and <code>commit_sha</code> (the exact ruleset commit), so any decision is replayable byte-for-byte offline.</li>
         <li>Secret-egress firewall: a secret POSTed to an untrusted destination returns <code>BLOCK</code> (<code>EGRESS_SECRET_UNTRUSTED</code>); a benign public egress returns <code>PASS</code>.</li>
@@ -113,7 +115,7 @@ const routes = {
       <h2>Published, installable distribution</h2>
       <ul>
         <li>Python + framework SDKs on <a href="https://pypi.org/project/quesen-sdk/">PyPI</a> (<code>quesen-sdk</code>, <code>quesen-langchain</code>, <code>quesen-crewai</code>, <code>quesen-autogen</code>) and JavaScript/TypeScript on <a href="https://www.npmjs.com/package/quesen-sdk">npm</a>.</li>
-        <li>Native MCP interface at <a href="${AA5BA}/mcp">/mcp</a> (Streamable HTTP) and OpenAPI 3.1 at <a href="${AA5BA}/openapi.json">/openapi.json</a>.</li>
+        <li>Native MCP interface at <a href="${API_BASE}/mcp">/mcp</a> (Streamable HTTP) and OpenAPI 3.1 at <a href="${API_BASE}/openapi.json">/openapi.json</a>.</li>
         <li>Developer portal, spec and conformance fixtures: <a href="https://github.com/Shxnque/quesen">github.com/Shxnque/quesen</a>.</li>
       </ul>
       <h2>Public standards &amp; ecosystem engagement</h2>
