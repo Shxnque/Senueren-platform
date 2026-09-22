@@ -55,11 +55,12 @@ const routes = {
       </ul>` + distBlock,
   },
   "quesen": {
-    title: "Quesen — Deterministic AI Decision Engine & Agent Firewall",
-    description: "Quesen is the deterministic AI decision engine for autonomous-agent risk evaluation. A typed security context in → PASS/REVIEW/BLOCK/SKIP out, with reason codes and replayable receipts. No LLM in the scoring path. Native MCP server + SDKs.",
+    title: "Quesen — Deterministic AI Agent Authorization, Governance & Decision Infrastructure",
+    description: "Quesen is deterministic AI agent authorization and governance infrastructure: runtime authority for agent tool calls, MCP tool authorization and agent payment authorization. A typed security context in → PASS/REVIEW/BLOCK/SKIP out, with machine reason codes, fail-closed defaults and replayable audit receipts. No LLM in the scoring path. Native MCP server + SDKs.",
     canonical: `${ORIGIN}/quesen`,
     body: `
-      <h1>Quesen — the deterministic decision layer for autonomous agents.</h1>
+      <h1>Quesen — deterministic authorization, governance and decision infrastructure for autonomous agents.</h1>
+      <p>Quesen is a portable <strong>decision + authority + evidence</strong> layer for AI agent authorization: it decides what an agent may do <em>after</em> it is authenticated, and interoperates with identity, MCP, payment and execution systems rather than replacing them. It provides runtime authorization for agent tool calls and autonomous payment authorization with deterministic, fail-closed verdicts, machine reason codes (principal, action, grant, reason_code) and an independently recomputable audit trail. Categories it serves: AI agent authorization, AI agent governance, MCP authorization, runtime agent authorization, agent action control and agent payment authorization.</p>
       <p>Quesen answers one question before every high-risk agent action: <em>should this proceed?</em> You describe the attempted operation as a <strong>typed security context</strong> — subject, action, target, tool (requested vs granted scopes), data classes + egress destination, and provenance — and a deterministic checker returns <strong>PASS / REVIEW / BLOCK / SKIP</strong> with reason codes and a replayable receipt (SHA-256 over the canonical input + the pinned ruleset commit). No model inference in the decision path, so the same input always yields the same verdict.</p>
       <p>Canonical example: an agent tricked into POSTing a secret to an untrusted endpoint returns <code>BLOCK</code> (<code>EGRESS_SECRET_UNTRUSTED</code>); a benign public egress returns <code>PASS</code>. An unattested client-asserted payment grant returns <code>REVIEW</code> (<code>UNVERIFIED_GRANT</code>).</p>
       <p>Works over direct HTTP (<code>POST /validate</code>, <code>POST /tsc/validate</code>), as a native MCP server, and via official SDKs for Python, TypeScript, LangChain, CrewAI and AutoGen.</p>` + distBlock,
