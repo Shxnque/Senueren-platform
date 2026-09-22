@@ -106,6 +106,7 @@ const Navbar = () => {
   const primary = [
     { to: "/", label: "Home" },
     { to: "/quesen", label: "Quesen" },
+    { to: "/agent-authorization", label: "Authorization" },
     { to: "/try", label: "Try" },
     { to: "/evidence", label: "Evidence" },
     { to: "/quesen/servers", label: "Servers" },
