@@ -63,7 +63,54 @@ const routes = {
       <p>Quesen is a portable <strong>decision + authority + evidence</strong> layer for AI agent authorization: it decides what an agent may do <em>after</em> it is authenticated, and interoperates with identity, MCP, payment and execution systems rather than replacing them. It provides runtime authorization for agent tool calls and autonomous payment authorization with deterministic, fail-closed verdicts, machine reason codes (principal, action, grant, reason_code) and an independently recomputable audit trail. Categories it serves: AI agent authorization, AI agent governance, MCP authorization, runtime agent authorization, agent action control and agent payment authorization.</p>
       <p>Quesen answers one question before every high-risk agent action: <em>should this proceed?</em> You describe the attempted operation as a <strong>typed security context</strong> — subject, action, target, tool (requested vs granted scopes), data classes + egress destination, and provenance — and a deterministic checker returns <strong>PASS / REVIEW / BLOCK / SKIP</strong> with reason codes and a replayable receipt (SHA-256 over the canonical input + the pinned ruleset commit). No model inference in the decision path, so the same input always yields the same verdict.</p>
       <p>Canonical example: an agent tricked into POSTing a secret to an untrusted endpoint returns <code>BLOCK</code> (<code>EGRESS_SECRET_UNTRUSTED</code>); a benign public egress returns <code>PASS</code>. An unattested client-asserted payment grant returns <code>REVIEW</code> (<code>UNVERIFIED_GRANT</code>).</p>
-      <p>Works over direct HTTP (<code>POST /validate</code>, <code>POST /tsc/validate</code>), as a native MCP server, and via official SDKs for Python, TypeScript, LangChain, CrewAI and AutoGen.</p>` + distBlock,
+      <p>Works over direct HTTP (<code>POST /validate</code>, <code>POST /tsc/validate</code>), as a native MCP server, and via official SDKs for Python, TypeScript, LangChain, CrewAI and AutoGen.</p>
+      <p>Deep dive: <a href="/agent-authorization">AI agent authorization — the decision after authentication</a> (problem → primitive → reproducible example).</p>` + distBlock,
+  },
+  "agent-authorization": {
+    title: "AI Agent Authorization — Runtime Authority, Governance & MCP Tool Authorization | Quesen",
+    description: "A technical explainer on AI agent authorization: the gap MCP leaves after authentication, why runtime authorization must be deterministic and auditable, and a reproducible Quesen example — typed security context in, PASS/REVIEW/BLOCK/SKIP out, with machine reason codes and a replayable receipt.",
+    canonical: `${ORIGIN}/agent-authorization`,
+    body: `
+      <h1>AI agent authorization — the decision that comes after authentication.</h1>
+      <p>Authentication answers <em>who is calling</em>. Authorization answers the harder runtime question an autonomous agent faces before every consequential action: <em>is this specific action allowed, right now, given what it touches and where the data goes?</em> The Model Context Protocol (MCP) standardises connection and authentication, but deliberately leaves runtime authorization — should an authenticated tool call be permitted to execute — to you.</p>
+      <h2>The gap MCP leaves</h2>
+      <ul>
+        <li><strong>Confused-deputy:</strong> an agent with legitimate credentials is tricked into using its authority on an attacker's behalf.</li>
+        <li><strong>Over-permissioned tokens:</strong> granted scope far exceeds what the current action needs; nothing checks requested-vs-granted at runtime.</li>
+        <li><strong>Authorization-vs-execution mismatch:</strong> execution proceeds on the say-so of untrusted text.</li>
+        <li><strong>Unbounded egress:</strong> a secret or sensitive data class is sent to an untrusted destination with no policy between intent and action.</li>
+      </ul>
+      <h2>The primitive: typed security context → deterministic verdict</h2>
+      <p>Instead of asking a model to judge free text, you describe the attempted action as a typed security context (subject, action, target, tool requested-vs-granted scopes, data classes + egress destination, provenance). A deterministic checker evaluates it against a pinned ruleset and returns <strong>PASS / REVIEW / BLOCK / SKIP</strong> with machine reason codes (e.g. <code>EGRESS_SECRET_UNTRUSTED</code>, <code>UNVERIFIED_GRANT</code>) and the conflict rule that fired. No LLM in the scoring path, so the same input always yields the same verdict. Every response embeds <code>input_snapshot_hash</code> (SHA-256 over the canonical request) and <code>commit_sha</code> so the decision is replayable byte-for-byte, offline, later. Timeouts and transport errors surface as <code>SKIP</code> — fail closed.</p>
+      <h2>Reproduce it (no signup)</h2>
+      <pre><code>curl -X POST ${API_BASE}/sandbox/keys        # → sk_sandbox_… + 1000 credits
+curl -X POST ${API_BASE}/tsc/validate \\
+  -H "X-API-Key: sk_sandbox_…" -H "Content-Type: application/json" \\
+  -d '{"action":{"type":"tool.call","name":"http.post"},"target":{"url":"https://unknown-collector.example","data_classes":["secret"]}}'
+# → { "decision": "BLOCK", "reason_codes": ["EGRESS_SECRET_UNTRUSTED"], "input_snapshot_hash": "sha256:…", "commit_sha": "…" }</code></pre>
+      <p>Quesen is a portable decision + authority + evidence layer: it decides what an agent may do after authentication and interoperates with identity (Okta/Auth0/OIDC), MCP, payment rails (x402/AP2/UCP) and execution frameworks — it does not replace them. See <a href="/quesen">the Quesen overview</a>, <a href="/try">try it free</a>, and <a href="/evidence">verify the evidence</a>.</p>` + distBlock,
+    jsonld: [
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "AI agent authorization — the decision that comes after authentication",
+        "about": ["AI agent authorization", "MCP tool authorization", "runtime agent authorization", "AI agent governance"],
+        "author": { "@type": "Organization", "name": "Senueren", "url": `${ORIGIN}/` },
+        "publisher": { "@type": "Organization", "name": "Senueren", "url": `${ORIGIN}/`, "logo": OG_IMAGE },
+        "url": `${ORIGIN}/agent-authorization`,
+        "inLanguage": "en",
+        "description": "The gap MCP leaves after authentication, why runtime authorization must be deterministic and auditable, and a reproducible Quesen example."
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "What is AI agent authorization?", "acceptedAnswer": { "@type": "Answer", "text": "The runtime decision of whether an authenticated agent action is allowed, given what it touches and where data goes. It is distinct from authentication (who is calling) and, in MCP, is left to the implementer." } },
+          { "@type": "Question", "name": "Why must agent authorization be deterministic?", "acceptedAnswer": { "@type": "Answer", "text": "A verdict that gates autonomous action must be reproducible and auditable. A model that scores an action cannot be replayed or trusted to return the same verdict later. Quesen computes verdicts from explicit rules with no LLM in the scoring path." } },
+          { "@type": "Question", "name": "How does Quesen make a decision replayable?", "acceptedAnswer": { "@type": "Answer", "text": "Every response embeds input_snapshot_hash (SHA-256 over the canonical request) and commit_sha (the exact ruleset commit), so any decision can be recomputed byte-for-byte, offline, months later." } }
+        ]
+      }
+    ],
   },
   "try": {
     title: "Try Quesen — Free Sandbox Key, No Signup",
@@ -224,7 +271,7 @@ const routes = {
 
 function esc(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
 
-function apply(template, cfg) {
+function apply(template, cfg, route = "") {
   let html = template;
   html = html.replace(/<title>[\s\S]*?<\/title>/, `<title>${esc(cfg.title)}</title>`);
   html = html.replace(/<meta name="description" content="[\s\S]*?"\s*\/>/, `<meta name="description" content="${esc(cfg.description)}" />`);
@@ -253,6 +300,19 @@ function apply(template, cfg) {
     }
   };
   html = html.replace("</head>", `  <script type="application/ld+json">${JSON.stringify(ld)}</script>\n</head>`);
+  // BreadcrumbList for non-home routes (Home > … > current), improves rich results.
+  if (route) {
+    const segs = route.split("/");
+    const items = [{ "@type": "ListItem", "position": 1, "name": "Home", "item": `${ORIGIN}/` }];
+    let acc = "";
+    segs.forEach((seg, i) => {
+      acc += `/${seg}`;
+      const name = seg.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+      items.push({ "@type": "ListItem", "position": i + 2, "name": name, "item": `${ORIGIN}${acc}` });
+    });
+    const crumb = { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": items };
+    html = html.replace("</head>", `  <script type="application/ld+json">${JSON.stringify(crumb)}</script>\n</head>`);
+  }
   // Optional route-specific structured data (e.g. Service on /services). Injected
   // post-build so it is never stripped by the HTML minifier (see craco.config.js).
   if (Array.isArray(cfg.jsonld)) {
@@ -276,5 +336,5 @@ function writeRoute(route, html) {
 
 const template = readFileSync(join(BUILD, "index.html"), "utf8");
 let n = 0;
-for (const [route, cfg] of Object.entries(routes)) { writeRoute(route, apply(template, cfg)); n++; }
+for (const [route, cfg] of Object.entries(routes)) { writeRoute(route, apply(template, cfg, route)); n++; }
 console.log(`prerender: wrote ${n} routes into ${BUILD}`);

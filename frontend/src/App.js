@@ -16,6 +16,7 @@ import QuesenServersPage from "./components/QuesenServersPage";
 import EvidencePage from "./components/EvidencePage";
 import TryQuesenPage from "./components/TryQuesenPage";
 import ServicesPage from "./components/ServicesPage";
+import AgentAuthorizationPage from "./components/AgentAuthorizationPage";
 
 const CONTACT_EMAIL = "info@senueren.co.za";
 const CONTACT_WHATSAPP_DISPLAY = "067 326 7417";
@@ -232,6 +233,7 @@ const Footer = () => (
       <div className="mb-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs" data-testid="footer-secondary-nav">
         <span className="text-[#8B9BB4]/60 uppercase tracking-[0.2em] font-['Outfit']">Studio</span>
         <Link to="/why" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-why-link">Why Quesen</Link>
+        <Link to="/agent-authorization" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-agent-auth-link">Agent Authorization</Link>
         <Link to="/about" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-about-link">About</Link>
         <Link to="/legacy" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-legacy-link">Legacy Infrastructure</Link>
         <Link to="/services" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-services-link">Services</Link>
@@ -937,6 +939,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/why" element={<WhyPage />} />
           <Route path="/quesen" element={<QuesenPage />} />
+          <Route path="/agent-authorization" element={<AgentAuthorizationPage />} />
           <Route path="/quesen/servers" element={<QuesenServersPage />} />
           <Route path="/try" element={<TryQuesenPage />} />
           <Route path="/evidence" element={<EvidencePage />} />
