@@ -85,6 +85,13 @@ const SectionHeader = ({ eyebrow, title, subtitle }) => (
 /* ── VERIFIED external contributions (live GitHub state @ 2026-09-18) ── */
 const CONTRIBUTIONS = [
   {
+    repo: "AgentOnRails/agent-on-rails", ref: "#3", bureau: "Quesen", status: "DISCUSSION",
+    title: "Counterparty-risk decision hook before sign (PASS/REVIEW/BLOCK)",
+    detail: "On AgentOnRails' local-first x402 payment control-plane, proposed an optional CounterpartyChecker seam at the existing require_approval_above_usd / pre-sign point: the daemon hands the pending payment (chain, to-address, token, amount) to a checker returning a typed PASS / REVIEW / BLOCK verdict with machine reason codes, default no-op so it stays vendor-neutral. Their guardrails gate amount / velocity / endpoint but not recipient risk — a payment under-cap to a freshly-deployed drainer contract still signs. Included a live recomputable Quesen receipt (engine 1.10.0, input_snapshot_hash) as one reference implementation.",
+    metrics: ["issue #3 opened", "pluggable checker seam", "recomputable receipt"],
+    url: "https://github.com/AgentOnRails/agent-on-rails/issues/3",
+  },
+  {
     repo: "x402-foundation/x402", ref: "#3506", bureau: "Quesen", status: "DISCUSSION",
     title: "Independent intent clearance on the x402 settle hook",
     detail: "On the x402 BeforeSettleHook seam, contributed the split between proving a payment is well-formed and proving the signer was authorized to move that value — an opaque receipt_id as a locator vs a recomputable intent_hash the counterparty can verify without trusting the payer. The author of XAPS (live pre-settle clearance at api.xaps.network) agreed and accepted the conformance-vector definition as the interoperable intent_hash (JCS canonicalisation, integer minor-units, CAIP-19 / CAIP-2). Provider-neutral conformance vector to follow.",
