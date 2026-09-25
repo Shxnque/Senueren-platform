@@ -873,6 +873,28 @@ const AboutPage = () => {
               </div>
             </div>
           </FadeIn>
+
+          {/* Shinren FAQ — security research & pre-audit review */}
+          <FadeIn delay={210}>
+            <div className="bg-[#0F1419] border border-[#1A2332] rounded-2xl p-8 md:p-10 mt-6">
+              <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#22D3EE] mb-2">Shinren</p>
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 font-['Outfit']">Security research &amp; pre-audit review — FAQ</h2>
+              <div className="space-y-6">
+                {[
+                  ["What is Shinren?", "Shinren is Senueren's protocol-intelligence and security-research practice. It reviews source and protocol design, reproduces issues with evidence, and reports them responsibly — one operational pillar of Senueren, not a separate agency."],
+                  ["What does Shinren assess?", "Authorized technical surfaces, scoped per engagement: smart-contract and protocol source (including niche VMs such as Soroban/Rust, not only EVM), agent/MCP tool-execution and authority boundaries, and web/API application surfaces. It is not limited to smart-contract audits."],
+                  ["How does Shinren validate a finding?", "Along an explicit evidence ladder — Observed → Reproduced → Runtime-confirmed → Reported → Remediated → Retested. A source-level observation is never presented as a runtime-confirmed vulnerability unless a proof-of-concept actually reproduces it; every severity claim carries the evidence that supports it."],
+                  ["Does Shinren publish vulnerabilities?", "Findings follow responsible disclosure. Sensitive exploit detail is shared privately with the asset owner, not exposed publicly to look impressive. Active assessment of any system begins only inside a published program scope or a signed authorization."],
+                  ["How is this different from bug-bounty hunting?", "Shinren is oriented to authorized assessments and reproducible engineering evidence — a scoped review with a findings log, remediation guidance and a retest path — rather than relying on public bounty marketplaces. Discovery records a request; it never starts an audit without authorization."],
+                ].map(([q, a]) => (
+                  <div key={q}>
+                    <h3 className="text-lg font-bold text-white mb-2 font-['Outfit']">{q}</h3>
+                    <p className="text-[#8B9BB4] leading-relaxed">{a}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </FadeIn>
         </div>
       </div>
     </div>
