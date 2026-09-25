@@ -815,6 +815,64 @@ const AboutPage = () => {
               </div>
             </div>
           </FadeIn>
+
+          {/* Key Facts — crawlable definition list for AI search / AEO (verifiable facts only) */}
+          <FadeIn delay={175}>
+            <div className="bg-[#0F1419] border border-[#1A2332] rounded-2xl p-8 md:p-10">
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 font-['Outfit']">Key facts</h2>
+              <dl className="grid sm:grid-cols-2 gap-x-10 gap-y-4">
+                {[
+                  ["Company name", "Senueren"],
+                  ["Type", "Independent research & security studio"],
+                  ["Founder", "Quelum Wilson"],
+                  ["Headquarters", "Cape Town, South Africa"],
+                  ["Core offering", "Quesen — a deterministic decision, authority & evidence layer for autonomous agents"],
+                  ["Primitives", "Quesen, Shinren, Qarsar, Diosen"],
+                  ["Services", "Agent Surface Review (agent/MCP boundary security); pre-audit smart-contract review; legacy-infrastructure builds"],
+                  ["Category", "AI-agent authorization / runtime governance (the decision after authentication)"],
+                  ["Response time", "Within one working day"],
+                  ["Website", "senueren.co.za"],
+                  ["GitHub", "github.com/Shxnque"],
+                  ["Public record", "Verifiable engagements at senueren.co.za/evidence"],
+                ].map(([k, v]) => (
+                  <div key={k} className="border-b border-[#1A2332] pb-3">
+                    <dt className="text-xs font-bold tracking-[0.15em] uppercase text-[#00FFD4] mb-1">{k}</dt>
+                    <dd className="text-[#C7D2E0] leading-relaxed">{v}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </FadeIn>
+
+          {/* How Senueren works */}
+          <FadeIn delay={185}>
+            <div className="bg-[#0F1419] border border-[#1A2332] rounded-2xl p-8 md:p-10">
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 font-['Outfit']">How Senueren works</h2>
+              <p className="text-[#8B9BB4] leading-relaxed">
+                Engagements start with a short scoping conversation, then a fixed, written scope before any work begins. You work directly with the founder, not a handoff chain. Security reviews are evidence-first: every finding ships with a reproduction (a runnable proof-of-concept) and a remediation, never a severity claim without proof. We reply within one working day, by email or WhatsApp.
+              </p>
+            </div>
+          </FadeIn>
+
+          {/* FAQ */}
+          <FadeIn delay={195}>
+            <div className="bg-[#0F1419] border border-[#1A2332] rounded-2xl p-8 md:p-10">
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 font-['Outfit']">Frequently asked questions</h2>
+              <div className="space-y-6">
+                {[
+                  ["What does Senueren do?", "Senueren builds deterministic decision, authority and evidence infrastructure for autonomous agents (Quesen), runs evidence-first security research and pre-audit smart-contract review (Shinren), and delivers premium legacy-infrastructure builds. It is a small, hands-on studio in Cape Town."],
+                  ["What is Quesen?", "Quesen is a portable deterministic decision layer: it takes a typed security context and returns a reproducible PASS / REVIEW / BLOCK verdict with reason codes and a pinned ruleset, so the same inputs always produce the same output. It interoperates with identity, MCP, payment rails and execution frameworks rather than replacing them."],
+                  ["Do you do smart-contract audits?", "Yes — evidence-first pre-audit and security review, including runnable proof-of-concept reproductions. We prefer fresh, low-duplication and niche-VM targets, and we never make a severity claim without a proof."],
+                  ["Where are you based and how do I reach you?", "Cape Town, South Africa. Email or WhatsApp via senueren.co.za/contact; we reply within one working day."],
+                ].map(([q, a]) => (
+                  <div key={q}>
+                    <h3 className="text-lg font-bold text-white mb-2 font-['Outfit']">{q}</h3>
+                    <p className="text-[#8B9BB4] leading-relaxed">{a}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </FadeIn>
         </div>
       </div>
     </div>
