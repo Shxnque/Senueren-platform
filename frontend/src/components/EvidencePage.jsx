@@ -205,6 +205,62 @@ const CONTRIBUTIONS = [
   },
 ];
 
+/* ── Shinren evidence ladder (rung honesty — a source read is never sold as a runtime vuln) ── */
+const LADDER = [
+  { k: "Observed", d: "Issue seen in public source / design", c: "#94A3B8" },
+  { k: "Reproduced", d: "Reproduced against the real code", c: "#FBBF24" },
+  { k: "Runtime-confirmed", d: "Proof-of-concept executes the fault", c: "#22D3EE" },
+  { k: "Reported", d: "Filed responsibly to the asset owner", c: "#A78BFA" },
+  { k: "Remediated", d: "Fix landed", c: "#34D399" },
+  { k: "Retested", d: "Fix verified against the PoC", c: "#34D399" },
+];
+
+/* ── VERIFIED Shinren security-research engagements (public, filed as Shxnque; rung = level actually proven) ── */
+const SHINREN = [
+  {
+    repo: "Zenith-options/contracts", ref: "#120", rung: "Runtime-confirmed", rc: "#22D3EE",
+    title: "Caller-supplied-authorizer vault drain (Soroban options vault)",
+    detail: "Pre-mainnet source review of a Soroban (Rust) options vault surfaced a CRITICAL: the withdraw path trusted a caller-supplied authorizer, letting an attacker authorize a drain of another account's collateral. Reproduced with a native same-Env cross-contract Soroban test (PoC PASS), then reported. Source-level review only — nothing deployed was touched.",
+    tags: ["Soroban/Rust", "CRITICAL", "PoC pass", "pre-mainnet"],
+    url: "https://github.com/Zenith-options/contracts/issues/120",
+  },
+  {
+    repo: "veracindarella/votechain-contracts", ref: "#92", rung: "Runtime-confirmed", rc: "#22D3EE",
+    title: "Governance vote-weight recycling defeats quorum",
+    detail: "A single 100-token stake drove 300 Yes votes and passed a 250-quorum proposal, because voting power was read from live balance at cast-time with no per-proposal snapshot or spent-marking. Elevated from source-level to L4 with a cargo test executing the fault against the real governance + token contracts (PoC PASS), then a remediation (snapshot-at-creation) was posted.",
+    tags: ["Soroban/Rust", "governance", "PoC pass", "remediation posted"],
+    url: "https://github.com/veracindarella/votechain-contracts/issues/92",
+  },
+  {
+    repo: "Conrad-sudo/sh-protocol", ref: "#1 · PR#2", rung: "Merge-ready", rc: "#34D399",
+    title: "Per-key (target, selector) session-key scope (EIP-712 SessionGrant)",
+    detail: "For an ERC-4337/ERC-7579 smart account whose session keys were bare signers bounded only by a USD cap, contributed an owner-signed EIP-712 SessionGrant that makes the admission decision a validate-time, per-call, recomputable check — a merge-ready src/SessionGrantLib.sol (merkle (target,selector) scope, fail-closed, atomic batch revert) verified against the real Execution[] decode path. forge test 9/9 PASS on the maintainer's solc 0.8.33 + viaIR.",
+    tags: ["ERC-4337/7579", "Solidity", "forge 9/9", "PR open"],
+    url: "https://github.com/Conrad-sudo/sh-protocol/pull/2",
+  },
+  {
+    repo: "CallistoSecurity/Smart-contract-auditing", ref: "#90", rung: "Retested", rc: "#34D399",
+    title: "ZINZ ERC-20 pre-audit — VERIFIED CLEAN, reproducibly",
+    detail: "Inbound audit request. Cleared an explicit evidence gate before any 'clean' claim: solc-js recompile structurally matches the on-chain bytecode, interface enumerated exhaustively (= ERC-20 + Burnable, 0 privileged selectors), delivered with a reproducible verify.py. Honest verdict = VERIFIED CLEAN with the directory-listing limitation stated plainly.",
+    tags: ["ERC-20", "bytecode match", "verify.py", "no-inflation"],
+    url: "https://github.com/CallistoSecurity/Smart-contract-auditing/issues/90",
+  },
+  {
+    repo: "open-trust-layer/protocol", ref: "#35", rung: "Reported", rc: "#A78BFA",
+    title: "Review-target source-binding inconsistency (invited external review)",
+    detail: "On an invited external review of a frozen commit, found the in-tree SECURITY.md still names an older active target and routes reviewers to CLOSED trackers while the issue declares a newer target — so a reviewer following the frozen snapshot files against the wrong, closed gate (the same binding/identity-drift class the project already hit). Proposed a promotion-gate CI assertion. Non-sensitive, evidence-first.",
+    tags: ["protocol spec", "source-binding", "process", "CI assertion"],
+    url: "https://github.com/open-trust-layer/protocol/issues/35",
+  },
+  {
+    repo: "Resomnium/cellos", ref: "#1", rung: "Reported", rc: "#A78BFA",
+    title: "Capability scope: adversarially bypassable substring match + fail-open default",
+    detail: "First-mover review of an agent capability layer: scope enforcement used substring containment (so a broader-named grant satisfies a narrower check) and defaulted fail-open on an unmatched scope. Proposed a typed, segment-exact, fail-closed matcher plus a recomputable AuditEntry so a third party can replay the PASS/DENY decision.",
+    tags: ["agent capabilities", "authorization", "fail-closed", "recomputable"],
+    url: "https://github.com/Resomnium/cellos/issues/1",
+  },
+];
+
 /* ── Quesen live decision model ── */
 const VERDICTS = [
   { k: "PROCEED", color: "#34D399", desc: "Risk below the review threshold. The action may execute." },
@@ -416,6 +472,75 @@ const EvidencePage = () => {
               </a>
             ))}
           </div>
+        </section>
+
+        {/* Layer 1b: Shinren security research */}
+        <section data-testid="evidence-shinren">
+          <SectionHeader
+            eyebrow="Shinren security research"
+            title="Pre-audit review, proven at the rung we actually reached."
+            subtitle="Evidence-first smart-contract & protocol security research — including niche VMs (Soroban/Rust), not only EVM. Every finding is filed responsibly and labelled at the rung actually proven: a source-level observation is never presented as a runtime vulnerability unless a proof-of-concept executes it."
+          />
+
+          {/* Evidence ladder — the differentiator */}
+          <div className="bg-[#0B1424]/70 border border-white/[0.06] rounded-2xl p-6 md:p-7 backdrop-blur mb-5" data-testid="evidence-ladder">
+            <div className="flex items-center gap-2 mb-4">
+              <Activity size={16} className="text-[#22D3EE]" />
+              <h3 className="text-sm font-bold text-white font-['Outfit'] tracking-wide">The evidence ladder</h3>
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
+              {LADDER.map((l, i) => (
+                <div key={l.k} className="flex items-center gap-2">
+                  <span className="inline-flex flex-col px-3 py-2 rounded-xl bg-white/[0.03] border" style={{ borderColor: `${l.c}44` }}>
+                    <span className="text-[12px] font-bold font-mono" style={{ color: l.c }}>{l.k}</span>
+                    <span className="text-[10px] text-[#64748B] leading-tight max-w-[150px]">{l.d}</span>
+                  </span>
+                  {i < LADDER.length - 1 && <ChevronRight size={13} className="text-[#334155]" />}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {SHINREN.map((f) => (
+              <a
+                key={`${f.repo}${f.ref}`}
+                href={f.url}
+                target="_blank"
+                rel="noreferrer"
+                className="group bg-[#0B1424]/70 border border-white/[0.06] rounded-2xl p-6 hover:border-[#22D3EE]/40 transition-all backdrop-blur flex flex-col"
+                data-testid={`evidence-shinren-${f.repo.split("/")[1]}-${f.ref.replace(/[#\s·]+/g, "")}`}
+              >
+                <div className="flex items-start justify-between gap-3 mb-3">
+                  <div className="min-w-0">
+                    <code className="text-sm text-white font-semibold break-all">{f.repo}<span className="text-[#22D3EE]"> {f.ref}</span></code>
+                    <span className="mt-1.5 flex items-center gap-1.5 text-[10px] font-semibold tracking-[0.14em] uppercase text-[#64748B]">
+                      <ShieldCheck size={11} className="text-[#22D3EE]" /> Shinren finding
+                    </span>
+                  </div>
+                  <span
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold tracking-[0.06em] uppercase whitespace-nowrap"
+                    style={{ color: f.rc, backgroundColor: `${f.rc}18`, border: `1px solid ${f.rc}44` }}
+                  >
+                    {f.rung}
+                  </span>
+                </div>
+                <h3 className="text-[15px] font-bold text-white font-['Outfit'] mb-2 leading-snug">{f.title}</h3>
+                <p className="text-[13px] text-[#94A3B8] leading-relaxed mb-4 flex-grow">{f.detail}</p>
+                <div className="flex flex-wrap gap-2 mb-3">
+                  {f.tags.map((t) => (
+                    <span key={t} className="px-2 py-1 rounded-md bg-white/[0.03] border border-white/[0.08] text-[11px] text-[#CBD5E1] font-mono">{t}</span>
+                  ))}
+                </div>
+                <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#22D3EE] group-hover:gap-2.5 transition-all">
+                  View on GitHub <ExternalLink size={12} />
+                </span>
+              </a>
+            ))}
+          </div>
+          <p className="mt-6 text-[12px] text-[#64748B] leading-relaxed max-w-3xl">
+            Active assessment of any system begins only inside a published program scope or a signed authorization; discovery records a request, it never starts an audit. Sensitive exploit detail is disclosed privately to the asset owner, not published to look impressive.
+          </p>
         </section>
 
         {/* Layer 2: Quesen evidence */}
