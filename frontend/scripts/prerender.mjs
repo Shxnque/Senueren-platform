@@ -236,6 +236,24 @@ curl -X POST ${API_BASE}/tsc/validate \\
         <li><a href="/contact">Engage Shinren</a></li>
       </ul>` + SHINREN_HTML,
   },
+  "case-studies": {
+    title: "Shinren Security Case Studies — Reproducible, Rung-Honest Findings | Senueren",
+    description: "Deep public case studies of Senueren's Shinren security research: a Soroban/Rust vault-drain (CRITICAL, PoC-confirmed), governance vote-weight recycling (PoC-confirmed), and a reproducibly VERIFIED-CLEAN ERC-20 pre-audit. Every claim links to a public GitHub artifact.",
+    canonical: `${ORIGIN}/case-studies`,
+    body: `<h1>Shinren security case studies — real findings, reproduced at the rung we actually reached.</h1>
+      <p>Each study links to a public GitHub artifact. Findings are labelled at the rung actually proven (Observed, Reproduced, Runtime-confirmed, Reported, Remediated, Retested); severities are never inflated to manufacture a result.</p>
+      <h2>Caller-supplied-authorizer vault drain — Zenith-options/contracts #120 (Soroban/Rust, CRITICAL, Runtime-confirmed)</h2>
+      <p>A pre-mainnet Soroban options vault trusted a caller-supplied authorizer on the withdraw path, letting an attacker authorize a drain of another account's collateral. Elevated from source-level to Runtime-confirmed with a native cross-contract Soroban PoC (PASS), then reported responsibly. <a href="https://github.com/Zenith-options/contracts/issues/120">Public finding</a>.</p>
+      <h2>Governance vote-weight recycling — veracindarella/votechain-contracts #92 (Soroban/Rust, Runtime-confirmed)</h2>
+      <p>Voting power was read from live balance with no per-proposal snapshot, so one 100-token stake drove 300 votes and defeated a 250 quorum. Confirmed with a cargo-test PoC against the real contracts; snapshot-at-creation remediation posted. <a href="https://github.com/veracindarella/votechain-contracts/issues/92">Public finding</a>.</p>
+      <h2>ERC-20 pre-audit VERIFIED CLEAN — CallistoSecurity #90 (ZINZ, EVM, Retested)</h2>
+      <p>solc-js recompile structurally matches the on-chain bytecode; interface enumerated as ERC-20 + Burnable with zero privileged selectors; delivered with a reproducible verify.py and its scope limitation stated plainly. An honest clean verdict backed by evidence, not assertion. <a href="https://github.com/CallistoSecurity/Smart-contract-auditing/issues/90">Public finding</a>.</p>
+      <ul>
+        <li><a href="/shinren">Shinren — methodology & the evidence ladder</a></li>
+        <li><a href="/evidence">Full evidence record</a></li>
+        <li><a href="/contact">Request a review</a></li>
+      </ul>`,
+  },
   "qarsar": {
     title: "Qarsar — Strategic On-Chain Intelligence System | Senueren",
     description: "Qarsar is Senueren's autonomous discovery-and-execution system for on-chain economic opportunities, built on an evidence-first hypothesis lifecycle with deterministic promotion gates.",

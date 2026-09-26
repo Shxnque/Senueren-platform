@@ -17,6 +17,7 @@ import EvidencePage from "./components/EvidencePage";
 import TryQuesenPage from "./components/TryQuesenPage";
 import ServicesPage from "./components/ServicesPage";
 import AgentAuthorizationPage from "./components/AgentAuthorizationPage";
+import CaseStudiesPage from "./components/CaseStudiesPage";
 
 const CONTACT_EMAIL = "info@senueren.co.za";
 const CONTACT_WHATSAPP_DISPLAY = "067 326 7417";
@@ -1026,6 +1027,7 @@ function App() {
           <Route path="/evidence" element={<EvidencePage />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/shinren" element={<ShinrenPage />} />
+          <Route path="/case-studies" element={<CaseStudiesPage />} />
           <Route path="/qarsar" element={<QarsarPage />} />
           <Route path="/diosen" element={<DiosenPage />} />
           <Route path="/legacy" element={<LegacyPage />} />

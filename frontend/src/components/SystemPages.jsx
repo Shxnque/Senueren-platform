@@ -325,6 +325,58 @@ export const ShinrenPage = () => {
         </section>
 
         <section>
+          <SectionHeader eyebrow="Methodology" title="The evidence ladder." subtitle="Every finding is labelled at the rung actually reached. A source-level observation is never presented as a runtime vulnerability unless a proof-of-concept executes the fault." />
+          <div className="flex flex-wrap items-center gap-2">
+            {[
+              ["Observed", "Seen in public source / design", "#94A3B8"],
+              ["Reproduced", "Reproduced against the real code", "#FBBF24"],
+              ["Runtime-confirmed", "PoC executes the fault", "#22D3EE"],
+              ["Reported", "Filed responsibly to the owner", "#A78BFA"],
+              ["Remediated", "Fix landed", "#34D399"],
+              ["Retested", "Fix verified against the PoC", "#34D399"],
+            ].map(([k, d, c], i, arr) => (
+              <div key={k} className="flex items-center gap-2">
+                <span className="inline-flex flex-col px-3 py-2 rounded-xl bg-white/[0.03] border" style={{ borderColor: `${c}44` }}>
+                  <span className="text-[12px] font-bold font-mono" style={{ color: c }}>{k}</span>
+                  <span className="text-[10px] text-[#64748B] leading-tight max-w-[150px]">{d}</span>
+                </span>
+                {i < arr.length - 1 && <ChevronRight size={13} className="text-[#334155]" />}
+              </div>
+            ))}
+          </div>
+          <p className="mt-6 text-[12px] text-[#64748B] leading-relaxed max-w-3xl">
+            Active assessment of any system begins only inside a published program scope or a signed authorization; discovery records a request, it never starts an audit. Sensitive exploit detail is disclosed privately to the asset owner.
+          </p>
+        </section>
+
+        <section>
+          <SectionHeader eyebrow="Selected findings" title="Proven in public, at the rung we reached." subtitle="Public, verifiable engagements — including niche VMs (Soroban/Rust), not only EVM. The full record lives on the evidence page." />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {[
+              { repo: "Zenith-options/contracts #120", rung: "Runtime-confirmed", rc: "#22D3EE", t: "Caller-supplied-authorizer vault drain (Soroban)", d: "CRITICAL: withdraw path trusted a caller-supplied authorizer, enabling a drain of another account's collateral. Reproduced with a native cross-contract Soroban PoC, then reported.", u: "https://github.com/Zenith-options/contracts/issues/120" },
+              { repo: "veracindarella/votechain-contracts #92", rung: "Runtime-confirmed", rc: "#22D3EE", t: "Governance vote-weight recycling defeats quorum", d: "A single 100-token stake drove 300 votes and passed a 250-quorum proposal — no per-proposal snapshot. Elevated to a cargo-test PoC; snapshot-at-creation remediation posted.", u: "https://github.com/veracindarella/votechain-contracts/issues/92" },
+              { repo: "Conrad-sudo/sh-protocol PR#2", rung: "Merge-ready", rc: "#34D399", t: "Per-key session-key scope (EIP-712 SessionGrant)", d: "Owner-signed, per-call (target, selector) scope for ERC-4337/7579 session keys; merge-ready library verified against the real Execution[] path. forge test 9/9 pass on solc 0.8.33.", u: "https://github.com/Conrad-sudo/sh-protocol/pull/2" },
+              { repo: "CallistoSecurity #90 (ZINZ)", rung: "Retested", rc: "#34D399", t: "ERC-20 pre-audit — VERIFIED CLEAN, reproducibly", d: "solc-js recompile structurally matches on-chain bytecode; interface enumerated (ERC-20 + Burnable, 0 privileged selectors); delivered with a reproducible verify.py and an honestly-stated limitation.", u: "https://github.com/CallistoSecurity/Smart-contract-auditing/issues/90" },
+              { repo: "open-trust-layer/protocol #35", rung: "Reported", rc: "#A78BFA", t: "Review-target source-binding inconsistency", d: "On an invited external review of a frozen commit, the in-tree security policy routed reviewers to closed trackers for a superseded target — a binding/identity-drift defect. Proposed a promotion-gate CI assertion.", u: "https://github.com/open-trust-layer/protocol/issues/35" },
+              { repo: "Resomnium/cellos #1", rung: "Reported", rc: "#A78BFA", t: "Capability scope: substring bypass + fail-open", d: "Agent capability enforcement used substring containment and defaulted fail-open. Proposed a typed, segment-exact, fail-closed matcher plus a recomputable AuditEntry.", u: "https://github.com/Resomnium/cellos/issues/1" },
+            ].map((f) => (
+              <a key={f.repo} href={f.u} target="_blank" rel="noreferrer" className="group bg-[#0B1424]/70 border border-white/[0.06] rounded-2xl p-6 hover:border-[#22D3EE]/40 transition-all backdrop-blur flex flex-col">
+                <div className="flex items-start justify-between gap-3 mb-3">
+                  <code className="text-sm text-white font-semibold break-all">{f.repo}</code>
+                  <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold tracking-[0.06em] uppercase whitespace-nowrap" style={{ color: f.rc, backgroundColor: `${f.rc}18`, border: `1px solid ${f.rc}44` }}>{f.rung}</span>
+                </div>
+                <h3 className="text-[15px] font-bold text-white font-['Outfit'] mb-2 leading-snug">{f.t}</h3>
+                <p className="text-[13px] text-[#94A3B8] leading-relaxed mb-4 flex-grow">{f.d}</p>
+                <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#22D3EE] group-hover:gap-2.5 transition-all">View on GitHub <ExternalLink size={12} /></span>
+              </a>
+            ))}
+          </div>
+          <div className="mt-8">
+            <Link to="/evidence" className="inline-flex items-center gap-2 text-sm font-semibold text-[#22D3EE] hover:gap-3 transition-all">See the full evidence record <ArrowRight size={16} /></Link>
+          </div>
+        </section>
+
+        <section>
           <SectionHeader eyebrow="Engagement" title="Who this is for." />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <InfoCard icon={<Shield size={22} />} title="Protocol teams" desc="Pre-audit surface mapping, ongoing safety monitoring, deployment-gate reviews." />
