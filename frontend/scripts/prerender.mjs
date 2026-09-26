@@ -38,6 +38,35 @@ pip install quesen-autogen    # AutoGen</code></pre>
     <li><a href="${API_BASE}/mcp">MCP endpoint (Streamable HTTP)</a> · <a href="${API_BASE}/openapi.json">OpenAPI 3.1</a> · <a href="${API_BASE}/health">Health</a></li>
   </ul>`;
 
+// Shared FAQ (mirrors the React /about page) — emitted BOTH as crawlable HTML and
+// as FAQPage JSON-LD so it is indexable and eligible for FAQ rich results.
+const ABOUT_FAQ = [
+  ["What does Senueren do?", "Senueren builds deterministic decision, authority and evidence infrastructure for autonomous agents (Quesen), runs evidence-first security research and pre-audit smart-contract review (Shinren), and delivers premium legacy-infrastructure builds. It is a small, hands-on studio in Cape Town."],
+  ["What is Quesen?", "Quesen is a portable deterministic decision layer: it takes a typed security context and returns a reproducible PASS / REVIEW / BLOCK verdict with reason codes and a pinned ruleset, so the same inputs always produce the same output. It interoperates with identity, MCP, payment rails and execution frameworks rather than replacing them."],
+  ["Do you do smart-contract audits?", "Yes — evidence-first pre-audit and security review, including runnable proof-of-concept reproductions. We prefer fresh, low-duplication and niche-VM targets, and we never make a severity claim without a proof."],
+  ["Where are you based and how do I reach you?", "Cape Town, South Africa. Email or WhatsApp via senueren.co.za/contact; we reply within one working day."],
+  ["What is Shinren?", "Shinren is Senueren's protocol-intelligence and security-research practice. It reviews source and protocol design, reproduces issues with evidence, and reports them responsibly — one operational pillar of Senueren, not a separate agency."],
+  ["What does Shinren assess?", "Authorized technical surfaces, scoped per engagement: smart-contract and protocol source (including niche VMs such as Soroban/Rust, not only EVM), agent/MCP tool-execution and authority boundaries, and web/API application surfaces. It is not limited to smart-contract audits."],
+  ["How does Shinren validate a finding?", "Along an explicit evidence ladder — Observed, Reproduced, Runtime-confirmed, Reported, Remediated, Retested. A source-level observation is never presented as a runtime-confirmed vulnerability unless a proof-of-concept actually reproduces it; every severity claim carries the evidence that supports it."],
+  ["Does Shinren publish vulnerabilities?", "Findings follow responsible disclosure. Sensitive exploit detail is shared privately with the asset owner, not exposed publicly to look impressive. Active assessment of any system begins only inside a published program scope or a signed authorization."],
+  ["How is this different from bug-bounty hunting?", "Shinren is oriented to authorized assessments and reproducible engineering evidence — a scoped review with a findings log, remediation guidance and a retest path — rather than relying on public bounty marketplaces. Discovery records a request; it never starts an audit without authorization."],
+];
+const faqHtml = (items) => `<h2>Frequently asked questions</h2>` + items.map(([q, a]) => `<h3>${q}</h3><p>${a}</p>`).join("");
+const faqLd = (items) => ({ "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": items.map(([q, a]) => ({ "@type": "Question", "name": q, "acceptedAnswer": { "@type": "Answer", "text": a } })) });
+
+// Shared Shinren evidence (mirrors /evidence + /shinren React) — crawlable text.
+const SHINREN_HTML = `
+  <h2>Shinren security research — findings (rung-honest)</h2>
+  <p>Evidence-first smart-contract and protocol security research, including niche VMs (Soroban/Rust), not only EVM. Every finding is filed responsibly and labelled at the rung actually reached along the evidence ladder: Observed, Reproduced, Runtime-confirmed, Reported, Remediated, Retested. A source-level observation is never presented as a runtime vulnerability unless a proof-of-concept executes it.</p>
+  <ul>
+    <li><strong>Runtime-confirmed — <a href="https://github.com/Zenith-options/contracts/issues/120">Zenith-options/contracts #120</a>:</strong> CRITICAL caller-supplied-authorizer vault drain in a Soroban (Rust) options vault; reproduced with a native cross-contract Soroban proof-of-concept (PoC pass), then reported. Source-level review only.</li>
+    <li><strong>Runtime-confirmed — <a href="https://github.com/veracindarella/votechain-contracts/issues/92">veracindarella/votechain-contracts #92</a>:</strong> governance vote-weight recycling defeats quorum (one 100-token stake drove 300 votes); elevated to a cargo-test PoC against the real contracts, remediation (snapshot-at-creation) posted.</li>
+    <li><strong>Merge-ready — <a href="https://github.com/Conrad-sudo/sh-protocol/pull/2">Conrad-sudo/sh-protocol #1 / PR#2</a>:</strong> per-key (target, selector) session-key scope via an owner-signed EIP-712 SessionGrant; merge-ready src/SessionGrantLib.sol verified against the real ERC-4337/7579 Execution[] path, forge test 9/9 pass on solc 0.8.33.</li>
+    <li><strong>Retested — <a href="https://github.com/CallistoSecurity/Smart-contract-auditing/issues/90">CallistoSecurity #90 (ZINZ)</a>:</strong> ERC-20 pre-audit cleared an explicit evidence gate — solc-js recompile structurally matches the on-chain bytecode, interface enumerated (ERC-20 + Burnable, 0 privileged selectors), delivered with a reproducible verify.py. Honest verdict: VERIFIED CLEAN.</li>
+    <li><strong>Reported — <a href="https://github.com/open-trust-layer/protocol/issues/35">open-trust-layer/protocol #35</a>:</strong> on an invited external review of a frozen commit, found the in-tree security policy routes reviewers to closed trackers for a superseded review target — a source-binding/identity-drift defect; proposed a promotion-gate CI assertion.</li>
+    <li><strong>Reported — <a href="https://github.com/Resomnium/cellos/issues/1">Resomnium/cellos #1</a>:</strong> agent capability scope used an adversarially bypassable substring match and defaulted fail-open; proposed a typed, segment-exact, fail-closed matcher plus a recomputable AuditEntry.</li>
+  </ul>`;
+
 const routes = {
   "": {
     title: "Senueren — Sovereign Systems & Legacy Infrastructure",
@@ -172,7 +201,7 @@ curl -X POST ${API_BASE}/tsc/validate \\
         <li>Universal Commerce Protocol: <a href="https://github.com/Universal-Commerce-Protocol/ucp/discussions/724">UCP #724</a>. Model Context Protocol: <a href="https://github.com/modelcontextprotocol/modelcontextprotocol/discussions/2498">MCP #2498</a>.</li>
         <li>Reproducible cross-domain lifecycle vectors (PRESERVED / RECOVERED / DEGRADED / MISSING / MUTATED) with live receipts: <a href="https://github.com/Shxnque/quesen/blob/main/evaluation/UCP724-LIFECYCLE-VECTORS.md">evaluation/UCP724-LIFECYCLE-VECTORS.md</a>.</li>
         <li>Merged upstream contributions include <a href="https://github.com/dheerajjha/mcp-migrate/pull/246">mcp-migrate #246</a> and <a href="https://github.com/agentguard-ai/tealtiger/pull/453">tealtiger #453</a>.</li>
-      </ul>` + distBlock,
+      </ul>` + SHINREN_HTML + distBlock,
   },
   "quesen/servers": {
     title: "Quesen Distribution — SDKs, Packages & MCP Servers",
@@ -205,7 +234,7 @@ curl -X POST ${API_BASE}/tsc/validate \\
         <li><a href="/quesen">How Quesen governs consequential actions</a></li>
         <li><a href="/evidence">Verifiable engineering evidence</a></li>
         <li><a href="/contact">Engage Shinren</a></li>
-      </ul>`,
+      </ul>` + SHINREN_HTML,
   },
   "qarsar": {
     title: "Qarsar — Strategic On-Chain Intelligence System | Senueren",
@@ -254,7 +283,8 @@ curl -X POST ${API_BASE}/tsc/validate \\
         <li><a href="/why">Why deterministic trust matters</a></li>
         <li><a href="/evidence">What we can prove today</a></li>
         <li><a href="/contact">Contact</a></li>
-      </ul>`,
+      </ul>` + faqHtml(ABOUT_FAQ),
+    jsonld: [faqLd(ABOUT_FAQ)],
   },
   "contact": {
     title: "Contact Senueren — Quesen Access, Integrations & Engagements",
