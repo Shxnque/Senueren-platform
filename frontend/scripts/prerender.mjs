@@ -248,6 +248,12 @@ curl -X POST ${API_BASE}/tsc/validate \\
       <p>Voting power was read from live balance with no per-proposal snapshot, so one 100-token stake drove 300 votes and defeated a 250 quorum. Confirmed with a cargo-test PoC against the real contracts; snapshot-at-creation remediation posted. <a href="https://github.com/veracindarella/votechain-contracts/issues/92">Public finding</a>.</p>
       <h2>ERC-20 pre-audit VERIFIED CLEAN — CallistoSecurity #90 (ZINZ, EVM, Retested)</h2>
       <p>solc-js recompile structurally matches the on-chain bytecode; interface enumerated as ERC-20 + Burnable with zero privileged selectors; delivered with a reproducible verify.py and its scope limitation stated plainly. An honest clean verdict backed by evidence, not assertion. <a href="https://github.com/CallistoSecurity/Smart-contract-auditing/issues/90">Public finding</a>.</p>
+      <h2>Session-key scope hardening — Conrad-sudo/sh-protocol #1 / PR#2 (ERC-4337/7579, Merge-ready)</h2>
+      <p>Per-key (target, selector) session-key scoping via an owner-signed EIP-712 SessionGrant. Merge-ready src/SessionGrantLib.sol was verified against the real ERC-4337/7579 Execution[] path with forge test 9/9 passing on solc 0.8.33. <a href="https://github.com/Conrad-sudo/sh-protocol/pull/2">Public contribution</a>.</p>
+      <h2>Source-binding / identity-drift defect — open-trust-layer/protocol #35 (Reported)</h2>
+      <p>On an invited external review of a frozen commit, the in-tree security policy routed reviewers to closed trackers for a superseded review target — a source-binding / identity-drift defect. Proposed a promotion-gate CI assertion so the documented review target always matches the reviewed source. <a href="https://github.com/open-trust-layer/protocol/issues/35">Public finding</a>.</p>
+      <h2>Fail-open agent capability scope — Resomnium/cellos #1 (Reported)</h2>
+      <p>Agent capability scope used an adversarially bypassable substring match and defaulted fail-open. Proposed a typed, segment-exact, fail-closed matcher plus a recomputable AuditEntry so authorization decisions are reproducible. <a href="https://github.com/Resomnium/cellos/issues/1">Public finding</a>.</p>
       <ul>
         <li><a href="/shinren">Shinren — methodology & the evidence ladder</a></li>
         <li><a href="/evidence">Full evidence record</a></li>
@@ -302,6 +308,15 @@ curl -X POST ${API_BASE}/tsc/validate \\
         <li><a href="/evidence">What we can prove today</a></li>
         <li><a href="/contact">Contact</a></li>
       </ul>` + faqHtml(ABOUT_FAQ),
+    jsonld: [faqLd(ABOUT_FAQ)],
+  },
+  "faq": {
+    title: "FAQ — Senueren, Quesen & Shinren | Frequently Asked Questions",
+    description: "Answers about Senueren: what we do, what Quesen is, whether we do smart-contract audits, how Shinren validates findings along its evidence ladder, and how to reach our Cape Town studio.",
+    canonical: `${ORIGIN}/faq`,
+    body: `<h1>Frequently asked questions.</h1>
+      <p>Answers about <a href="/">Senueren</a>, the <a href="/quesen">Quesen</a> deterministic decision layer, and <a href="/shinren">Shinren</a> evidence-first security research. Can't find your answer? <a href="/contact">Contact the studio</a> — we reply within one working day.</p>`
+      + faqHtml(ABOUT_FAQ),
     jsonld: [faqLd(ABOUT_FAQ)],
   },
   "contact": {

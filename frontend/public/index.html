@@ -22,6 +22,25 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://*.up.railway.app https://api.senueren.co.za; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
 
+    <!-- Clickjacking defense-in-depth. GitHub Pages cannot emit X-Frame-Options,
+         and CSP `frame-ancestors` is ignored when delivered via <meta>, so the
+         only enforceable clickjacking control on this host is a JS frame-buster:
+         if the site is loaded inside a CROSS-ORIGIN frame, break out. Same-origin
+         embedding is left alone. (Full header enforcement — X-Frame-Options,
+         X-Content-Type-Options: nosniff, Permissions-Policy, a real CSP header —
+         requires fronting senueren.co.za with Cloudflare; see docs/SECURITY-HEADERS.md.) -->
+    <script>
+      (function () {
+        try {
+          if (window.top !== window.self) {
+            var sameOrigin = false;
+            try { sameOrigin = window.top.location.origin === window.location.origin; } catch (e) { sameOrigin = false; }
+            if (!sameOrigin) { window.top.location = window.self.location.href; }
+          }
+        } catch (e) { /* no-op */ }
+      })();
+    </script>
+
     <!-- Fonts (preconnected) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

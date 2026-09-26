@@ -52,17 +52,44 @@ const useSEO = ({ title, description, path = "/" }) => {
   }, [title, description, path]);
 };
 
-/* ── Intersection Observer Hook ── */
-const useInView = (threshold = 0.15) => {
+/* ── Intersection Observer Hook ──
+   threshold 0 (any pixel visible triggers) so that sections taller than the
+   viewport can NEVER get stuck hidden — the previous 0.15 threshold meant any
+   FadeIn block taller than ~6.6x the viewport (common for the FAQ / long cards
+   on mobile) could never reach 15% visibility and stayed opacity-0 forever.
+   Reveal-once + graceful fallback when IntersectionObserver is unavailable. */
+const useInView = (threshold = 0) => {
   const ref = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   useEffect(() => {
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setIsVisible(true); }, { threshold });
-    if (ref.current) obs.observe(ref.current);
+    const node = ref.current;
+    if (!node) return;
+    if (typeof IntersectionObserver === "undefined") { setIsVisible(true); return; }
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { setIsVisible(true); obs.disconnect(); }
+    }, { threshold, rootMargin: "0px 0px -8% 0px" });
+    obs.observe(node);
     return () => obs.disconnect();
   }, [threshold]);
   return [ref, isVisible];
 };
+
+/* ── Shared FAQ data (also mirrored in scripts/prerender.mjs for crawlable HTML
+   + FAQPage JSON-LD). Kept here so the dedicated /faq page and /about render the
+   exact same questions the crawler sees. ── */
+const GENERAL_FAQ = [
+  ["What does Senueren do?", "Senueren builds deterministic decision, authority and evidence infrastructure for autonomous agents (Quesen), runs evidence-first security research and pre-audit smart-contract review (Shinren), and delivers premium legacy-infrastructure builds. It is a small, hands-on studio in Cape Town."],
+  ["What is Quesen?", "Quesen is a portable deterministic decision layer: it takes a typed security context and returns a reproducible PASS / REVIEW / BLOCK verdict with reason codes and a pinned ruleset, so the same inputs always produce the same output. It interoperates with identity, MCP, payment rails and execution frameworks rather than replacing them."],
+  ["Do you do smart-contract audits?", "Yes — evidence-first pre-audit and security review, including runnable proof-of-concept reproductions. We prefer fresh, low-duplication and niche-VM targets, and we never make a severity claim without a proof."],
+  ["Where are you based and how do I reach you?", "Cape Town, South Africa. Email or WhatsApp via senueren.co.za/contact; we reply within one working day."],
+];
+const SHINREN_FAQ = [
+  ["What is Shinren?", "Shinren is Senueren's protocol-intelligence and security-research practice. It reviews source and protocol design, reproduces issues with evidence, and reports them responsibly — one operational pillar of Senueren, not a separate agency."],
+  ["What does Shinren assess?", "Authorized technical surfaces, scoped per engagement: smart-contract and protocol source (including niche VMs such as Soroban/Rust, not only EVM), agent/MCP tool-execution and authority boundaries, and web/API application surfaces. It is not limited to smart-contract audits."],
+  ["How does Shinren validate a finding?", "Along an explicit evidence ladder — Observed, Reproduced, Runtime-confirmed, Reported, Remediated, Retested. A source-level observation is never presented as a runtime-confirmed vulnerability unless a proof-of-concept actually reproduces it; every severity claim carries the evidence that supports it."],
+  ["Does Shinren publish vulnerabilities?", "Findings follow responsible disclosure. Sensitive exploit detail is shared privately with the asset owner, not exposed publicly to look impressive. Active assessment of any system begins only inside a published program scope or a signed authorization."],
+  ["How is this different from bug-bounty hunting?", "Shinren is oriented to authorized assessments and reproducible engineering evidence — a scoped review with a findings log, remediation guidance and a retest path — rather than relying on public bounty marketplaces. Discovery records a request; it never starts an audit without authorization."],
+];
 
 const FadeIn = ({ children, delay = 0, className = "" }) => {
   const [ref, isVisible] = useInView();
@@ -110,7 +137,7 @@ const Navbar = () => {
     { to: "/agent-authorization", label: "Authorization" },
     { to: "/try", label: "Try" },
     { to: "/evidence", label: "Evidence" },
-    { to: "/quesen/servers", label: "Servers" },
+    { to: "/faq", label: "FAQ" },
   ];
   const systems = [
     { to: "/shinren", label: "Shinren" },
@@ -236,6 +263,9 @@ const Footer = () => (
         <span className="text-[#8B9BB4]/60 uppercase tracking-[0.2em] font-['Outfit']">Studio</span>
         <Link to="/why" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-why-link">Why Quesen</Link>
         <Link to="/agent-authorization" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-agent-auth-link">Agent Authorization</Link>
+        <Link to="/faq" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-faq-link">FAQ</Link>
+        <Link to="/case-studies" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-case-studies-link">Case Studies</Link>
+        <Link to="/quesen/servers" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-servers-link">Servers</Link>
         <Link to="/about" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-about-link">About</Link>
         <Link to="/legacy" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-legacy-link">Legacy Infrastructure</Link>
         <Link to="/services" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-services-link">Services</Link>
@@ -983,6 +1013,68 @@ const ContactPage = () => {
   );
 };
 
+/* ── FAQ Page (dedicated, crawlable — mirrors prerender FAQPage schema) ── */
+
+const FaqPage = () => {
+  useSEO({
+    title: "FAQ — Senueren, Quesen & Shinren | Frequently Asked Questions",
+    description: "Answers about Senueren: what we do, what Quesen is, whether we do smart-contract audits, how Shinren validates findings along its evidence ladder, and how to reach our Cape Town studio.",
+    path: "/faq",
+  });
+  const Section = ({ eyebrow, eyebrowColor, heading, items }) => (
+    <FadeIn>
+      <div className="bg-[#0F1419] border border-[#1A2332] rounded-2xl p-8 md:p-10">
+        {eyebrow && (
+          <p className="text-xs font-bold tracking-[0.2em] uppercase mb-2" style={{ color: eyebrowColor }}>{eyebrow}</p>
+        )}
+        <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 font-['Outfit']">{heading}</h2>
+        <div className="divide-y divide-[#1A2332]">
+          {items.map(([q, a]) => (
+            <div key={q} className="py-5 first:pt-0 last:pb-0">
+              <h3 className="text-lg font-bold text-white mb-2 font-['Outfit']">{q}</h3>
+              <p className="text-[#8B9BB4] leading-relaxed">{a}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </FadeIn>
+  );
+  return (
+    <div className="min-h-screen bg-[#0A0E17] pt-28 pb-16">
+      <div className="max-w-4xl mx-auto px-6 md:px-12">
+        <FadeIn>
+          <div className="mb-14">
+            <div className="accent-bar w-12 mb-6"></div>
+            <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#00FFD4] mb-3">Frequently asked questions</p>
+            <h1 className="text-4xl md:text-5xl tracking-tight font-bold text-white font-['Outfit'] mb-4">
+              Questions, answered
+            </h1>
+            <p className="text-lg text-[#8B9BB4] max-w-2xl leading-relaxed">
+              What Senueren does, how Quesen works, and how Shinren runs evidence-first security research. Can&rsquo;t find your answer?{' '}
+              <Link to="/contact" className="text-[#00FFD4] hover:underline">Get in touch</Link> — we reply within one working day.
+            </p>
+          </div>
+        </FadeIn>
+
+        <div className="space-y-6">
+          <Section heading="About Senueren &amp; Quesen" items={GENERAL_FAQ} />
+          <Section eyebrow="Shinren" eyebrowColor="#22D3EE" heading="Security research &amp; pre-audit review" items={SHINREN_FAQ} />
+        </div>
+
+        <FadeIn>
+          <div className="mt-10 p-8 bg-gradient-to-br from-[#0F1419] to-[#0A0E17] border border-[#00FFD4]/20 rounded-2xl text-center">
+            <h3 className="text-xl font-bold text-white mb-2 font-['Outfit']">Still have a question?</h3>
+            <p className="text-[#8B9BB4] mb-5">Talk to the studio directly — no sales chain, straight to the people who build.</p>
+            <Link to="/contact" data-testid="faq-contact-cta" className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm text-[#050B1A] bg-gradient-to-r from-[#4A9FD8] to-[#00FFD4] hover:shadow-[0_0_40px_rgba(0,255,212,0.35)] transition-all">
+              Contact Senueren <ArrowRight size={16} />
+            </Link>
+          </div>
+        </FadeIn>
+      </div>
+    </div>
+  );
+};
+
 /* ── Main App ── */
 
 function App() {
@@ -1032,6 +1124,7 @@ function App() {
           <Route path="/diosen" element={<DiosenPage />} />
           <Route path="/legacy" element={<LegacyPage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/faq" element={<FaqPage />} />
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
         <Footer />
