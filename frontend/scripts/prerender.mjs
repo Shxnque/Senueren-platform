@@ -235,6 +235,19 @@ curl -X POST ${API_BASE}/tsc/validate \\
         <li><a href="/evidence">Verifiable engineering evidence</a></li>
         <li><a href="/contact">Engage Shinren</a></li>
       </ul>` + SHINREN_HTML,
+    jsonld: [{
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Shinren — Security Research & Pre-Audit Review",
+      "url": `${ORIGIN}/shinren`,
+      "image": OG_IMAGE,
+      "provider": { "@type": "Organization", "name": "Senueren", "url": `${ORIGIN}/` },
+      "parentOrganization": { "@type": "Organization", "name": "Senueren" },
+      "areaServed": "Worldwide",
+      "serviceType": ["Smart contract security audit", "Protocol security review", "Pre-audit smart-contract review", "AI agent / MCP security review"],
+      "knowsAbout": ["Soroban", "Rust smart contracts", "zkVM", "RISC Zero", "constant-product AMM invariants", "ERC-4337", "ERC-7579", "EVM", "ERC-20", "agent authorization", "MCP tool authorization", "responsible disclosure"],
+      "description": "Evidence-first smart-contract and protocol security research and pre-audit review, including niche VMs (Soroban/Rust) and EVM. Every finding ships with a runnable reproduction and is labelled at the rung actually proven along an explicit evidence ladder."
+    }],
   },
   "case-studies": {
     title: "Shinren Security Case Studies — Reproducible, Rung-Honest Findings | Senueren",
@@ -259,6 +272,29 @@ curl -X POST ${API_BASE}/tsc/validate \\
         <li><a href="/evidence">Full evidence record</a></li>
         <li><a href="/contact">Request a review</a></li>
       </ul>`,
+    jsonld: [{
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Shinren Security Case Studies",
+      "url": `${ORIGIN}/case-studies`,
+      "about": ["smart contract security audit", "protocol security review", "Soroban Rust audit", "AMM invariant review", "agent authorization security"],
+      "isPartOf": { "@type": "WebSite", "name": "Senueren", "url": `${ORIGIN}/` },
+      "publisher": { "@type": "Organization", "name": "Senueren", "url": `${ORIGIN}/` },
+      "mainEntity": {
+        "@type": "ItemList",
+        "itemListElement": [
+          ["Caller-supplied-authorizer vault drain in a Soroban options vault", "https://github.com/Zenith-options/contracts/issues/120"],
+          ["Governance vote-weight recycling defeats quorum", "https://github.com/veracindarella/votechain-contracts/issues/92"],
+          ["ZINZ ERC-20 pre-audit — VERIFIED CLEAN, reproducibly", "https://github.com/CallistoSecurity/Smart-contract-auditing/issues/90"],
+          ["Per-key (target, selector) session-key scope via EIP-712 SessionGrant", "https://github.com/Conrad-sudo/sh-protocol/pull/2"],
+          ["Review-target source-binding inconsistency on an invited external review", "https://github.com/open-trust-layer/protocol/issues/35"],
+          ["Capability scope: adversarially bypassable substring match + fail-open default", "https://github.com/Resomnium/cellos/issues/1"],
+        ].map(([name, url], i) => ({
+          "@type": "ListItem", "position": i + 1,
+          "item": { "@type": "TechArticle", "headline": name, "url": url, "author": { "@type": "Organization", "name": "Senueren (Shinren)" }, "publisher": { "@type": "Organization", "name": "Senueren" } }
+        }))
+      }
+    }],
   },
   "qarsar": {
     title: "Qarsar — Strategic On-Chain Intelligence System | Senueren",

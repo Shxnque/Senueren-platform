@@ -52,13 +52,13 @@
     <loc>https://senueren.co.za/services</loc>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
-    <lastmod>2026-09-22</lastmod>
+    <lastmod>2026-09-26</lastmod>
   </url>
   <url>
     <loc>https://senueren.co.za/shinren</loc>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
-    <lastmod>2026-09-22</lastmod>
+    <lastmod>2026-09-26</lastmod>
   </url>
   <url>
     <loc>https://senueren.co.za/qarsar</loc>
@@ -82,7 +82,7 @@
     <loc>https://senueren.co.za/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
-    <lastmod>2026-09-22</lastmod>
+    <lastmod>2026-09-26</lastmod>
   </url>
   <url>
     <loc>https://senueren.co.za/faq</loc>
