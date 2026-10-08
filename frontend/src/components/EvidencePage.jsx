@@ -82,8 +82,22 @@ const SectionHeader = ({ eyebrow, title, subtitle }) => (
   </div>
 );
 
-/* ── VERIFIED external contributions (live GitHub state @ 2026-09-18) ── */
+/* ── VERIFIED external contributions (live GitHub state @ 2026-10-08) ── */
 const CONTRIBUTIONS = [
+  {
+    repo: "ossf/scorecard", ref: "#5250", bureau: "Shinren", status: "PR_OPEN",
+    title: "dangerous_workflow: detect committer.{name,email} as untrusted input",
+    detail: "OpenSSF Scorecard's dangerous-workflow check did not flag github.event.commits[].author / committer name and email as attacker-controllable inputs inside run: steps, although GitHub treats them as untrusted. Added the detection plus table-driven negative tests in checks/raw/dangerous_workflow.go. Rebased onto upstream main (go test ./checks/raw/ green against the new base); the PR is mergeable and pending maintainer review.",
+    metrics: ["committer.{name,email} untrusted", "table tests added", "rebased · mergeable"],
+    url: "https://github.com/ossf/scorecard/pull/5250",
+  },
+  {
+    repo: "tenstorrent/tt-lang", ref: "#1184", bureau: "Senueren", status: "PR_OPEN",
+    title: "Verifier negative tests for BindCB / AttachCB / ComputeOp (#354)",
+    detail: "Added the missing --verify-diagnostics negative coverage for several tt-lang MLIR verifier error paths called out in #354 (cb_ops_invalid.mlir + compute_invalid.mlir; test-only, matching the current error strings at HEAD). Applied the maintainer's three review suggestions; the branch is rebased on main and green.",
+    metrics: ["#354 verifier gaps covered", "test-only", "review suggestions applied"],
+    url: "https://github.com/tenstorrent/tt-lang/pull/1184",
+  },
   {
     repo: "AgentOnRails/agent-on-rails", ref: "#3", bureau: "Quesen", status: "DISCUSSION",
     title: "Counterparty-risk decision hook before sign (PASS/REVIEW/BLOCK)",
@@ -122,8 +136,8 @@ const CONTRIBUTIONS = [
   {
     repo: "google-agentic-commerce/AP2", ref: "#332", bureau: "Quesen", status: "DISCUSSION",
     title: "When does a checkout change require renewed authorization?",
-    detail: "Contributed the two-invariant decomposition of mandate authority: closed→execution is an integrity check (recompute + compare the bound checkout hash), while open→closed is an authority-derivability check (typed constraints, fail-closed on any dimension the grant never named). Added the issuer/provenance angle and a three-outcome model (integrity-fail / out-of-envelope / underspecified), with a link to reproducible receipts.",
-    metrics: ["two-invariant model", "3-outcome seam", "reproducible receipts"],
+    detail: "Contributed the two-invariant decomposition of mandate authority: closed→execution is an integrity check (recompute + compare the bound checkout hash), while open→closed is an authority-derivability check (typed constraints, fail-closed on any dimension the grant never named). When the maintainer invited a runnable fixture set, delivered one that exercises the real AP2 SDK checkout path (check_checkout_constraints / create_checkout_evaluator) and reports two separate records per vector — the SDK's mechanical result vs the authorization meaning of an omission. 6 vectors green vs AP2 main (C4a omission = open / no default; explicit pass/deny/missing-merchant; C0 unknown type = fail-closed; C4b delivery-timing = unconstructable). Fixtures published in Quesen evaluation/ap2-332-checkout-authorization/.",
+    metrics: ["maintainer invited fixtures", "6 vectors green vs real SDK", "two-record framing"],
     url: "https://github.com/google-agentic-commerce/AP2/discussions/332",
   },
   {
