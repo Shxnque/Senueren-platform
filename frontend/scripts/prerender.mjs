@@ -20,7 +20,7 @@ const OG_IMAGE = `${ORIGIN}/logo-full.png`;
 
 // Quesen production API base (Railway). Named plainly to avoid confusion with the
 // decommissioned aa5ba host — value is the CURRENT live 3df26 deployment.
-const API_BASE = "https://web-production-3df26.up.railway.app";
+const API_BASE = "https://api.senueren.co.za";
 
 // Shared, verifiable install / distribution block (crawlable text).
 const distBlock = `

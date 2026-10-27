@@ -16,7 +16,7 @@ import {
  */
 
 const SITE_URL = "https://senueren.co.za";
-const API_BASE = "https://web-production-3df26.up.railway.app";
+const API_BASE = "https://api.senueren.co.za";
 
 const useSEO = ({ title, description, path }) => {
   useEffect(() => {

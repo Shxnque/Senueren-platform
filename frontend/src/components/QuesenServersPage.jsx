@@ -42,9 +42,9 @@ const SERVERS = [
     key: 'live',
     category: 'Live production engine',
     name: 'Quesen HTTP API',
-    url: 'https://web-production-3df26.up.railway.app',
+    url: 'https://api.senueren.co.za',
     tag: 'HTTPS · REST + OpenAPI',
-    detail: 'The sovereign engine, live at all times. Every /validate response carries input_snapshot_hash + commit_sha (v1.10.0-rc1). Deterministic PROCEED / REVIEW / SKIP verdicts.',
+    detail: 'The sovereign engine, live at all times. Every /validate response carries input_snapshot_hash + commit_sha (v1.10.0). Deterministic PROCEED / REVIEW / SKIP verdicts.',
     icon: <Server size={18} />,
     testId: 'servers-card-live-http',
   },
@@ -52,7 +52,7 @@ const SERVERS = [
     key: 'mcp',
     category: 'Live production engine',
     name: 'Quesen MCP server',
-    url: 'https://web-production-3df26.up.railway.app/mcp',
+    url: 'https://api.senueren.co.za/mcp',
     tag: 'MCP · streamable-HTTP',
     detail: 'Five tools exposed: validate, simulate, report, health, version. Speaks the Model Context Protocol natively, works with any MCP-compatible agent runtime.',
     icon: <Terminal size={18} />,
@@ -104,7 +104,7 @@ const SERVERS = [
     name: 'RapidAPI Hub',
     url: 'https://github.com/Shxnque/quesen/blob/main/docs/publishing-rapidapi.md',
     tag: 'Publishing prepared',
-    detail: 'RapidAPI onboarding pack ready with provider metadata, endpoint list, and pricing plans pre-filled against v1.10.0-rc1. Operator submission at provider.rapidapi.com.',
+    detail: 'RapidAPI onboarding pack ready with provider metadata, endpoint list, and pricing plans pre-filled against v1.10.0. Operator submission at provider.rapidapi.com.',
     icon: <Package size={18} />,
     testId: 'servers-card-rapidapi',
   },
@@ -126,7 +126,7 @@ const grouped = SERVERS.reduce((acc, s) => {
 export default function QuesenServersPage() {
   useSEO({
     title: 'Quesen Servers & Distribution, Senueren',
-    description: 'Every live endpoint, MCP registry, marketplace and SDK for Quesen v1.10.0-rc1. Deterministic risk-verdict engine for autonomous agents, built and maintained by Senueren.',
+    description: 'Every live endpoint, MCP registry, marketplace and SDK for Quesen v1.10.0. Deterministic risk-verdict engine for autonomous agents, built and maintained by Senueren.',
     path: '/quesen/servers',
   });
 
@@ -143,7 +143,7 @@ export default function QuesenServersPage() {
           <p className="mt-6 text-[15px] md:text-lg text-[#94A3B8] leading-relaxed max-w-2xl">
             The complete map of Quesen production endpoints, MCP registries,
             discovery surfaces, and language SDKs, all currently tracking
-            engine tag <code className="text-[#22D3EE] bg-white/[0.03] px-2 py-0.5 rounded text-sm">v1.10.0-rc1</code>.
+            engine tag <code className="text-[#22D3EE] bg-white/[0.03] px-2 py-0.5 rounded text-sm">v1.10.0</code>.
             Deterministic risk verdicts. Same input in, same PROCEED / REVIEW
             / SKIP out. No LLM in the loop.
           </p>
