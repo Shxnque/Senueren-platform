@@ -26,7 +26,7 @@ const SITE_URL = "https://senueren.co.za";
 
 const useSEO = ({ title, description, path = "/" }) => {
   useEffect(() => {
-    const fullTitle = title || "Senueren, Sovereign Systems & Legacy Infrastructure";
+    const fullTitle = title || "Senueren — Sovereign Systems Bureau";
     const fullUrl = `${SITE_URL}${path.startsWith("#") ? path : `/${path.replace(/^\//, "")}`}`;
     document.title = fullTitle;
     const setMeta = (selector, attr, value) => {
@@ -78,8 +78,8 @@ const useInView = (threshold = 0) => {
    + FAQPage JSON-LD). Kept here so the dedicated /faq page and /about render the
    exact same questions the crawler sees. ── */
 const GENERAL_FAQ = [
-  ["What does Senueren do?", "Senueren builds deterministic decision, authority and evidence infrastructure for autonomous agents (Quesen), runs evidence-first security research and pre-audit smart-contract review (Shinren), and delivers premium legacy-infrastructure builds. It is a small, hands-on studio in Cape Town."],
-  ["What is Quesen?", "Quesen is a portable deterministic decision layer: it takes a typed security context and returns a reproducible PASS / REVIEW / BLOCK verdict with reason codes and a pinned ruleset, so the same inputs always produce the same output. It interoperates with identity, MCP, payment rails and execution frameworks rather than replacing them."],
+  ["What does Senueren do?", "Senueren builds deterministic decision, authority and evidence infrastructure for autonomous agents (Quesen), runs evidence-first security research and pre-audit smart-contract review (Shinren), and delivers production-grade platform builds. It is a sovereign systems bureau headquartered in Cape Town."],
+  ["What is Quesen?", "Quesen is a portable, deterministic decision and authorization layer for autonomous agents. Its live risk engine returns PROCEED / REVIEW / SKIP, and its typed-security-context authorization path returns PASS / REVIEW / BLOCK / SKIP — always with machine reason codes, a pinned ruleset and a replayable receipt, so the same inputs always produce the same output. It interoperates with identity, MCP, payment rails and execution frameworks rather than replacing them."],
   ["Do you do smart-contract audits?", "Yes — evidence-first pre-audit and security review, including runnable proof-of-concept reproductions. We prefer fresh, low-duplication and niche-VM targets, and we never make a severity claim without a proof."],
   ["Where are you based and how do I reach you?", "Cape Town, South Africa. Email or WhatsApp via senueren.co.za/contact; we reply within one working day."],
 ];
@@ -225,7 +225,7 @@ const Footer = () => (
             <span className="text-2xl logo-chrome">SENUEREN</span>
           </div>
           <p className="text-[#8B9BB4] text-sm leading-relaxed max-w-md mb-4">
-            A small, hands-on studio. On one side, sovereign systems: deterministic decision, protocol intelligence, autonomous discovery, quantitative research. On the other, legacy infrastructure: bespoke sites and platforms for founders and brands. Same team. Cape Town, remote friendly.
+            Senueren is a sovereign systems bureau. We engineer deterministic decision, authority and evidence infrastructure for the autonomous economy — Quesen, Shinren, Qarsar and Diosen — and build production-grade platforms for founders and enterprises. One team, end to end. Cape Town, global.
           </p>
           <p className="text-[#1A2332] text-xs mt-6">Cape Town, South Africa</p>
         </div>
@@ -260,7 +260,7 @@ const Footer = () => (
         </div>
       </div>
       <div className="mb-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs" data-testid="footer-secondary-nav">
-        <span className="text-[#8B9BB4]/60 uppercase tracking-[0.2em] font-['Outfit']">Studio</span>
+        <span className="text-[#8B9BB4]/60 uppercase tracking-[0.2em] font-['Outfit']">Company</span>
         <Link to="/why" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-why-link">Why Quesen</Link>
         <Link to="/agent-authorization" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-agent-auth-link">Agent Authorization</Link>
         <Link to="/faq" className="text-[#8B9BB4] hover:text-[#00FFD4] transition-colors" data-testid="footer-faq-link">FAQ</Link>
@@ -492,8 +492,8 @@ const LiveProof = () => {
 
 const HomePage = () => {
   useSEO({
-    title: "Senueren, Sovereign Systems & Legacy Infrastructure",
-    description: "Cape Town studio. Sovereign systems on one side: Quesen, Shinren, Qarsar, Diosen. Legacy infrastructure on the other: bespoke sites and platforms for founders and brands. Same team, end to end.",
+    title: "Senueren — Sovereign Systems Bureau for the Autonomous Economy",
+    description: "Senueren is a sovereign systems bureau engineering deterministic infrastructure for autonomous AI agents — Quesen (agent authorization & governance), Shinren, Qarsar and Diosen. Same team, end to end, from Cape Town.",
     path: "/",
   });
 
@@ -764,7 +764,7 @@ const HomePage = () => {
 const AboutPage = () => {
   useSEO({
     title: "About, Senueren",
-    description: "Senueren is a small, hands-on studio in Cape Town building deterministic autonomous-agent decision infrastructure (Quesen, Shinren, Qarsar, Diosen), plus a legacy-infrastructure practice for legacy infrastructure builds. Founded by Quelum Wilson.",
+    description: "Senueren is a sovereign systems bureau in Cape Town engineering deterministic autonomous-agent infrastructure (Quesen, Shinren, Qarsar, Diosen) and production-grade platform builds. Founded by Quelum Wilson.",
     path: "/about",
   });
   return (
@@ -787,7 +787,7 @@ const AboutPage = () => {
                 A research and execution bureau
               </h2>
               <p className="text-[#8B9BB4] leading-relaxed mb-4">
-                Senueren is a small, hands-on studio building proprietary intelligence and security tooling across decentralized protocols and autonomous-agent infrastructure, and premium legacy infrastructure (which we call our legacy infrastructure) for founders and brands. We ship considered work, look after it after launch, and stay open to good conversations from good people.
+                Senueren is a sovereign systems bureau engineering proprietary intelligence and security infrastructure across autonomous-agent systems and decentralized protocols, alongside production-grade platform builds for founders and enterprises. We ship considered work, maintain it after launch, and engage selectively and deliberately.
               </p>
               <p className="text-[#8B9BB4] leading-relaxed">
                 Our four operational primitives, Shinren, Quesen, Qarsar, and Diosen, form closed-loop systems for identifying, modelling, governing and structuring information across complex protocol environments. Our legacy-infrastructure work covers everything from brand sites to full-stack platforms, built with the same discipline as the sovereign stack.
@@ -891,8 +891,8 @@ const AboutPage = () => {
               <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 font-['Outfit']">Frequently asked questions</h2>
               <div className="space-y-6">
                 {[
-                  ["What does Senueren do?", "Senueren builds deterministic decision, authority and evidence infrastructure for autonomous agents (Quesen), runs evidence-first security research and pre-audit smart-contract review (Shinren), and delivers premium legacy-infrastructure builds. It is a small, hands-on studio in Cape Town."],
-                  ["What is Quesen?", "Quesen is a portable deterministic decision layer: it takes a typed security context and returns a reproducible PASS / REVIEW / BLOCK verdict with reason codes and a pinned ruleset, so the same inputs always produce the same output. It interoperates with identity, MCP, payment rails and execution frameworks rather than replacing them."],
+                  ["What does Senueren do?", "Senueren builds deterministic decision, authority and evidence infrastructure for autonomous agents (Quesen), runs evidence-first security research and pre-audit smart-contract review (Shinren), and delivers production-grade platform builds. It is a sovereign systems bureau headquartered in Cape Town."],
+                  ["What is Quesen?", "Quesen is a portable, deterministic decision and authorization layer for autonomous agents. Its live risk engine returns PROCEED / REVIEW / SKIP, and its typed-security-context authorization path returns PASS / REVIEW / BLOCK / SKIP — always with machine reason codes, a pinned ruleset and a replayable receipt, so the same inputs always produce the same output. It interoperates with identity, MCP, payment rails and execution frameworks rather than replacing them."],
                   ["Do you do smart-contract audits?", "Yes — evidence-first pre-audit and security review, including runnable proof-of-concept reproductions. We prefer fresh, low-duplication and niche-VM targets, and we never make a severity claim without a proof."],
                   ["Where are you based and how do I reach you?", "Cape Town, South Africa. Email or WhatsApp via senueren.co.za/contact; we reply within one working day."],
                 ].map(([q, a]) => (
@@ -1018,7 +1018,7 @@ const ContactPage = () => {
 const FaqPage = () => {
   useSEO({
     title: "FAQ — Senueren, Quesen & Shinren | Frequently Asked Questions",
-    description: "Answers about Senueren: what we do, what Quesen is, whether we do smart-contract audits, how Shinren validates findings along its evidence ladder, and how to reach our Cape Town studio.",
+    description: "Answers about Senueren: what we do, what Quesen is, whether we do smart-contract audits, how Shinren validates findings along its evidence ladder, and how to reach our Cape Town bureau.",
     path: "/faq",
   });
   const Section = ({ eyebrow, eyebrowColor, heading, items }) => (

@@ -18,8 +18,8 @@ const BUILD = process.env.PRERENDER_BUILD_DIR || join(__dirname, "..", "build");
 const ORIGIN = "https://senueren.co.za";
 const OG_IMAGE = `${ORIGIN}/logo-full.png`;
 
-// Quesen production API base (Railway). Named plainly to avoid confusion with the
-// decommissioned aa5ba host — value is the CURRENT live 3df26 deployment.
+// Quesen production API base. The current live deployment is on Oracle Cloud
+// (api.senueren.co.za); the old Railway hosts are decommissioned.
 const API_BASE = "https://api.senueren.co.za";
 
 // Shared, verifiable install / distribution block (crawlable text).
@@ -41,8 +41,8 @@ pip install quesen-autogen    # AutoGen</code></pre>
 // Shared FAQ (mirrors the React /about page) — emitted BOTH as crawlable HTML and
 // as FAQPage JSON-LD so it is indexable and eligible for FAQ rich results.
 const ABOUT_FAQ = [
-  ["What does Senueren do?", "Senueren builds deterministic decision, authority and evidence infrastructure for autonomous agents (Quesen), runs evidence-first security research and pre-audit smart-contract review (Shinren), and delivers premium legacy-infrastructure builds. It is a small, hands-on studio in Cape Town."],
-  ["What is Quesen?", "Quesen is a portable deterministic decision layer: it takes a typed security context and returns a reproducible PASS / REVIEW / BLOCK verdict with reason codes and a pinned ruleset, so the same inputs always produce the same output. It interoperates with identity, MCP, payment rails and execution frameworks rather than replacing them."],
+  ["What does Senueren do?", "Senueren builds deterministic decision, authority and evidence infrastructure for autonomous agents (Quesen), runs evidence-first security research and pre-audit smart-contract review (Shinren), and delivers production-grade platform builds. It is a sovereign systems bureau headquartered in Cape Town."],
+  ["What is Quesen?", "Quesen is a portable, deterministic decision and authorization layer for autonomous agents. Its live risk engine returns PROCEED / REVIEW / SKIP, and its typed-security-context authorization path returns PASS / REVIEW / BLOCK / SKIP — always with machine reason codes, a pinned ruleset and a replayable receipt, so the same inputs always produce the same output. It interoperates with identity, MCP, payment rails and execution frameworks rather than replacing them."],
   ["Do you do smart-contract audits?", "Yes — evidence-first pre-audit and security review, including runnable proof-of-concept reproductions. We prefer fresh, low-duplication and niche-VM targets, and we never make a severity claim without a proof."],
   ["Where are you based and how do I reach you?", "Cape Town, South Africa. Email or WhatsApp via senueren.co.za/contact; we reply within one working day."],
   ["What is Shinren?", "Shinren is Senueren's protocol-intelligence and security-research practice. It reviews source and protocol design, reproduces issues with evidence, and reports them responsibly — one operational pillar of Senueren, not a separate agency."],
@@ -70,11 +70,11 @@ const SHINREN_HTML = `
 const routes = {
   "": {
     title: "Senueren — Sovereign Systems & Legacy Infrastructure",
-    description: "Senueren is a Cape Town studio building deterministic infrastructure for the autonomous economy: Quesen (agent risk decisions), Shinren, Qarsar, Diosen — plus bespoke legacy infrastructure for founders and brands.",
+    description: "Senueren is a sovereign systems bureau engineering deterministic infrastructure for the autonomous economy: Quesen (AI agent authorization & governance), Shinren, Qarsar and Diosen — plus production-grade platform builds for founders and enterprises.",
     canonical: `${ORIGIN}/`,
     body: `
       <h1>Deterministic infrastructure for the autonomous economy.</h1>
-      <p>Senueren is a Cape Town studio. On the sovereign-systems side we build <a href="/quesen">Quesen</a> (deterministic risk decisions for autonomous agents), <a href="/shinren">Shinren</a>, <a href="/qarsar">Qarsar</a> and <a href="/diosen">Diosen</a>. On the legacy-infrastructure side we design and build bespoke sites and platforms for founders and brands — same team, end to end.</p>
+      <p>Senueren is a sovereign systems bureau. On the sovereign-systems side we engineer <a href="/quesen">Quesen</a> (deterministic risk decisions for autonomous agents), <a href="/shinren">Shinren</a>, <a href="/qarsar">Qarsar</a> and <a href="/diosen">Diosen</a>. We also build production-grade sites and platforms for founders and enterprises — same team, end to end.</p>
       <p>Same input, same decision. Same evidence, same conclusion.</p>
       <ul>
         <li><a href="/quesen">Quesen — the deterministic decision layer</a></li>
@@ -216,7 +216,7 @@ curl -X POST ${API_BASE}/tsc/validate \\
     canonical: `${ORIGIN}/why`,
     body: `<h1>Why deterministic trust matters.</h1>
       <p>Autonomous agents increasingly take consequential actions — moving money, calling privileged tools, touching sensitive data. You cannot delegate action-authority to a system you cannot audit. A deterministic decision — same input, same verdict, no model in the scoring path — is reproducible in isolation and replayable after the fact.</p>
-      <p>That is the trust primitive the autonomous economy needs: not another probabilistic guardrail, but an independently recomputable authorization boundary with reason codes and a signed, replayable receipt. Quesen answers <em>should this action proceed?</em> with <strong>PASS / REVIEW / BLOCK / SKIP</strong> before execution.</p>
+      <p>That is the trust primitive the autonomous economy needs: not another probabilistic guardrail, but an independently recomputable authorization boundary with reason codes and a replayable receipt. Quesen answers <em>should this action proceed?</em> with <strong>PASS / REVIEW / BLOCK / SKIP</strong> before execution.</p>
       <ul>
         <li><a href="/quesen">Quesen — the deterministic decision layer</a></li>
         <li><a href="/evidence">Evidence you can verify yourself</a></li>
@@ -325,19 +325,19 @@ curl -X POST ${API_BASE}/tsc/validate \\
     description: "Senueren designs and builds bespoke legacy infrastructure — production websites and platforms for founders, brands and operators — architected, built and maintained end to end by the same team.",
     canonical: `${ORIGIN}/legacy`,
     body: `<h1>Legacy infrastructure — sites &amp; platforms, built end to end.</h1>
-      <p>Alongside the sovereign systems, Senueren designs and builds bespoke production infrastructure for founders, brands and operators: marketing sites, web platforms and internal tools — architected, engineered, deployed and maintained by the same small team that ships our own systems.</p>
+      <p>Alongside the sovereign systems, Senueren designs and builds bespoke production infrastructure for founders, brands and operators: marketing sites, web platforms and internal tools — architected, engineered, deployed and maintained by the same team that ships our own systems.</p>
       <p>Same engineering discipline, same evidence-first culture, applied to your product. If you need a platform built properly rather than assembled from templates, <a href="/contact">start a conversation</a>.</p>
       <ul>
-        <li><a href="/about">About the studio</a></li>
+        <li><a href="/about">About Senueren</a></li>
         <li><a href="/contact">Start a project</a></li>
       </ul>`,
   },
   "about": {
     title: "About Senueren — Cape Town Sovereign-Systems Studio",
-    description: "Senueren is a small, hands-on studio in Cape Town, South Africa building deterministic infrastructure for the autonomous economy — Quesen, Shinren, Qarsar, Diosen — and bespoke platforms for founders.",
+    description: "Senueren is a sovereign systems bureau in Cape Town, South Africa engineering deterministic infrastructure for the autonomous economy — Quesen, Shinren, Qarsar, Diosen — and production-grade platforms for founders and enterprises.",
     canonical: `${ORIGIN}/about`,
     body: `<h1>About Senueren.</h1>
-      <p>Senueren is a small, hands-on sovereign-systems studio based in Cape Town, South Africa. We build deterministic infrastructure for the autonomous economy — <a href="/quesen">Quesen</a> (agent decision layer), <a href="/shinren">Shinren</a> (security research), <a href="/qarsar">Qarsar</a> (on-chain intelligence) and <a href="/diosen">Diosen</a> (quantitative intelligence) — and, on the legacy-infrastructure side, bespoke <a href="/legacy">sites and platforms</a> for founders and brands.</p>
+      <p>Senueren is a sovereign systems bureau based in Cape Town, South Africa. We build deterministic infrastructure for the autonomous economy — <a href="/quesen">Quesen</a> (agent decision layer), <a href="/shinren">Shinren</a> (security research), <a href="/qarsar">Qarsar</a> (on-chain intelligence) and <a href="/diosen">Diosen</a> (quantitative intelligence) — and, on the legacy-infrastructure side, bespoke <a href="/legacy">sites and platforms</a> for founders and brands.</p>
       <p>Our institutional culture is fixed: evidence over assumptions, data over opinions, reproducibility, honest retirement of weak ideas, and no popularity-as-evidence. Same team, end to end.</p>
       <ul>
         <li><a href="/why">Why deterministic trust matters</a></li>
@@ -348,10 +348,10 @@ curl -X POST ${API_BASE}/tsc/validate \\
   },
   "faq": {
     title: "FAQ — Senueren, Quesen & Shinren | Frequently Asked Questions",
-    description: "Answers about Senueren: what we do, what Quesen is, whether we do smart-contract audits, how Shinren validates findings along its evidence ladder, and how to reach our Cape Town studio.",
+    description: "Answers about Senueren: what we do, what Quesen is, whether we do smart-contract audits, how Shinren validates findings along its evidence ladder, and how to reach our Cape Town bureau.",
     canonical: `${ORIGIN}/faq`,
     body: `<h1>Frequently asked questions.</h1>
-      <p>Answers about <a href="/">Senueren</a>, the <a href="/quesen">Quesen</a> deterministic decision layer, and <a href="/shinren">Shinren</a> evidence-first security research. Can't find your answer? <a href="/contact">Contact the studio</a> — we reply within one working day.</p>`
+      <p>Answers about <a href="/">Senueren</a>, the <a href="/quesen">Quesen</a> deterministic decision layer, and <a href="/shinren">Shinren</a> evidence-first security research. Can't find your answer? <a href="/contact">Contact Senueren</a> — we reply within one working day.</p>`
       + faqHtml(ABOUT_FAQ),
     jsonld: [faqLd(ABOUT_FAQ)],
   },
