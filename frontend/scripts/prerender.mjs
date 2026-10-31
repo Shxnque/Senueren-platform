@@ -18,8 +18,8 @@ const BUILD = process.env.PRERENDER_BUILD_DIR || join(__dirname, "..", "build");
 const ORIGIN = "https://senueren.co.za";
 const OG_IMAGE = `${ORIGIN}/logo-full.png`;
 
-// Quesen production API base. The current live deployment is on Oracle Cloud
-// (api.senueren.co.za); the old Railway hosts are decommissioned.
+// Quesen production API base — the current live deployment at api.senueren.co.za.
+// (The old Railway hosts are decommissioned.)
 const API_BASE = "https://api.senueren.co.za";
 
 // Shared, verifiable install / distribution block (crawlable text).
